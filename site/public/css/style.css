@@ -37,7 +37,19 @@ column-gap: 20px;
   cursor: pointer;
 }
 
+.navbar li:after{
+  content:"";
+  display: block;
+  width: 0%;
+  height: 2px;
+  background-color: #F5F5F5;
+  transition: 0.5s;
+  
+}
 
+.navbar li:hover:after{
+  width: 100%;
+}
 
 .buttons{
   display: flex;
