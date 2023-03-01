@@ -273,44 +273,147 @@ main {
   height: 100vh;
 }
 
-.quem-somos>.container{
+.quem-somos>.container {
   row-gap: 120px;
   justify-content: center;
 }
 
-.quem-somos>.container>.title{
+.quem-somos>.container>.title {
   font-size: 3em;
   font-weight: bold;
 }
 
-.quem-somos>.container>div{
+.quem-somos>.container>div {
   display: flex;
 }
 
-.quem-somos>.container>div>.figure{
+.quem-somos>.container>div>.figure {
   width: 45%;
   height: 70%;
- transform:translate(-100px,-90px) ;
+  transform: translate(-100px, -90px);
   border-radius: 0 40% 40% 0;
   z-index: -1;
   background-color: #003849;
   position: absolute;
 }
+
 .quem-somos>.container>div>.picture {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.quem-somos>.container>div>.picture{
+.quem-somos>.container>div>.picture {
   flex: 1;
-  }
-
-  .quem-somos>.container>div>.picture>img{
-    width: 70%;
-  }
-
-.quem-somos>.container>div>.content-text{
-flex: 1;
-font-size: 1.8em;
 }
+
+.quem-somos>.container>div>.picture>img {
+  width: 70%;
+}
+
+.quem-somos>.container>div>.content-text {
+  flex: 1;
+  font-size: 1.8em;
+}
+
+.colaboration {
+  width: 100%;
+  height: 100vh;
+  background-color: #222;
+  display: flex;
+
+}
+
+.colaboration>.container {
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.colaboration>.container>.title{
+  justify-content: center;
+}
+
+
+
+.card-colaborador {
+  width: 280px;
+  height: 430px;
+  background-color: #003849;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.card-colaborador .circle {
+  width: 150px;
+  height: 150px;
+  background-color: #222;
+  border-radius: 50%;
+}
+
+.card-colaborador>.content-card>h2 {
+  font-size: 1.8em;
+  color: #F5F5F5;
+}
+
+.card-colaborador>.content-card>h3 {
+  color: #FFA800;
+  font-size: 1.3em;
+}
+
+.card-colaborador>.content-card {
+  text-align: center;
+
+}
+
+
+
+
+.colaboration>.container>div {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.social {
+  display: flex;
+  column-gap: 20px;
+}
+
+.social img {
+  width: 30px;
+}
+
+footer {
+  background-color: #222;
+  padding: 15px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4)
+}
+
+footer>.logo {
+  width: 170px;
+  height: 170px;
+
+}
+
+footer>.container>div>p,footer>.container>div{
+  color: #F5F5F5;
+}
+
+.links>h2{
+  color: #F5F5F5;
+  font-size: 2em;
+}
+
+.links>ul>li>a{
+  color: #F5F5F5;
+
+}
+
+.links>ul{
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+}
+
