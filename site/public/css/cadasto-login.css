@@ -1,0 +1,149 @@
+html {
+    overflow: hidden;
+}
+
+.bg-neutro {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: #CDCDCD;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-cadastro {
+    display: flex;
+    background: #ffff;
+    width: 1011px;
+    height: 536px;
+    flex-wrap: wrap;
+}
+
+.formulario {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.seta {
+    width: 34px;
+    height: 24px;
+    transform: translate(-240px, 50px);
+}
+
+.logo {
+    margin-bottom: 5px;
+}
+
+.logo img {
+    height: 68px;
+}
+
+.formulario-bem-vindo {
+    margin-bottom: 5px;
+}
+
+.formulario-bem-vindo h2 {
+    color: #3F3F3F;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: 354px;
+}
+
+.form-titulo h2 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.form-boxes {
+    display: flex;
+    flex-direction: column;
+    height: 292px;
+}
+
+.form-box {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-box label {
+    color: #7F7D7D;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.form-box input {
+    width: 324px;
+    height: 28px;
+    box-shadow: 1px 1px 3px 4px rgba(186, 186, 186, 0.90);
+    border-radius: 12px;
+    font-size: 13px;
+    padding: 5px 15px;
+    background-color: #F8F8F8;
+
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 324px;
+}
+
+.form-buttons button {
+    background-color: #003849;
+    font-size: 19px;
+    padding: 2px 30px;
+    color: #ffff;
+    border-radius: 14px;
+    box-shadow: 1px 1px 3px 1px rgb(0 0 0 / 30%);
+}
+
+.pre-view {
+    width: 40%;
+    background-color: #263238;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.pre-view * {
+    color: #ffff;
+}
+
+.pre-view-titulo {
+    width: 231px;
+    text-align: center;
+}
+
+.pre-view-titulo h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.pre-view-subtitulo {
+    margin-bottom: -30px;
+}
+
+.pre-view-subtitulo h3 {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.pre-view-subtitulo span {
+    color: #64C7AF;
+}
+
+.system-img img {
+    height: 235px;
+    width: 278px;
+}
