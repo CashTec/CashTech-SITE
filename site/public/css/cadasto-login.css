@@ -64,20 +64,90 @@ button:hover {
 
 @keyframes etapaProximo {
     0% {
-        opacity: 0.4;
-        transform: translateX(40px);
+        opacity: 0.6;
+        transform: translateX(10px);
     }
 }
 
 @keyframes etapaAnterior {
     0% {
-        opacity: 0.4;
-        transform: translateX(-40px);
+        opacity: 0.6;
+        transform: translateX(-10px);
     }
 }
 
+.numeroEtapas {
+    position: absolute;
+    transform: translate(-260px, 60px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 210px;
+    transition: 1.4s;
+}
+
+.numeroEtapasBarra {
+    position: absolute;
+    transform: translate(-240px, 60px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 180px;
+}
+
+.numero {
+    border: #000 1px solid;
+    border-radius: 100%;
+    margin-bottom: 20px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.numero h2 {
+    font-size: 20px;
+    position: absolute;
+    align-self: center;
+}
+
+.numero .encherTransicao {
+    position: relative;
+    width: 100px;
+    height: 0%;
+    transition: 0.4s;
+    background-color: #003849;
+    transition: .5s;
+}
+
+.numeroPreenchido {
+    border: #005670 2px solid;
+    transition: 1s;
+}
+
+.numeroPreenchido .encherTransicao {
+    height: 100%;
+}
+
+.numeroPreenchido h2 {
+    color: #ffff;
+    transition: 1s;
+}
+
+.barra {
+    z-index: -1;
+    position: relative;
+    width: 10px;
+    height: 0%;
+    background-color: #003849;
+    transition: .5s;
+}
 
 /* ----------- */
+
 .form {
     display: flex;
     justify-content: space-around;
@@ -125,7 +195,6 @@ button:hover {
     font-size: 13px;
     padding: 5px 15px;
     background-color: #F8F8F8;
-
 }
 
 .form-buttons {
@@ -135,13 +204,19 @@ button:hover {
 }
 
 .form-buttons button {
-    background-color: #003849;
     font-size: 19px;
     padding: 2px 30px;
-    color: #ffff;
     border-radius: 14px;
     box-shadow: 1px 1px 3px 1px rgb(0 0 0 / 30%);
     cursor: pointer;
+    transition: 500ms;
+    color: #ffff;
+    background-color: #003849;
+}
+
+.form-buttons button:hover {
+    border: #003849 1px solid;
+    background-color: #005670;
 }
 
 
