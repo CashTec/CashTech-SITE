@@ -5,6 +5,10 @@ header {
   position: fixed;
 }
 
+.logo img:nth-child(1){
+  display: none;
+}
+
 .container {
   width: 95%;
   margin: auto;
@@ -75,6 +79,77 @@ header .hamburguer {
 
 }
 
+@media only screen and (max-width:830px) {
+  
+
+  header .container {
+    display: none;
+    position: fixed;
+    width: 400px;
+    right: 0;
+    height: 100vh;
+    background-color: #222;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    align-items: flex-start;
+  }
+
+  header .container>div{
+    width: 100%;
+  }
+
+  header .container .navbar {
+    flex-direction: column;
+    row-gap: 30px;
+    align-items: flex-start;
+  }
+
+  header .container .navbar ul {
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 30px;
+  }
+
+  header .container .navbar ul>li{
+  display: flex;
+  }
+
+  header .hamburguer {
+    display: block;
+    position: absolute;
+    right: 50px;
+    top: 40px;
+    cursor: pointer;
+  }
+
+  header .hamburguer>img{
+    width: 50px;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .logo>img{
+    width: 130px;
+  }
+  .logo img:nth-child(1){
+    display: block;
+    width: 30px;
+  }
+
+  .navbar>ul>li{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+  }
+  
+}
+
 /* SESSÃO INICIAL */
 main {
   width: 100%;
@@ -119,6 +194,22 @@ main {
 .content-text>button:hover {
   scale: 1.1;
 }
+
+
+@media only screen and (max-width:820px){
+
+ 
+
+  .inicio>.container{
+    justify-content: center;
+  } 
+
+  .content-text{
+  text-align: center;
+  }
+
+}
+
 
 
 /* SERVIÇOS */
@@ -214,9 +305,33 @@ main {
   line-height: 25px;
 }
 
+@media only screen and (max-width:820px){
+  .content-card > div {
+    width: 580px;
+  }
+}
+
 /* EXPERIENCIA PERSONALIZADA */
 
+@media screen and (max-width:820px){
+  .experience>.container{
+    flex-direction: column;
+    justify-content: center;
+  }
 
+  .experience>.container>.content-text h2{
+    text-align: center;
+  }
+
+  .experience>.container>.picture{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .experience>.container>.picture img{
+    width: 360px;
+  }
+}
 
 .experience {
   width: 100%;
@@ -230,8 +345,8 @@ main {
 
 .experience .picture {
   flex: 1;
+  
 }
-
 
 .experience .content-text>h2 {
   font-size: 3em;
@@ -259,6 +374,7 @@ main {
 .animate {
   transform: translate(-40%, -80%);
 }
+
 
 
 .quem-somos>.container {
@@ -316,6 +432,31 @@ main {
   font-size: 1.8em;
 }
 
+@media only screen and (max-width:820px) {
+  
+  .quem-somos>.container>div>.figure{
+    width: 200px;
+    height: 200px;
+    
+    transform: translate(190px,-250px);
+    border-radius: 300px;
+  }
+
+  .quem-somos>.container>.title{
+    mix-blend-mode: hard-light;
+  }
+
+  .quem-somos>.container>div{
+    flex-direction: column;
+  }
+
+  .quem-somos{
+    height: auto;
+    padding: 80px 0 ;
+  }
+  
+}
+
 .colaboration {
   width: 100%;
   height: 100vh;
@@ -329,7 +470,7 @@ main {
   justify-content: space-around;
 }
 
-.colaboration>.container>.title{
+.colaboration>.container>.title {
   justify-content: center;
 }
 
@@ -365,10 +506,9 @@ main {
 
 .card-colaborador>.content-card {
   text-align: center;
+  overflow: scroll;
 
 }
-
-
 
 
 .colaboration>.container>div {
@@ -398,22 +538,22 @@ footer>.logo {
 
 }
 
-footer>.container>div>p,footer>.container>div{
+footer>.container>div>p,
+footer>.container>div {
   color: #F5F5F5;
 }
 
-.links>h2{
+.links>h2 {
   color: #F5F5F5;
   font-size: 2em;
 }
 
-.links>ul>li>a{
+.links>ul>li>a {
   color: #F5F5F5;
 
 }
 
-.links>ul{
+.links>ul {
   display: grid;
   grid-template-columns: 2fr 2fr;
 }
-
