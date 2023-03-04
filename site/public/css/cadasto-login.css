@@ -2,6 +2,11 @@ html {
     overflow: hidden;
 }
 
+button:hover {
+    transform: scale(1.1);
+    transition: 500ms;
+}
+
 .bg-neutro {
     display: flex;
     width: 100vw;
@@ -50,12 +55,43 @@ html {
     font-weight: 600;
 }
 
+
+/* Animação */
+#Etapa2,
+#Etapa3 {
+    display: none;
+}
+
+@keyframes etapaProximo {
+    0% {
+        opacity: 0.4;
+        transform: translateX(40px);
+    }
+}
+
+@keyframes etapaAnterior {
+    0% {
+        opacity: 0.4;
+        transform: translateX(-40px);
+    }
+}
+
+
+/* ----------- */
 .form {
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
     height: 354px;
+}
+
+.etapaProximo {
+    animation: etapaProximo 1s;
+}
+
+.etapaAnterior {
+    animation: etapaAnterior 1s;
 }
 
 .form-titulo h2 {
@@ -105,7 +141,9 @@ html {
     color: #ffff;
     border-radius: 14px;
     box-shadow: 1px 1px 3px 1px rgb(0 0 0 / 30%);
+    cursor: pointer;
 }
+
 
 .pre-view {
     width: 40%;
@@ -123,6 +161,7 @@ html {
 .pre-view-titulo {
     width: 231px;
     text-align: center;
+    margin-bottom: -30px;
 }
 
 .pre-view-titulo h2 {
@@ -146,4 +185,18 @@ html {
 .system-img img {
     height: 235px;
     width: 278px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-cep input {
+    width: 170px;
+}
+
+.form-numero input {
+    width: 130px;
+
 }

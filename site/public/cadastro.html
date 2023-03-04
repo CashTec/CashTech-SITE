@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/">
     <link rel="stylesheet" href="css/cadasto-login.css">
+    <script src="js/cadastro.js"></script>
 </head>
 
 <body>
@@ -32,7 +33,7 @@
                     <h2>Olá, Bem-vindo!</h2>
                 </div>
 
-                <div class="form" id="form_infoEmpresa">
+                <div class="form" id="Etapa1">
                     <div class="form-titulo">
                         <h2>Informações da Empresa</h2>
                     </div>
@@ -56,23 +57,24 @@
                     </div>
 
                     <div class="form-buttons">
-                        <button>Anterior</button>
-                        <button>Próximo </button>
+                        <button onclick='passarEtapa("proximo")'>Próximo</button>
                     </div>
                 </div>
 
-                <div class="form" id="form_endereco" style="display: none">
+                <div class="form" id="Etapa2">
                     <div class="form-titulo">
                         <h2>Endereço</h2>
                     </div>
                     <div class="form-boxes">
-                        <div class="form-box">
-                            <label for="">CEP</label>
-                            <input type="text" placeholder="XXXXX-XXX (sem os caracteres especiais)">
-                        </div>
-                        <div class="form-box form-box-numero">
-                            <label for="">Numero</label>
-                            <input type="text" placeholder="Digite o número do endereço da empresa">
+                        <div class="form-row">
+                            <div class="form-box form-cep">
+                                <label for="">CEP</label>
+                                <input type="text" placeholder="XXXXX-XXX (sem os caracteres especiais)">
+                            </div>
+                            <div class="form-box form-numero">
+                                <label for="">Número</label>
+                                <input type="text" placeholder="Digite o número do endereço da empresa">
+                            </div>
                         </div>
                         <div class="form-box">
                             <label for="">Rua</label>
@@ -90,12 +92,12 @@
                     </div>
 
                     <div class="form-buttons">
-                        <button>Anterior</button>
-                        <button>Próximo </button>
+                        <button onclick='passarEtapa("anterior")'>Anterior</button>
+                        <button onclick='passarEtapa("proximo")'>Próximo </button>
                     </div>
                 </div>
 
-                <div class="form" id="form_infoResponsavel"style="display: none">
+                <div class="form" id="Etapa3">
                     <div class="form-titulo">
                         <h2>Informações do Responsável</h2>
                     </div>
@@ -119,8 +121,8 @@
                     </div>
 
                     <div class="form-buttons">
-                        <button>Anterior</button>
-                        <button>Próximo </button>
+                        <button onclick='passarEtapa("anterior")'>Anterior</button>
+                        <button>Cadastrar</button>
                     </div>
                 </div>
             </div>
