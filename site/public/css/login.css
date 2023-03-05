@@ -1,0 +1,90 @@
+.form-login {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: 230px;
+}
+
+.form-boxes {
+    display: flex;
+    flex-direction: column;
+    height: 292px;
+}
+
+
+/* caixa login + registrar */
+
+.form-login-btn {
+    display: flex;
+    justify-content: space-around;
+    width: 324px;
+    
+}
+
+.form-login-btn button {
+    font-size: 19px;
+    padding: 2px 45px;
+    border-radius: 18px;
+    box-shadow: 1px 1px 3px 1px rgb(0 0 0 / 30%);
+    cursor: pointer;
+    transition: 500ms;
+    color: #ffff;
+    background-color: #003849;
+}
+
+.form-login-btn button:hover {
+    border: #003849 1px solid;
+    background-color: #005670;
+}
+
+
+.form-box-login {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-box-login label {
+    color: #7F7D7D;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.form-box-login input {
+    width: 324px;
+    height: 28px;
+    box-shadow: 1px 1px 3px 4px rgba(186, 186, 186, 0.90);
+    border-radius: 12px;
+    font-size: 13px;
+    padding: 5px 15px;
+    background-color: #F8F8F8;
+}
+
+
+/* Frases registrar */
+
+.all-login-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.frase_registrar {
+    color: #7F7D7D;
+    margin-top: 30px;
+}
+
+.login-register {
+    text-decoration: underline;
+    text-align: center;
+    font-family: 'Poppins';
+    font-style: italic;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 160%;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #003849;
+}
