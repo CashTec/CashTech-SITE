@@ -3,7 +3,7 @@
 # 💵💲CashTech  🏧📊
 #### Protegendo sua empresa e as pessoas que confiam nela
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Logo](/site/public/img/logo.svg)
 
 ## Documentação
 
