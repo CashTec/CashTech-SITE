@@ -269,13 +269,25 @@ main {
   border-radius: 50%;
 }
 
+@keyframes animation {
+  to{
+    opacity: 0;
+  }
+  from{
+    opacity: 1;
+  }
+  
+}
+
 .content-card>div {
   display: flex;
   overflow-x: scroll;
-  overflow-y: none;
   width: 880px;
   column-gap: 10px;
   padding: 10px;
+  scroll-behavior: smooth;
+  transition: 1s;
+  
 }
 
 .icon {
@@ -292,7 +304,9 @@ main {
   align-items: center;
   justify-content: space-evenly;
   padding: 0 15px;
+  transition: 1s;
   border-radius: 7px;
+  
 }
 
 .title>h2 {
