@@ -3,11 +3,20 @@ header {
   height: 160px;
   display: flex;
   position: fixed;
+  transition: 1s;
 }
 
-.logo img:nth-child(1){
+header.active{
+  background-color: rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  height: 120px;
+  
+}
+
+.logo img:nth-child(1) {
   display: none;
 }
+
 
 .container {
   width: 95%;
@@ -80,22 +89,22 @@ header .hamburguer {
 }
 
 @media only screen and (max-width:830px) {
-  
-
   header .container {
-    display: none;
+    display: flex;
     position: fixed;
-    width: 400px;
-    right: 0;
+    width: 0;
+    right: -200px;
     height: 100vh;
     background-color: #222;
     flex-direction: column;
     justify-content: space-between;
     padding: 30px;
     align-items: flex-start;
+    z-index: -9999;
+    transition: 0.5s;
   }
 
-  header .container>div{
+  header .container>div {
     width: 100%;
   }
 
@@ -111,8 +120,8 @@ header .hamburguer {
     row-gap: 30px;
   }
 
-  header .container .navbar ul>li{
-  display: flex;
+  header .container .navbar ul>li {
+    display: flex;
   }
 
   header .hamburguer {
@@ -123,31 +132,40 @@ header .hamburguer {
     cursor: pointer;
   }
 
-  header .hamburguer>img{
+  header .hamburguer>img {
     width: 50px;
   }
 
-  .logo {
+  header .container>div>.navbar>.logo {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
     width: 100%;
   }
-
-  .logo>img{
+  header .container>div>.navbar>.logo >img {
+    display: block;
     width: 130px;
   }
-  .logo img:nth-child(1){
+
+  header .container>div>.navbar>.logo img:nth-child(1) {
     display: block;
     width: 30px;
+    cursor: pointer;
   }
 
-  .navbar>ul>li{
+  .navbar>ul>li {
     display: flex;
     flex-direction: column;
     width: max-content;
   }
-  
+
+  header>.container.active{
+    opacity: 100%;
+    width: 400px;
+    right: 0;
+    
+    z-index: 9999 ;
+  }
 }
 
 /* SESSÃO INICIAL */
@@ -196,16 +214,16 @@ main {
 }
 
 
-@media only screen and (max-width:820px){
+@media only screen and (max-width:820px) {
 
- 
 
-  .inicio>.container{
+
+  .inicio>.container {
     justify-content: center;
-  } 
+  }
 
-  .content-text{
-  text-align: center;
+  .content-text {
+    text-align: center;
   }
 
 }
@@ -305,30 +323,31 @@ main {
   line-height: 25px;
 }
 
-@media only screen and (max-width:820px){
-  .content-card > div {
+@media only screen and (max-width:820px) {
+  .content-card>div {
     width: 580px;
   }
 }
 
 /* EXPERIENCIA PERSONALIZADA */
 
-@media screen and (max-width:820px){
-  .experience>.container{
+@media screen and (max-width:820px) {
+  .experience>.container {
     flex-direction: column;
     justify-content: center;
   }
 
-  .experience>.container>.content-text h2{
+  .experience>.container>.content-text h2 {
     text-align: center;
   }
 
-  .experience>.container>.picture{
+  .experience>.container>.picture {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .experience>.container>.picture img{
+
+  .experience>.container>.picture img {
     width: 360px;
   }
 }
@@ -345,7 +364,7 @@ main {
 
 .experience .picture {
   flex: 1;
-  
+
 }
 
 .experience .content-text>h2 {
@@ -433,28 +452,43 @@ main {
 }
 
 @media only screen and (max-width:820px) {
-  
-  .quem-somos>.container>div>.figure{
+
+  .quem-somos>.container>div>.figure {
     width: 200px;
     height: 200px;
-    
-    transform: translate(190px,-250px);
+
+    transform: translate(190px, -250px);
     border-radius: 300px;
   }
 
-  .quem-somos>.container>.title{
+  .quem-somos>.container>.title {
     mix-blend-mode: hard-light;
   }
 
-  .quem-somos>.container>div{
+  .quem-somos>.container>div {
     flex-direction: column;
   }
 
-  .quem-somos{
+  .quem-somos {
     height: auto;
-    padding: 80px 0 ;
+    padding: 80px 0;
   }
-  
+
+}
+
+@media only screen and (max-width:820px) {
+
+
+  .colaboration>.container>div {
+    overflow-x: scroll;
+    width: 700px;
+    column-gap: 50px;
+  }
+
+  .colaboration>.container>div>.card-colaborador {
+    min-width: 250px !important;
+  }
+
 }
 
 .colaboration {
@@ -467,7 +501,8 @@ main {
 
 .colaboration>.container {
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+  row-gap: 100px;
 }
 
 .colaboration>.container>.title {
@@ -477,7 +512,7 @@ main {
 
 
 .card-colaborador {
-  width: 280px;
+  min-width: 280px;
   height: 430px;
   background-color: #003849;
   display: flex;
@@ -506,15 +541,18 @@ main {
 
 .card-colaborador>.content-card {
   text-align: center;
-  overflow: scroll;
+
 
 }
 
 
 .colaboration>.container>div {
-  width: 80%;
+
+  width: 70%;
   display: flex;
   justify-content: space-between;
+  column-gap: 30px;
+  overflow-x: scroll;
 }
 
 .social {
@@ -529,13 +567,20 @@ main {
 footer {
   background-color: #222;
   padding: 15px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4)
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  width: 100%;
 }
 
-footer>.logo {
+footer>.container>.logo {
   width: 170px;
   height: 170px;
 
+}
+
+footer>.container>.logo {
+  background-image: url("../img/logo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 footer>.container>div>p,
