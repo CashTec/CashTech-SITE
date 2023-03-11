@@ -14,33 +14,36 @@ window.addEventListener("scroll",()=>{
 })
 
 // CARROSSEL - CARDS
-const cardsService =[];
-let contadora = 0;
-const containerCarrossel = document.querySelector(".services .container .content-card div");
-let restoCards;
-
-
-document.querySelectorAll(".card").forEach(element => {
-  cardsService.push(element);
-});
 
 
 
-setInterval(()=>{
+let contadora =2;
 
-  containerCarrossel.scrollLeft+=cardsService[contadora].clientWidth+10;
-  restoCards= cardsService[contadora].cloneNode(true)  ;
-  containerCarrossel.appendChild(restoCards);
+let validacao = true;
 
-  
-  if(contadora<cardsService.length-1){
-    contadora++;
-  }
-  else{
-    contadora=0;
+function scrollCarrossel(btn,containerCarrossel){
+ 
+ console.log( );
+  if(validacao ){
+    btn.classList=="btn next"?containerCarrossel.scrollLeft+=document.querySelectorAll(".card")[0].clientWidth+10:containerCarrossel.scrollLeft-=document.querySelectorAll(".card")[0].clientWidth+10;
+    validacao=false
+    setTimeout(()=>{
+      validacao=true
+    },200)
   }
 
+
+}
+
+
+
+
+
+
+
+
+
   
   
-},1000);
+
 
