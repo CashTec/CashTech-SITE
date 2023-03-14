@@ -15,7 +15,7 @@ window.addEventListener("scroll",()=>{
 
 // CARROSSEL - CARDS
 
-
+CarroselColaborador.scrollLeft = 150;
 
 let contadora =2;
 
