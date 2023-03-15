@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="css/reset.css">
+
     <title>CashTec</title>
     <link rel="icon" href="">
 </head>
@@ -20,15 +22,18 @@
             <div>
                 <nav class="navbar">
                     <div class="logo ">
-                        <a href="index.html">
+                        
                             <img src="img/close.svg" alt="" class="buttonHamburguer">
-                            <img src="img/logo.svg" alt=""> </a>
+
+                            <a href="index.html">
+                                <img src="img/logo.svg" alt=""> 
+                            </a>
                     </div>
                     <ul>
-                        <li>Início</li>
-                        <li>Serviços</li>
-                        <li>Quem somos</li>
-                        <li>Contato</li>
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#quem">Quem somos</a></li>
+                        <li><a href="#contact">Contato</a></li>
                     </ul>
                 </nav>
             </div>
@@ -56,7 +61,7 @@
     </header>
     <main>
 
-        <section class="inicio">
+        <section class="inicio" id="inicio">
             <div class="container">
                 <div class="content-text">
                     <p>Protegendo sua<br>empresa e as pessoas<br>que confiam nela</p>
@@ -64,7 +69,7 @@
                 </div>
             </div>
         </section>
-        <section class="services">
+        <section class="services" id="services">
             <div class="container">
                 <div class="title">
                     <h2>Solutions</h2>
@@ -76,82 +81,58 @@
                         <button class="btn next" onclick=scrollCarrossel(this,this.parentNode)>></button>
                         <div class="card">
                             <div class="icon">
-                                <img src="img/dash.svg" alt="">
+                                <img src="img/monitorar.png" alt="">
                             </div>
                             <div class="content-text">
-                                <h2>Análise de Dados</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, aliquid cum deserunt
-                                    doloremque voluptates sapiente </p>
+                                <h2>Monitoramento do Hardware</h2>
+                                <p>Fornecemos informações sobre o hardware do seu caixa eletrônico e seu status de funcionamento</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="icon">
+                                <img src="img/protecao.png" alt="">
+                            </div>
+                            <div class="content-text">
+                                <h2>Proteção do Hardwares</h2>
+                                <p>Análisamos e identificamos processos em segundo plano que esta sobrecarregando o hardware. </p>
                             </div>
                         </div>
                         <div class="card">
                             <div class="icon">
-                                <img src="img/dash.svg" alt="">
+                                <img src="img/gerencia.png" alt="">
                             </div>
                             <div class="content-text">
-                                <h2>Análise de Dados</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, aliquid cum deserunt
-                                    doloremque voluptates sapiente </p>
+                                <h2>Gerenciamento de equipamentos</h2>
+                                <p>Cadastre novas maquinas no central de monitoramento e comece a receber dados em tempo real</p>
                             </div>
                         </div>
                         <div class="card">
                             <div class="icon">
-                                <img src="img/dash.svg" alt="">
+                                <img src="img/responsividade.png" alt="">
                             </div>
                             <div class="content-text">
-                                <h2>Análise de Dados</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, aliquid cum deserunt
-                                    doloremque voluptates sapiente </p>
+                                <h2>Responsividade</h2>
+                                <p>Nossa solução se adapta a diversos tamanhos de tela, fornecendo uma maior disponiblidade da aplicação </p>
                             </div>
                         </div>
                         <div class="card">
                             <div class="icon">
-                                <img src="img/dash.svg" alt="">
+                                <img src="img/indicador.png" alt="">
                             </div>
                             <div class="content-text">
-                                <h2>Análise de Dados</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, aliquid cum deserunt
-                                    doloremque voluptates sapiente </p>
+                                <h2>Indicadores de Funcionamento</h2>
+                                <p>Uma dashboard intuítiva que mostra somente as informações relevantes para seu monitoramento </p>
                             </div>
                         </div>
+                     
                         <div class="card">
                             <div class="icon">
-                                <img src="img/dash.svg" alt="">
+                                <img src="img/bug.png" alt="">
                             </div>
                             <div class="content-text">
-                                <h2>Análise de Dados</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, aliquid cum deserunt
-                                    doloremque voluptates sapiente </p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="icon">
-                                <img src="img/dash.svg" alt="">
-                            </div>
-                            <div class="content-text">
-                                <h2>Análise de Dados</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, aliquid cum deserunt
-                                    doloremque voluptates sapiente </p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="icon">
-                                <img src="img/dash.svg" alt="">
-                            </div>
-                            <div class="content-text">
-                                <h2>Análise de Dados</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, aliquid cum deserunt
-                                    doloremque voluptates sapiente </p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="icon">
-                                <img src="img/dash.svg" alt="">
-                            </div>
-                            <div class="content-text">
-                                <h2>Análise de Dados</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, aliquid cum deserunt
-                                    doloremque voluptates sapiente </p>
+                                <h2>Proteção contra Malwares</h2>
+                                <p>Fazemos uma análise e de acordo com nossa base de conhecimento, identificamos pacotes maliciosos na rede </p>
                             </div>
                         </div>
 
@@ -176,16 +157,16 @@
                     <img src="img/responsive.png" alt="">
                 </div>
                 <div class="content-text">
-                    <h2>Responsividade</h2>
-                    <p class="paragrafo">Nosso site é capaz de atender você em qualquer lugar, seja no computador
-                        ou no seu tablet de forma remota. Ser cliente da CashTech e ver suas funcionalidades
-                        em qualquer ambiente nunca foi tão fácil!</p>
+                    <h2>Tiririi Sdsdmd,</h2>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis libero aut enim, porro illo
+                        aspernatur est cumque veniam aliquam. Quo, vel pariatur animi id neque doloremque eligendi
+                        dolores voluptates laborum.</p>
                 </div>
 
             </div>
         </section>
 
-        <section class="quem-somos">
+        <section class="quem-somos" id="quem">
             <div class="container">
                 <div class="title">Quem somos?</div>
                 <div>
@@ -193,85 +174,87 @@
                     <div class="picture">
                         <img src="img/quemsomos.svg" alt="">
                     </div>
-                    <div class="content-text paragrafo">
-                        Nós somos a CashTech, a melhor opção para quem é provedor de caixas eletrônicos!
-                        Monitoramos o hardware do seu ATM para trazer dados para evitar downtimes, analisamos e matamos os processos maliciosos em segundo plano
-                        para te dar maior autonomia, rapidez e reponsabilidade! 
+                    <div class="content-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo officiis autem et optio molestias
+                        iste, cumque cum quod laborum commodi nulla corrupti deserunt ipsum dolor praesentium. Excepturi
+                        est
+                        vero at!
 
                     </div>
                 </div>
             </div>
         </section>
-        <section class="colaboration">
+        <section class="colaboration" id="contact">
             <div class="container">
                 <div class="title">
                     <h2>As pessoas por trás da CashTech</h2>
                 </div>
-                <div id="CarroselColaborador">
+                <div>
                     <!-- <button class="btn prev" onclick=scrollCarrossel(this,this.parentNode)><<button/> -->
                     <div class="card-colaborador">
-                        <div class="circle">
-                            <img src="/site/public/img/fotoMurilo.jpeg" alt="">
-                        </div>
-                        <div class="content-card">
-                            <h2>Murilo Barbosa</h2>
-                            <h3>Full-Stack</h3>
-                        </div>
-                        <div class="social">
-                            <a target="_blank" href="https://www.linkedin.com/in/murilo-dos-santos-barbosa-097413216/"><img src="img/linkedin.svg" alt=""></a>
-                            <a target="_blank" href="https://github.com/MuriloSBarbosa"><img src="img/github.svg" alt=""></a>
-                        </div>
-                    </div>
-
-                    <div class="card-colaborador">
-                        <div class="circle"><img src="/site/public/img/fotoPedro.jpg" alt=""></div>
+                        <div class="circle"></div>
                         <div class="content-card">
                             <h2>Pedro Rocha</h2>
-                            <h3>Full-Stack</h3>
+                            <h3>Back-End</h3>
                         </div>
                         <div class="social">
-                            <a target="_blank" href="https://www.linkedin.com/in/pedrorocs/"><img src="img/linkedin.svg" alt=""></a>
-                            <a target="_blank" href="https://github.com/PedroRCSilva"><img src="img/github.svg" alt=""></a>
+                            <img src="img/linkedin.svg" alt="">
+                            <img src="img/github.svg" alt="">
+                        </div>
+                    </div>
+
+                    <div class="card-colaborador">
+                        <div class="circle"></div>
+                        <div class="content-card">
+                            <h2>Pedro Rocha</h2>
+                            <h3>Back-End</h3>
+                        </div>
+                        <div class="social">
+                            <img src="img/linkedin.svg" alt="">
+                            <img src="img/github.svg" alt="">
                         </div>
                     </div>
 
 
                     <div class="card-colaborador">
-                        <div class="circle"><img src="/site/public/img/fotoLeticia.jpeg" alt=""></div>
+                        <div class="circle"></div>
                         <div class="content-card">
-                            <h2>Leticia Araújo</h2>
-                            <h3>Full-Stack</h3>
+                            <h2>Pedro Rocha</h2>
+                            <h3>Back-End</h3>
                         </div>
                         <div class="social">
-                            <a target="_blank" href="https://www.linkedin.com/in/lesaraujo/"><img src="img/linkedin.svg" alt=""></a>
-                            <a target="_blank" href="https://github.com/leticia-araujo0"><img src="img/github.svg" alt=""></a>
+                            <img src="img/linkedin.svg" alt="">
+                            <img src="img/github.svg" alt="">
                         </div>
                     </div>
 
                     <div class="card-colaborador">
-                        <div class="circle"><img src="/site/public/img/fotoWilson.jpeg" alt=""></div>
+                        <div class="circle"></div>
                         <div class="content-card">
-                            <h2>Wilson Kanaiama</h2>
-                            <h3>Full-Stack</h3>
+                            <h2>Pedro Rocha</h2>
+                            <h3>Back-End</h3>
                         </div>
                         <div class="social">
-                            <a target="_blank" href="https://www.linkedin.com/in/wilson-kanaiama-junior-8b1637259/"><img src="img/linkedin.svg" alt=""></a>
-                            <a target="_blank" href="https://github.com/kanaiama"><img src="img/github.svg" alt=""></a>
+                            <img src="img/linkedin.svg" alt="">
+                            <img src="img/github.svg" alt="">
                         </div>
                     </div>
 
                     <div class="card-colaborador">
-                        <div class="circle"><img src="/site/public/img/fotoGabriel.jpg" alt=""></div>
+                        <div class="circle"></div>
                         <div class="content-card">
-                            <h2>Gabriel Rocha</h2>
-                            <h3>Full-Stack</h3>
+                            <h2>Pedro Rocha</h2>
+                            <h3>Back-End</h3>
                         </div>
                         <div class="social">
-                            <a target="_blank" href="https://www.linkedin.com/in/gabriel-martins-rocha-0a8030239/"><img src="img/linkedin.svg" alt=""></a>
-                            <a target="_blank" href="https://github.com/Gabriel-MRocha"><img src="img/github.svg" alt=""></a>
+                            <img src="img/linkedin.svg" alt="">
+                            <img src="img/github.svg" alt="">
                         </div>
                     </div>
+                    <!-- <button class="btn next" onclick=scrollCarrossel(this,this.parentNode)>><button/> -->
                 </div>
+
+                <div>sss</div>
             </div>
         </section>
     </main>

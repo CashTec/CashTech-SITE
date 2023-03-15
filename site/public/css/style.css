@@ -147,7 +147,7 @@ a {
     width: 100%;
   }
 
-  header .container>div>.navbar>.logo>img {
+  header .container>div>.navbar>.logo>a>img {
     display: block;
     width: 130px;
   }
