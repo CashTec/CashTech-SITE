@@ -273,16 +273,7 @@ main {
 
 
 
-@keyframes animation {
-  to {
-    opacity: 0;
-  }
 
-  from {
-    opacity: 1;
-  }
-
-}
 
 .content-card>div {
   display: flex;
@@ -303,7 +294,7 @@ main {
   flex-shrink: 0;
   background-color: #222;
   width: 280px;
-  height: 380px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -315,7 +306,7 @@ main {
 }
 
 .title>h2 {
-  font-size: 3em;
+  font-size: 2em;
   margin-bottom: 10px;
   color: #F5F5F5;
 }
@@ -332,9 +323,8 @@ main {
 
 .card>.content-text>h2 {
   margin-bottom: 10px;
-  font-size: 1.4em;
+  font-size: 1.2em;
   color: #fff;
-
 }
 
 .card>.content-text>p {
