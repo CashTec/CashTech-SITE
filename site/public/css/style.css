@@ -356,6 +356,11 @@ main {
 
 }
 
+.next.active{
+  display: none;
+  transition-delay:0.6s ;
+}
+
 .prev {
   transform: translate(-30px, 160px);
 }
