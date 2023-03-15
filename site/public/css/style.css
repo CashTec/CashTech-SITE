@@ -376,6 +376,15 @@ main {
   }
 }
 
+.paragrafo {
+  text-indent: 50px;
+  text-align: justify;
+  flex: 1;
+  font-size: 1.8em;
+  margin: 0 50px;
+  line-height: 55px !important;
+}
+
 /* EXPERIENCIA PERSONALIZADA */
 
 @media screen and (max-width:820px) {
@@ -395,7 +404,7 @@ main {
   }
 
   .experience>.container>.picture img {
-    width: 360px;
+    width: 600px;
   }
 }
 
@@ -421,9 +430,8 @@ main {
 }
 
 .experience .content-text>p {
-  font-size: 1.5em;
+  font-size: 1.8em;
   font-weight: 400;
-  line-height: 35px;
   color: #222;
 }
 
@@ -491,6 +499,7 @@ main {
 
 .quem-somos>.container>div>.picture>img {
   width: 70%;
+  margin-bottom: 100px;
 }
 
 .quem-somos>.container>div>.content-text {
