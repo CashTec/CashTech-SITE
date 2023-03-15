@@ -152,7 +152,9 @@ a {
   }
 
   header .container>div>.navbar>.logo>a>img {
+  header .container>div>.navbar>.logo > a >img {
     display: block;
+    width: 130px !important;
     width: 130px !important;
   }
 
