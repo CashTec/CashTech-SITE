@@ -14,7 +14,7 @@ var indexRouter = require("./src/routes/index");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));//*
 
 app.use(cors());
 

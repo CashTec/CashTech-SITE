@@ -7,6 +7,26 @@ button:hover {
     transition: 500ms;
 }
 
+.erro{
+    border: 5px solid red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .bg-neutro {
     background-image: url("../img/bg-loginCadastro.png");
     background-repeat: no-repeat;

@@ -1,7 +1,84 @@
 // Função para Etapas do cadastro
-
 var etapas = 1;
 var numberProgress = 1;
+
+
+function capturarStatusTela(acao) {
+    let execucao = acao;
+
+    // Variáveis globais
+    let nomeEmpresaCadastro = document.getElementById("input_nomeEmpresaCadastro").value;
+    let cnpjCadastro = document.getElementById("input_CnpjCadastro").value;
+    let emailCadastro = document.getElementById("input_emailCadastro").value;
+    let telefoneCadastro = document.getElementById("input_telefoneCadastro").value;
+    let cepCadastro = document.getElementById("input_CepCadastro").value;
+    let numeroCadastro = document.getElementById("input_numeroCadastro").value;
+    let ruaCadastro = document.getElementById("input_ruaCadastro").value;
+    let cidadeCadastro = document.getElementById("input_cidadeCadastro").value;
+    let bairroCadastro = document.getElementById("input_baiiroCadastro").value;
+    let nomeResponsavelCadastro = document.getElementById("input_nomeResponsavelCadastro").value;
+    let loginCadastro = document.getElementById("input_loginCadastro").value;
+    let senhaCadastro = document.getElementById("input_senhaCadastro").value;
+    let confirmarSenhaCadastro = document.getElementById("input_confirmarSenhaCadastro").value;
+
+    let divnomeEmpresaCadastro = document.getElementById("input_nomeEmpresaCadastro");
+
+    if (nomeEmpresaCadastro == "" || emailCadastro == "" || cnpjCadastro == "") {
+        divnomeEmpresaCadastro.style.border = "5px solid red";
+    }
+
+    else {
+        mascara_cnpj();
+        mascara_telefone();
+
+    }
+
+
+
+
+    passarEtapa(execucao);
+}
+
+function mascara_telefone() {
+    let tamanho_telefoneCadastro = telefoneCadastro.length;
+
+    if (tamanho_telefoneCadastro === 0) {
+        telefoneCadastro.value += "(";
+    }
+
+    else if (tamanho_telefoneCadastro === 3) {
+        telefoneCadastro.value += ") ";
+    }
+
+    else if (tamanho_telefoneCadastro === 5) {
+        telefoneCadastro.value += "";
+    }
+
+    else if (tamanho_telefoneCadastro === 9) {
+        telefoneCadastro.value += "-";
+    }
+
+
+
+
+}
+
+
+
+
+
+function mascara_cnpj() {
+
+    let tamanho_cnpjCadastro = cnpjCadastro.length;
+
+    if (tamanho_cnpjCadastro === 2 || tamanho_cnpjCadastro === 6 || tamanho_cnpjCadastro === 15) {
+        cnpjCadastro.value += "."
+    }
+
+    if (tamanho_cnpjCadastro === 10) {
+        cnpjCadastro.value += "/"
+    }
+}
 
 function passarEtapa(acao) {
     var etapa = document.getElementById("Etapa" + etapas);
@@ -58,4 +135,9 @@ function passarEtapa(acao) {
         }, "320");
         // ---------------
     }
+}
+
+function cadastrar() {
+
+
 }
