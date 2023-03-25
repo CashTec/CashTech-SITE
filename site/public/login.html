@@ -89,8 +89,10 @@
 <script>
     function entrar() {
 
-        var emailVar = input_emailLogin.value;
-        var senhaVar = input_senhaLogin.value;
+        var emailVar = document.getElementById("input_emailLogin").value;
+        var senhaVar = document.getElementById("input_senhaLogin").value;
+        
+        console.log(emailVar, senhaVar);
 
         fetch("/usuarios/autenticar", {
             method: "POST",

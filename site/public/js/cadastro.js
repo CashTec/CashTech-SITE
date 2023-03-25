@@ -2,11 +2,19 @@
 var etapas = 1;
 var numberProgress = 1;
 
+// Variáveis de checagem de preenchimento --> capturarStatusTela() 
+let variaveisNoPadrao = false;
+let passo1Certo = false;
+let passo2Certo = false;
+let passo3Certo = false;
+
+// Me localizar na validação
+let estouNo = 1;
 
 function capturarStatusTela(acao) {
-    let execucao = acao;
+    let execucao = acao; // --> tomei a liberdade de manipular a ação
 
-    // Variáveis globais
+    // Valores captados noas inputs do cadastro.html
     let nomeEmpresaCadastro = document.getElementById("input_nomeEmpresaCadastro").value;
     let cnpjCadastro = document.getElementById("input_CnpjCadastro").value;
     let emailCadastro = document.getElementById("input_emailCadastro").value;
@@ -21,64 +29,189 @@ function capturarStatusTela(acao) {
     let senhaCadastro = document.getElementById("input_senhaCadastro").value;
     let confirmarSenhaCadastro = document.getElementById("input_confirmarSenhaCadastro").value;
 
-    let divnomeEmpresaCadastro = document.getElementById("input_nomeEmpresaCadastro");
+    // Elementos para manipulação de css do cadastro.html
+    // passo1
+    const divNomeEmpresaCadastro = document.getElementById("input_nomeEmpresaCadastro");
+    const divCnpjCadastro = document.getElementById("input_CnpjCadastro");
+    const divEmailCadastro = document.getElementById("input_emailCadastro");
+    const divTelefoneCadastro = document.getElementById("input_telefoneCadastro");
+    // passo2
+    const divCepCadastro = document.getElementById("input_CepCadastro");
+    const divNumeroCadastro = document.getElementById("input_numeroCadastro");
+    const divRuaCadastro = document.getElementById("input_ruaCadastro");
+    const divCidadeCadastro = document.getElementById("input_cidadeCadastro");
+    const divBairoCadastro = document.getElementById("input_baiiroCadastro");
+    // passo3
+    const divResponsavelCadastro = document.getElementById("input_nomeResponsavelCadastro");
+    const divLoginCadastro = document.getElementById("input_loginCadastro");
+    const divSenhaCadastro = document.getElementById("input_senhaCadastro");
+    const confirmSenhaCadastro = document.getElementById("input_confirmarSenhaCadastro");
 
-    if (nomeEmpresaCadastro == "" || emailCadastro == "" || cnpjCadastro == "") {
-        divnomeEmpresaCadastro.style.border = "5px solid red";
+    // Marcador de campos corretos
+    let contPasso1 = 0;
+    let contPasso2 = 0;
+    let contPasso3 = 0;
+
+    // Validação dos valores inputados do passo 1
+    estouNo = 1;
+    if (contPasso1 < 4) {
+        if (nomeEmpresaCadastro === "") {
+            divNomeEmpresaCadastro.style.border = "1px solid red";
+            divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            divNomeEmpresaCadastro.style.border = "1px solid green";
+            contPasso1++;
+        }
+
+        if (cnpjCadastro === "" || cnpjCadastro.length != 11) {
+            divCnpjCadastro.style.border = "1px solid red";
+            divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divCnpjCadastro.style.border = "1px solid green";
+            divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso1++;
+        }
+
+        if (emailCadastro === "") {
+            divEmailCadastro.style.border = "1px solid red";
+            divEmailCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divEmailCadastro.style.border = "1px solid green";
+            divEmailCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso1++;
+        }
+
+        if (telefoneCadastro === "" || telefoneCadastro.length != 10) {
+            divTelefoneCadastro.style.border = "1px solid red";
+            divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divTelefoneCadastro.style.border = "1px solid green";
+            divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso1++;
+        }
+    }
+    if (contPasso1 === 4) {
+        passo1Certo = true;
+        if (estouNo === 1 && passo1Certo) {
+            estouNo = 2;
+            console.log(estouNo);
+            passarEtapa(execucao);
+        }
     }
 
-    else {
-        mascara_cnpj();
-        mascara_telefone();
 
+
+    // Validação dos valores inputados do passo 2
+    if (contPasso2 < 5) {
+        console.log(estouNo);
+        if (cepCadastro === "" || cepCadastro.length < 8 && contPasso2 != 0) {
+            divCepCadastro.style.border = "1px solid red";
+            divCepCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divCepCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            divCepCadastro.style.border = "1px solid green";
+            contPasso2++;
+        }
+        if (numeroCadastro === "") {
+            divNumeroCadastro.style.border = "1px solid red";
+            divNumeroCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divNumeroCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            divNumeroCadastro.style.border = "1px solid green";
+            contPasso2++;
+        }
+        if (ruaCadastro === "") {
+            divRuaCadastro.style.border = "1px solid red";
+            divRuaCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divRuaCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            divRuaCadastro.style.border = "1px solid green";
+            contPasso2++;
+        }
+        if (cidadeCadastro === "") {
+            divCidadeCadastro.style.border = "1px solid red";
+            divCidadeCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divCidadeCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            divCidadeCadastro.style.border = "1px solid green";
+            contPasso2++;
+        }
+        if (bairroCadastro === "") {
+            divBairoCadastro.style.border = "1px solid red";
+            divBairoCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divBairoCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            divBairoCadastro.style.border = "1px solid green";
+            contPasso2++;
+        }
+    }
+    if (contPasso2 === 5) {
+        passo2Certo = true;
+        if (estouNo === 2 && passo2Certo) {
+            estouNo = 3;
+            console.log(estouNo);
+            passarEtapa(execucao);
+        }
+    }
+
+
+    // Validação dos valores inputados do passo 3
+    if (contPasso3 < 4) {
+        if (nomeEmpresaCadastro === "") {
+            divNomeEmpresaCadastro.style.border = "1px solid red";
+            divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            divNomeEmpresaCadastro.style.border = "1px solid green";
+            contPasso1++;
+        }
+
+        if (cnpjCadastro === "" || cnpjCadastro.length != 11) {
+            divCnpjCadastro.style.border = "1px solid red";
+            divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divCnpjCadastro.style.border = "1px solid green";
+            divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso1++;
+        }
+
+        if (emailCadastro === "") {
+            divEmailCadastro.style.border = "1px solid red";
+            divEmailCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divEmailCadastro.style.border = "1px solid green";
+            divEmailCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso1++;
+        }
+
+        if (telefoneCadastro === "" || telefoneCadastro.length != 10) {
+            divTelefoneCadastro.style.border = "1px solid red";
+            divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        } else {
+            divTelefoneCadastro.style.border = "1px solid green";
+            divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso1++;
+        }
+    }
+    if (contPasso3 === 4) {
+        passo3Certo = true;
+        console.log(estouNo);
+        passarEtapa(execucao);
     }
 
 
 
 
-    passarEtapa(execucao);
+
+
+
+    // if (passo1Certo && passo2Certo && passo3Certo){
+
+    // }
+
 }
 
-function mascara_telefone() {
-    let tamanho_telefoneCadastro = telefoneCadastro.length;
-
-    if (tamanho_telefoneCadastro === 0) {
-        telefoneCadastro.value += "(";
-    }
-
-    else if (tamanho_telefoneCadastro === 3) {
-        telefoneCadastro.value += ") ";
-    }
-
-    else if (tamanho_telefoneCadastro === 5) {
-        telefoneCadastro.value += "";
-    }
-
-    else if (tamanho_telefoneCadastro === 9) {
-        telefoneCadastro.value += "-";
-    }
-
-
-
-
-}
-
-
-
-
-
-function mascara_cnpj() {
-
-    let tamanho_cnpjCadastro = cnpjCadastro.length;
-
-    if (tamanho_cnpjCadastro === 2 || tamanho_cnpjCadastro === 6 || tamanho_cnpjCadastro === 15) {
-        cnpjCadastro.value += "."
-    }
-
-    if (tamanho_cnpjCadastro === 10) {
-        cnpjCadastro.value += "/"
-    }
-}
 
 function passarEtapa(acao) {
     var etapa = document.getElementById("Etapa" + etapas);
@@ -135,9 +268,4 @@ function passarEtapa(acao) {
         }, "320");
         // ---------------
     }
-}
-
-function cadastrar() {
-
-
 }

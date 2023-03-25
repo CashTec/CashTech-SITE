@@ -10,6 +10,7 @@ var app = express();
 
 // Isso é uma base de outro projeto, Mudar de acordo com o grupo
 var indexRouter = require("./src/routes/index");
+var usuarioRouter = require("./src/routes/usuarios");
 
 
 app.use(express.json());
@@ -19,7 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));//*
 app.use(cors());
 
 app.use("/", indexRouter);
-
+app.use("/usuarios", usuarioRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
