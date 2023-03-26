@@ -27,7 +27,7 @@
 
                 <!-- Topo - Logo -->
                 <div class="logo">
-                   <a href="index.html"> <img src="img/Logo-LoginCadastro.png">
+                    <a href="index.html"> <img src="img/Logo-LoginCadastro.png">
                 </div></a>
 
                 <div class="formulario-bem-vindo">
@@ -63,11 +63,13 @@
                     <div class="form-boxes">
                         <div class="form-box">
                             <label for="">Nome</label>
-                            <input type="text" id="input_nomeEmpresaCadastro" placeholder="Digite o nome da sua empresa">
+                            <input type="text" id="input_nomeEmpresaCadastro"
+                                placeholder="Digite o nome da sua empresa">
                         </div>
                         <div class="form-box">
                             <label for="">CNPJ</label>
-                            <input type="text" id="input_CnpjCadastro" placeholder="XX.XXX.XXX/0001-XX (sem os caracteres especiais)">
+                            <input type="text" id="input_CnpjCadastro"
+                                placeholder="XX.XXX.XXX/0001-XX (sem os caracteres especiais)">
                         </div>
                         <div class="form-box">
                             <label for="">Email</label>
@@ -92,11 +94,13 @@
                         <div class="form-row">
                             <div class="form-box form-cep">
                                 <label for="">CEP</label>
-                                <input type="text" id ="input_CepCadastro" placeholder="XXXXX-XXX (sem os caracteres especiais)">
+                                <input type="text" id="input_CepCadastro"
+                                    placeholder="XXXXX-XXX (sem os caracteres especiais)">
                             </div>
                             <div class="form-box form-numero">
                                 <label for="">Número</label>
-                                <input type="text" id ="input_numeroCadastro" placeholder="Digite o número do endereço da empresa">
+                                <input type="text" id="input_numeroCadastro"
+                                    placeholder="Digite o número do endereço da empresa">
                             </div>
                         </div>
                         <div class="form-box">
@@ -127,11 +131,12 @@
                     <div class="form-boxes">
                         <div class="form-box">
                             <label for="">Nome</label>
-                            <input type="text" id="input_nomeResponsavelCadastro" placeholder="Digite o nome do responsável">
+                            <input type="text" id="input_nomeResponsavelCadastro"
+                                placeholder="Digite o nome do responsável">
                         </div>
                         <div class="form-box">
                             <label for="">Login</label>
-                            <input type="text" id ="input_loginCadastro" placeholder="Crie o Login do responsável">
+                            <input type="text" id="input_loginCadastro" placeholder="Crie o Login do responsável">
                         </div>
                         <div class="form-box">
                             <label for="">Senha</label>
@@ -139,7 +144,8 @@
                         </div>
                         <div class="form-box">
                             <label for="">Confirmar senha</label>
-                            <input type="text" id="input_confirmarSenhaCadastro" placeholder="Confirme a senha responsável">
+                            <input type="text" id="input_confirmarSenhaCadastro"
+                                placeholder="Confirme a senha responsável">
                         </div>
                     </div>
 
@@ -167,8 +173,59 @@
 
     </div>
 
-
-
 </body>
 
 </html>
+<script>
+function cadastrar() {
+
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = nomex_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+    if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
+        cardErro.style.display = "block"
+        mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+
+
+    }
+    else {
+        setInterval(sumirMensagem, 5000)
+    }
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/usuario.js
+            nomeServer: nomeVar,
+            emailServer: emailVar,
+            senhaServer: senhaVar
+        })
+    }).then(function (resposta) {
+
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+            setTimeout(() => {
+                window.location = "login.html";
+            }, "2000")
+
+        } else {
+            throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+
+    });
+}
+</script>
