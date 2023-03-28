@@ -9,7 +9,7 @@ let passo2Certo = false;
 let passo3Certo = false;
 
 // Me localizar na validação
-let estouNo = 1;
+let estouNo = 0;
 
 function capturarStatusTela(acao) {
     let execucao = acao; // --> tomei a liberdade de manipular a ação
@@ -45,7 +45,7 @@ function capturarStatusTela(acao) {
     const divResponsavelCadastro = document.getElementById("input_nomeResponsavelCadastro");
     const divLoginCadastro = document.getElementById("input_loginCadastro");
     const divSenhaCadastro = document.getElementById("input_senhaCadastro");
-    const confirmSenhaCadastro = document.getElementById("input_confirmarSenhaCadastro");
+    const divConfirmSenhaCadastro = document.getElementById("input_confirmarSenhaCadastro");
 
     // Marcador de campos corretos
     let contPasso1 = 0;
@@ -58,6 +58,7 @@ function capturarStatusTela(acao) {
         if (nomeEmpresaCadastro === "") {
             divNomeEmpresaCadastro.style.border = "1px solid red";
             divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso1 = 0;
         } else {
             divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px green";
             divNomeEmpresaCadastro.style.border = "1px solid green";
@@ -67,6 +68,7 @@ function capturarStatusTela(acao) {
         if (cnpjCadastro === "" || cnpjCadastro.length != 11) {
             divCnpjCadastro.style.border = "1px solid red";
             divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso1 = 0;
         } else {
             divCnpjCadastro.style.border = "1px solid green";
             divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px green";
@@ -76,6 +78,7 @@ function capturarStatusTela(acao) {
         if (emailCadastro === "") {
             divEmailCadastro.style.border = "1px solid red";
             divEmailCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso1 = 0;
         } else {
             divEmailCadastro.style.border = "1px solid green";
             divEmailCadastro.style.boxShadow = "2px 0px 9px 1px green";
@@ -85,29 +88,31 @@ function capturarStatusTela(acao) {
         if (telefoneCadastro === "" || telefoneCadastro.length != 10) {
             divTelefoneCadastro.style.border = "1px solid red";
             divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso1 = 0;
         } else {
             divTelefoneCadastro.style.border = "1px solid green";
             divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px green";
             contPasso1++;
         }
     }
-    if (contPasso1 === 4) {
+    console.log(estouNo, passo1Certo, contPasso1);
+    if (contPasso1 === 4 && estouNo === 1) {
         passo1Certo = true;
-        if (estouNo === 1 && passo1Certo) {
-            estouNo = 2;
-            console.log(estouNo);
-            passarEtapa(execucao);
-        }
+        estouNo = 2;
+        console.log(estouNo);
+        passarEtapa(execucao);
     }
 
 
 
-    // Validação dos valores inputados do passo 2
-    if (contPasso2 < 5) {
+    // Validação dos valores inputados do passo 2   
+    if (contPasso2 < 5 && passo1Certo) {
+        estouNo = 2;
         console.log(estouNo);
         if (cepCadastro === "" || cepCadastro.length < 8 && contPasso2 != 0) {
             divCepCadastro.style.border = "1px solid red";
             divCepCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso2 = 0;
         } else {
             divCepCadastro.style.boxShadow = "2px 0px 9px 1px green";
             divCepCadastro.style.border = "1px solid green";
@@ -116,6 +121,7 @@ function capturarStatusTela(acao) {
         if (numeroCadastro === "") {
             divNumeroCadastro.style.border = "1px solid red";
             divNumeroCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso2 = 0;
         } else {
             divNumeroCadastro.style.boxShadow = "2px 0px 9px 1px green";
             divNumeroCadastro.style.border = "1px solid green";
@@ -124,6 +130,7 @@ function capturarStatusTela(acao) {
         if (ruaCadastro === "") {
             divRuaCadastro.style.border = "1px solid red";
             divRuaCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso2 = 0;
         } else {
             divRuaCadastro.style.boxShadow = "2px 0px 9px 1px green";
             divRuaCadastro.style.border = "1px solid green";
@@ -132,6 +139,7 @@ function capturarStatusTela(acao) {
         if (cidadeCadastro === "") {
             divCidadeCadastro.style.border = "1px solid red";
             divCidadeCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso2 = 0;
         } else {
             divCidadeCadastro.style.boxShadow = "2px 0px 9px 1px green";
             divCidadeCadastro.style.border = "1px solid green";
@@ -140,6 +148,7 @@ function capturarStatusTela(acao) {
         if (bairroCadastro === "") {
             divBairoCadastro.style.border = "1px solid red";
             divBairoCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso2 = 0;
         } else {
             divBairoCadastro.style.boxShadow = "2px 0px 9px 1px green";
             divBairoCadastro.style.border = "1px solid green";
@@ -157,41 +166,45 @@ function capturarStatusTela(acao) {
 
 
     // Validação dos valores inputados do passo 3
-    if (contPasso3 < 4) {
-        if (nomeEmpresaCadastro === "") {
-            divNomeEmpresaCadastro.style.border = "1px solid red";
-            divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px red";
+    if (contPasso3 < 4 && passo2Certo) {
+        if (nomeResponsavelCadastro === "") {
+            divResponsavelCadastro.style.border = "1px solid red";
+            divResponsavelCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso3 = 0;
         } else {
-            divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            divNomeEmpresaCadastro.style.border = "1px solid green";
-            contPasso1++;
+            divResponsavelCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            divResponsavelCadastro.style.border = "1px solid green";
+            contPasso3++;
         }
 
-        if (cnpjCadastro === "" || cnpjCadastro.length != 11) {
-            divCnpjCadastro.style.border = "1px solid red";
-            divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        if (loginCadastro === "") {
+            divLoginCadastro.style.border = "1px solid red";
+            divLoginCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso3 = 0;
         } else {
-            divCnpjCadastro.style.border = "1px solid green";
-            divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso1++;
+            divLoginCadastro.style.border = "1px solid green";
+            divLoginCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso3++;
         }
 
-        if (emailCadastro === "") {
-            divEmailCadastro.style.border = "1px solid red";
-            divEmailCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        if (senhaCadastro === "") {
+            divSenhaCadastro.style.border = "1px solid red";
+            divSenhaCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso3 = 0;
         } else {
-            divEmailCadastro.style.border = "1px solid green";
-            divEmailCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso1++;
+            divSenhaCadastro.style.border = "1px solid green";
+            divSenhaCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso3++;
         }
 
-        if (telefoneCadastro === "" || telefoneCadastro.length != 10) {
-            divTelefoneCadastro.style.border = "1px solid red";
-            divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px red";
+        if (confirmarSenhaCadastro === "") {
+            divConfirmSenhaCadastro.style.border = "1px solid red";
+            divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso3 = 0;
         } else {
-            divTelefoneCadastro.style.border = "1px solid green";
-            divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso1++;
+            divConfirmSenhaCadastro.style.border = "1px solid green";
+            divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso3++;
         }
     }
     if (contPasso3 === 4) {
