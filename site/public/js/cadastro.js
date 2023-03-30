@@ -2,17 +2,14 @@
 var etapas = 1;
 var numberProgress = 1;
 
-// Variáveis de checagem de preenchimento --> capturarStatusTela() 
-let variaveisNoPadrao = false;
-let passo1Certo = false;
-let passo2Certo = false;
-let passo3Certo = false;
-
-// Me localizar na validação
-let estouNo = 0;
+// Marcador de campos corretos
+let contPasso1 = 0;
+let contPasso2 = 0;
+let contPasso3 = 0;
 
 function capturarStatusTela(acao) {
     let execucao = acao; // --> tomei a liberdade de manipular a ação
+
 
     // Valores captados noas inputs do cadastro.html
     let nomeEmpresaCadastro = document.getElementById("input_nomeEmpresaCadastro").value;
@@ -23,7 +20,7 @@ function capturarStatusTela(acao) {
     let numeroCadastro = document.getElementById("input_numeroCadastro").value;
     let ruaCadastro = document.getElementById("input_ruaCadastro").value;
     let cidadeCadastro = document.getElementById("input_cidadeCadastro").value;
-    let bairroCadastro = document.getElementById("input_baiiroCadastro").value;
+    let bairroCadastro = document.getElementById("input_bairroCadastro").value;
     let nomeResponsavelCadastro = document.getElementById("input_nomeResponsavelCadastro").value;
     let loginCadastro = document.getElementById("input_loginCadastro").value;
     let senhaCadastro = document.getElementById("input_senhaCadastro").value;
@@ -40,21 +37,19 @@ function capturarStatusTela(acao) {
     const divNumeroCadastro = document.getElementById("input_numeroCadastro");
     const divRuaCadastro = document.getElementById("input_ruaCadastro");
     const divCidadeCadastro = document.getElementById("input_cidadeCadastro");
-    const divBairoCadastro = document.getElementById("input_baiiroCadastro");
+    const divBairoCadastro = document.getElementById("input_bairroCadastro");
     // passo3
     const divResponsavelCadastro = document.getElementById("input_nomeResponsavelCadastro");
     const divLoginCadastro = document.getElementById("input_loginCadastro");
     const divSenhaCadastro = document.getElementById("input_senhaCadastro");
     const divConfirmSenhaCadastro = document.getElementById("input_confirmarSenhaCadastro");
 
-    // Marcador de campos corretos
-    let contPasso1 = 0;
-    let contPasso2 = 0;
-    let contPasso3 = 0;
+
 
     // Validação dos valores inputados do passo 1
-    estouNo = 1;
-    if (contPasso1 < 4) {
+    contPasso1 = 0;
+    if (etapas === 1) {
+
         if (nomeEmpresaCadastro === "") {
             divNomeEmpresaCadastro.style.border = "1px solid red";
             divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px red";
@@ -94,22 +89,17 @@ function capturarStatusTela(acao) {
             divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px green";
             contPasso1++;
         }
-    }
-    console.log(estouNo, passo1Certo, contPasso1);
-    if (contPasso1 === 4 && estouNo === 1) {
-        passo1Certo = true;
-        estouNo = 2;
-        console.log(estouNo);
-        passarEtapa(execucao);
+
+        if (contPasso1 === 4) { passarEtapa("proximo"); }
+
     }
 
-
+    console.log(etapas);
 
     // Validação dos valores inputados do passo 2   
-    if (contPasso2 < 5 && passo1Certo) {
-        estouNo = 2;
-        console.log(estouNo);
-        if (cepCadastro === "" || cepCadastro.length < 8 && contPasso2 != 0) {
+    contPasso2 = 0;
+    if (etapas === 2) {
+        if (cepCadastro === "" || cepCadastro.length != 8) {
             divCepCadastro.style.border = "1px solid red";
             divCepCadastro.style.boxShadow = "2px 0px 9px 1px red";
             contPasso2 = 0;
@@ -154,19 +144,15 @@ function capturarStatusTela(acao) {
             divBairoCadastro.style.border = "1px solid green";
             contPasso2++;
         }
-    }
-    if (contPasso2 === 5) {
-        passo2Certo = true;
-        if (estouNo === 2 && passo2Certo) {
-            estouNo = 3;
-            console.log(estouNo);
-            passarEtapa(execucao);
-        }
+
+        if (contPasso2 === 5) { passarEtapa(execucao); }
     }
 
 
     // Validação dos valores inputados do passo 3
-    if (contPasso3 < 4 && passo2Certo) {
+    contPasso3 = 0;
+    if (etapas === 3) {
+        console.log(etapas);
         if (nomeResponsavelCadastro === "") {
             divResponsavelCadastro.style.border = "1px solid red";
             divResponsavelCadastro.style.boxShadow = "2px 0px 9px 1px red";
@@ -206,16 +192,8 @@ function capturarStatusTela(acao) {
             divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px green";
             contPasso3++;
         }
+        if (contPasso3 === 4) { passarEtapa(execucao); }
     }
-    if (contPasso3 === 4) {
-        passo3Certo = true;
-        console.log(estouNo);
-        passarEtapa(execucao);
-    }
-
-
-
-
 
 
 
