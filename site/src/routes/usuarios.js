@@ -9,8 +9,8 @@ router.post("/cadastrar", function (req, res) {
 })
 
 router.post("/autenticar", function (req, res) {
-    console.log("Entrei routes");
     usuarioController.entrar(req, res);
+    console.log("Entrei routes");
 });
 
 module.exports = router;

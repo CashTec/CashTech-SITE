@@ -10,7 +10,6 @@ let contPasso3 = 0;
 function capturarStatusTela(acao) {
     let execucao = acao; // --> tomei a liberdade de manipular a ação
 
-
     // Valores captados noas inputs do cadastro.html
     let nomeEmpresaCadastro = document.getElementById("input_nomeEmpresaCadastro").value;
     let cnpjCadastro = document.getElementById("input_CnpjCadastro").value;
@@ -47,7 +46,6 @@ function capturarStatusTela(acao) {
 
 
     // Validação dos valores inputados do passo 1
-    contPasso1 = 0;
     if (etapas === 1) {
 
         if (nomeEmpresaCadastro === "") {
@@ -94,10 +92,7 @@ function capturarStatusTela(acao) {
 
     }
 
-    console.log(etapas);
-
-    // Validação dos valores inputados do passo 2   
-    contPasso2 = 0;
+    // Validação dos valores inputados do passo 2
     if (etapas === 2) {
         if (cepCadastro === "" || cepCadastro.length != 8) {
             divCepCadastro.style.border = "1px solid red";
@@ -150,9 +145,7 @@ function capturarStatusTela(acao) {
 
 
     // Validação dos valores inputados do passo 3
-    contPasso3 = 0;
     if (etapas === 3) {
-        console.log(etapas);
         if (nomeResponsavelCadastro === "") {
             divResponsavelCadastro.style.border = "1px solid red";
             divResponsavelCadastro.style.boxShadow = "2px 0px 9px 1px red";
@@ -192,15 +185,17 @@ function capturarStatusTela(acao) {
             divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px green";
             contPasso3++;
         }
-        if (contPasso3 === 4) { passarEtapa(execucao); }
+        if (confirmarSenhaCadastro != senhaCadastro) {
+            divConfirmSenhaCadastro.style.border = "1px solid red";
+            divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px red";
+            contPasso3 = 0;
+        } else {
+            divConfirmSenhaCadastro.style.border = "1px solid green";
+            divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px green";
+            contPasso3++;
+        }
+        if (contPasso3 === 5) { passarEtapa(execucao); }
     }
-
-
-
-    // if (passo1Certo && passo2Certo && passo3Certo){
-
-    // }
-
 }
 
 
@@ -259,4 +254,63 @@ function passarEtapa(acao) {
         }, "320");
         // ---------------
     }
+}
+
+function cadastrar() {
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeEmpresaVar = document.getElementById("input_nomeEmpresaCadastro").value;
+    var cnpjVar = document.getElementById("input_CnpjCadastro").value;
+    var emailVar = document.getElementById("input_emailCadastro").value;
+    var telefoneVar = document.getElementById("input_telefoneCadastro").value;
+    var cepVar = document.getElementById("input_CepCadastro").value;
+    var numeroVar = document.getElementById("input_numeroCadastro").value;
+    var ruaVar = document.getElementById("input_ruaCadastro").value;
+    var cidadeVar = document.getElementById("input_cidadeCadastro").value;
+    var bairroVar = document.getElementById("input_bairroCadastro").value;
+    var nomeResponsavelVar = document.getElementById("input_nomeResponsavelCadastro").value; 
+    var loginVar = document.getElementById("input_loginCadastro").value;
+    var senhaVar = document.getElementById("input_senhaCadastro").value;
+    
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/usuario.js
+            nomeEmpresaServer: nomeEmpresaVar,
+            cnpjServer: cnpjVar,
+            emailServer: emailVar,
+            telefoneServer: telefoneVar,
+            cepServer: cepVar,
+            numeroServer: numeroVar,
+            ruaServer: ruaVar,
+            cidadeServer: cidadeVar,
+            bairroServer: bairroVar,
+            nomeResponsavelServer: nomeResponsavelVar,
+            loginServer: loginVar,
+            senhaServer: senhaVar
+        })
+    }).then(function (resposta) {
+
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            setTimeout(() => {
+                window.location = "login.html";
+            }, "2000")
+
+        } else {
+            console.log("estou no fetch");
+            throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+
+    });
+    return false;
 }
