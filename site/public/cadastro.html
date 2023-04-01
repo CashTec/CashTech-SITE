@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/cadasto-login.css">
     <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
     <script src="js/cadastro.js"></script>
@@ -69,15 +69,15 @@
                         <div class="form-box">
                             <label for="">CNPJ</label>
                             <input type="text" id="input_CnpjCadastro"
-                                placeholder="XX.XXX.XXX/0001-XX (sem os caracteres especiais)">
+                                placeholder="XXXXXXXX0001XX (sem os caracteres especiais)">
                         </div>
                         <div class="form-box">
                             <label for="">Email</label>
-                            <input type="text" id="input_emailCadastro" placeholder="empresa@hotmail.com">
+                            <input type="email" id="input_emailCadastro" placeholder="empresa@hotmail.com">
                         </div>
                         <div class="form-box">
                             <label for="">Telefone</label>
-                            <input type="text" id="input_telefoneCadastro" placeholder="XX-XXXXXXXXX">
+                            <input type="tel" id="input_telefoneCadastro" placeholder="11988888888">
                         </div>
                     </div>
 
@@ -95,7 +95,7 @@
                             <div class="form-box form-cep">
                                 <label for="">CEP</label>
                                 <input type="text" id="input_CepCadastro"
-                                    placeholder="XXXXX-XXX (sem os caracteres especiais)">
+                                    placeholder="XXXXX-XXX (sem os caracteres especiais)" onkeydown="pegarEndereco()">
                             </div>
                             <div class="form-box form-numero">
                                 <label for="">Número</label>
@@ -140,11 +140,11 @@
                         </div>
                         <div class="form-box">
                             <label for="">Senha</label>
-                            <input type="text" id="input_senhaCadastro" placeholder="Crie a senha do responsável">
+                            <input type="password" id="input_senhaCadastro" placeholder="Crie a senha do responsável">
                         </div>
                         <div class="form-box">
                             <label for="">Confirmar senha</label>
-                            <input type="text" id="input_confirmarSenhaCadastro"
+                            <input type="password" id="input_confirmarSenhaCadastro"
                                 placeholder="Confirme a senha responsável">
                         </div>
                     </div>
@@ -172,7 +172,14 @@
         </div>
 
     </div>
-
+    <!-- card -->
+    <div class="msgCard" id="div_card">
+        <div class="mensagem">
+            <span id="mensagem_erro"></span>
+        </div>
+    </div>
+    <!-- Fim card -->
 </body>
 
 </html>
+<script src="./js/apiCEP.js"></script>
