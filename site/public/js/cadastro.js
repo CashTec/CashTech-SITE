@@ -1,208 +1,119 @@
 // Função para Etapas do cadastro
 var etapas = 1;
+var validacao = 1;
 var numberProgress = 1;
-
-// Marcador de campos corretos
-let contPasso1 = 0;
-let contPasso2 = 0;
-let contPasso3 = 0;
-
-function capturarStatusTela(acao) {
-    let execucao = acao; // --> tomei a liberdade de manipular a ação
-
-    // Valores captados noas inputs do cadastro.html
-    let nomeEmpresaCadastro = document.getElementById("input_nomeEmpresaCadastro").value;
-    let cnpjCadastro = document.getElementById("input_CnpjCadastro").value;
-    let emailCadastro = document.getElementById("input_emailCadastro").value;
-    let telefoneCadastro = document.getElementById("input_telefoneCadastro").value;
-    let cepCadastro = document.getElementById("input_CepCadastro").value;
-    let numeroCadastro = document.getElementById("input_numeroCadastro").value;
-    let ruaCadastro = document.getElementById("input_ruaCadastro").value;
-    let cidadeCadastro = document.getElementById("input_cidadeCadastro").value;
-    let bairroCadastro = document.getElementById("input_bairroCadastro").value;
-    let nomeResponsavelCadastro = document.getElementById("input_nomeResponsavelCadastro").value;
-    let loginCadastro = document.getElementById("input_loginCadastro").value;
-    let senhaCadastro = document.getElementById("input_senhaCadastro").value;
-    let confirmarSenhaCadastro = document.getElementById("input_confirmarSenhaCadastro").value;
-
-    // Elementos para manipulação de css do cadastro.html
-    // passo1
-    const divNomeEmpresaCadastro = document.getElementById("input_nomeEmpresaCadastro");
-    const divCnpjCadastro = document.getElementById("input_CnpjCadastro");
-    const divEmailCadastro = document.getElementById("input_emailCadastro");
-    const divTelefoneCadastro = document.getElementById("input_telefoneCadastro");
-    // passo2
-    const divCepCadastro = document.getElementById("input_CepCadastro");
-    const divNumeroCadastro = document.getElementById("input_numeroCadastro");
-    const divRuaCadastro = document.getElementById("input_ruaCadastro");
-    const divCidadeCadastro = document.getElementById("input_cidadeCadastro");
-    const divBairoCadastro = document.getElementById("input_bairroCadastro");
-    // passo3
-    const divResponsavelCadastro = document.getElementById("input_nomeResponsavelCadastro");
-    const divLoginCadastro = document.getElementById("input_loginCadastro");
-    const divSenhaCadastro = document.getElementById("input_senhaCadastro");
-    const divConfirmSenhaCadastro = document.getElementById("input_confirmarSenhaCadastro");
-
-
-
-    // Validação dos valores inputados do passo 1
-    if (etapas === 1) {
-
-        if (nomeEmpresaCadastro === "") {
-            divNomeEmpresaCadastro.style.border = "1px solid red";
-            divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso1 = 0;
-        } else {
-            divNomeEmpresaCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            divNomeEmpresaCadastro.style.border = "1px solid green";
-            contPasso1++;
-        }
-
-        if (cnpjCadastro === "" || cnpjCadastro.length != 11) {
-            divCnpjCadastro.style.border = "1px solid red";
-            divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso1 = 0;
-        } else {
-            divCnpjCadastro.style.border = "1px solid green";
-            divCnpjCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso1++;
-        }
-
-        if (emailCadastro === "") {
-            divEmailCadastro.style.border = "1px solid red";
-            divEmailCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso1 = 0;
-        } else {
-            divEmailCadastro.style.border = "1px solid green";
-            divEmailCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso1++;
-        }
-
-        if (telefoneCadastro === "" || telefoneCadastro.length != 10) {
-            divTelefoneCadastro.style.border = "1px solid red";
-            divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso1 = 0;
-        } else {
-            divTelefoneCadastro.style.border = "1px solid green";
-            divTelefoneCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso1++;
-        }
-
-        if (contPasso1 === 4) { passarEtapa("proximo"); }
-
-    }
-
-    // Validação dos valores inputados do passo 2
-    if (etapas === 2) {
-        if (cepCadastro === "" || cepCadastro.length != 8) {
-            divCepCadastro.style.border = "1px solid red";
-            divCepCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso2 = 0;
-        } else {
-            divCepCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            divCepCadastro.style.border = "1px solid green";
-            contPasso2++;
-        }
-        if (numeroCadastro === "") {
-            divNumeroCadastro.style.border = "1px solid red";
-            divNumeroCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso2 = 0;
-        } else {
-            divNumeroCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            divNumeroCadastro.style.border = "1px solid green";
-            contPasso2++;
-        }
-        if (ruaCadastro === "") {
-            divRuaCadastro.style.border = "1px solid red";
-            divRuaCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso2 = 0;
-        } else {
-            divRuaCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            divRuaCadastro.style.border = "1px solid green";
-            contPasso2++;
-        }
-        if (cidadeCadastro === "") {
-            divCidadeCadastro.style.border = "1px solid red";
-            divCidadeCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso2 = 0;
-        } else {
-            divCidadeCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            divCidadeCadastro.style.border = "1px solid green";
-            contPasso2++;
-        }
-        if (bairroCadastro === "") {
-            divBairoCadastro.style.border = "1px solid red";
-            divBairoCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso2 = 0;
-        } else {
-            divBairoCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            divBairoCadastro.style.border = "1px solid green";
-            contPasso2++;
-        }
-
-        if (contPasso2 === 5) { passarEtapa(execucao); }
-    }
-
-
-    // Validação dos valores inputados do passo 3
-    if (etapas === 3) {
-        if (nomeResponsavelCadastro === "") {
-            divResponsavelCadastro.style.border = "1px solid red";
-            divResponsavelCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso3 = 0;
-        } else {
-            divResponsavelCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            divResponsavelCadastro.style.border = "1px solid green";
-            contPasso3++;
-        }
-
-        if (loginCadastro === "") {
-            divLoginCadastro.style.border = "1px solid red";
-            divLoginCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso3 = 0;
-        } else {
-            divLoginCadastro.style.border = "1px solid green";
-            divLoginCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso3++;
-        }
-
-        if (senhaCadastro === "") {
-            divSenhaCadastro.style.border = "1px solid red";
-            divSenhaCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso3 = 0;
-        } else {
-            divSenhaCadastro.style.border = "1px solid green";
-            divSenhaCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso3++;
-        }
-
-        if (confirmarSenhaCadastro === "") {
-            divConfirmSenhaCadastro.style.border = "1px solid red";
-            divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso3 = 0;
-        } else {
-            divConfirmSenhaCadastro.style.border = "1px solid green";
-            divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso3++;
-        }
-        if (confirmarSenhaCadastro != senhaCadastro) {
-            divConfirmSenhaCadastro.style.border = "1px solid red";
-            divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px red";
-            contPasso3 = 0;
-        } else {
-            divConfirmSenhaCadastro.style.border = "1px solid green";
-            divConfirmSenhaCadastro.style.boxShadow = "2px 0px 9px 1px green";
-            contPasso3++;
-        }
-        if (contPasso3 === 5) { passarEtapa(execucao); }
-    }
-}
-
+var corBoxShadowRed = "#ff0000 0px 0px 7px 0px";
+var corBoxShadowGreen = "2px 0px 9px 1px green";
 
 function passarEtapa(acao) {
-    var etapa = document.getElementById("Etapa" + etapas);
 
+    // Valores captados nas inputs do cadastro.html
+    //Etapa 01
+    const nomeEmpresaCadastro = input_nomeEmpresaCadastro.value;
+    const cnpjCadastro = input_CnpjCadastro.value;
+    const emailCadastro = input_emailCadastro.value;
+    const telefoneCadastro = input_telefoneCadastro.value;
+    //Etapa 02
+    const cepCadastro = input_CepCadastro.value;
+    const numeroCadastro = input_numeroCadastro.value;
+    const ruaCadastro = input_ruaCadastro.value;
+    const cidadeCadastro = input_cidadeCadastro.value;
+    const bairroCadastro = input_bairroCadastro.value;
+
+
+    // Elementos para manipulação de css do cadastro.html
+    // Etapa1
+    const divNomeEmpresaCadastro = input_nomeEmpresaCadastro;
+    const divCnpjCadastro = input_CnpjCadastro;
+    const divEmailCadastro = input_emailCadastro;
+    const divTelefoneCadastro = input_telefoneCadastro;
+    // Etapa2
+    const divCepCadastro = input_CepCadastro;
+    const divNumeroCadastro = input_numeroCadastro;
+    const divRuaCadastro = input_ruaCadastro;
+    const divCidadeCadastro = input_cidadeCadastro;
+    const divBairoCadastro = input_bairroCadastro;
+
+    // Booleanos para saber se tem algo vazio:
+    var isAlgumVazioEtapa1 = nomeEmpresaCadastro == "" || cnpjCadastro == "" || cnpjCadastro.length != 14 
+        || emailCadastro == "" | telefoneCadastro == "" || telefoneCadastro.length != 11;
+
+    var isAlgumVazioEtapa2 = cepCadastro == "" || cepCadastro.length != 8 || numeroCadastro == "" || ruaCadastro == "" || cidadeCadastro == "" | bairroCadastro == "";
+
+
+    var etapa = document.getElementById("Etapa" + etapas);
     if (acao == "proximo") {
+
+        if (isAlgumVazioEtapa1) {
+            if (nomeEmpresaCadastro === "") {
+                divNomeEmpresaCadastro.style.boxShadow = corBoxShadowRed;
+            } else {
+                divNomeEmpresaCadastro.style.boxShadow = corBoxShadowGreen;
+            }
+            if (cnpjCadastro === "" || cnpjCadastro.length != 14) {
+                divCnpjCadastro.style.boxShadow = corBoxShadowRed;
+            } else {
+                divCnpjCadastro.style.boxShadow = corBoxShadowGreen;
+            }
+
+            if (emailCadastro === "") {
+                divEmailCadastro.style.boxShadow = corBoxShadowRed;
+            } else {
+                divEmailCadastro.style.boxShadow = corBoxShadowGreen;
+            }
+
+            if (telefoneCadastro === "" || telefoneCadastro.length != 11) {
+                divTelefoneCadastro.style.boxShadow = corBoxShadowRed;
+            } else {
+                divTelefoneCadastro.style.boxShadow = corBoxShadowGreen;
+            }
+            return false;
+        } else {
+            for (var i = 0; i < 4; i++) {
+                Etapa1.children[1].children[i].children[1].style.boxShadow = corBoxShadowGreen;
+            }
+        }
+
+
+        // Validação dos valores inputados do passo 2
+        if (etapas >= 2) {
+            if (isAlgumVazioEtapa2) {
+                if (cepCadastro === "" || cepCadastro.length != 8) {
+                    divCepCadastro.style.boxShadow = corBoxShadowRed;
+                } else {
+                    divCepCadastro.style.boxShadow = corBoxShadowGreen;
+                }
+                if (numeroCadastro === "") {
+                    divNumeroCadastro.style.boxShadow = corBoxShadowRed;
+                } else {
+                    divNumeroCadastro.style.boxShadow = corBoxShadowGreen;
+                }
+                if (ruaCadastro === "") {
+                    divRuaCadastro.style.boxShadow = corBoxShadowRed;
+                } else {
+                    divRuaCadastro.style.boxShadow = corBoxShadowGreen;
+                }
+                if (cidadeCadastro === "") {
+                    divCidadeCadastro.style.boxShadow = corBoxShadowRed;
+                } else {
+                    divCidadeCadastro.style.boxShadow = corBoxShadowGreen;
+                }
+                if (bairroCadastro === "") {
+                    divBairoCadastro.style.boxShadow = corBoxShadowRed;
+                } else {
+                    divBairoCadastro.style.boxShadow = corBoxShadowGreen;
+                }
+                return false
+            } else {
+                for (var i = 0; i < 2; i++) {
+                    Etapa2.children[1].children[0].children[i].children[1].style.boxShadow = corBoxShadowGreen;
+                }
+                for (var i = 1; i < 4; i++) {
+                    Etapa2.children[1].children[i].children[1].style.boxShadow = corBoxShadowGreen;
+                }
+            }
+        }
+
         etapa.style.display = "none";
         etapas++;
         numberProgress++;
@@ -225,8 +136,11 @@ function passarEtapa(acao) {
 
         // ---------------
 
+
     } else {
+        
         etapa.style.display = "none";
+        validacao--;
         etapas--;
 
         // Voltar formulario
@@ -259,19 +173,58 @@ function passarEtapa(acao) {
 function cadastrar() {
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nomeEmpresaVar = document.getElementById("input_nomeEmpresaCadastro").value;
-    var cnpjVar = document.getElementById("input_CnpjCadastro").value;
-    var emailVar = document.getElementById("input_emailCadastro").value;
-    var telefoneVar = document.getElementById("input_telefoneCadastro").value;
-    var cepVar = document.getElementById("input_CepCadastro").value;
-    var numeroVar = document.getElementById("input_numeroCadastro").value;
-    var ruaVar = document.getElementById("input_ruaCadastro").value;
-    var cidadeVar = document.getElementById("input_cidadeCadastro").value;
-    var bairroVar = document.getElementById("input_bairroCadastro").value;
-    var nomeResponsavelVar = document.getElementById("input_nomeResponsavelCadastro").value; 
-    var loginVar = document.getElementById("input_loginCadastro").value;
-    var senhaVar = document.getElementById("input_senhaCadastro").value;
-    
+    var nomeEmpresaVar = input_nomeEmpresaCadastro.value;
+    var cnpjVar = input_CnpjCadastro.value;
+    var emailVar = input_emailCadastro.value;
+    var telefoneVar = input_telefoneCadastro.value;
+    var cepVar = input_CepCadastro.value;
+    var numeroVar = input_numeroCadastro.value;
+    var ruaVar = input_ruaCadastro.value;
+    var cidadeVar = input_cidadeCadastro.value;
+    var bairroVar = input_bairroCadastro.value;
+    var nomeResponsavelVar = input_nomeResponsavelCadastro.value;
+    var loginVar = input_loginCadastro.value;
+    var senhaVar = input_senhaCadastro.value;
+    var confirmarSenhaCadastro = input_confirmarSenhaCadastro.value;
+
+    // Inputs para mudar de cor Etapa3
+    const divResponsavelCadastro = input_nomeResponsavelCadastro;
+    const divLoginCadastro = input_loginCadastro;
+    const divSenhaCadastro = input_senhaCadastro;
+    const divConfirmSenhaCadastro = input_confirmarSenhaCadastro;
+    // ---------------------------
+
+    var isAlgumInvalidoEtapa3 = nomeResponsavelVar == "" || loginVar == "" || senhaVar == "" || confirmarSenhaCadastro == "" || confirmarSenhaCadastro != senhaVar;
+
+    if (isAlgumInvalidoEtapa3) {
+        if (nomeResponsavelVar === "") {
+            divResponsavelCadastro.style.boxShadow = corBoxShadowRed;
+        } else {
+            divResponsavelCadastro.style.boxShadow = corBoxShadowGreen;
+        }
+        if (loginVar === "") {
+            divLoginCadastro.style.boxShadow = corBoxShadowRed;
+        } else {
+            divLoginCadastro.style.boxShadow = corBoxShadowGreen;
+        }
+        if (senhaVar === "") {
+            divSenhaCadastro.style.boxShadow = corBoxShadowRed;
+            contPasso3 = 0;
+        } else {
+            divSenhaCadastro.style.boxShadow = corBoxShadowGreen;
+        }
+        if (confirmarSenhaCadastro != senhaVar || confirmarSenhaCadastro === "") {
+            divConfirmSenhaCadastro.style.boxShadow = corBoxShadowRed;
+        } else {
+            divConfirmSenhaCadastro.style.boxShadow = corBoxShadowGreen;
+        }
+        return false;
+    } else {
+        for (var i = 0; i < 4; i++) {
+            Etapa3.children[1].children[i].children[1].style.boxShadow = corBoxShadowGreen;
+        }
+    }
+
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
