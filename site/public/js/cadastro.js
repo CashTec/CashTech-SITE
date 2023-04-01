@@ -5,6 +5,14 @@ var numberProgress = 1;
 var corBoxShadowRed = "#ff0000 0px 0px 7px 0px";
 var corBoxShadowGreen = "2px 0px 9px 1px green";
 
+function validarCaracter(palavra) {
+    if (palavra.includes("'") || palavra.includes(";") || palavra == "") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function passarEtapa(acao) {
 
     // Valores captados nas inputs do cadastro.html
@@ -35,34 +43,43 @@ function passarEtapa(acao) {
     const divBairoCadastro = input_bairroCadastro;
 
     // Booleanos para saber se tem algo vazio:
-    var isAlgumVazioEtapa1 = nomeEmpresaCadastro == "" || cnpjCadastro == "" || cnpjCadastro.length != 14 
-        || emailCadastro == "" | telefoneCadastro == "" || telefoneCadastro.length != 11;
+    // Etapa 1
+    var nomeEmpresaValidado = validarCaracter(nomeEmpresaCadastro);
+    var cnpjValidado = validarCaracter(cnpjCadastro) || cnpjCadastro.length != 14;
+    var emailValidado = validarCaracter(emailCadastro);
+    var telefoneValidado = validarCaracter(telefoneCadastro) || telefoneCadastro.length != 11;
+    var isAlgumVazioEtapa1 = nomeEmpresaValidado || cnpjValidado || emailValidado || telefoneValidado;
 
-    var isAlgumVazioEtapa2 = cepCadastro == "" || cepCadastro.length != 8 || numeroCadastro == "" || ruaCadastro == "" || cidadeCadastro == "" | bairroCadastro == "";
-
+    //Etapa 2
+    var cepValidado = validarCaracter(cepCadastro) || cepCadastro.length != 8;
+    var numeroValidado = validarCaracter(numeroCadastro);
+    var ruaValidado = validarCaracter(ruaCadastro);
+    var cidadeValidado = validarCaracter(cidadeCadastro);
+    var bairroValidado = validarCaracter(bairroCadastro);
+    var isAlgumVazioEtapa2 = cepValidado || numeroValidado || ruaValidado || cidadeValidado || bairroValidado;
 
     var etapa = document.getElementById("Etapa" + etapas);
     if (acao == "proximo") {
 
         if (isAlgumVazioEtapa1) {
-            if (nomeEmpresaCadastro === "") {
+            if (nomeEmpresaValidado) {
                 divNomeEmpresaCadastro.style.boxShadow = corBoxShadowRed;
             } else {
                 divNomeEmpresaCadastro.style.boxShadow = corBoxShadowGreen;
             }
-            if (cnpjCadastro === "" || cnpjCadastro.length != 14) {
+            if (cnpjValidado) {
                 divCnpjCadastro.style.boxShadow = corBoxShadowRed;
             } else {
                 divCnpjCadastro.style.boxShadow = corBoxShadowGreen;
             }
 
-            if (emailCadastro === "") {
+            if (emailValidado) {
                 divEmailCadastro.style.boxShadow = corBoxShadowRed;
             } else {
                 divEmailCadastro.style.boxShadow = corBoxShadowGreen;
             }
 
-            if (telefoneCadastro === "" || telefoneCadastro.length != 11) {
+            if (telefoneValidado) {
                 divTelefoneCadastro.style.boxShadow = corBoxShadowRed;
             } else {
                 divTelefoneCadastro.style.boxShadow = corBoxShadowGreen;
@@ -74,31 +91,30 @@ function passarEtapa(acao) {
             }
         }
 
-
         // Validação dos valores inputados do passo 2
         if (etapas >= 2) {
             if (isAlgumVazioEtapa2) {
-                if (cepCadastro === "" || cepCadastro.length != 8) {
+                if (cepValidado) {
                     divCepCadastro.style.boxShadow = corBoxShadowRed;
                 } else {
                     divCepCadastro.style.boxShadow = corBoxShadowGreen;
                 }
-                if (numeroCadastro === "") {
+                if (numeroValidado) {
                     divNumeroCadastro.style.boxShadow = corBoxShadowRed;
                 } else {
                     divNumeroCadastro.style.boxShadow = corBoxShadowGreen;
                 }
-                if (ruaCadastro === "") {
+                if (ruaValidado) {
                     divRuaCadastro.style.boxShadow = corBoxShadowRed;
                 } else {
                     divRuaCadastro.style.boxShadow = corBoxShadowGreen;
                 }
-                if (cidadeCadastro === "") {
+                if (cidadeValidado) {
                     divCidadeCadastro.style.boxShadow = corBoxShadowRed;
                 } else {
                     divCidadeCadastro.style.boxShadow = corBoxShadowGreen;
                 }
-                if (bairroCadastro === "") {
+                if (bairroValidado) {
                     divBairoCadastro.style.boxShadow = corBoxShadowRed;
                 } else {
                     divBairoCadastro.style.boxShadow = corBoxShadowGreen;
@@ -138,7 +154,7 @@ function passarEtapa(acao) {
 
 
     } else {
-        
+
         etapa.style.display = "none";
         validacao--;
         etapas--;
@@ -194,26 +210,31 @@ function cadastrar() {
     const divConfirmSenhaCadastro = input_confirmarSenhaCadastro;
     // ---------------------------
 
-    var isAlgumInvalidoEtapa3 = nomeResponsavelVar == "" || loginVar == "" || senhaVar == "" || confirmarSenhaCadastro == "" || confirmarSenhaCadastro != senhaVar;
+    var nomeResponsavelValidado = validarCaracter(nomeResponsavelVar);
+    var loginValidado = validarCaracter(loginVar);
+    var senhaValidado = validarCaracter(senhaVar);
+    var confSenhaValidado = validarCaracter(confirmarSenhaCadastro) || confirmarSenhaCadastro != senhaVar;
+
+    isAlgumInvalidoEtapa3 = nomeResponsavelValidado || loginValidado || senhaValidado || confSenhaValidado;
 
     if (isAlgumInvalidoEtapa3) {
-        if (nomeResponsavelVar === "") {
+        if (nomeResponsavelValidado) {
             divResponsavelCadastro.style.boxShadow = corBoxShadowRed;
         } else {
             divResponsavelCadastro.style.boxShadow = corBoxShadowGreen;
         }
-        if (loginVar === "") {
+        if (loginValidado) {
             divLoginCadastro.style.boxShadow = corBoxShadowRed;
         } else {
             divLoginCadastro.style.boxShadow = corBoxShadowGreen;
         }
-        if (senhaVar === "") {
+        if (senhaValidado) {
             divSenhaCadastro.style.boxShadow = corBoxShadowRed;
             contPasso3 = 0;
         } else {
             divSenhaCadastro.style.boxShadow = corBoxShadowGreen;
         }
-        if (confirmarSenhaCadastro != senhaVar || confirmarSenhaCadastro === "") {
+        if (confSenhaValidado) {
             divConfirmSenhaCadastro.style.boxShadow = corBoxShadowRed;
         } else {
             divConfirmSenhaCadastro.style.boxShadow = corBoxShadowGreen;
@@ -257,12 +278,26 @@ function cadastrar() {
                 window.location = "login.html";
             }, "2000")
 
+
+        } else if (resposta.status == 409) {
+            console.log("estou no fetch");
+            resposta.json().then(erro => {
+                div_card.style.display = "flex";
+                mensagem_erro.innerHTML = erro.message;
+                divLoginCadastro.style.boxShadow = corBoxShadowRed;
+
+                setTimeout(() => {
+                    div_card.style.display = "none";
+                }, "3000")
+                throw ("Houve um erro ao tentar realizar o cadastro!\n" + erro.message);
+            });
         } else {
             console.log("estou no fetch");
+            console.log(resposta.message);
             throw ("Houve um erro ao tentar realizar o cadastro!");
         }
     }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+        console.error(`#ERRO: ${resposta}`);
 
     });
     return false;
