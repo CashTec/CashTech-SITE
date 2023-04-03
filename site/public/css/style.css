@@ -152,7 +152,7 @@ a {
   }
 
   header .container>div>.navbar>.logo>a>img {
- 
+
     display: block;
     width: 130px !important;
     width: 130px !important;
@@ -356,9 +356,9 @@ main {
 
 }
 
-.next.active{
+.next.active {
   display: none;
-  transition-delay:0.6s ;
+  transition-delay: 0.6s;
 }
 
 .prev {
@@ -681,4 +681,103 @@ footer>.container>div {
 .links>ul {
   display: grid;
   grid-template-columns: 2fr 2fr;
+}
+
+
+
+/* --------- MENU CASHTECH SYSTEM ---------- */
+.menu {
+  position: fixed;
+  left: 0;
+  display: flex;
+  width: 220px;
+  height: 100%;
+  left: 0;
+  background-color: #0E4354;
+  border-radius: 0px 10px 10px 0px;
+}
+
+.menu .container {
+  flex-direction: column;
+  justify-content: space-between;
+  color: #dbdbdb;
+  padding: 4rem 0;
+}
+
+.logo-menu img {
+  height: 126px;
+}
+
+.bem-vindo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.bem-vindo span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #00FFF0;
+}
+
+.lista a {
+  display: flex;
+  align-items: center;
+  margin: 1.2rem 0;
+}
+
+.lista img {
+  width: 23.51px;
+  margin-right: 10px;
+}
+
+.lista li {
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 22.38px;
+}
+
+.lista li:hover {
+  transform: scale(1.1, 1.1);
+  transition: 400ms;
+  color: #00FFF0;
+}
+
+.lista li:active {
+  transform: scale(0.95, 0.95);
+}
+
+.sair {
+  color: #dbdbdb;
+  font-size: 1rem;
+  background-color: #000000;
+  padding: 0.7rem 2rem;
+  border-radius: 10px;
+}
+
+.active-menu {
+  color: #00FFF0;
+}
+
+/* --------- FIM MENU ---------- */
+
+.eclipseUp,
+.eclipseDown {
+  width: 349px;
+  position: fixed;
+}
+
+.eclipseUp {
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.eclipseDown {
+  left: 493px;
+  bottom: 0;
+  z-index: -1;
 }
