@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashTech: Lista de Usuarios</title>
+    <link rel="icon" type="imagem/png" href="../assets/imgs/logo.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/users.css">
+
+</head>
+
+<body onload="atualizarFeed()">
+    <div class="backEcplipse">
+        <img src="../img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+        <img src="../img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+    </div>
+    <div class="menu">
+        <div class="container">
+            <div class="logo-menu">
+                <img src="../img/cashTechSystem/logo.svg" height="50px" alt="">
+            </div>
+            <div class="bem-vindo">
+                <h2>Bem Vindo,</h2>
+                <span id="spn_orquestraNome">Nome Empresa</span>
+            </div>
+            <div class="indices">
+                <ul class="lista">
+                    <a href="#">
+                        <li><img src="../img/cashTechSystem/atms.png" alt=""> ATM's</li>
+                    </a>
+                    <a href="#">
+                        <li class="active-menu"> <img src="../img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                    </a>
+                    <a href="#">
+                        <li><img src="../img/cashTechSystem/process.png" alt=""> Processos</li>
+                    </a>
+                    <a href="#">
+                        <li><img src="../img/cashTechSystem/rede.png" alt=""> Rede</li>
+                    </a>
+                </ul>
+            </div>
+            <div>
+                <button class="sair" onclick="limparSessao()">sair</button>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="content-users">
+            <div class="container">
+                <div class="titulo">
+                    <h2>Lista de Usuários</h2>
+                </div>
+                <div class="tipo-pesquisa">
+                    <span>Pesquisar por:</span>
+                    <select id="sel_tipoPesquisa" onchange="tipoNaipe()">
+                        <option value="nome">----- nome -----</option>
+                        <option value="instrumento">-- email --</option>
+                        <option value="telefone">---- telefone ----</option>
+                        <option value="naipe">função</option>
+                    </select>
+                </div>
+                <div class="users-inputs">
+                    <div class="pesquisar">
+                        <span>
+                            Pesquisa:
+                        </span>
+                        <div class="input-select" id="input_select">
+                            <input type="text" id="in_pesquisa">
+                        </div>
+                        <button onclick="pesquisar()"><img src="/assets/imgs/search.svg" alt=""></button>
+                    </div>
+                    <div class="todosusers">
+                        <button onclick="atualizarFeed()">Ver todos</button>
+                    </div>
+                    <div class="adicionar">
+                        <button onclick="abrir_modalAdicionar()">Adicionar novo Músico</button>
+                    </div>
+                </div>
+                <div class="planilha-users" id="div_planilhausers">
+                    <div class="nenhum-cadastrado">
+                        <h2 id="h2_nenhumAchado"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-modal" id="div_backgroundModal">
+        <div class="modal modal-adicionar" id="div_adicionarModal">
+            <!-- <div class="modal-head">
+                <h2>Adicionar novo Músico</h2>
+            </div> -->
+            <div class="modal-body">
+                <div class="modal-logo">
+                    <img src="../img/cashTechSystem/logoFormUSer.svg" alt="">
+                </div>
+                <div class="modal-form">
+                    <div class="modal-box">
+                        <label for="in_adcNome">Nome</label>
+                        <input type="text" maxlength="45" id="in_adcNome">
+                    </div>
+                    <div class="modal-box">
+                        <label for="in_adcTelefone">Email</label>
+                        <input type="text" id="" maxlength="11">
+                    </div>
+                    <div class="modal-box">
+                        <label for="">Telefone</label>
+                        <input type="text" id="in_adcTelefone" maxlength="11">
+                    </div>
+                    <div class="modal-box">
+                        <label for="">Empresa</label>
+                        <input type="text" id="" maxlength="11">
+                    </div>
+                    <div class="modal-box">
+                        <label for="">Função</label>
+                        <input type="text" id="" maxlength="11">
+                    </div>
+                    <div class="modal-box">
+                        <label for="">Senha</label>
+                        <input type="text" id="" maxlength="11">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-buttons">
+                    <button class="btn_cancelar" onclick="fechar_modalAdicionar()">Cancelar</button>
+                    <button class="btn_adicionar" onclick="adicionarMusico()">Adicionar</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal-editar" id="div_editarModal">
+            <div class="modal-head">
+                <h2>Adicionar Usuario</h2>
+            </div>
+            <div class="modal-body">
+                <div class="modal-form">
+                    <div class="modal-box">
+                        <label for="in_edtId">Id</label>
+                        <input id="in_edtId" class="input-disabled" type="text" disabled>
+                    </div>
+                    <div class="modal-box">
+                        <label for="in_edtNome">Nome</label>
+                        <input id="in_edtNome" maxlength="45" type="text">
+                    </div>
+                    <div class="modal-box">
+                        <label for="in_edtTelefone">Telefone</label>
+                        <input id="in_edtTelefone" maxlength="11" type="text">
+                    </div>
+                    <div class="modal-box">
+                        <label for="sel_adcInstrumento">Naipe do Instrumento</label>
+                        <select id="sel_edtNaipe" onchange="qual_edtNaipe()">
+                            <option value="">-- escolha um --</option>
+                            <option value="cordas">Cordas</option>
+                            <option value="madeiras">Madeiras</option>
+                            <option value="metais">Metais</option>
+                        </select>
+                    </div>
+                    <div class="modal-box">
+                        <label for="sel_edtInstrumento">Instrumento</label>
+                        <select id="sel_edtInstrumento" disabled>
+                            <option value="">-- Selecione um naipe --</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-buttons">
+                    <button class="btn_cancelar" onclick="fechar_modalEditar()">Cancelar</button>
+                    <button class="btn_editar" id="btn_editar">Editar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- loading-gif -->
+    <div class="loading-gif" id="loading_gif">
+        <h2 id="h2_loading"></h2>
+    </div>
+    <!-- Fim loading-gif -->
+
+    <!-- card -->
+    <div class="msgCard" id="div_card">
+        <div class="mensagem">
+            <span id="mensagem_erro"></span>
+        </div>
+    </div>
+    <!-- Fim card -->
+
+</body>
+
+</html>
+<script src="../js/users.js"></script>
