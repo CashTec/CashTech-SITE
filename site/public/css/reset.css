@@ -3,7 +3,6 @@
 * {
     margin: 0;
     padding: 0;
-    color: #222;
     box-sizing: border-box;
     font-size: 1em;
     font-family: 'Poppins', sans-serif;
@@ -21,3 +20,21 @@
   html {
     scroll-behavior: smooth;
   }
+
+  ul {
+    list-style: none;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  a {
+    font-size: 1rem;
+  }
+  a{
+    text-decoration: none;
+    color: unset;
+  }
+  /*  */
