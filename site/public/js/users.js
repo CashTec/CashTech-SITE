@@ -6,13 +6,9 @@ function abrir_modalAdicionar() {
     div_adicionarModal.style.display = 'block'
     document.body.style.overflow = 'hidden';
 }
+
 function fechar_modalAdicionar() {
     div_adicionarModal.classList.add('sumirModal');
-
-    in_adcNome.value = "";
-    in_adcTelefone.value = "";
-    sel_adcNaipe.value = "";
-    in_adcNome.focus();
 
     setTimeout(() => {
         div_backgroundModal.style.display = 'none';
@@ -55,8 +51,6 @@ function fechar_modalAdicionar() {
 
     in_adcNome.value = "";
     in_adcTelefone.value = "";
-    sel_adcNaipe.value = "";
-    in_adcNome.focus();
 
     setTimeout(() => {
         div_backgroundModal.style.display = 'none';
@@ -68,117 +62,7 @@ function fechar_modalAdicionar() {
 // ------------------ FIM Funções de modal ------------------------//
 
 
-// ------------------ Funções de bloqueio pelo Naipe ------------------------//
-function qual_adcNaipe() {
-    sel_adcInstrumento.innerHTML = "";
-    var naipe = sel_adcNaipe.value;
-    var option = ``;
-    if (!(naipe == "")) {
-        if (naipe == 'cordas') {
-            option =
-                `
-                                <option value="">-- escolha um --</option>
-                                <option value="1">Violino</option>
-                                <option value="2">Violoncelo</option>
-                                <option value="3">Contrabaixo</option>
-                                <option value="4">Harpa</option>
-                                <option value="5">Violão</option>
-                    `
-        } else if (naipe == 'madeiras') {
-            option =
-                `
-                                <option value="">-- escolha um --</option>
-                                <option value="6">Flauta</option>
-                                <option value="7">Oboé</option>
-                                <option value="8">Fagote</option>
-                                <option value="9">Contrafagote</option>
-                                <option value="10">Clarinete</option>
-                                <option value="11">Clarone</option>
-                                <option value="12">Corne Inglês</option>
-                                <option value="13">Saxofone Soprano</option>
-                                <option value="14">Saxofone Alto</option>
-                                <option value="15">Saxofone Tenor</option>
-                                <option value="16">Saxofone Baritono</option>
-                    `
-        } else {
-            option =
-                `
-                                <option value="">-- escolha um --</option>
-                                <option value="17">Trompete</option>
-                                <option value="18">Trompa</option>
-                                <option value="19">Trombone</option>
-                                <option value="20">Tuba</option>
-                                <option value="21">Eufônio</option>
-                                <option value="22">Flugelhorn</option>
-                `
-        }
-        sel_adcInstrumento.innerHTML = option;
-        sel_adcInstrumento.disabled = false;
-
-    } else {
-        sel_adcInstrumento.disabled = true;
-        option = `<option value="">-- Selecione um naipe --</option>`
-        sel_adcInstrumento.innerHTML = option;
-    }
-}
-
-function qual_edtNaipe() {
-    sel_edtInstrumento.innerHTML = "";
-    var naipe = sel_edtNaipe.value;
-    var option = ``;
-    if (!(naipe == "")) {
-        if (naipe == 'cordas') {
-            option =
-                `
-                    <option value="">-- escolha um --</option>
-                    <option value="1">Violino</option>
-                    <option value="2">Violoncelo</option>
-                    <option value="3">Contrabaixo</option>
-                    <option value="4">Harpa</option>
-                    <option value="5">Violão</option>
-                    `
-        } else if (naipe == 'madeiras') {
-            option =
-                `
-                    <option value="">-- escolha um --</option>
-                    <option value="6">Flauta</option>
-                    <option value="7">Oboé</option>
-                    <option value="8">Fagote</option>
-                    <option value="9">Contrafagote</option>
-                    <option value="10">Clarinete</option>
-                    <option value="11">Clarone</option>
-                    <option value="12">Corne Inglês</option>
-                    <option value="13">Saxofone Soprano</option>
-                    <option value="14">Saxofone Alto</option>
-                    <option value="15">Saxofone Tenor</option>
-                    <option value="16">Saxofone Baritono</option>
-                    `
-        } else {
-            option =
-                `
-                    <option value="">-- escolha um --</option>
-                    <option value="17">Trompete</option>
-                    <option value="18">Trompa</option>
-                    <option value="19">Trombone</option>
-                    <option value="20">Tuba</option>
-                    <option value="21">Eufônio</option>
-                    <option value="22">Flugelhorn</option>
-                 `
-        }
-        sel_edtInstrumento.innerHTML = option;
-        sel_edtInstrumento.disabled = false;
-
-    } else {
-        sel_edtInstrumento.disabled = true;
-        option = `<option value="">-- Selecione um naipe --</option>`
-        sel_edtInstrumento.innerHTML = option;
-    }
-}
-// ------------------ Fim Funções de bloqueio pelo Naipe ------------------------//
-
-
-
-// ------------------ Função de Adicionar Músico ------------------------//
+// ------------------ Função de Adicionar funcionario ------------------------//
 
 function adicionarMusico() {
 
@@ -254,7 +138,7 @@ function adicionarMusico() {
 
     return false;
 }
-// ------------------ Fim Função de Adicionar Músico ------------------------//
+// ------------------ Fim Função de Adicionar funcionario ------------------------//
 
 
 
@@ -266,8 +150,8 @@ function atualizarFeed(filtro) {
     fetch(`/meusMusicos/listar/${idOrquestra}/${filtro}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                h2_nenhumAchado.innerHTML = "Nenhum músico cadastrado."
-                throw "Nenhum músico cadastrado!";
+                h2_nenhumAchado.innerHTML = "Nenhum funcionario cadastrado."
+                throw "Nenhum funcionario cadastrado!";
             }
 
             resposta.json().then(function (resposta) {
@@ -277,7 +161,7 @@ function atualizarFeed(filtro) {
 
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-                div_planilhaMusicos.innerHTML =
+                div_planilhaUsers.innerHTML =
                     `
                 <table class="tabela-musicos">
                     <thead>
@@ -339,7 +223,7 @@ function atualizarFeed(filtro) {
 
 
 
-// ------------------ Função de Deletar Músico ------------------------//
+// ------------------ Função de Deletar funcionario ------------------------//
 function deletar_musico(idOrquestra, idMusico) {
     console.log("Criar função de excluir musico - ID" + idMusico);
 
@@ -352,7 +236,7 @@ function deletar_musico(idOrquestra, idMusico) {
         aguardar();
 
         if (resposta.ok) {
-            var texto = `Músico ${idMusico} deletado com sucesso!`;
+            var texto = `funcionario ${idMusico} deletado com sucesso!`;
             aparecer_card(texto);
             document.body.style.overflow = 'hidden';
 
@@ -369,12 +253,12 @@ function deletar_musico(idOrquestra, idMusico) {
         console.log(`#ERRO: ${resposta}`);
     });
 }
-// ------------------ Fim Função de Deletar Músico ------------------------//
+// ------------------ Fim Função de Deletar funcionario ------------------------//
 
 
 
 
-// ------------------ Função de Editar Músico ------------------------//
+// ------------------ Função de Editar funcionario ------------------------//
 function listarUm(idOrquestra, idMusico) {
 
     fetch(`/meusMusicos/listarUm/${idOrquestra}/${idMusico}`).then(function (resposta) {
@@ -413,7 +297,7 @@ function editar(idOrquestra, idMusico) {
     }).then(function (resposta) {
 
         if (resposta.ok) {
-            var texto = `Músico ${idMusico} atualizado com sucesso!`;
+            var texto = `funcionario ${idMusico} atualizado com sucesso!`;
             aparecer_card(texto);
             document.body.style.overflow = 'hidden';
 
@@ -431,29 +315,12 @@ function editar(idOrquestra, idMusico) {
     });
 }
 
-// ------------------ Fim Função de Editar Músico ------------------------//
+// ------------------ Fim Função de Editar funcionario ------------------------//
 
 
 
 
-// ------------------ Pesquisa de Músico ------------------------//
-function tipoNaipe() {
-    if (sel_tipoPesquisa.value == 'naipe') {
-        input_select.innerHTML =
-            `
-        <select style="margin-left:15px" id="sel_pesquisa">
-            <option value="cordas">cordas</option>
-            <option value="madeiras">madeiras</option>
-            <option value="metais">metais</option>
-        </select>
-        `
-    } else {
-        input_select.innerHTML =
-            `
-        <input type="text" id="in_pesquisa">
-        `
-    }
-}
+// ------------------ Pesquisa de funcionario ------------------------//
 
 function pesquisar() {
     var idOrquestra = sessionStorage.ID_ORQUESTRA;
@@ -481,12 +348,12 @@ function pesquisar() {
                             <h2>Nenhum '${pesquisa}' encontrado</h2>
                         </div>
                         `
-                        console.log("Nenhum músico encontrado!")
+                        console.log("Nenhum funcionario encontrado!")
                     }
 
                     resposta.json().then(function (resposta) {
 
-                        var texto = 'Músicos(s) encontrado(s)';
+                        var texto = 'funcionarios(s) encontrado(s)';
                         aparecer_card(texto);
                         document.body.style.overflow = 'hidden';
 
@@ -740,6 +607,6 @@ function pesquisar() {
         }
     }
 }
-// ------------------ Fim Pesquisa de Músico ------------------------//
+// ------------------ Fim Pesquisa de funcionario ------------------------//
 
 

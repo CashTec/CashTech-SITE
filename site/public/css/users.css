@@ -178,14 +178,15 @@ button:active {
 }
 
 .tabela-users th {
-    background-color: #f27500;
-    color: black;
+    background-color: #00556A;
+    color: #ffffff;
     text-align: left;
     font-weight: 600;
 }
 
 .tabela-users thead button {
-    color: black;
+    color: #ffff;
+    background-color: #00556A;
     text-align: left;
     font-weight: 600;
     font-size: 1rem;
@@ -193,7 +194,7 @@ button:active {
 
 .tabela-users thead button:hover,
 .tabela-users .active-filtro {
-    color: #e2e2e2;
+    color: #00bbff;
 }
 
 
@@ -219,7 +220,7 @@ td {
 }
 
 .tabela-users tr:last-of-type {
-    border-bottom: 2px solid #f27500;
+    border-bottom: 2px solid #00556A;
 }
 
 .tabela-users .active-bg {
@@ -250,7 +251,7 @@ td {
     background-color: #082424;
     animation: surgir-modal 500ms ease;
     width: 818px;
-    height: 546px;
+    min-height: 546px;
     border-radius: 26px;
     overflow: hidden;
 }
@@ -359,14 +360,14 @@ td {
 }
 
 .modal-buttons {
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
 .modal-buttons button {
-    padding: 8px 12px;
+    padding: 8px 50px;
     border-radius: 5px;
 }
 
@@ -376,13 +377,13 @@ td {
 }
 
 .modal-buttons .btn_adicionar {
-    border: 1px solid #00cf00;
-    color: #00cf00;
+    border: 1px solid #00556A;
+    color: #00556A;
 }
 
 .modal-buttons .btn_adicionar:hover,
 .btn_adicionar:focus {
-    background-color: #00cf00;
+    background-color: #00556A;
     color: #ffffff;
 }
 
