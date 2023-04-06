@@ -107,5 +107,21 @@ height: 100%;
 
 .graphic>.square:nth-child(2){
   flex: 1;
-  
+}
+
+.graphic>.square:nth-child(2) h2{
+  margin: auto;
+}
+
+.content-graphic #graphicBola{
+  width: 80% !important;
+  height: 90% !important;
+
+}
+
+.content-graphic{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
