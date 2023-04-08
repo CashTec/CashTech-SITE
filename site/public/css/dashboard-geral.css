@@ -5,7 +5,7 @@ body {
 
 .principal {
   width: 85%;
-  height: 90vh;
+  height: 85vh;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -36,6 +36,7 @@ body {
   height: 220px;
   border-radius: 10px;
   background-color: #FCFCFC;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 
 }
 
@@ -74,6 +75,7 @@ body {
   display: flex;
   column-gap: 40px;
   justify-content: center;
+  
 }
 
 
@@ -91,32 +93,45 @@ height: 100%;
   flex-direction: column;
   padding: 15px;
   align-items: flex-start;
+  background-color: #00556A;
 }
 
 
-
+.graphic>.square h2{
+  padding: 10px;
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 20px;
+}
 .graphic>.square .content-graphic{
   height: 100%;
 }
 
 .graphic>.square .content-graphic canvas{
-  width: 100% !important;
-  height:98% !important;
+  width: 87% !important;
+  height:90% !important;
+  
 }
 
 
 .graphic>.square:nth-child(2){
   flex: 1;
+  background-color: #00556A;
 }
 
 .graphic>.square:nth-child(2) h2{
-  margin: auto;
+  margin: 10px auto 0 auto;
+  font-size: 2em;
+  color: #fff;
 }
+
+
 
 .content-graphic #graphicBola{
   width: 80% !important;
   height: 90% !important;
-
+  
 }
 
 .content-graphic{
@@ -124,4 +139,27 @@ height: 100%;
   width: 100%;
   align-items: center;
   justify-content: center;
+}
+
+.qtdAtm{
+  position: absolute;
+  transform: translate(0px,-30px);
+
+}
+
+.qtdAtm h3{
+  font-size: 4em;
+  text-align: center;
+  font-weight: bold;
+  color: #00556A;
+
+  -webkit-text-stroke:1px #FFFF;
+}
+
+
+
+.qtdAtm p{
+  font-size: 1.9em;
+  font-weight: bold;
+  color: #fff;
 }
