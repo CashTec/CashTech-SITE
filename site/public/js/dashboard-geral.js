@@ -91,24 +91,23 @@ const config = {
     ],
   },
   options: {
-    radius: "80%",
-    cutout: 150,
+    radius: window.innerWidth > 1366 ? "85%" : "95%",
+    cutout: window.innerWidth > 1366 ? 150 : 80,
     elements: {
       arc: {
-        borderRadius: 100,
-        spacing: 20,
+        borderRadius: 90,
+        spacing: 10,
       },
     },
     plugins: {
       legend: {
         position: "bottom",
         labels: {
-          boxWidth: 15,
           usePointStyle: true,
           padding: 30,
           color: "#fff",
           font: {
-            size: 14,
+            size: 12,
             family: "Poppins",
             weight: "700",
           },
