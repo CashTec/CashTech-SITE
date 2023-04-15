@@ -52,9 +52,12 @@ body {
     font-size: 30px;
 }
 
+/* Caixa de pesquisa de processos */
+
 .pesquisa {
     background-color: white;
     border-radius: 5px;
+    margin-top: 30px;
 }
 
 .input-pesquisa {
@@ -75,3 +78,91 @@ body {
 .input-pesquisa input {
   background-color: transparent;
 }
+
+/* Inicio Tabela dos Processo */
+
+.nenhum-cadastrado {
+    animation: aparecer_planilha 500ms ease-out;
+}
+
+.planilha-processos {
+    margin-top: 30px;
+    width: 100%;
+    animation: aparecer_planilha 500ms ease-out;
+}
+
+@keyframes aparecer_planilha {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.tabela-processos {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
+    animation: aparecer_planilha 1000ms ease-out;
+}
+
+.tabela-processos tr td:first-of-type,
+.tabela-processos tr th:first-of-type {
+    padding-left: 2rem;
+}
+
+.tabela-processos th {
+    background-color: #00556A;
+    color: #ffffff;
+    text-align: left;
+    font-weight: 600;
+}
+
+.tabela-processos thead button {
+    color: #ffff;
+    background-color: #00556A;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.tabela-processos thead button:hover,
+.tabela-processos .active-filtro {
+    color: #00bbff;
+}
+
+
+.tabela-processos th img {
+    height: 13px;
+    position: relative;
+    left: 4px;
+    background-color: #c9c9c9;
+}
+
+
+.tabela-processos th,
+td {
+    padding: 12px 15px;
+}
+
+.tabela-processos td img {
+    height: 30px;
+}
+
+.tabela-processos tr {
+    border-bottom: 1px solid #c9c9c9;
+}
+
+.tabela-processos tr:last-of-type {
+    border-bottom: 2px solid #00556A;
+}
+
+.tabela-processos .active-bg {
+    background-color: #d6d6d6;
+}
+
+/* Fim Tabela dos Processo  */
