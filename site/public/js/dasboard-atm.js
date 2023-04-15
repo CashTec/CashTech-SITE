@@ -18,8 +18,8 @@ const font = new FontFace(
       ],
     },
     options: {
-      radius:"60%",
-      cutout:60,
+      radius:"50%",
+      cutout:80,
       elements: {
         arc: {
           borderRadius: 90,
@@ -34,6 +34,9 @@ const font = new FontFace(
     },
   };
 
+  const graphicBola = document.getElementById("graphicBola");
+
+  const graficoBoll = new Chart(graphicBola,config)
 
   
   const graphicLine = document.getElementById("graphicLine");
@@ -127,9 +130,9 @@ const font = new FontFace(
 
 
   let grafico1 = new Chart(graphicLine,grafico);
-  let grafico2 = new Chart(graphicLine4,grafico);
+  let grafico2 = new Chart(graphicLine3,grafico);
   let grafico3 = new Chart(graphicLine2,grafico);
-  let grafico4 = new Chart(graphicLine3,grafico);
+
   // Função que atualiza os dados do gráfico de linha
 function atualizarData() {
   let sortear = Math.floor(1+Math.random() * 10);
@@ -147,11 +150,26 @@ function atualizarData() {
   grafico1.update();
   grafico2.update();
   grafico3.update();
-  grafico4.update();
+
 
   setTimeout(atualizarData, 1000);
 }
 
 // Inicia a atualização dos dados do gráfico de linha
 atualizarData();
+
+
+//FUNÇÃO PARA VER INFORMAÇÕES DO HARDWARE
+
+
+const divCardInfo = document.querySelectorAll(".card-info");
+const btnInfo = document.querySelectorAll(".btn-info");
+btnInfo.forEach((element,i)=>{
+  
+element.addEventListener("click",()=>{
+  divCardInfo[i].classList.toggle("active");
+})
+
+
+})
 

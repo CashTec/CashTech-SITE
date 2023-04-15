@@ -83,6 +83,7 @@ body {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    position: relative;
 }
 
 .column-graphic .legend {
@@ -135,7 +136,7 @@ body {
     flex: 6;
     flex-direction: column;
     justify-content: space-between;
-   
+    position: relative;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -152,7 +153,7 @@ body {
 }
 
 
-.column-graphic .grafico button {
+.column-graphic .grafico .btn-alert {
     padding: 5px;
     width: 120px;
     font-weight: bold;
@@ -160,25 +161,99 @@ body {
     color: #222;
 }
 
+.btn-info{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 0.8em;
+    text-align: center;
+    font-weight: bold;
+    background-color: #222;
+    color: #fff;
+}
+
+.card-info::-webkit-scrollbar{
+    display: none;
+}
+
+
+
+.card-info{
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    position: absolute;
+    bottom: 0;
+    padding: 15px;
+    color: #fff;
+    overflow-y: scroll;
+    height: 0;
+    opacity: 0;
+    transition: 0.7s;
+}
+
+.card-info.active{
+    height: 192px;
+    opacity: 1;
+}
+
+.card-info h2{
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.card-info h3{
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.info-hd{
+    height: 100%;
+    display: flex;
+}
+.column-graphic .grafico .content-HD{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.column-graphic .grafico .content-HD span{
+    font-weight: 400;
+    color: #222;
+}
+
+.column-graphic .grafico .content-HD{
+    color: #01252e;
+}
+
+.graficoHd{
+    width: 220px !important;
+    height: 220px !important;
+ 
+}
+
+.numberHD{
+    position: absolute;
+    transform: translate(90px, 95px);
+    font-size: 1.4em;
+    font-weight: 700;
+}
 .column-kpi {
     grid-area: kpi;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
     align-items: center;
-    
-justify-content: center;
+    justify-content: center;
 }
 
 .card-kpi {
-   
     width: 100%;
     background-color: #00556A;
     border-radius: 10px;
     padding: 15px 20px;
     min-height: 150px;
-
-
 }
 
 .card-kpi * {
