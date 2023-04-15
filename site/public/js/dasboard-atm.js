@@ -34,20 +34,20 @@ const font = new FontFace(
     },
   };
 
-  const graphicBola = document.getElementById("graphicBola");
-  const myChart = new Chart(graphicBola, config);
 
-  const graphicBola2 = document.getElementById("graphicBola2");
-  const myChart1 = new Chart(graphicBola2, config);
-
-  const graphicBola3 = document.getElementById("graphicBola3");
-  const myChart2 = new Chart(graphicBola3, config);
-
-
-  const graphicBola5 = document.getElementById("graphicBola5");
-  const myChart5 = new Chart(graphicBola5, config);
+  
   const graphicLine = document.getElementById("graphicLine");
-  const grafico = new Chart(graphicLine, {
+
+  const graphicLine2 = document.getElementById("graphicLine2");
+
+  const graphicLine3 = document.getElementById("graphicLine3");
+
+  const graphicLine4 = document.getElementById("graphicLine4");
+
+
+
+
+    let grafico={
     type: "line",
     data: {
       labels: [],
@@ -81,28 +81,28 @@ const font = new FontFace(
           
           beginAtZero: true,
           border:{
-            color: " #fff",
+            color: " #222",
           },
           fonts:{
-            color: " #fff",
+            color: " #222",
           },
           
           ticks: {
-            color: " #fff",
-            backgroundColor: "rgba(255,255,255,1)",
+            color: " #222",
+            backgroundColor: "#222",
           },
           
           grid: {
-            color: "rgba(255,255,255,0.4)",
+            color: "#222",
             display: false,
           },
         },
         x: {
           border:{
-            color: " #fff",
+            color: " #222",
           },
           ticks: {
-            color: " #fff",
+            color: " #222",
             weight: "700",
             family: "Poppins",
           },
@@ -114,8 +114,8 @@ const font = new FontFace(
       elements: {
         line: {
           tension: 0.4,
-          backgroundColor: "rgba(255,255,255,1)",
-          borderColor: "rgba(255,255,255,1)",
+          backgroundColor: "#222",
+          borderColor: "#222",
           spanGaps: true,
         },
       },
@@ -123,8 +123,13 @@ const font = new FontFace(
         duration: 800,
       },
     },
-  });
+  }
 
+
+  let grafico1 = new Chart(graphicLine,grafico);
+  let grafico2 = new Chart(graphicLine4,grafico);
+  let grafico3 = new Chart(graphicLine2,grafico);
+  let grafico4 = new Chart(graphicLine3,grafico);
   // Função que atualiza os dados do gráfico de linha
 function atualizarData() {
   let sortear = Math.floor(1+Math.random() * 10);
@@ -139,7 +144,10 @@ function atualizarData() {
   grafico.data.datasets[0].data.push(sortear);
   grafico.data.datasets[1].data.push(sortear2);
   grafico.data.labels.push(criarData.getSeconds());
-  grafico.update();
+  grafico1.update();
+  grafico2.update();
+  grafico3.update();
+  grafico4.update();
 
   setTimeout(atualizarData, 1000);
 }

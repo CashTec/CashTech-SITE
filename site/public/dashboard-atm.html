@@ -54,15 +54,129 @@
         </div>
     </aside>
     <main class="principal">
-       
-           <div class="row">
+
+        <div class="row">
             <div class="square">
-                <h2>ATM 2203</h2> o <span>192.168.18.1</span>
+                <div class="info-atm">
+                    <h2>ATM 2203</h2> o <span>192.168.18.1</span>
+                </div>
+
+                <div class="content-btn">
+                    <button>></button> <span>Ver processos</span>
+                </div>
             </div>
-           </div>
-           <div class="column-kpi"></div>
-           <div class="column-graphic"></div>
-               
+        </div>
+        <div class="column-kpi">
+            <div class="card-kpi">
+                <h2 class="title">Tempo inátivo Hoje</h2>
+                <div class="content-indicator">
+                    <span class="number-indicator">8 Horas</span>
+                    <span class="text-indicator">3 horas a mais que ontem</span>
+                </div>
+            </div>
+
+            <div class="card-kpi">
+                <h2 class="title">Dados gravados (HD) <span>Mês anterior</span></h2>
+                <div class="content-indicator">
+                    <span class="number-indicator">1 GB </span>
+                    <span class="text-indicator">Tempo estimado para atingir seu limite:<br>12 dias</span>
+                </div>
+
+            </div>
+
+            <div class="card-kpi">
+                <h2 class="title">Dados recebidos hoje (Rede)</h2>
+                <div class="content-indicator">
+                    <span class="number-indicator">8 Horas</span>
+                    <span class="text-indicator">3 horas a mais que ontem</span>
+                </div>
+            </div>
+
+            <div class="card-kpi">
+                <h2 class="title">Horario do apice rede</h2>
+                <div class="content-indicator">
+                    <span class="number-indicator">12:00</span>
+                    <span class="text-indicator">Comum nesse horário</span>
+                </div>
+            </div>
+        </div>
+        <div class="column-graphic">
+
+            <div class="content-graphic">
+
+                <div class="legend">
+                    <div class="label">
+                        <span></span>
+                       Normal < 28 </div> <div class="label">
+                            <span></span>
+                            Normal < 28 </div> <div class="label">
+                                <span></span>
+                                Normal < 28 </div> </div> <div class="grafico">
+                                    <div class="content-title">
+                                        <h2>Uso CPU (%)</h2> <button>Alerta</button>
+                                    </div>
+                                    <canvas id="graphicLine">
+
+                                    </canvas>
+                    </div>
+                </div>
+
+                <div class="content-graphic">
+                    <div class="legend">
+                        <div class="label">
+                            <span></span>
+                            Normal < 28 </div> <div class="label">
+                                <span></span>
+                               Normal < 28 </div> <div class="label">
+                                    <span></span>
+                                    Normal < 28 </div> </div> <div class="grafico">
+                                        <div class="content-title">
+                                            <h2>Uso CPU (%)</h2> <button>Alerta</button>
+                                        </div>
+                                        <canvas id="graphicLine2">
+
+                                        </canvas>
+                        </div>
+                    </div>
+
+                    <div class="content-graphic">
+                        <div class="legend">
+                            <div class="label">
+                                <span></span>
+                              Normal < 28 </div> <div class="label">
+                                    <span></span>
+                                    Normal < 28 </div> <div class="label">
+                                        <span></span>
+                                       Normal < 28 </div> </div> <div class="grafico">
+                                            <div class="content-title">
+                                                <h2>Uso CPU (%)</h2> <button>Alerta</button>
+                                            </div>
+                                            <canvas id="graphicLine3">
+
+                                            </canvas>
+                            </div>
+                        </div>
+
+                        <div class="content-graphic">
+                            <div class="legend">
+                                <div class="label">
+                                    <span></span>
+                                 Normal < 28 </div> <div class="label">
+                                        <span></span>
+                                        Normal < 28 </div> <div class="label">
+                                            <span></span>
+                                            Normal < 28 </div> </div> <div class="grafico">
+                                                <div class="content-title">
+                                                    <h2>Uso CPU (%)</h2>
+                                                    <button>Alerta</button>
+                                                </div>
+                                                <canvas id="graphicLine4">
+
+                                                </canvas>
+                                </div>
+                            </div>
+                        </div>
+
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/dasboard-atm.js"></script>
