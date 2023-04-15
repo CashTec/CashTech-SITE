@@ -9,156 +9,32 @@ body {
 }
 
 .principal {
-    width: 82%;
-
+    width: 80%;
     height: 90vh;
     margin: auto;
-    display: flex;
-    column-gap: 20px;
-}
-
-.column {
-    flex: 2;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-}
-
-.column:nth-child(2) {
-    flex: 1;
-}
-
-.row {
-    flex: 1;
-}
-
-
-
-.collumn1 .row {
-    flex: 0.7;
-}
-
-.collumn1 .row:nth-child(2) {
-    flex: 1;
-}
-
-.collumn1 .row:nth-child(3) {
-    flex: 3;
-}
-
-
-.collumn1 .rw-1 {
-    display: flex;
-}
-
-.collumn1 .rw-2 {
-    display: flex;
-    column-gap: 10px;
-    margin-bottom: 30px;
-
-}
-
-.collumn1 .rw-2 .square {
-    background-color: #00556A;
-    flex: 1;
-    height: 159px;
-    border-radius: 12px;
-}
-
-.description {
-    display: flex;
-    background-color: #00556A;
-    width: max-content;
-    padding: 10px 15px;
-    align-items: center;
-    column-gap: 20px;
-    border-radius: 10px;
-    color: #fff;
-    height: max-content;
-}
-
-.description h2 {
-    font-size: 1.4em;
-
-}
-
-.description span {
-    font-size: 1.4em;
-    font-weight: bold;
-}
-
-.rw-3 {
-    background-color: #fcfcfc;
-}
-
-.rw-3 .square {
     display: grid;
-    width: 100%;
-    grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr;
+    column-gap: 20px;
+    grid-template-areas: 
+    'header header header'
+    'kpi grafico grafico'
+    'kpi grafico grafico'
+    'kpi grafico grafico'
+    'kpi grafico grafico'
+    ;
 }
 
-.rw-3 .square .column-label h2 {
-    font-size: 1.2em;
-    text-align: center;
-    background-color: #00556A;
-    padding: 15px 0;
-    color: #fff;
+.row{
+    grid-area: header;
+    background-color: aqua;
 }
 
-
-
-.row-process {
-    text-align: center;
-    padding: 20px 10px;
-    width: 100%;
-    border-bottom: 1px solid #ccc;
+.column-graphic{
+    grid-area: grafico;
+    background-color: blue;
 }
 
-/* Lateral */
-
-.collumn-2 .row {
-    background-color: #00556A;
-    
-}
-
-.collumn-2 {
-    row-gap: 10px;
-}
-
-.collumn-2 .row:nth-child(4) {
-    flex: 2;
-}
-
-.collumn-2 .row {
-    display: flex;
-}
-
-.collumn-2 .row .graphic {
-    flex: 1;
-}
-.collumn-2 .row .graphic canvas {
-    width: 100% !important;
-}
-
-
-
-.graphic .percentage{
-    font-size: 1.3em;
-    position: absolute;
-   transform: translate(53px, 58px);
-   font-weight: bold;
-   color: #fff;
-}
-
-
-.collumn-2 .row .hardware-info{
-    display: flex;
-    flex-direction: column;
-    flex: 1.5;
-    justify-content: center;
-    color: #fff;
-    row-gap: 5px;
+.column-kpi{
+    grid-area: kpi;
+    background-color: blue;
 }
 
