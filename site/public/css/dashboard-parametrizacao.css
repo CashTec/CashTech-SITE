@@ -239,12 +239,16 @@ td {
     font-weight: 600;
 }
 
+.table-info thead {
+    font-size: 1.5rem;
+}
+
 .table-info thead button {
     color: #ffff;
     background-color: #00556A;
     text-align: left;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .table-info thead button:hover,
@@ -252,23 +256,11 @@ td {
     color: #00bbff;
 }
 
-
-.table-info th img {
-    height: 13px;
-    position: relative;
-    left: 4px;
-    background-color: #c9c9c9;
-}
-
-
 .table-info th,
 td {
     padding: 12px 15px;
+    font-size: 20px;
 }   
-
-.table-info td img {
-    height: 30px;
-}
 
 .table-info tr {
     border-bottom: 1px solid #c9c9c9;
