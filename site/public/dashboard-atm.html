@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard ATM</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/dashboard-atm.css">
+</head>
+
+<body id="tela">
+    <div class="backEcplipse">
+        <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+        <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+    </div>
+    <aside>
+        <div class="backEcplipse">
+            <img src="../img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+            <img src="../img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="logo-menu">
+                    <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+                </div>
+                <div class="bem-vindo">
+                    <h2>Bem Vindo,</h2>
+                    <span id="spn_orquestraNome">Nome Empresa</span>
+                </div>
+                <div class="indices">
+                    <ul class="lista">
+                        <a href="#">
+                            <li><img src="./img/cashTechSystem/atms.png" alt=""> ATM's</li>
+                        </a>
+                        <a href="#">
+                            <li class="active-menu"> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                        </a>
+                        <a href="#">
+                            <li><img src="./img/cashTechSystem/process.png" alt=""> Processos</li>
+                        </a>
+                        <a href="#">
+                            <li><img src="./img/cashTechSystem/rede.png" alt=""> Rede</li>
+                        </a>
+                    </ul>
+                </div>
+                <div>
+                    <button class="sair" onclick="limparSessao()">Sair</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+
+    <main class="principal">
+        <div class="row">
+            <div class="square">
+                <div class="info-atm">
+                    <h2>ATM 2203</h2> <span class="bolinha"></span> <span>192.168.18.1</span>
+                </div>
+
+                <div class="content-btn">
+                    <button>></button> <span>Ver processos</span>
+                </div>
+            </div>
+        </div>
+        <div class="column-kpi">
+            <div class="card-kpi">
+                <h2 class="title">Tempo inátivo Hoje</h2>
+                <div class="content-indicator">
+                    <span class="number-indicator">8 Horas</span>
+                    <span class="text-indicator">3 horas a mais que ontem</span>
+                </div>
+            </div>
+
+            <div class="card-kpi">
+                <h2 class="title">Dados gravados (HD) <span>Mês anterior</span></h2>
+                <div class="content-indicator">
+                    <span class="number-indicator">1 GB </span>
+                    <span class="text-indicator">Tempo estimado para atingir seu limite:<br>12 dias</span>
+                </div>
+
+            </div>
+
+            <div class="card-kpi">
+                <h2 class="title">Dados recebidos hoje (Rede)</h2>
+                <div class="content-indicator">
+                    <span class="number-indicator">8 Horas</span>
+                    <span class="text-indicator">3 horas a mais que ontem</span>
+                </div>
+            </div>
+
+            <div class="card-kpi">
+                <h2 class="title">Horario do apice rede</h2>
+                <div class="content-indicator">
+                    <span class="number-indicator">12:00</span>
+                    <span class="text-indicator">Comum nesse horário</span>
+                </div>
+            </div>
+        </div>
+        <div class="column-graphic">
+
+            <div class="content-graphic">
+
+                <div class="legend">
+                    <div class="label">
+                        <span></span>
+                        Normal < 28 </div> <div class="label">
+                            <span></span>
+                            Normal < 28 </div> <div class="label">
+                                <span></span>
+                                Normal < 28 </div> </div> <div class="grafico">
+                                    <div class="content-title">
+
+                                        <h2>Uso CPU (%) <button class="btn-info">i</button></h2>
+                                        <button class="btn-alert">Alerta</button>
+                                    </div>
+                                    <div class="card-info">
+                                        <h2>Informações da CPU</h2>
+                                        <h3>Modelo: Intel Core i5 10Th Generation</h3>
+                                        <h3>Nucleos:8 </h3>
+                                        <h3>Threads: 16</h3>
+                                        <h3>Frequencia Máxima:2.5Ghz </h3>
+                                    </div>
+                                    <canvas id="graphicLine">
+
+                                    </canvas>
+                    </div>
+                </div>
+
+                <div class="content-graphic">
+                    <div class="legend">
+                        <div class="label">
+                            <span></span>
+                            Normal < 28 </div> <div class="label">
+                                <span></span>
+                                Normal < 28 </div> <div class="label">
+                                    <span></span>
+                                    Normal < 28 </div> </div> <div class="grafico">
+                                        <div class="content-title">
+
+                                            <h2>Uso RAM (%) <button class="btn-info">i</button></h2>
+                                            <button class="btn-alert">Alerta</button>
+                                        </div>
+                                        <div class="card-info">
+                                            <h2>Informações da RAM</h2>
+                                            <h3>Modelo: Intel Core i5 10Th Generation</h3>
+                                            <h3>Tamanho:8 </h3>
+                                            <h3>SWAP: 16</h3>
+                                            <h3>Frequencia Máxima:2.5Ghz </h3>
+                                        </div>
+                                        <canvas id="graphicLine2">
+
+                                        </canvas>
+                        </div>
+                    </div>
+
+                    <div class="content-graphic">
+                        <div class="legend">
+                            <div class="label">
+                                <span></span>
+                                Normal < 28 </div> <div class="label">
+                                    <span></span>
+                                    Normal < 28 </div> <div class="label">
+                                        <span></span>
+                                        Normal < 28 </div> </div> <div class="grafico">
+                                            <div class="card-info">
+                                                <h2>Informações da Rede</h2>
+                                                <h3>Nome da Interface: Intel Core i5 10Th
+                                                    Generation
+                                                </h3>
+                                                <h3>Host:192.168.18.1 </h3>
+                                                <h3>Velocidade:2.5Ghz </h3>
+                                            </div>
+                                            <div class="content-title">
+
+                                                <h2>Uso Rede (MB) <button class="btn-info">i</button></h2>
+                                                <button class="btn-alert">Alerta</button>
+                                            </div>
+
+                                            <canvas id="graphicLine3">
+
+                                            </canvas>
+
+                            </div>
+                        </div>
+
+                        <div class="content-graphic">
+                            <div class="legend">
+                                <div class="label">
+                                    <span></span>
+                                    Normal < 28 </div> <div class="label">
+                                        <span></span>
+                                        Normal < 28 </div> <div class="label">
+                                            <span></span>
+                                            Normal < 28 </div> </div> <div class="grafico">
+                                                <div class="content-title">
+                                                    <div class="title">
+                                                        <h2>Uso HD (%)</h2>
+                                                        <select name="" id="">
+                                                            <option value="">HD1
+                                                            </option>
+                                                            <option value="">HD2
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <button class="btn-alert">Alerta</button>
+                                                </div>
+
+                                                <div class="info-hd">
+                                                    <canvas id="graphicBola" class="graficoHd"></canvas>
+                                                    <div class="numberHD">32%
+                                                    </div>
+                                                    <div class="content-HD">
+                                                        <h3>Modelo:
+                                                            <span>HD23234</span>
+                                                        </h3>
+                                                        <h3>Tamanho:
+                                                            <span>128GB</span>
+                                                        </h3>
+                                                        <h3>Velocidade:
+                                                            <span>7200
+                                                                rpm</span>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+    </main>
+
+    <main class="processo-main">
+
+
+        <div class="content-processo">
+            <div class="row">
+                <div class="square">
+                    <div class="info-atm">
+                        <h2>ATM 2203</h2> <span class="bolinha"></span> <span>192.168.18.1</span>
+                    </div>
+
+                    <div class="content-btn">
+                        <button>></button> <span>Ver processos</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card-kpi">
+                    <h2 class="title">Processos encerrados hoje</h2>
+                    <div class="content-indicator">
+                        <span class="number-indicator">12:00</span>
+                        <span class="text-indicator">Comum nesse horário</span>
+                    </div>
+                </div>
+
+                <div class="card-kpi">
+                    <h2 class="title">Pr</h2>
+                    <div class="content-indicator">
+                        <span class="number-indicator">12:00</span>
+                        <span class="text-indicator">Comum nesse horário</span>
+                    </div>
+                </div>
+
+                <div class="card-kpi">
+                    <h2 class="title">Horario do apice rede</h2>
+                    <div class="content-indicator">
+                        <span class="number-indicator">12:00</span>
+                        <span class="text-indicator">Comum nesse horário</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="table">
+                    <h2 class="title-table">Processos em execução</h2>
+                    <div class="content-info">
+
+                        <div class="column">
+                            <h2>Nome</h2>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <h2>Horário</h2>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <h2>Quantidade</h2>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="table">
+
+                    <h2 class="title-table">Processos em execução</h2>
+                    <div class="content-info">
+                        <div class="column">
+                            <h2>PID</h2>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                        </div>
+                        <div class="column">
+                            <h2>Nome</h2>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <h2>Uso CPU</h2>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <h2>Uso RAM</h2>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                        </div>
+
+
+                        <div class="column">
+                            <h2>Bytes Utilizados</h2>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                            <div class="row">
+                                1
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dasboard-atm.js"></script>
+</body>
+
+</html>
