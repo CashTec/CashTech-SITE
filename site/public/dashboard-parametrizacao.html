@@ -16,9 +16,9 @@
 </head>
 
 <body>
-     <div class="backElipse">
+    <div class="backElipse">
         <img src="img/cashTechSystem/ElipseUpInverso.png" class="elipseUp">
-    </div> 
+    </div>
     <aside>
         <div class="menu">
             <div class="container">
@@ -39,7 +39,8 @@
                         </a>
                         <a href="#">
                             <li>
-                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros</li>
+                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                            </li>
                         </a>
                         <a href="#">
                             <li><img src="./img/cashTechSystem/process.png" alt=""> Processos</li>
@@ -76,16 +77,14 @@
                             <img src="img/cashTechSystem/search-parametro.png" alt="" onclick="pesquisar()">
                         </div>
                     </div>
+                    <div class="nome-processo">
+                        <button name="btn-filtro" onclick="atualizarFeed('nome')">Nome</button>
+                    </div>
                     <div class="planilha-processos" id="div_planilhaProcessos">
                         <div class="nenhum-cadastrado">
                             <h2 id="h2_nenhumAchado"></h2>
                         </div>
                         <table class="tabela-processos">
-                            <thead>
-                                <th>
-                                    <button name="btn-filtro" onclick="atualizarFeed('nome')">Nome</button>
-                                </th>
-                            </thead>
                             <tbody id="lista-processos">
                                 <tr>
                                     <td>explorer.exe</td>
@@ -101,6 +100,12 @@
                                 </tr>
                                 <tr>
                                     <td>explorer.exe</td>
+                                </tr>
+                                <tr>
+                                    <td>edge.exe</td>
+                                </tr>
+                                <tr>
+                                    <td>edge.exe</td>
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
@@ -130,37 +135,42 @@
                         <table class="table-info">
                             <thead>
                                 <tr>
-                                    <th><button name="btn-filtro" onclick="atualizarFeed('tipo')">Tipo</button></th> 
+                                    <th><button name="btn-filtro" onclick="atualizarFeed('tipo')">Tipo</button></th>
                                     <th><button name="btn-filtro" onclick="atualizarFeed('maximo')">Máximo</button></th>
                                     <th>Alterar</button></th>
                                 </tr>
                             </thead>
                             <tbody id="table-parametro">
-            
+
                                 <tr>
                                     <td>Processador</td>
                                     <td>10%</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Memória</td>
                                     <td>70%</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Disco</td>
                                     <td>50%</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>KBytes recebidos/s</td>
                                     <td>12397123</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>KBytes enviados/s</td>
                                     <td>19182319</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

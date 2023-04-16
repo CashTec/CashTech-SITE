@@ -112,6 +112,34 @@ body {
     font-size: 30px;
 }
 
+.nome-processo {
+    display: flex;
+    justify-content: flex-start;
+    height: 10vh;
+    color: #ffff;
+    background-color: #00556A;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: -30px;
+    border-radius: 8px 8px 0 0;
+}
+
+.nome-processo button{
+    color: #ffff;
+    background-color: #00556A;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-left: 30px;
+}
+
+.nome-processo button:hover,
+button {
+    color: #00bbff;
+}
+
 .nenhum-cadastrado {
     animation: aparecer_planilha 500ms ease-out;
 }
@@ -119,7 +147,9 @@ body {
 .planilha-processos {
     margin-top: 30px;
     width: 100%;
-    animation: aparecer_planilha 500ms ease-out;
+    animation: aparecer_planilha 500ms ease-out;    
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 @keyframes aparecer_planilha {
@@ -135,11 +165,13 @@ body {
 .tabela-processos {
     border-collapse: collapse;
     width: 100%;
-    border-radius: 5px 5px 0 0;
     overflow: hidden;
+    border-radius: 5px 5px 0 0;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
     animation: aparecer_planilha 1000ms ease-out;
 }
+
+
 
 .tabela-processos tr td:first-of-type,
 .tabela-processos tr th:first-of-type {
@@ -151,33 +183,16 @@ body {
     color: #ffffff;
     text-align: left;
     font-weight: 600;
-}
-
-.tabela-processos thead button {
-    color: #ffff;
-    background-color: #00556A;
-    text-align: left;
-    font-weight: 600;
-    font-size: 1.5rem;
-}
-
-.tabela-processos thead button:hover,
-.tabela-processos .active-filtro {
-    color: #00bbff;
-}
-
-
-.tabela-processos th img {
-    height: 13px;
-    position: relative;
-    left: 4px;
-    background-color: #c9c9c9;
+    
+    
 }
 
 
 .tabela-processos th,
+
 td {
     padding: 12px 15px;
+    
 }
 
 .tabela-processos td img {
@@ -195,6 +210,7 @@ td {
 .tabela-processos .active-bg {
     background-color: #d6d6d6;
 }
+
 
 /* Fim Tabela dos Processo  */
 
