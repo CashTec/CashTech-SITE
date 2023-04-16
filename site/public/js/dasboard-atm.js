@@ -1,3 +1,4 @@
+
 const font = new FontFace(
     "Poppins",
     "url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap)"
@@ -161,7 +162,10 @@ atualizarData();
 
 //FUNÇÃO PARA VER INFORMAÇÕES DO HARDWARE
 
-
+function passarTela(){
+  window.scroll((window.innerWidth),0);
+  }
+  
 const divCardInfo = document.querySelectorAll(".card-info");
 const btnInfo = document.querySelectorAll(".btn-info");
 btnInfo.forEach((element,i)=>{
@@ -171,5 +175,13 @@ element.addEventListener("click",()=>{
 })
 
 
+
 })
 
+
+// Função para passar para outra tela 
+
+const btnBolinha = document.querySelector(".content-btn button");
+btnBolinha.addEventListener("click",passarTela);
+
+window.scroll(0,0);
