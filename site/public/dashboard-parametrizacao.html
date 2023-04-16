@@ -16,10 +16,9 @@
 </head>
 
 <body>
-    <!-- <div class="backElipse">
-        <img src="img/cashTechSystem/EllipseUp.png" class="elipseUp">
-        <img src="img/cashTechSystem/EllipseDown.png" class="elipseDown">
-    </div> -->
+     <div class="backElipse">
+        <img src="img/cashTechSystem/ElipseUpInverso.png" class="elipseUp">
+    </div> 
     <aside>
         <div class="menu">
             <div class="container">
@@ -40,9 +39,7 @@
                         </a>
                         <a href="#">
                             <li>
-                                <img src="img/cashTechSystem/editAtm.png" alt="">
-                                Editar ATM's
-                            </li>
+                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros</li>
                         </a>
                         <a href="#">
                             <li><img src="./img/cashTechSystem/process.png" alt=""> Processos</li>
@@ -126,15 +123,47 @@
                     <div class="titulo-uso-maximo">
                         <h2>Uso máximo permitido</h2>
                     </div>
-                    <div class="caixa-hardware">
-                        <div class="titulo-info-hardware">
-                            <li>Tipo</li>
-                            <li>Alterar</li>
-                            <li>Máximo</li>
+                    <div class="planilha-users" id="div_planilhaUsers">
+                        <div class="nenhum-cadastrado">
+                            <h2 id="h2_nenhumAchado"></h2>
                         </div>
-                        <div class="caixa-info-hardware">
-
-                        </div>
+                        <table class="table-info">
+                            <thead>
+                                <tr>
+                                    <th><button name="btn-filtro" onclick="atualizarFeed('tipo')">Tipo</button></th> 
+                                    <th><button name="btn-filtro" onclick="atualizarFeed('maximo')">Máximo</button></th>
+                                    <th>Alterar</button></th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-parametro">
+            
+                                <tr>
+                                    <td>Processador</td>
+                                    <td>10%</td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                </tr>
+                                <tr>
+                                    <td>Memória</td>
+                                    <td>70%</td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                </tr>
+                                <tr>
+                                    <td>Disco</td>
+                                    <td>50%</td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                </tr>
+                                <tr>
+                                    <td>KBytes recebidos/s</td>
+                                    <td>12397123</td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                </tr>
+                                <tr>
+                                    <td>KBytes enviados/s</td>
+                                    <td>19182319</td>
+                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

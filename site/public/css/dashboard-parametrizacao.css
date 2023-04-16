@@ -4,7 +4,7 @@ body {
   }
 
 .principal {
-    width: 80%;
+    width: 100%;
     height: 95vh;
     margin: auto;
     display: flex;
@@ -14,7 +14,7 @@ body {
 
 .conteudo {
     height: 88vh;
-    width: 120%;
+    width: 100%;
 }
 
 .principal .titulo {
@@ -32,6 +32,18 @@ body {
     font-size: 35px;
 }
 
+.backElipse {
+    margin-left: 170px;
+    margin-right: -100px;
+
+}
+
+.elipseUp,
+.elipseUp {
+  width: 15vw;
+  height: 35vh;
+}
+
 /* corpo */
 
 .container-all {
@@ -41,12 +53,18 @@ body {
     height: 80vh;
 }
 
+/* Processos */
 .container-process {
     display: flex;
     flex-direction: column;
     height: 60vh;
 }
 
+.titulo-processo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .titulo-processo h2{
     font-size: 30px;
@@ -80,6 +98,19 @@ body {
 }
 
 /* Inicio Tabela dos Processo */
+
+.titulo-uso-maximo {
+    display: flex;
+    justify-content: center;
+    margin-top: -115px;
+    margin-bottom: 50px;
+    width: 100%;
+    
+}
+
+.titulo-uso-maximo h2{
+    font-size: 30px;
+}
 
 .nenhum-cadastrado {
     animation: aparecer_planilha 500ms ease-out;
@@ -127,7 +158,7 @@ body {
     background-color: #00556A;
     text-align: left;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .tabela-processos thead button:hover,
@@ -166,3 +197,87 @@ td {
 }
 
 /* Fim Tabela dos Processo  */
+
+
+/* Input adicionar processos */
+.add-processo h2{
+    margin-top: 24px;
+    font-size: 20px;
+}
+
+
+/* Inicio CSS parametrização hardwares */
+
+@keyframes aparecer_planilha {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.table-info {
+    border-collapse: collapse;
+    width: 40vw;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
+    animation: aparecer_planilha 1000ms ease-out;
+}
+
+.table-info tr td:first-of-type,
+.table-info tr th:first-of-type {
+    padding-left: 2rem;
+}
+
+.table-info th {
+    background-color: #00556A;
+    color: #ffffff;
+    text-align: left;
+    font-weight: 600;
+}
+
+.table-info thead button {
+    color: #ffff;
+    background-color: #00556A;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.table-info thead button:hover,
+.table-info .active-filtro {
+    color: #00bbff;
+}
+
+
+.table-info th img {
+    height: 13px;
+    position: relative;
+    left: 4px;
+    background-color: #c9c9c9;
+}
+
+
+.table-info th,
+td {
+    padding: 12px 15px;
+}   
+
+.table-info td img {
+    height: 30px;
+}
+
+.table-info tr {
+    border-bottom: 1px solid #c9c9c9;
+}
+
+.table-info tr:last-of-type {
+    border-bottom: 2px solid #00556A;
+}
+
+.table-info .active-bg {
+    background-color: #d6d6d6;
+}
