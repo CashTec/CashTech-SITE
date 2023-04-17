@@ -3,7 +3,12 @@ body {
     background-color: #F8F1F1;
 }
 
+html {
+    overflow: hidden;
+}
+
 button {
+    background-color: transparent;
     cursor: pointer;
 }
 
@@ -148,7 +153,6 @@ button:active {
     background-color: #00556A;
     text-align: left;
     font-weight: 600;
-    font-size: 1.5rem;
     margin-top: 30px;
     margin-bottom: -30px;
     border-radius: 8px 8px 0 0;
@@ -160,7 +164,8 @@ button:active {
     background-color: #00556A;
     text-align: left;
     font-weight: 600;
-    font-size: 1.5rem;
+    padding: 8px 0;
+    font-size: 1.3rem;
     margin-left: 30px;
 }
 
@@ -323,6 +328,9 @@ td {
     font-size: 20px;
 }
 
+.table-info img{
+    height: 30px;
+}
 .table-info tr {
     border-bottom: 1px solid #c9c9c9;
 }
@@ -333,4 +341,27 @@ td {
 
 .table-info .active-bg {
     background-color: #d6d6d6;
+}
+
+.table-parametro input {
+    background-color: #F8F1F1;
+    transition: 200ms;
+}
+
+.table-parametro .input-porcentagem {
+    width: 24px;
+}
+
+.table-parametro .input-bytes {
+    width: 220px;
+}
+
+.table-parametro input:disabled,
+.table-parametro span {
+    color: #848484;
+    transition: 200ms;
+}
+
+.table-parametro span {
+    margin: -4px;
 }

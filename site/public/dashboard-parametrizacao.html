@@ -99,32 +99,26 @@
                                 <tr>
                                     <td>explorer.exe</td>
                                     <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
                                     <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-
                                 </tr>
                                 <tr>
                                     <td>explorer.exe</td>
                                     <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
                                     <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
                                     <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
                                     <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-
                                 </tr>
                             </tbody>
                         </table>
@@ -158,36 +152,39 @@
                                     <th>Alterar</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-parametro">
-
+                            <tbody class="table-parametro">
                                 <tr>
                                     <td>Processador</td>
-                                    <td>10%</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    <td><input id="edtProcessador" type="text" value="22" maxlength="2" class="input-porcentagem" disabled>
+                                        <span>%</span>
+                                    </td>
+                                    <td><button onclick="editarUsoMax('Processador')"><img id="imgProcessador" src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Memória</td>
-                                    <td>70%</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    <td> <input id="edtMemoria" type="text" value="22" maxlength="2" class="input-porcentagem" disabled>
+                                        <span>%</span></td>
+                                    <td><button onclick="editarUsoMax('Memoria')"><img id="imgMemoria" src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Disco</td>
-                                    <td>50%</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    <td> <input id="edtDisco" type="text" value="99" maxlength="2" class="input-porcentagem" disabled>
+                                        <span>%</span></td>
+                                    <td><button onclick="editarUsoMax('Disco')"><img id="imgDisco" src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>KBytes recebidos/s</td>
-                                    <td>12397123</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    <td> <input id="edtBytesRecebidos" type="text" class="input-bytes" value="10123123123" disabled></td>
+                                    <td><button onclick="editarUsoMax('BytesRecebidos')"><img id="imgBytesRecebidos" src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>KBytes enviados/s</td>
-                                    <td>19182319</td>
-                                    <td><button onclick=""><img src="img/cashTechSystem/lapis-parametro.png"></button>
+                                    <td> <input id="edtBytesEnviados" type="text" class="input-bytes" value="10123123123" disabled></td>
+                                    <td><button onclick="editarUsoMax('BytesEnviados')"><img id="imgBytesEnviados" src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                             </tbody>
