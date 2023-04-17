@@ -14,34 +14,45 @@
 </head>
 
 <body onload="atualizarFeed()">
-    <div class="backEcplipse">
-        <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
-        <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
-    </div>
-    <div class="menu">
-        <div class="container">
+    <aside>
+        <div class="backEcplipse">
+          <img src="../img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+          <img src="../img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+        </div>
+        <div class="menu">
+          <div class="container">
             <div class="logo-menu">
-                <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+              <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
             </div>
             <div class="bem-vindo">
-                <h2>Bem Vindo,</h2>
-                <span id="spn_orquestraNome">Nome Empresa</span>
+              <h2>Bem Vindo,</h2>
+              <span id="spn_orquestraNome">Nome Empresa</span>
             </div>
             <div class="indices">
-                <ul class="lista">
-                    <a href="listaATM.html">
-                        <li class="active-menu"><img src="./img/cashTechSystem/atms.png" alt=""> ATMs</li>
-                    </a>
-                    <a href="users.html">
-                        <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
-                    </a>
-                </ul>
+              <ul class="lista">
+                <a href="dashboard-geral.html">
+                  <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
+                </a>
+                <a href="users.html">
+                  <li class="active-menu"> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                </a>
+                <a href="dashboard-parametrizacao.html">
+                  <li>
+                      <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                  </li>
+              </a>
+                <a href="listaATM.html">
+                  <li><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
+                </a>
+                
+              </ul>
             </div>
             <div>
-                <button class="sair" onclick="limparSessao()">sair</button>
+              <button class="sair" onclick="limparSessao()">Sair</button>
             </div>
+          </div>
         </div>
-    </div>
+      </aside>
     <div class="dashboard">
         <div class="content-users">
             <div class="container">
