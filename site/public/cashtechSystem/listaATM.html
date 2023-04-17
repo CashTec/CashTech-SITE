@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashTech: Lista de ATMs</title>
+    <link rel="icon" type="imagem/png" href="../assets/imgs/logo.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/users.css">
+
+</head>
+
+<body onload="atualizarFeed()">
+    <div class="backEcplipse">
+        <img src="../img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+        <img src="../img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+    </div>
+    <div class="menu">
+        <div class="container">
+            <div class="logo-menu">
+                <img src="../img/cashTechSystem/logo.svg" height="50px" alt="">
+            </div>
+            <div class="bem-vindo">
+                <h2>Bem Vindo,</h2>
+                <span id="spn_orquestraNome">Nome Empresa</span>
+            </div>
+            <div class="indices">
+                <ul class="lista">
+                    <a href="listaATM.html">
+                        <li class="active-menu"><img src="../img/cashTechSystem/atms.png" alt=""> ATMs</li>
+                    </a>
+                    <a href="users.html">
+                        <li> <img src="../img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                    </a>
+                </ul>
+            </div>
+            <div>
+                <button class="sair" onclick="limparSessao()">sair</button>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="content-users">
+            <div class="container">
+                <div class="titulo">
+                    <h2>Lista de ATMs</h2>
+                </div>
+                <div class="tipo-pesquisa">
+                    <span>Pesquisar por:</span>
+                    <select id="sel_tipoPesquisa" onchange="tipoNaipe()">
+                        <option value="nome">----- Identificador -----</option>
+                        <option value="instrumento">-- Situação --</option>
+                        <option value="telefone">---- Endereço ----</option>
+                    </select>
+                </div>
+                <div class="users-inputs">
+                    <div class="pesquisar">
+                        <span>
+                            Pesquisa:
+                        </span>
+                        <div class="input-select" id="input_select">
+                            <input type="text" id="in_pesquisa">
+                        </div>
+                        <button onclick="pesquisar()"><img src="../img/cashTechSystem/search.svg" alt=""></button>
+                    </div>
+                    <div class="todosusers">
+                        <button onclick="atualizarFeed()">Ver todos</button>
+                    </div>
+                </div>
+                <div class="planilha-users" id="div_planilhaUsers">
+                    <div class="nenhum-cadastrado">
+                        <h2 id="h2_nenhumAchado"></h2>
+                    </div>
+                    <table class="tabela-users tabelalistaAtm">
+                        <thead>
+                            <tr>
+                                <th><button name="btn-filtro" onclick="atualizarFeed('nome')">Identificador</button>
+                                </th>
+                                <th><button name="btn-filtro" onclick="atualizarFeed('situacao')">Situação</button></th>
+                                <th class="tdInicio"><button name="btn-filtro"
+                                        onclick="atualizarFeed('inicio')">Início</button></th>
+                                <th><button name="btn-filtro" onclick="atualizarFeed('Atividade')">Atividade</button>
+                                </th>
+                                <th><button name="btn-filtro" onclick="atualizarFeed('endereco')">Endereço</button></th>
+                                <th><button name="btn-filtro" onclick="atualizarFeed('graficos')">Gráficos</button></th>
+                                <th><button>Editar</button></th>
+                                <th><button>Excluir</button></th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_musicos">
+                            <tr>
+                                <td>ATM001</td>
+                                <td>ATIVO</td>
+                                <td>2022-02-02 02:21</td>
+                                <td>20:12:56:21</td>
+                                <td>Rua Marcos Oliveira, 298</td>
+                                <td class="tdImg"><button><img class="graphic" src="../img/cashTechSystem/bar-chart.png"
+                                            alt=""></button></td>
+                                <td class="tdImg"><button onclick="abrir_modalEditar()"><img
+                                            src="../img/cashTechSystem/lapis.svg"></button></td>
+                                <td class="tdImg"><button onclick="deletar_musico()"><img
+                                            src="../img/cashTechSystem/lixo.svg"></button></td>
+                            </tr>
+                            <tr>
+                                <td>ATM002</td>
+                                <td>ATIVO</td>
+                                <td>2022-02-02 06:21</td>
+                                <td>00:12:56:21</td>
+                                <td>Rua Trajano de Carvalho, 298</td>
+                                <td class="tdImg"><button><img class="graphic" src="../img/cashTechSystem/bar-chart.png"
+                                            alt=""></button></td>
+                                <td class="tdImg"><button onclick="abrir_modalEditar(${idEmpresa},${idUsuario})"><img
+                                            src="../img/cashTechSystem/lapis.svg"></button></td>
+                                <td class="tdImg"><button onclick="deletar_musico(${idEmpresa},${idUsuario})"><img
+                                            src="../img/cashTechSystem/lixo.svg"></button></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-modal" id="div_backgroundModal">
+        <div class="modal modal-editar modal-atm" id="div_editarModal">
+            <div class="modal-body">
+                <div class="modal-logo">
+                    <img src="../img/cashTechSystem/logoFormUSer.svg" alt="">
+                </div>
+                <div class="modal-form">
+                    <div class="modal-box">
+                        <label for="in_edtNome">Identificador</label>
+                        <input type="text" maxlength="45" id="in_edtNome">
+                    </div>
+                    <div class="modal-box">
+                        <label for="in_edtTelefone">Situação</label>
+                        <select name="" id="">
+                            <option value="ativo">ativo</option>
+                            <option value="inativo">inativo</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="modal-box modal-box-cep">
+                            <label for="">Cep</label>
+                            <input type="text" id="in_edtTelefone" maxlength="11">
+                        </div>
+                        <div class="modal-box modal-box-numero">
+                            <label for="">Número</label>
+                            <input type="text" id="in_edtTelefone" maxlength="11">
+                        </div>
+                    </div>
+                    <div class="modal-box">
+                        <label for="">Rua</label>
+                        <input type="text" id="in_edtTelefone" maxlength="11">
+                    </div>
+                    <div class="modal-box">
+                        <label for="">Cidade</label>
+                        <input type="text" id="in_edtTelefone" maxlength="11">
+                    </div>
+                    <div class="modal-box">
+                        <label for="">Bairro</label>
+                        <input type="text" id="in_edtTelefone" maxlength="11">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-buttons">
+                    <button class="btn_cancelar" onclick="fechar_modalEditar()">Cancelar</button>
+                    <button class="btn_editar" id="btn_editar">Editar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- loading-gif -->
+    <div class="loading-gif" id="loading_gif">
+        <h2 id="h2_loading"></h2>
+    </div>
+    <!-- Fim loading-gif -->
+
+    <!-- card -->
+    <div class="msgCard" id="div_card">
+        <div class="mensagem">
+            <span id="mensagem_erro"></span>
+        </div>
+    </div>
+    <!-- Fim card -->
+
+</body>
+
+</html>
+<script src="../js/users.js"></script>
