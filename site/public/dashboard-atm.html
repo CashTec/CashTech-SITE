@@ -19,43 +19,43 @@
     </div>
     <aside>
         <div class="backEcplipse">
-          <img src="../img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
-          <img src="../img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+            <img src="../img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+            <img src="../img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
         </div>
         <div class="menu">
-          <div class="container">
-            <div class="logo-menu">
-              <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+            <div class="container">
+                <div class="logo-menu">
+                    <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+                </div>
+                <div class="bem-vindo">
+                    <h2>Bem Vindo,</h2>
+                    <span id="spn_orquestraNome">Nome Empresa</span>
+                </div>
+                <div class="indices">
+                    <ul class="lista">
+                        <a href="dashboard-geral.html">
+                            <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
+                        </a>
+                        <a href="users.html">
+                            <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                        </a>
+                        <a href="dashboard-parametrizacao.html">
+                            <li>
+                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                            </li>
+                        </a>
+                        <a href="listaATM.html">
+                            <li class="active-menu"><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
+                        </a>
+
+                    </ul>
+                </div>
+                <div>
+                    <button class="sair" onclick="limparSessao()">Sair</button>
+                </div>
             </div>
-            <div class="bem-vindo">
-              <h2>Bem Vindo,</h2>
-              <span id="spn_orquestraNome">Nome Empresa</span>
-            </div>
-            <div class="indices">
-              <ul class="lista">
-                <a href="dashboard-geral.html">
-                  <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
-                </a>
-                <a href="users.html">
-                  <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
-                </a>
-                <a href="dashboard-parametrizacao.html">
-                  <li>
-                      <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
-                  </li>
-              </a>
-                <a href="listaATM.html">
-                  <li class="active-menu"><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
-                </a>
-                
-              </ul>
-            </div>
-            <div>
-              <button class="sair" onclick="limparSessao()">Sair</button>
-            </div>
-          </div>
         </div>
-      </aside>
+    </aside>
 
     <main class="principal">
         <div class="row">
@@ -110,143 +110,159 @@
                 <div class="legend">
                     <div class="label">
                         <span></span>
-                        Normal < 28 </div> <div class="label">
-                            <span></span>
-                            Normal < 28 </div> <div class="label">
+                        Normal < 28 </div>
+                            <div class="label">
                                 <span></span>
-                                Normal < 28 </div> </div> <div class="grafico">
-                                    <div class="content-title">
-
-                                        <h2>Uso CPU (%) <button class="btn-info">i</button></h2>
-                                        <button class="btn-alert">Alerta</button>
+                                Normal < 28 </div>
+                                    <div class="label">
+                                        <span></span>
+                                        Normal < 28 </div>
                                     </div>
-                                    <div class="card-info">
-                                        <h2>Informações da CPU</h2>
-                                        <h3>Modelo: Intel Core i5 10Th Generation</h3>
-                                        <h3>Nucleos:8 </h3>
-                                        <h3>Threads: 16</h3>
-                                        <h3>Frequencia Máxima:2.5Ghz </h3>
-                                    </div>
-                                    <canvas id="graphicLine">
-
-                                    </canvas>
-                    </div>
-                </div>
-
-                <div class="content-graphic">
-                    <div class="legend">
-                        <div class="label">
-                            <span></span>
-                            Normal < 28 </div> <div class="label">
-                                <span></span>
-                                Normal < 28 </div> <div class="label">
-                                    <span></span>
-                                    Normal < 28 </div> </div> <div class="grafico">
+                                    <div class="grafico">
                                         <div class="content-title">
 
-                                            <h2>Uso RAM (%) <button class="btn-info">i</button></h2>
+                                            <h2>Uso CPU (%) <button class="btn-info">i</button></h2>
                                             <button class="btn-alert">Alerta</button>
                                         </div>
                                         <div class="card-info">
-                                            <h2>Informações da RAM</h2>
+                                            <h2>Informações da CPU</h2>
                                             <h3>Modelo: Intel Core i5 10Th Generation</h3>
-                                            <h3>Tamanho:8 </h3>
-                                            <h3>SWAP: 16</h3>
+                                            <h3>Nucleos:8 </h3>
+                                            <h3>Threads: 16</h3>
                                             <h3>Frequencia Máxima:2.5Ghz </h3>
                                         </div>
-                                        <canvas id="graphicLine2">
+                                        <canvas id="graphicLine">
 
                                         </canvas>
-                        </div>
-                    </div>
-
-                    <div class="content-graphic">
-                        <div class="legend">
-                            <div class="label">
-                                <span></span>
-                                Normal < 28 </div> <div class="label">
-                                    <span></span>
-                                    Normal < 28 </div> <div class="label">
-                                        <span></span>
-                                        Normal < 28 </div> </div> <div class="grafico">
-                                            <div class="card-info">
-                                                <h2>Informações da Rede</h2>
-                                                <h3>Nome da Interface: Intel Core i5 10Th
-                                                    Generation
-                                                </h3>
-                                                <h3>Host:192.168.18.1 </h3>
-                                                <h3>Velocidade:2.5Ghz </h3>
-                                            </div>
-                                            <div class="content-title">
-
-                                                <h2>Uso Rede (MB) <button class="btn-info">i</button></h2>
-                                                <button class="btn-alert">Alerta</button>
-                                            </div>
-
-                                            <canvas id="graphicLine3">
-
-                                            </canvas>
-
+                                    </div>
                             </div>
-                        </div>
 
-                        <div class="content-graphic">
-                            <div class="legend">
-                                <div class="label">
-                                    <span></span>
-                                    Normal < 28 </div> <div class="label">
+                            <div class="content-graphic">
+                                <div class="legend">
+                                    <div class="label">
                                         <span></span>
-                                        Normal < 28 </div> <div class="label">
-                                            <span></span>
-                                            Normal < 28 </div> </div> <div class="grafico">
-                                                <div class="content-title">
-                                                    <div class="title">
-                                                        <h2>Uso HD (%)</h2>
-                                                        <select name="" id="">
-                                                            <option value="">HD1
-                                                            </option>
-                                                            <option value="">HD2
-                                                            </option>
-                                                        </select>
+                                        Normal < 28 </div>
+                                            <div class="label">
+                                                <span></span>
+                                                Normal < 28 </div>
+                                                    <div class="label">
+                                                        <span></span>
+                                                        Normal < 28 </div>
                                                     </div>
-                                                    <button class="btn-alert">Alerta</button>
-                                                </div>
+                                                    <div class="grafico">
+                                                        <div class="content-title">
 
-                                                <div class="info-hd">
-                                                    <canvas id="graphicBola" class="graficoHd"></canvas>
-                                                    <div class="numberHD">32%
+                                                            <h2>Uso RAM (%) <button class="btn-info">i</button></h2>
+                                                            <button class="btn-alert">Alerta</button>
+                                                        </div>
+                                                        <div class="card-info">
+                                                            <h2>Informações da RAM</h2>
+                                                            <h3>Modelo: Intel Core i5 10Th Generation</h3>
+                                                            <h3>Tamanho:8 </h3>
+                                                            <h3>SWAP: 16</h3>
+                                                            <h3>Frequencia Máxima:2.5Ghz </h3>
+                                                        </div>
+                                                        <canvas id="graphicLine2">
+
+                                                        </canvas>
                                                     </div>
-                                                    <div class="content-HD">
-                                                        <h3>Modelo:
-                                                            <span>HD23234</span>
-                                                        </h3>
-                                                        <h3>Tamanho:
-                                                            <span>128GB</span>
-                                                        </h3>
-                                                        <h3>Velocidade:
-                                                            <span>7200
-                                                                rpm</span>
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                </div>
-                            </div>
-                        </div>
+                                            </div>
+
+                                            <div class="content-graphic">
+                                                <div class="legend">
+                                                    <div class="label">
+                                                        <span></span>
+                                                        Normal < 28 </div>
+                                                            <div class="label">
+                                                                <span></span>
+                                                                Normal < 28 </div>
+                                                                    <div class="label">
+                                                                        <span></span>
+                                                                        Normal < 28 </div>
+                                                                    </div>
+                                                                    <div class="grafico">
+                                                                        <div class="card-info">
+                                                                            <h2>Informações da Rede</h2>
+                                                                            <h3>Nome da Interface: Intel Core i5 10Th
+                                                                                Generation
+                                                                            </h3>
+                                                                            <h3>Host:192.168.18.1 </h3>
+                                                                            <h3>Velocidade:2.5Ghz </h3>
+                                                                        </div>
+                                                                        <div class="content-title">
+
+                                                                            <h2>Uso Rede (MB) <button
+                                                                                    class="btn-info">i</button></h2>
+                                                                            <button class="btn-alert">Alerta</button>
+                                                                        </div>
+
+                                                                        <canvas id="graphicLine3">
+
+                                                                        </canvas>
+
+                                                                    </div>
+                                                            </div>
+
+                                                            <div class="content-graphic">
+                                                                <div class="legend">
+                                                                    <div class="label">
+                                                                        <span></span>
+                                                                        Normal < 28 </div>
+                                                                            <div class="label">
+                                                                                <span></span>
+                                                                                Normal < 28 </div>
+                                                                                    <div class="label">
+                                                                                        <span></span>
+                                                                                        Normal < 28 </div>
+                                                                                    </div>
+                                                                                    <div class="grafico">
+                                                                                        <div class="content-title">
+                                                                                            <div class="title">
+                                                                                                <h2>Uso HD (%)</h2>
+                                                                                                <select name="" id="">
+                                                                                                    <option value="">HD1
+                                                                                                    </option>
+                                                                                                    <option value="">HD2
+                                                                                                    </option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <button
+                                                                                                class="btn-alert">Alerta</button>
+                                                                                        </div>
+
+                                                                                        <div class="info-hd">
+                                                                                            <canvas id="graphicBola"
+                                                                                                class="graficoHd"></canvas>
+                                                                                            <div class="numberHD">32%
+                                                                                            </div>
+                                                                                            <div class="content-HD">
+                                                                                                <h3>Modelo:
+                                                                                                    <span>HD23234</span>
+                                                                                                </h3>
+                                                                                                <h3>Tamanho:
+                                                                                                    <span>128GB</span>
+                                                                                                </h3>
+                                                                                                <h3>Velocidade:
+                                                                                                    <span>7200
+                                                                                                        rpm</span>
+                                                                                                </h3>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                            </div>
+                                                                    </div>
 
     </main>
 
     <main class="processo-main">
-
-
         <div class="content-processo">
             <div class="row">
                 <div class="square">
                     <div class="info-atm">
                         <h2>ATM 2203</h2> <span class="bolinha"></span> <span>192.168.18.1</span>
                     </div>
-
                     <div class="content-btn">
-                        <button>></button> <span>Ver processos</span>
+                        <button><</button> <span>Ver Gráficos</span>
                     </div>
                 </div>
             </div>
