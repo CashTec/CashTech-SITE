@@ -318,7 +318,7 @@ td {
     background-color: #003B48;
     padding: 25px;
     border-radius: 10px;
-    margin: 40px 40px 0 0  ;
+    margin: 40px 40px 0 0;
 
 }
 
@@ -326,6 +326,12 @@ td {
     display: flex;
     flex-direction: column;
     width: max-content;
+}
+
+.row {
+    display: flex;
+    gap: 30px;
+    align-items: center;
 }
 
 .modal-box input,
@@ -336,7 +342,18 @@ td {
     height: 23.4px;
     width: 309.8px;
     border-radius: 45px;
+}
 
+.modal-box select {
+    padding: 0 17px;
+}
+
+.modal-box-cep input{
+    width: 200px;
+}
+
+.modal-box-numero input{
+    width: 80px;
 }
 
 .modal-box label {
