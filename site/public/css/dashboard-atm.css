@@ -15,7 +15,7 @@ body::-webkit-scrollbar {
     width: 15vw;
     position: relative;
     height: 100vh;
-    background-color: #00556A;
+    background-color: #0E4354;
 }
 
 
@@ -65,7 +65,7 @@ body::-webkit-scrollbar {
 .row .square .info-atm {
     display: flex;
     column-gap: 10px;
-    background-color: #00556A;
+    background-color: #0E4354;
     padding: 10px 30px;
     border-radius: 12px;
     align-items: center;
@@ -77,7 +77,7 @@ body::-webkit-scrollbar {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #00556A;
+    background-color: #0E4354;
     color: #fff;
     cursor: pointer;
 }
@@ -116,7 +116,7 @@ body::-webkit-scrollbar {
 .column-graphic .legend {
     width: 100%;
     flex: 1;
-    background-color: #00556A;
+    background-color: #0E4354;
 
     display: flex;
     align-items: center;
@@ -171,7 +171,7 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #00556A;
+    background-color: #0E4354;
     padding: 10px;
 
 
@@ -186,7 +186,7 @@ body::-webkit-scrollbar {
 }
 
 .column-graphic .grafico .content-title select {
-    background-color: #00556A;
+    background-color: #0E4354;
     height: 20px;
     color: #fff;
     display: flex;
@@ -300,7 +300,7 @@ body::-webkit-scrollbar {
 
 .card-kpi {
     width: 100%;
-    background-color: #00556A;
+    background-color: #0E4354;
     border-radius: 10px;
     padding: 15px 20px;
     min-height: 150px;
@@ -379,7 +379,7 @@ body::-webkit-scrollbar {
 .content-processo .row .table .title-table {
     font-size: 1.3em;
     margin-bottom: 10px;
-    color: #00556A;
+    color: #0E4354;
     font-weight: 500;
 
 }
@@ -407,7 +407,7 @@ body::-webkit-scrollbar {
 }
 
 .content-processo .row .content-info .column h2 {
-    background-color: #00556A;
+    background-color: #0E4354;
     padding: 18px 10px;
     font-size: 1.2em;
     text-align: center;
