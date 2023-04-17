@@ -91,8 +91,8 @@ const config = {
     ],
   },
   options: {
-    radius: window.innerWidth > 1366 ? "85%" : "95%",
-    cutout: window.innerWidth > 1366 ? 150 : 80,
+    radius:"90%",
+    cutout:  90,
     elements: {
       arc: {
         borderRadius: 90,
