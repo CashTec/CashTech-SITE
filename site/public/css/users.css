@@ -120,6 +120,11 @@ button:active {
     width: 100%;
 }
 
+.pesquisar img,
+.pesquisar button{
+    height: 30px;
+}
+
 .pesquisar button:hover,
 .pesquisar button:focus {
     transform: scale(1.3);
