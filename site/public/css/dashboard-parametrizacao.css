@@ -1,7 +1,26 @@
 body {
     display: flex;
     background-color: #F8F1F1;
-  }
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover img,
+button:hover {
+    transform: scale(1.1);
+    transition: 500ms;
+}
+
+button:hover,
+button:focus {
+    transform: scale(1.07, 1.07);
+}
+
+button:active {
+    transform: scale(0.95, 0.95);
+}
 
 .principal {
     width: 100%;
@@ -28,6 +47,7 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
 .titulo h1 {
     font-size: 35px;
 }
@@ -40,8 +60,8 @@ body {
 
 .elipseUp,
 .elipseUp {
-  width: 15vw;
-  height: 35vh;
+    width: 15vw;
+    height: 35vh;
 }
 
 /* corpo */
@@ -49,15 +69,16 @@ body {
 .container-all {
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     height: 80vh;
+    margin-top: 50px;
 }
 
 /* Processos */
 .container-process {
     display: flex;
     flex-direction: column;
-    height: 60vh;
+    height: 67vh;
 }
 
 .titulo-processo {
@@ -66,7 +87,7 @@ body {
     justify-content: center;
 }
 
-.titulo-processo h2{
+.titulo-processo h2 {
     font-size: 30px;
 }
 
@@ -82,19 +103,26 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 8px 12px;
+    padding: 2px 6px;
     border-radius: 5px;
     background: white;
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.29);
 }
 
+.input-pesquisa button {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+}
+
 .input-pesquisa img {
-    height: 27px;
+    height: 40px;
     cursor: pointer;
-} 
+}
 
 .input-pesquisa input {
-  background-color: transparent;
+    width: 100%;
+    padding: 0 0 0 20px;
 }
 
 /* Inicio Tabela dos Processo */
@@ -105,10 +133,10 @@ body {
     margin-top: -115px;
     margin-bottom: 50px;
     width: 100%;
-    
+
 }
 
-.titulo-uso-maximo h2{
+.titulo-uso-maximo h2 {
     font-size: 30px;
 }
 
@@ -124,9 +152,10 @@ body {
     margin-top: 30px;
     margin-bottom: -30px;
     border-radius: 8px 8px 0 0;
+    margin-left: 0px;
 }
 
-.nome-processo button{
+.nome-processo span {
     color: #ffff;
     background-color: #00556A;
     text-align: left;
@@ -135,8 +164,7 @@ body {
     margin-left: 30px;
 }
 
-.nome-processo button:hover,
-button {
+.nome-processo button:hover div {
     color: #00bbff;
 }
 
@@ -147,7 +175,7 @@ button {
 .planilha-processos {
     margin-top: 30px;
     width: 100%;
-    animation: aparecer_planilha 500ms ease-out;    
+    animation: aparecer_planilha 500ms ease-out;
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -172,7 +200,6 @@ button {
 }
 
 
-
 .tabela-processos tr td:first-of-type,
 .tabela-processos tr th:first-of-type {
     padding-left: 2rem;
@@ -183,20 +210,19 @@ button {
     color: #ffffff;
     text-align: left;
     font-weight: 600;
-    
-    
 }
 
 
-.tabela-processos th,
-
-td {
-    padding: 12px 15px;
-    
+.tabela-processos td {
+    align-items: center;
+    width: max-content;
+    margin: 0;
 }
 
-.tabela-processos td img {
-    height: 30px;
+.tabela-processos td img,
+.tabela-processos td button {
+    height: 23px;
+    right: 1px;
 }
 
 .tabela-processos tr {
@@ -216,13 +242,32 @@ td {
 
 
 /* Input adicionar processos */
-.add-processo h2{
+.add-processo h2 {
     margin-top: 24px;
     font-size: 20px;
 }
 
 
 /* Inicio CSS parametrização hardwares */
+.container-hardwares {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 67vh;
+}
+
+.titulo-uso-maximo-hw {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.titulo-uso-maximo-hw h2 {
+    font-size: 30px;
+}
+
 
 @keyframes aparecer_planilha {
     0% {
@@ -276,7 +321,7 @@ td {
 td {
     padding: 12px 15px;
     font-size: 20px;
-}   
+}
 
 .table-info tr {
     border-bottom: 1px solid #c9c9c9;

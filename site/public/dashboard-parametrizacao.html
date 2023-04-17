@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/dashboard-parametrizacao.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
 
     <title>CashTec</title>
     <link rel="icon" href="">
@@ -74,11 +74,13 @@
                     <div class="pesquisa">
                         <div class="input-pesquisa" id="input-select">
                             <input type="text" id="ipt_pesquisa">
-                            <img src="img/cashTechSystem/search-parametro.png" alt="" onclick="pesquisar()">
+                            <button>
+                                <img src="img/cashTechSystem/search-parametro.svg" alt="" onclick="pesquisar()">
+                            </button>
                         </div>
                     </div>
                     <div class="nome-processo">
-                        <button name="btn-filtro" onclick="atualizarFeed('nome')">Nome</button>
+                        <span>Nome</span>
                     </div>
                     <div class="planilha-processos" id="div_planilhaProcessos">
                         <div class="nenhum-cadastrado">
@@ -88,27 +90,41 @@
                             <tbody id="lista-processos">
                                 <tr>
                                     <td>explorer.exe</td>
+                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
+                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
                                 </tr>
                                 <tr>
                                     <td>explorer.exe</td>
+                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
+                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+
                                 </tr>
                                 <tr>
                                     <td>explorer.exe</td>
+                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
+                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
+                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+
                                 </tr>
                                 <tr>
                                     <td>edge.exe</td>
+                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -118,14 +134,16 @@
                         <div class="pesquisa">
                             <div class="input-pesquisa">
                                 <input type="text" id="ipt_add-process">
-                                <img src="img/cashTechSystem/add-process.png" alt="" onclick="addProcesso()">
+                                <button>
+                                    <img src="img/cashTechSystem/add-process.svg" alt="" onclick="addProcesso()">
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="container-hardwares">
-                    <div class="titulo-uso-maximo">
+                    <div class="titulo-uso-maximo-hw">
                         <h2>Uso máximo permitido</h2>
                     </div>
                     <div class="planilha-users" id="div_planilhaUsers">
@@ -135,9 +153,9 @@
                         <table class="table-info">
                             <thead>
                                 <tr>
-                                    <th><button name="btn-filtro" onclick="atualizarFeed('tipo')">Tipo</button></th>
-                                    <th><button name="btn-filtro" onclick="atualizarFeed('maximo')">Máximo</button></th>
-                                    <th>Alterar</button></th>
+                                    <th>Tipo</th>
+                                    <th>Máximo</th>
+                                    <th>Alterar</th>
                                 </tr>
                             </thead>
                             <tbody id="table-parametro">
