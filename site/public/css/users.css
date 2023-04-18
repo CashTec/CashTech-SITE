@@ -100,6 +100,11 @@ button:active {
     border-radius: 3px;
 }
 
+.tipo-pesquisa,
+.tipo-pesquisa * {
+    background-color: #FCFCFC;
+}
+
 .tipo-pesquisa span,
 .tipo-pesquisa select {
     font-size: 0.8rem;
@@ -115,13 +120,17 @@ button:active {
     margin: 100px;
 }
 
+.pesquisar,
+.pesquisar * {
+    background-color: #FCFCFC;
+}
 .pesquisar input {
     padding: 0 10px;
     width: 100%;
 }
 
 .pesquisar img,
-.pesquisar button{
+.pesquisar button {
     height: 30px;
 }
 
@@ -202,6 +211,14 @@ button:active {
     color: #00bbff;
 }
 
+
+.tabela-users tbody {
+    background-color: #FCFCFC;
+}
+
+.tabela-users tbody button {
+    background-color: transparent;
+}
 
 .tabela-users th img {
     height: 13px;
@@ -353,11 +370,11 @@ td {
     padding: 0 17px;
 }
 
-.modal-box-cep input{
+.modal-box-cep input {
     width: 200px;
 }
 
-.modal-box-numero input{
+.modal-box-numero input {
     width: 80px;
 }
 

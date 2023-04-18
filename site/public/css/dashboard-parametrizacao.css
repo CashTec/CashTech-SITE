@@ -145,10 +145,13 @@ button:active {
     font-size: 30px;
 }
 
+.content-table-processos * {
+    background-color: #FCFCFC;
+}
+
 .nome-processo {
     display: flex;
     justify-content: flex-start;
-    height: 10vh;
     color: #ffff;
     background-color: #00556A;
     text-align: left;
@@ -157,6 +160,7 @@ button:active {
     margin-bottom: -30px;
     border-radius: 8px 8px 0 0;
     margin-left: 0px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 20px;
 }
 
 .nome-processo span {
@@ -167,6 +171,7 @@ button:active {
     padding: 8px 0;
     font-size: 1.3rem;
     margin-left: 30px;
+    height: max-content;
 }
 
 .nome-processo button:hover div {
@@ -178,7 +183,9 @@ button:active {
 }
 
 .planilha-processos {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 20px;
     margin-top: 30px;
+    height: 200px;
     width: 100%;
     animation: aparecer_planilha 500ms ease-out;
     overflow: hidden;
@@ -291,6 +298,7 @@ button:active {
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
     animation: aparecer_planilha 1000ms ease-out;
+    background-color: #FCFCFC;
 }
 
 .table-info tr td:first-of-type,
@@ -328,9 +336,10 @@ td {
     font-size: 20px;
 }
 
-.table-info img{
+.table-info img {
     height: 30px;
 }
+
 .table-info tr {
     border-bottom: 1px solid #c9c9c9;
 }
@@ -344,7 +353,7 @@ td {
 }
 
 .table-parametro input {
-    background-color: #F8F1F1;
+    background-color: transparent;
     transition: 200ms;
 }
 
@@ -359,6 +368,7 @@ td {
 .table-parametro input:disabled,
 .table-parametro span {
     color: #848484;
+    background-color: transparent;
     transition: 200ms;
 }
 

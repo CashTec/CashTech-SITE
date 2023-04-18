@@ -21,42 +21,42 @@
     </div>
     <aside>
         <div class="backEcplipse">
-          <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+            <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
         </div>
         <div class="menu">
-          <div class="container">
-            <div class="logo-menu">
-              <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+            <div class="container">
+                <div class="logo-menu">
+                    <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+                </div>
+                <div class="bem-vindo">
+                    <h2>Bem Vindo,</h2>
+                    <span id="spn_orquestraNome">Nome Empresa</span>
+                </div>
+                <div class="indices">
+                    <ul class="lista">
+                        <a href="dashboard-geral.html">
+                            <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
+                        </a>
+                        <a href="users.html">
+                            <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                        </a>
+                        <a href="dashboard-parametrizacao.html">
+                            <li class="active-menu">
+                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                            </li>
+                        </a>
+                        <a href="listaATM.html">
+                            <li><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
+                        </a>
+
+                    </ul>
+                </div>
+                <div>
+                    <button class="sair" onclick="limparSessao()">Sair</button>
+                </div>
             </div>
-            <div class="bem-vindo">
-              <h2>Bem Vindo,</h2>
-              <span id="spn_orquestraNome">Nome Empresa</span>
-            </div>
-            <div class="indices">
-              <ul class="lista">
-                <a href="dashboard-geral.html">
-                  <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
-                </a>
-                <a href="users.html">
-                  <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
-                </a>
-                <a href="dashboard-parametrizacao.html">
-                  <li class="active-menu">
-                      <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
-                  </li>
-              </a>
-                <a href="listaATM.html">
-                  <li><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
-                </a>
-                
-              </ul>
-            </div>
-            <div>
-              <button class="sair" onclick="limparSessao()">Sair</button>
-            </div>
-          </div>
         </div>
-      </aside>
+    </aside>
 
     <main class="principal">
         <div class="conteudo">
@@ -80,50 +80,53 @@
                             </button>
                         </div>
                     </div>
-                    <div class="nome-processo">
-                        <span>Nome</span>
-                    </div>
-                    <div class="planilha-processos" id="div_planilhaProcessos">
-                        <div class="nenhum-cadastrado">
-                            <h2 id="h2_nenhumAchado"></h2>
+                    <div class="content-table-processos">
+                        <div class="nome-processo">
+                            <span>Nome</span>
                         </div>
-                        <table class="tabela-processos">
-                            <tbody id="lista-processos">
-                                <tr>
-                                    <td>explorer.exe</td>
-                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-                                </tr>
-                                <tr>
-                                    <td>edge.exe</td>
-                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-                                </tr>
-                                <tr>
-                                    <td>explorer.exe</td>
-                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-                                </tr>
-                                <tr>
-                                    <td>edge.exe</td>
-                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-                                </tr>
-                                <tr>
-                                    <td>explorer.exe</td>
-                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-                                </tr>
-                                <tr>
-                                    <td>edge.exe</td>
-                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-                                </tr>
-                                <tr>
-                                    <td>edge.exe</td>
-                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-                                </tr>
-                                <tr>
-                                    <td>edge.exe</td>
-                                    <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="planilha-processos" id="div_planilhaProcessos">
+                            <div class="nenhum-cadastrado">
+                                <h2 id="h2_nenhumAchado"></h2>
+                            </div>
+                            <table class="tabela-processos">
+                                <tbody id="lista-processos">
+                                    <tr>
+                                        <td>explorer.exe</td>
+                                        <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>edge.exe</td>
+                                        <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>explorer.exe</td>
+                                        <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>edge.exe</td>
+                                        <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>explorer.exe</td>
+                                        <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>edge.exe</td>
+                                        <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>edge.exe</td>
+                                        <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>edge.exe</td>
+                                        <td><button><img src="./img/cashTechSystem/lixo.svg" alt=""></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
                     <div class="add-processo">
                         <h2>Adicionar processos</h2>
                         <div class="pesquisa">
@@ -156,36 +159,48 @@
                             <tbody class="table-parametro">
                                 <tr>
                                     <td>Processador</td>
-                                    <td><input id="edtProcessador" type="text" value="22" maxlength="2" class="input-porcentagem" disabled>
+                                    <td><input id="edtProcessador" type="text" value="22" maxlength="2"
+                                            class="input-porcentagem" disabled>
                                         <span>%</span>
                                     </td>
-                                    <td><button onclick="editarUsoMax('Processador')"><img id="imgProcessador" src="img/cashTechSystem/lapis-parametro.svg"></button>
+                                    <td><button onclick="editarUsoMax('Processador')"><img id="imgProcessador"
+                                                src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Memória</td>
-                                    <td> <input id="edtMemoria" type="text" value="22" maxlength="2" class="input-porcentagem" disabled>
-                                        <span>%</span></td>
-                                    <td><button onclick="editarUsoMax('Memoria')"><img id="imgMemoria" src="img/cashTechSystem/lapis-parametro.svg"></button>
+                                    <td> <input id="edtMemoria" type="text" value="22" maxlength="2"
+                                            class="input-porcentagem" disabled>
+                                        <span>%</span>
+                                    </td>
+                                    <td><button onclick="editarUsoMax('Memoria')"><img id="imgMemoria"
+                                                src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Disco</td>
-                                    <td> <input id="edtDisco" type="text" value="99" maxlength="2" class="input-porcentagem" disabled>
-                                        <span>%</span></td>
-                                    <td><button onclick="editarUsoMax('Disco')"><img id="imgDisco" src="img/cashTechSystem/lapis-parametro.svg"></button>
+                                    <td> <input id="edtDisco" type="text" value="99" maxlength="2"
+                                            class="input-porcentagem" disabled>
+                                        <span>%</span>
+                                    </td>
+                                    <td><button onclick="editarUsoMax('Disco')"><img id="imgDisco"
+                                                src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>KBytes recebidos/s</td>
-                                    <td> <input id="edtBytesRecebidos" type="text" class="input-bytes" value="10123123123" disabled></td>
-                                    <td><button onclick="editarUsoMax('BytesRecebidos')"><img id="imgBytesRecebidos" src="img/cashTechSystem/lapis-parametro.svg"></button>
+                                    <td> <input id="edtBytesRecebidos" type="text" class="input-bytes"
+                                            value="10123123123" disabled></td>
+                                    <td><button onclick="editarUsoMax('BytesRecebidos')"><img id="imgBytesRecebidos"
+                                                src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>KBytes enviados/s</td>
-                                    <td> <input id="edtBytesEnviados" type="text" class="input-bytes" value="10123123123" disabled></td>
-                                    <td><button onclick="editarUsoMax('BytesEnviados')"><img id="imgBytesEnviados" src="img/cashTechSystem/lapis-parametro.svg"></button>
+                                    <td> <input id="edtBytesEnviados" type="text" class="input-bytes"
+                                            value="10123123123" disabled></td>
+                                    <td><button onclick="editarUsoMax('BytesEnviados')"><img id="imgBytesEnviados"
+                                                src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
                                 </tr>
                             </tbody>
