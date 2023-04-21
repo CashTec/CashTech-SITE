@@ -32,6 +32,8 @@ function entrar() {
 
             });
 
+            window.location.pathname = "dashboard-geral.html"
+
         } else {
 
             console.log("Houve um erro ao tentar realizar o login!");
