@@ -355,14 +355,20 @@ td {
 .table-parametro input {
     background-color: transparent;
     transition: 200ms;
+    padding: 4px 0px 4px 5px;
+    height: 40px;
+    border-radius: 5px 0 0 5px;
 }
 
 .table-parametro .input-porcentagem {
-    width: 24px;
+    width: 30px;
+    height: 40px;
+   
 }
 
 .table-parametro .input-bytes {
     width: 220px;
+    border-radius: 5px;
 }
 
 .table-parametro input:disabled,
@@ -373,5 +379,8 @@ td {
 }
 
 .table-parametro span {
-    margin: -4px;
+    margin: -5px;
+    padding: 5px 5px 5px 1px;
+
+    border-radius: 0 5px 5px 0;
 }
