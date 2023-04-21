@@ -433,3 +433,7 @@ body::-webkit-scrollbar {
     flex: 2;
     height: 400px;
 }
+
+.content-processo .card-kpi  h2 {
+font-size: 1em;
+} 
