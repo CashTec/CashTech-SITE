@@ -31,7 +31,7 @@ function cadastrarEmpresa(nomeEmpresa, cnpj, email, telefone, fkEndereco) {
     console.log(`Model function cadastrarEmpresa():`, nomeEmpresa, cnpj, email, telefone, fkEndereco);
 
     var instrucao = `
-        INSERT INTO empresa (nome, cnpj, email, telefone, fkEndereco) VALUES ('${nomeEmpresa}', '${cnpj}', '${email}', '${telefone}',${fkEndereco});
+        INSERT INTO empresa (nome, cnpj, email, telefone, endereco_id) VALUES ('${nomeEmpresa}', '${cnpj}', '${email}', '${telefone}',${fkEndereco});
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -59,7 +59,7 @@ function cadastrarUsuario(nomeResponsavel, login, senha, fkEmpresa) {
     console.log(`Model function cadastrarUsuario():`, nomeResponsavel, login, senha, fkEmpresa);
 
     var instrucao = `
-        INSERT INTO usuario (nome, login, senha, fkEmpresa) VALUES ('${nomeResponsavel}', '${login}', '${senha}',${fkEmpresa});
+        INSERT INTO usuario (nome, login, senha, empresa_id) VALUES ('${nomeResponsavel}', '${login}', '${senha}',${fkEmpresa});
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
