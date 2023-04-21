@@ -81,12 +81,13 @@ const grafico = new Chart(graphicLine, {
 const config = {
   type: "doughnut",
   data: {
-    labels: ["PERIGO", "ALERTA", "INATIVO"],
+    labels: ["PERIGO", "ALERTA", "ATIVO"],
     datasets: [
       {
         label: "ATM",
         data: [12, 19, 3],
         borderWidth: [0],
+        backgroundColor:["#A20505","#F1AC15","#24C72E"]
       },
     ],
   },

@@ -36,17 +36,8 @@ const config = {
 };
 
 const graphicBola = document.getElementById("graphicBola");
-
 const graficoBoll = new Chart(graphicBola, config)
 
-
-const graphicLine = document.getElementById("graphicLine");
-
-const graphicLine2 = document.getElementById("graphicLine2");
-
-const graphicLine3 = document.getElementById("graphicLine3");
-
-const graphicLine4 = document.getElementById("graphicLine4");
 
 
 
@@ -129,10 +120,84 @@ let grafico = {
   },
 }
 
+let graficoLine={
+  type: "line",
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: "Consumo médio dos ATMS",
+        data: [],
+        borderWidth: 3,
+        borderColor: "#222"
 
-let grafico1 = new Chart(graphicLine, grafico);
-let grafico2 = new Chart(graphicLine3, grafico);
-let grafico3 = new Chart(graphicLine2, grafico);
+      },
+      
+    ],
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: false
+      },
+    },
+
+
+    scales: {
+
+      y: {
+        min:0,
+        max:100,
+        beginAtZero: true,
+        border: {
+          color: " #222",
+        },
+        fonts: {
+          color: " #222",
+        },
+
+        ticks: {
+          color: " #222",
+          backgroundColor: "#222",
+        },
+
+        grid: {
+          color: "#222",
+          display: false,
+        },
+      },
+      x: {
+        border: {
+          color: " #222",
+        },
+        ticks: {
+          color: " #222",
+          weight: "700",
+          family: "Poppins",
+        },
+        grid: {
+          display: false,
+        },
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.4,
+        backgroundColor: "#222",
+        borderColor: "#222",
+        spanGaps: true,
+      },
+    },
+    animation: {
+      duration: 800,
+    },
+  },
+}
+
+
+let grafico1 = new Chart(graphicLine1, graficoLine);
+let grafico2 = new Chart(graphicLine2, graficoLine);
+let grafico3 = new Chart(graphicLine3, grafico);
 
 // Função que atualiza os dados do gráfico de linha
 function atualizarData() {
@@ -140,14 +205,25 @@ function atualizarData() {
   let sortear2 = Math.floor(1 + Math.random() * 10); // dados mockados
   let criarData = new Date(); // dados mockados
   if (grafico.data.labels.length > 4) {
+    graficoLine.data.datasets[0].data.shift();
     grafico.data.datasets[0].data.shift();
     grafico.data.datasets[1].data.shift();
     grafico.data.labels.shift();
+    graficoLine.data.labels.shift();
   }
+  if(graficoLine.data.labels.length > 4){
+    graficoLine.data.datasets[0].data.shift();
+  }
+
+
+  graficoLine.data.datasets[0].data.push(sortear);
 
   grafico.data.datasets[0].data.push(sortear);
   grafico.data.datasets[1].data.push(sortear2);
+
+  graficoLine.data.labels.push(criarData.getSeconds());
   grafico.data.labels.push(criarData.getSeconds());
+
   grafico1.update();
   grafico2.update();
   grafico3.update();
