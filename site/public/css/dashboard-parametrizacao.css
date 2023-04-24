@@ -192,6 +192,19 @@ button:active {
     overflow-y: scroll;
 }
 
+.planilha-processos::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+
+.planilha-processos::-webkit-scrollbar {
+    width: 6px;
+    background: #F4F4F4;
+}
+
+.planilha-processos::-webkit-scrollbar-thumb {
+    background: #dad7d7;
+}
+
 @keyframes aparecer_planilha {
     0% {
         opacity: 0;
@@ -363,7 +376,7 @@ td {
 .table-parametro .input-porcentagem {
     width: 30px;
     height: 40px;
-   
+
 }
 
 .table-parametro .input-bytes {
