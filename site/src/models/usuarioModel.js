@@ -26,13 +26,16 @@ function verificarUsuario(login, senha) {
     return database.executar(instrucao);
 }
 
-function cadastrarEmpresa(nomeEmpresa, cnpj, email, telefone, fkEndereco) {
+function cadastrarEmpresa(nomeEmpresa, cnpj, email, telefone) {
     console.log("\n\n<--------------------------------------------------------------------------------------> ");
-    console.log(`Model function cadastrarEmpresa():`, nomeEmpresa, cnpj, email, telefone, fkEndereco);
-
-    var instrucao = `
-        INSERT INTO empresa (nome, cnpj, email, telefone, endereco_id) VALUES ('${nomeEmpresa}', '${cnpj}', '${email}', '${telefone}',${fkEndereco});
+    console.log(`Model function cadastrarEmpresa():`, nomeEmpresa, cnpj, email, telefone);
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        var instrucao = ` INSERT INTO empresa (nome, cnpj, email, telefone, endereco_id) VALUES ('${nomeEmpresa}', '${cnpj}', '${email}', '${telefone}',(SELECT TOP 1 id FROM ENDERECO ORDER BY id DESC));`
+    } else {
+        var instrucao = `
+        INSERT INTO empresa (nome, cnpj, email, telefone, endereco_id) VALUES ('${nomeEmpresa}', '${cnpj}', '${email}', '${telefone}',(SELECT id FROM ENDERECO ORDER BY id DESC LIMIT 1));
     `;
+    }
 
     console.log("Executando a instrução SQL: \n" + instrucao);
 
@@ -54,13 +57,15 @@ function cadastrarEndereco(cep, numero, rua, cidade, bairro) {
 }
 
 
-function cadastrarUsuario(nomeResponsavel, login, senha, fkEmpresa) {
+function cadastrarUsuario(nomeResponsavel, login, senha) {
     console.log("\n\n<--------------------------------------------------------------------------------------> ");
-    console.log(`Model function cadastrarUsuario():`, nomeResponsavel, login, senha, fkEmpresa);
+    console.log(`Model function cadastrarUsuario():`, nomeResponsavel, login, senha);
 
-    var instrucao = `
-        INSERT INTO usuario (nome, login, senha, empresa_id) VALUES ('${nomeResponsavel}', '${login}', '${senha}',${fkEmpresa});
-    `;
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        var instrucao = `INSERT INTO usuario (nome, login, senha, empresa_id) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT TOP 1 id FROM EMPRESA ORDER BY id DESC));`
+    } else {
+        var instrucao = `INSERT INTO usuario (nome, login, senha, empresa_id) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT id FROM EMPRESA ORDER BY id DESC LIMIT 1));`;
+    }
 
     console.log("Executando a instrução SQL: \n" + instrucao);
 

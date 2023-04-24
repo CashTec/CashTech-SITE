@@ -72,12 +72,10 @@ async function cadastrar(req, res) {
             return res.status(409).json({ message: "Esse Login já existe, por favor digite outro" });
         } else {
             const enderecoResult = await usuarioModel.cadastrarEndereco(req.body.cepServer, req.body.numeroServer, req.body.ruaServer, req.body.cidadeServer, req.body.bairroServer);
-            const fkEndereco = enderecoResult.insertId;
 
-            const empresaResult = await usuarioModel.cadastrarEmpresa(req.body.nomeEmpresaServer, req.body.cnpjServer, req.body.emailServer, req.body.telefoneServer, fkEndereco);
-            const fkEmpresa = empresaResult.insertId;
+            const empresaResult = await usuarioModel.cadastrarEmpresa(req.body.nomeEmpresaServer, req.body.cnpjServer, req.body.emailServer, req.body.telefoneServer);
 
-            const usuarioResult = await usuarioModel.cadastrarUsuario(req.body.nomeResponsavelServer, req.body.loginServer, req.body.senhaServer, fkEmpresa);
+            const usuarioResult = await usuarioModel.cadastrarUsuario(req.body.nomeResponsavelServer, req.body.loginServer, req.body.senhaServer);
 
             res.json({ enderecoResult, empresaResult, usuarioResult });
         }
