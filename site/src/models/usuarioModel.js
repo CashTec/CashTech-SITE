@@ -72,11 +72,30 @@ function cadastrarUsuario(nomeResponsavel, login, senha) {
     return database.executar(instrucao);
 }
 
+function cadastrarParametro() {
+    console.log("\n\n<--------------------------------------------------------------------------------------> ");
+    console.log(`Model function cadastrarParametro():`);
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        var instrucao = `INSERT INTO parametrizacao (empresa_id, qtd_cpu_max, qtd_bytes_enviado_max,
+            qtd_bytes_recebido_max, qtd_memoria_max,qtd_disco_max) VALUES 
+            ((SELECT TOP 1 id FROM EMPRESA ORDER BY id DESC),default,default,default,default,default);`
+    } else {
+        var instrucao = `INSERT INTO parametrizacao (empresa_id, qtd_cpu_max, qtd_bytes_enviado_max,
+            qtd_bytes_recebido_max, qtd_memoria_max,qtd_disco_max) VALUES 
+            ((SELECT id FROM EMPRESA ORDER BY id DESC LIMIT 1),default,default,default,default,default);`;
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+
+    return database.executar(instrucao);
+}
 
 module.exports = {
     entrar,
     cadastrarEmpresa,
     cadastrarEndereco,
     cadastrarUsuario,
-    verificarUsuario
+    verificarUsuario,
+    cadastrarParametro
 };

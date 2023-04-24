@@ -77,7 +77,9 @@ async function cadastrar(req, res) {
 
             const usuarioResult = await usuarioModel.cadastrarUsuario(req.body.nomeResponsavelServer, req.body.loginServer, req.body.senhaServer);
 
-            res.json({ enderecoResult, empresaResult, usuarioResult });
+            const parametroResult = await usuarioModel.cadastrarParametro();
+
+            res.json({ enderecoResult, empresaResult, usuarioResult, parametroResult });
         }
 
     } catch (erro) {
