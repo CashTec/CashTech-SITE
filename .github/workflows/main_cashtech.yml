@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'CashTech'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B48A35D94F2B4CA99213D41B71320104 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_659FCC8A23E74D2FAE907CD6F17EB96B }}
           package: .
