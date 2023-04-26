@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/dashboard-parametrizacao.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/dashboard-mapa.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+   
+
+    <title>CashTec</title>
+    <link rel="icon" href="">
+</head>
+
+<body>
+    <div class="backElipse">
+        <img src="img/cashTechSystem/ElipseUpInverso.png" class="elipseUp">
+    </div>
+    <aside>
+        <div class="backEcplipse">
+            <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="logo-menu">
+                    <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+                </div>
+                <div class="bem-vindo">
+                    <h2>Bem Vindo,</h2>
+                    <span id="spn_orquestraNome">Nome Empresa</span>
+                </div>
+                <div class="indices">
+                    <ul class="lista">
+                        <a href="dashboard-geral.html">
+                            <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
+                        </a>
+                        <a href="users.html">
+                            <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                        </a>
+                        <a href="dashboard-parametrizacao.html">
+                            <li class="active-menu">
+                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                            </li>
+                        </a>
+                        <a href="listaATM.html">
+                            <li><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
+                        </a>
+
+                    </ul>
+                </div>
+                <div>
+                    <button class="sair" onclick="limparSessao()">Sair</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <main class="principal">
+
+
+
+        <div class="content-kpi">
+           
+            <div class="title">
+               
+                <h3>Mapa de localização dos ATMs</h3>
+            </div>
+
+            <div class="content-atm">
+                <h2>ATMs com maior tempo de downtime</h2>
+                <button class="button-carrossel" data-info="up">></button>
+                <button class="button-carrossel" data-info="down"><</button>
+                
+                <div class="list">
+                    
+                <div class="square">
+                    <div class="content-status">
+                        <div class="icon"><img src="img/warn.svg" alt=""></div>
+                        <div class="nome">ATM 2023</div>
+                        <div class="time">Há 2 dias</div>
+                    </div>
+
+                    <button class="btn" onclick="mostrarMapa([-23.549201765276454, -46.664647698257816])">Ver no mapa</button>
+                </div>
+
+                <div class="square">
+                    <div class="content-status">
+                        <div class="icon"><img src="img/warn.svg" alt=""></div>
+                        <div class="nome">ATM 2023</div>
+                        <div class="time">Há 2 dias</div>
+                    </div>
+
+                    <button class="btn">Ver no mapa</button>
+                </div>  <div class="square">
+                    <div class="content-status">
+                        <div class="icon"><img src="img/warn.svg" alt=""></div>
+                        <div class="nome">ATM 2023</div>
+                        <div class="time">Há 2 dias</div>
+                    </div>
+
+                    <button class="btn">Ver no mapa</button>
+                </div>  <div class="square">
+                    <div class="content-status">
+                        <div class="icon"><img src="img/warn.svg" alt=""></div>
+                        <div class="nome">ATM 2023</div>
+                        <div class="time">Há 2 dias</div>
+                    </div>
+
+                    <button class="btn">Ver no mapa</button>
+                </div>  <div class="square">
+                    <div class="content-status">
+                        <div class="icon"><img src="img/warn.svg" alt=""></div>
+                        <div class="nome">ATM 2023</div>
+                        <div class="time">Há 2 dias</div>
+                    </div>
+
+                    <button class="btn">Ver no mapa</button>
+                </div>  
+                <div class="square">
+                    <div class="content-status">
+                        <div class="icon"><img src="img/warn.svg" alt=""></div>
+                        <div class="nome">ATM 2023</div>
+                        <div class="time">Há 2 dias</div>
+                    </div>
+
+                    <button class="btn">Ver no mapa</button>
+                </div>
+            </div>
+            </div>
+          
+        </div>
+        <div class="content-mapa">
+            <div id="map-id"></div>
+            <div class="legenda">
+                <div class="mark">
+                    <img src="img/danger.svg" alt="">
+                    <h2>Inátivo</h2>
+                </div>
+
+                <div class="mark">
+                    <img src="img/warn.svg" alt="">
+                    <h2>Alerta</h2>
+                </div>
+            </div>
+        </div>
+    </main>
+   
+   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" ></script>
+     <script src="js/mapa.js"></script>
+</body>
+
+</html> 
