@@ -5,7 +5,7 @@ function entrar(login, senha) {
     console.log("Model function entrar(): ", login, senha)
 
     var instrucao = `
-        SELECT * FROM usuario WHERE login = '${login}' AND senha = '${senha}';
+        SELECT * FROM Usuario WHERE login = '${login}' AND senha = '${senha}';
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -18,7 +18,7 @@ function verificarUsuario(login, senha) {
     console.log("Model function verificarLogin(): ", login, senha)
 
     var instrucao = `
-        SELECT * FROM usuario WHERE login = '${login}' AND senha = '${senha}';
+        SELECT * FROM Usuario WHERE login = '${login}' AND senha = '${senha}';
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -33,7 +33,7 @@ function cadastrarEmpresa(nomeEmpresa, cnpj, email, telefone) {
         var instrucao = ` INSERT INTO empresa (nome, cnpj, email, telefone, endereco_id) VALUES ('${nomeEmpresa}', '${cnpj}', '${email}', '${telefone}',(SELECT TOP 1 id FROM ENDERECO ORDER BY id DESC));`
     } else {
         var instrucao = `
-        INSERT INTO empresa (nome, cnpj, email, telefone, endereco_id) VALUES ('${nomeEmpresa}', '${cnpj}', '${email}', '${telefone}',(SELECT id FROM ENDERECO ORDER BY id DESC LIMIT 1));
+        INSERT INTO Empresa (nome, cnpj, email, telefone, endereco_id) VALUES ('${nomeEmpresa}', '${cnpj}', '${email}', '${telefone}',(SELECT id FROM ENDERECO ORDER BY id DESC LIMIT 1));
     `;
     }
 
@@ -48,7 +48,7 @@ function cadastrarEndereco(cep, numero, rua, cidade, bairro) {
     console.log(`Model function cadastrarEndereco():`, cep, numero, rua, cidade, bairro);
 
     var instrucao = `
-        INSERT INTO endereco (cep, numero, rua, cidade, bairro) VALUES ('${cep}', '${numero}', '${rua}', '${cidade}', '${bairro}');
+        INSERT INTO Endereco (cep, numero, rua, cidade, bairro) VALUES ('${cep}', '${numero}', '${rua}', '${cidade}', '${bairro}');
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -62,9 +62,9 @@ function cadastrarUsuario(nomeResponsavel, login, senha) {
     console.log(`Model function cadastrarUsuario():`, nomeResponsavel, login, senha);
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        var instrucao = `INSERT INTO usuario (nome, login, senha, empresa_id) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT TOP 1 id FROM EMPRESA ORDER BY id DESC));`
+        var instrucao = `INSERT INTO Usuario (nome, login, senha, empresa_id) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT TOP 1 id FROM EMPRESA ORDER BY id DESC));`
     } else {
-        var instrucao = `INSERT INTO usuario (nome, login, senha, empresa_id) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT id FROM EMPRESA ORDER BY id DESC LIMIT 1));`;
+        var instrucao = `INSERT INTO Usuario (nome, login, senha, empresa_id) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT id FROM EMPRESA ORDER BY id DESC LIMIT 1));`;
     }
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -81,7 +81,7 @@ function cadastrarParametro() {
             qtd_bytes_recebido_max, qtd_memoria_max,qtd_disco_max) VALUES 
             ((SELECT TOP 1 id FROM EMPRESA ORDER BY id DESC),default,default,default,default,default);`
     } else {
-        var instrucao = `INSERT INTO parametrizacao (empresa_id, qtd_cpu_max, qtd_bytes_enviado_max,
+        var instrucao = `INSERT INTO Parametrizacao (empresa_id, qtd_cpu_max, qtd_bytes_enviado_max,
             qtd_bytes_recebido_max, qtd_memoria_max,qtd_disco_max) VALUES 
             ((SELECT id FROM EMPRESA ORDER BY id DESC LIMIT 1),default,default,default,default,default);`;
     }

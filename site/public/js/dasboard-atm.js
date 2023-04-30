@@ -308,7 +308,6 @@ window.scroll(0, 0);
 
 
 function inserirInfoProcessador(json){
-
 modelo.innerText=json[0].modelo;
 core.innerText=json[0].qtd_cpu_fisica;
 thread.innerText=" "+json[0].qtd_cpu_logica;
