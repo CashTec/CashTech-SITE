@@ -19,7 +19,7 @@ CREATE TABLE Endereco (
 -- -----------------------------------------------------
 -- Table Empresa
 -- -----------------------------------------------------
-CREATE TABLE Empresa (
+CREATE TABLE empresa (
   id INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(45) NULL,
   cnpj CHAR(14) NULL,
