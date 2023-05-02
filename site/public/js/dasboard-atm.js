@@ -305,19 +305,38 @@ window.scroll(0, 0);
   })
 }
 
+let variavelAuxiliar;
+
+function trocarInfoHd(){
+
+  tamanhoHd.innerText= (variavelAuxiliar[sel_hd.value].qtd_maxima/1073741824 ).toFixed(1)+"Gb";
+  montagem.innerText= variavelAuxiliar[sel_hd.value].ponto_montagem;
+  modeloHd.innerText=  variavelAuxiliar[sel_hd.value].nome == "unknown" ? "--" :variavelAuxiliar[sel_hd.value].nome ;
+  disponivelHd.innerText=Math.floor((variavelAuxiliar[sel_hd.value].qtd_disponivel/variavelAuxiliar[sel_hd.value].qtd_maxima)*100)+"%";
+}
+
 
 
 function inserirInfoProcessador(json){
-modelo.innerText=json[0].modelo;
+modelo.innerText=json[0].nome;
 core.innerText=json[0].qtd_cpu_fisica;
 thread.innerText=" "+json[0].qtd_cpu_logica;
-frequencia.innerText=" "+json[0].frequencia.slice(0,2).split("").join(".")+"Ghz";
+frequencia.innerText=" "+json[0].frequencia.toString().slice(0,2).split("").join(".")+"Ghz";
 }
 function inserirInfoDisco(json){
-  console.log(json)
+  variavelAuxiliar=json;
+  tamanhoHd.innerText= (json[0].qtd_maxima/1073741824).toFixed(1)+"GB";
+  montagem.innerText= json[0].ponto_montagem;
+  modeloHd.innerText= json[0].nome;
+  disponivelHd.innerText=(Math.floor((json[0].qtd_disponivel/json[0].qtd_maxima)*100))+"%";
+
+  for(let i =0; i < json.length;i++){
+    sel_hd.innerHTML+=`<option value="${i}">HD${i}</option>`
+  }
 }
+
 function inserirInfoMemoria(json){
-  console.log(json) 
+  tamanhoRam.innerText= (json[0].qtd_maxima/1073741824).toFixed(1)+"GB";
 }
 
 
