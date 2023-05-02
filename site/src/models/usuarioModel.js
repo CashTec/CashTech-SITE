@@ -18,6 +18,7 @@ function verificarUsuario(login, senha) {
     console.log("Model function verificarLogin(): ", login, senha)
 
     var instrucao = `
+
         SELECT u.*, e.id as 'empresa_id' FROM Usuario u JOIN Empresa e ON u.empresa_id = e.id WHERE u.login = '${login}' AND u.senha = '${senha};';
     `;
 
@@ -62,6 +63,7 @@ function cadastrarUsuario(nomeResponsavel, login, senha) {
     console.log(`Model function cadastrarUsuario():`, nomeResponsavel, login, senha);
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
+
         var instrucao = `INSERT INTO usuario (nome, login, senha, empresa_id, tipo_usuario) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT TOP 1 id FROM EMPRESA ORDER BY id DESC), 'administrador');`
     } else {
         var instrucao = `INSERT INTO Usuario (nome, login, senha, empresa_id, tipo_usuario) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT id FROM Empresa ORDER BY id DESC LIMIT 1), 'administrador');`;
