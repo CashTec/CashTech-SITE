@@ -1,4 +1,3 @@
-
 const font = new FontFace(
   "Poppins",
   "url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap)"
@@ -9,14 +8,12 @@ const config = {
   type: "doughnut",
   data: {
     labels: ["PERIGO", "ALERTA"],
-    datasets: [
-      {
-        label: "ATM",
-        data: [12, 19],
-        borderWidth: [0],
-        backgroundColor: ["#6C0D0D", "#BD8800"]
-      },
-    ],
+    datasets: [{
+      label: "ATM",
+      data: [12, 19],
+      borderWidth: [0],
+      backgroundColor: ["#6C0D0D", "#BD8800"]
+    }, ],
   },
   options: {
     radius: "50%",
@@ -46,8 +43,7 @@ let grafico = {
   type: "line",
   data: {
     labels: [],
-    datasets: [
-      {
+    datasets: [{
         label: "Consumo médio dos ATMS",
         data: [],
         borderWidth: 3,
@@ -120,19 +116,18 @@ let grafico = {
   },
 }
 
-let graficoLine={
+let graficoLine = {
   type: "line",
   data: {
     labels: [],
-    datasets: [
-      {
+    datasets: [{
         label: "Consumo médio dos ATMS",
         data: [],
         borderWidth: 3,
         borderColor: "#222"
 
       },
-      
+
     ],
   },
   options: {
@@ -146,8 +141,8 @@ let graficoLine={
     scales: {
 
       y: {
-        min:0,
-        max:100,
+        min: 0,
+        max: 100,
         beginAtZero: true,
         border: {
           color: " #222",
@@ -211,7 +206,7 @@ function atualizarData() {
     grafico.data.labels.shift();
     graficoLine.data.labels.shift();
   }
-  if(graficoLine.data.labels.length > 4){
+  if (graficoLine.data.labels.length > 4) {
     graficoLine.data.datasets[0].data.shift();
   }
 
@@ -265,3 +260,84 @@ btnBolinha.forEach(element => {
 
 
 window.scroll(0, 0);
+
+
+ function coletarInfoComponente(componente) {
+  componente.forEach(element=>{
+   fetch("compontentes/infoComponente", {
+      headers: {
+        "Content-type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify({
+        idAtmServer: 1,
+        componenteServer: element,
+      })
+    })
+    .then(resposta => {
+      if (resposta.status != 200) {
+        console.log("foi")
+        throw "Erro"
+      }
+      resposta.json().then(json => {
+
+        if(element=="memoria"){
+          inserirInfoMemoria(json)
+        }
+
+        else if(element=="processador"){
+          inserirInfoProcessador(json)
+        }
+
+        else if(element=="disco"){
+          inserirInfoDisco(json)
+        }
+        else{
+          console.log("Componente não valido")
+        }
+        
+      })
+    })
+
+    .catch(erro => {
+      console.log(erro)
+    })
+  })
+}
+
+let variavelAuxiliar;
+
+function trocarInfoHd(){
+
+  tamanhoHd.innerText= (variavelAuxiliar[sel_hd.value].qtd_maxima/1073741824 ).toFixed(1)+"Gb";
+  montagem.innerText= variavelAuxiliar[sel_hd.value].ponto_montagem;
+  modeloHd.innerText=  variavelAuxiliar[sel_hd.value].nome == "unknown" ? "--" :variavelAuxiliar[sel_hd.value].nome ;
+  disponivelHd.innerText=Math.floor((variavelAuxiliar[sel_hd.value].qtd_disponivel/variavelAuxiliar[sel_hd.value].qtd_maxima)*100)+"%";
+}
+
+
+
+function inserirInfoProcessador(json){
+modelo.innerText=json[0].nome;
+core.innerText=json[0].qtd_cpu_fisica;
+thread.innerText=" "+json[0].qtd_cpu_logica;
+frequencia.innerText=" "+json[0].frequencia.toString().slice(0,2).split("").join(".")+"Ghz";
+}
+function inserirInfoDisco(json){
+  variavelAuxiliar=json;
+  tamanhoHd.innerText= (json[0].qtd_maxima/1073741824).toFixed(1)+"GB";
+  montagem.innerText= json[0].ponto_montagem;
+  modeloHd.innerText= json[0].nome;
+  disponivelHd.innerText=(Math.floor((json[0].qtd_disponivel/json[0].qtd_maxima)*100))+"%";
+
+  for(let i =0; i < json.length;i++){
+    sel_hd.innerHTML+=`<option value="${i}">HD${i}</option>`
+  }
+}
+
+function inserirInfoMemoria(json){
+  tamanhoRam.innerText= (json[0].qtd_maxima/1073741824).toFixed(1)+"GB";
+}
+
+
+coletarInfoComponente(["processador","disco","memoria"])

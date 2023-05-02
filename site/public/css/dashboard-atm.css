@@ -267,6 +267,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    row-gap: 10px;
 }
 
 .column-graphic .grafico .content-HD span {
