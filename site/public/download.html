@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashTech: Lista de ATMs</title>
+    <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/download.css">
+    <link rel="stylesheet" href="./css/reset.css">
+
+</head>
+
+<body onload="atualizarFeed()">
+    <aside>
+        <div class="backEcplipse">
+            <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+            <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="logo-menu">
+                    <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+                </div>
+                <div class="bem-vindo">
+                    <h2>Bem Vindo,</h2>
+                    <span id="spn_orquestraNome">Nome Empresa</span>
+                </div>
+                <div class="indices">
+                    <ul class="lista">
+                        <a href="dashboard-geral.html">
+                            <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
+                        </a>
+                        <a href="users.html">
+                            <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                        </a>
+                        <a href="dashboard-parametrizacao.html">
+                            <li>
+                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                            </li>
+                        </a>
+                        <a href="listaATM.html">
+                            <li class="active-menu"><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
+                        </a>
+
+                    </ul>
+                </div>
+                <div>
+                    <button class="sair" onclick="limparSessao()">Sair</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="section-download">
+        <div class="content-download">
+            <img src="./img/clip.svg" alt="">
+            <div class="title">
+                CashTech application
+            </div>
+            <div class="row">
+                <div class="story-img">
+                    <img src="./img/ControlPanel-cuate.svg" alt="">
+                </div>
+                <div class="steps">
+                    <ul class="steps-text">
+                        Baixe o script em seu ATM;
+                        Reinicie o computador;
+                        Vá para o caminho do arquivo
+                        Execute-o com o comando:
+                        
+                        Digite as credencias do usuário
+                        Pronto! O ATM será cadastrado automaticamente em sua empresa!                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="./js/download.js"></script>

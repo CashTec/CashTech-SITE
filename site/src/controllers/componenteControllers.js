@@ -24,6 +24,11 @@ function coletarInformacoesComponente(req, res) {
     }
 }
 
+
+function verEnderecos(req, res) {
+}
+
 module.exports = {
-    coletarInformacoesComponente
+    coletarInformacoesComponente,
+    verEnderecos
 }

@@ -6,4 +6,8 @@ router.post("/infoComponente",(req,res)=>{
     controllerComponente.coletarInformacoesComponente(req,res);
 })
 
+router.get("/infoEndereco",(req,res)=>{
+    controllerComponente.verEnderecos(req,res);
+})
+
 module.exports=router;
