@@ -179,19 +179,26 @@ BEGIN
 	-- -----------------------------------------------------
 	-- Table Componente
 	-- -----------------------------------------------------
-	CREATE TABLE Componente (
-	  id INT NOT NULL IDENTITY(1,1),
-	  tipo VARCHAR(45) NULL,
-	  modelo VARCHAR(80) NULL,
-	  serie VARCHAR(45) NULL,
-	  qtd_maxima INT NULL,
-	  frequencia INT NULL,
-	  qtd_cpu_fisica INT NULL,
-	  qtd_cpu_logica INT NULL,
-	  caixa_eletronico_id INT NOT NULL,
-	  PRIMARY KEY (id),
-	  FOREIGN KEY (caixa_eletronico_id) REFERENCES CaixaEletronico (id)
-	);
+CREATE TABLE Componente (
+  id INT NOT NULL IDENTITY(1,1),
+  tipo VARCHAR(45) NULL,
+  nome VARCHAR(45) NULL,
+  modelo VARCHAR(80) NULL,
+  serie VARCHAR(45) NULL,
+  frequencia FLOAT NULL,
+  qtd_cpu_fisica INT,
+  qtd_cpu_logica INT,
+  qtd_maxima BIGINT NULL,
+  qtd_disponivel BIGINT NULL,
+  ponto_montagem VARCHAR(45) NULL,
+  sistema_arquivos VARCHAR(5) NULL,
+  caixa_eletronico_id INT NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_Componente_CaixaEletronico
+FOREIGN KEY (caixa_eletronico_id)
+REFERENCES CaixaEletronico (id)
+);
+
 	-- -----------------------------------------------------
 	-- Table MetricaComponente
 	-- -----------------------------------------------------
