@@ -182,7 +182,7 @@ BEGIN
 CREATE TABLE Componente (
   id INT NOT NULL IDENTITY(1,1),
   tipo VARCHAR(45) NULL,
-  nome VARCHAR(45) NULL,
+  nome VARCHAR(100) NULL,
   modelo VARCHAR(80) NULL,
   serie VARCHAR(45) NULL,
   frequencia FLOAT NULL,
