@@ -196,13 +196,16 @@ let grafico3 = new Chart(graphicLine3, grafico);
 
 // Função que atualiza os dados do gráfico de linha
 function atualizarData() {
+
   let sortear = Math.floor(1 + Math.random() * 10);
   let sortear2 = Math.floor(1 + Math.random() * 10); // dados mockados
   let criarData = new Date(); // dados mockados
   if (grafico.data.labels.length > 4) {
     graficoLine.data.datasets[0].data.shift();
     grafico.data.datasets[0].data.shift();
-    grafico.data.datasets[1].data.shift();
+    grafico.data.datasets[1].data.shift(￼Alerta
+22%
+Modelo: Disco Fixo Local (C:));
     grafico.data.labels.shift();
     graficoLine.data.labels.shift();
   }
@@ -264,13 +267,13 @@ window.scroll(0, 0);
 
  function coletarInfoComponente(componente) {
   componente.forEach(element=>{
-   fetch("compontentes/infoComponente", {
+   fetch("componentes/infoComponente", {
       headers: {
         "Content-type": "application/json"
       },
       method: "POST",
       body: JSON.stringify({
-        idAtmServer: 1,
+        idAtmServer: sessionStorage.idAtm,
         componenteServer: element,
       })
     })
@@ -292,13 +295,15 @@ window.scroll(0, 0);
         else if(element=="disco"){
           inserirInfoDisco(json)
         }
+        else if(element=="rede"){
+          inserirInfoRede(json);
+        }
         else{
-          console.log("Componente não valido")
+          console.log("Componente inválido")
         }
         
       })
     })
-
     .catch(erro => {
       console.log(erro)
     })
@@ -308,13 +313,11 @@ window.scroll(0, 0);
 let variavelAuxiliar;
 
 function trocarInfoHd(){
-
   tamanhoHd.innerText= (variavelAuxiliar[sel_hd.value].qtd_maxima/1073741824 ).toFixed(1)+"Gb";
   montagem.innerText= variavelAuxiliar[sel_hd.value].ponto_montagem;
   modeloHd.innerText=  variavelAuxiliar[sel_hd.value].nome == "unknown" ? "--" :variavelAuxiliar[sel_hd.value].nome ;
   disponivelHd.innerText=Math.floor((variavelAuxiliar[sel_hd.value].qtd_disponivel/variavelAuxiliar[sel_hd.value].qtd_maxima)*100)+"%";
 }
-
 
 
 function inserirInfoProcessador(json){
@@ -339,5 +342,12 @@ function inserirInfoMemoria(json){
   tamanhoRam.innerText= (json[0].qtd_maxima/1073741824).toFixed(1)+"GB";
 }
 
+function inserirInfoRede(json){
+  console.log("aaa");
+  macRede.innerText=`${json[0].mac}`
+  nomeRede.innerText=`${json[0].nome}`
+  ipRede.innerText=`${json[0].ipv4}`
+}
 
-coletarInfoComponente(["processador","disco","memoria"])
+
+coletarInfoComponente(["processador","disco","memoria","rede"]);
