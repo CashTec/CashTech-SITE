@@ -66,7 +66,7 @@ CREATE TABLE Processo (
   id INT NOT NULL AUTO_INCREMENT,
   caixa_eletronico_id INT NOT NULL,
   nome VARCHAR(45) NULL,
-  pid CHAR(5) NULL,
+  pid CHAR(13) NULL,
   uso_cpu DOUBLE NULL,
   uso_memoria INT NULL,
   byte_utilizado INT NULL,
@@ -164,18 +164,23 @@ CREATE TABLE Notificacao (
 -- -----------------------------------------------------
 CREATE TABLE Componente (
   id INT NOT NULL AUTO_INCREMENT,
-  tipo VARCHAR(45) NULL,
-  modelo VARCHAR(80) NULL,
-  serie VARCHAR(45) NULL,
-  qtd_maxima INT NULL,
-  frequencia INT NULL,
-  qtd_cpu_fisica INT NULL,
-  qtd_cpu_logica INT NULL,
-  caixa_eletronico_id INT NOT NULL,
+  tipo VARCHAR(45) ,
+  nome VARCHAR(45) ,
+  modelo VARCHAR(80) ,
+  serie VARCHAR(45),
+  frequencia DOUBLE ,
+  qtd_cpu_fisica INT,
+  qtd_cpu_logica INT,
+	qtd_maxima LONG ,
+  qtd_disponivel LONG ,
+  ponto_montagem VARCHAR(45) ,
+  sistema_arquivos varchar(5) ,
+	caixa_eletronico_id INT NOT NULL,
   PRIMARY KEY (id),
-  INDEX fk_Network_Interface_CaixaEletronico1_idx (caixa_eletronico_id ASC) VISIBLE,
-  CONSTRAINT fk_Network_Interface_CaixaEletronico10 FOREIGN KEY (caixa_eletronico_id) REFERENCES CaixaEletronico (id)
-);
+  CONSTRAINT fk_Network_Interface_CaixaEletronico10
+  FOREIGN KEY (caixa_eletronico_id)
+  REFERENCES CaixaEletronico (id))
+ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table MetricaComponente
 -- -----------------------------------------------------
@@ -201,11 +206,10 @@ CREATE TABLE ProcessoPermitido (
 );
 
 -- Conferir dados: 
-select * from sistema;
-select * from endereco;
+select * from Sistema;
+select * from Endereco;
 select * from CaixaEletronico;
-select * from empresa;
-select * from processoPermitido;
-select * from caixaeletronico;
-select * from processo;
-select * from usuario;
+select * from Empresa;
+select * from ProcessoPermitido;
+select * from Processo;
+select * from Usuario;

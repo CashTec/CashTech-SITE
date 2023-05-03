@@ -16,14 +16,14 @@ const enderecos = [
 
 
 let redMaker = L.icon({
-  iconUrl:'../img/danger.svg',
+  iconUrl:'./img/danger.svg',
   iconSize: [60, 65],
   iconAnchor: [12, 41]
 })
 
 
 let yellowMaker = L.icon({
-  iconUrl:'../img/warn.svg',
+  iconUrl:'./img/warn.svg',
   iconSize: [60, 65],
   iconAnchor: [12, 41]
 })
@@ -59,10 +59,10 @@ function mapa() {
 
               let marker = L.marker([coordenadas.lat,coordenadas.lng],{icon:marcadores[sortear]}).addTo(map);
               if(sortear==0){
-                customPoup = `<img src='../img/danger-pop.svg' class="icone"><br><h2>ATM com funcionamento<br> fora do normal</h2> <button onclick='redirecionarAtm(1)' class="btn-pop">Ver mais informações</button>`;
+                customPoup = `<img src='./img/danger-pop.svg' class="icone"><br><h2>ATM com funcionamento<br> fora do normal</h2> <button onclick='redirecionarAtm(1)' class="btn-pop">Ver mais informações</button>`;
               }
               else{
-                 customPoup = `<img src='../img/warn-pop.svg' class="icone"><br><h2>ATM com funcionamento<br> fora do normal</h2> <button onclick='redirecionarAtm(1)' class="btn-pop">Ver mais informações</button>`;
+                 customPoup = `<img src='./img/warn-pop.svg' class="icone"><br><h2>ATM com funcionamento<br> fora do normal</h2> <button onclick='redirecionarAtm(1)' class="btn-pop">Ver mais informações</button>`;
               }
 
             
