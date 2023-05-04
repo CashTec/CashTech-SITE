@@ -89,7 +89,7 @@ BEGIN
 	CREATE TABLE Processo (
 	  id INT NOT NULL IDENTITY(1,1),
 	  caixa_eletronico_id INT NOT NULL,
-	  nome VARCHAR(45) NULL,
+	  nome VARCHAR(255) NULL,
 	  pid CHAR(5) NULL,
 	  uso_cpu FLOAT NULL,
 	  uso_memoria INT NULL,
@@ -159,7 +159,7 @@ BEGIN
 	CREATE TABLE MetricaSistema (
 	  id INT NOT NULL IDENTITY(1,1),
 	  iniciado DATETIME NULL,
-	  tempo_atividade DATETIME NULL,
+	  tempo_atividade bigint NULL,
 	  dt_metrica DATETIME NULL,
 	  sistema_id INT NOT NULL,
 	  PRIMARY KEY (id),
