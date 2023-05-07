@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/dashboard-atm.css">
 </head>
 
-<body id="tela">
+<body id="tela" onload="verificarLogin()">
     <div class="backEcplipse">
         <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
         <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="bem-vindo">
                     <h2>Bem Vindo,</h2>
-                    <span id="spn_orquestraNome">Nome Empresa</span>
+                    <span id="spn_usuarioNome">Nome Empresa</span>
                 </div>
                 <div class="indices">
 
@@ -464,8 +464,9 @@
             </div>
 
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/dasboard-atm.js"></script>
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/dasboard-atm.js"></script>
+<script src="js/script.js"></script>

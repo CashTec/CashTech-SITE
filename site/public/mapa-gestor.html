@@ -18,7 +18,7 @@
     <link rel="icon" href="">
 </head>
 
-<body>
+<body onload="verificarLogin()">
     <div class="backElipse">
         <img src="img/cashTechSystem/ElipseUpInverso.png" class="elipseUp">
     </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="bem-vindo">
                     <h2>Bem Vindo,</h2>
-                    <span id="spn_orquestraNome">Nome Empresa</span>
+                    <span id="spn_usuarioNome">Nome Empresa</span>
                 </div>
                 <div class="indices">
                     <ul class="lista">
@@ -78,7 +78,8 @@
             <div id="contentAtm" class="content-atm">
                 <h2>ATMs em alerta e inativos</h2>
                 <button class="button-carrossel" data-info="up">></button>
-                <button class="button-carrossel" data-info="down"><</button>
+                <button class="button-carrossel" data-info="down">
+                    << /button>
 
                         <div class="list" id="div_alertaEndereco">
                         </div>
@@ -106,10 +107,11 @@
     </main>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
-    <script src="js/mapa.js"></script>
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+<script src="js/mapa.js"></script>
+<script src="js/script.js"></script>
