@@ -19,7 +19,7 @@
     display: flex;
     justify-content: space-around;
     width: 324px;
-    
+
 }
 
 .form-login-btn button {
@@ -31,6 +31,26 @@
     transition: 500ms;
     color: #ffff;
     background-color: #003849;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading {
+    text-align: center;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading img {
+    width: 30px;
+}
+
+#spn_invalido {
+    display: none;
+    color: red;
+    font-size: 14px;
 }
 
 .form-login-btn button:hover {
@@ -92,7 +112,7 @@
 
 /*Responsividade */
 @media only screen and (max-width: 820px) {
-    
+
     .form-login {
         height: 500px;
         padding-bottom: 30px;
@@ -114,7 +134,7 @@
         padding: 18px 15px;
     }
 
-    .form-login-btn{
+    .form-login-btn {
         width: 454px;
     }
 
@@ -123,7 +143,7 @@
         padding: 5px 40px;
         border-radius: 14px;
     }
-    
+
 
     .all-login-register {
         margin-top: -120px;
