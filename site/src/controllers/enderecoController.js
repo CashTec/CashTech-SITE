@@ -1,6 +1,6 @@
 const enderecoModel = require("../models/enderecoModel");
 
-function verEnderecos(req, res) {
+async function verEnderecos(req, res) {
     let idEmpresa = req.params.idEmpresa;
 
     if (idEmpresa == null) {
@@ -12,11 +12,11 @@ function verEnderecos(req, res) {
         enderecosAlerta: []
     };
 
-    enderecoModel.verEnderecosInativo(idEmpresa)
+    await enderecoModel.verEnderecosInativo(idEmpresa)
         .then(response => {
             if (response.length > 0) {
                 response.forEach((res) => {
-                    resposta.enderecosInativos.push(enderecosInativos(res));
+                    resposta.enderecosInativos.push(res);
                 })
             }
         }).catch(err => {
@@ -24,7 +24,7 @@ function verEnderecos(req, res) {
             return res.status(500).send()
         })
 
-    enderecoModel.verEnderecosAlerta(idEmpresa)
+    await enderecoModel.verEnderecosAlerta(idEmpresa)
         .then(response => {
             if (response.length > 0) {
                 response.forEach((res) => {

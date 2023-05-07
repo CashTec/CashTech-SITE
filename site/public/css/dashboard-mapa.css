@@ -29,7 +29,6 @@
     padding: 50px 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     width: 300px;
 }
 
@@ -41,7 +40,7 @@
     width: max-content;
     padding: 10px;
     border-radius: 10px;
-    margin:0 auto;
+    margin: 10vh auto 0 auto;
 }
 
 .content-kpi .title h3 {
@@ -50,11 +49,18 @@
 }
 
 .content-atm {
-    display: flex;
+    display: none;
     flex-direction: column;
     column-gap: 10px;
     position: relative;
+    margin-top: 20vh;
+}
 
+#div_NotAlert {
+    display: none;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 13vh;
 }
 
 .content-atm .list {
@@ -68,11 +74,11 @@
     padding: 15px 20px;
 }
 
-.content-atm .list::-webkit-scrollbar{
+.content-atm .list::-webkit-scrollbar {
     display: none;
 }
 
-.content-atm .list{
+.content-atm .list {
     scroll-behavior: smooth;
 }
 
@@ -82,7 +88,6 @@
 }
 
 .content-atm .square {
- 
     height: 240px;
     display: flex;
     flex-direction: column;
@@ -125,7 +130,8 @@
 }
 
 .nome {
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 0.8em;
 }
 
 .time {
@@ -156,14 +162,14 @@
     background-color: #222;
     height: 200px;
     width: 100%;
-   
+
 }
 
 
 
 
 
-.grafic{
+.grafic {
     width: 100%;
     height: 100%;
     display: flex;
@@ -172,7 +178,7 @@
     flex-direction: column;
 }
 
-.grafic h2{
+.grafic h2 {
     color: #fff;
 }
 
@@ -183,33 +189,33 @@
 } */
 
 
-.btn-pop{
-padding: 10px;
-background-color: #00556A;
-font-weight: bold;
-text-align: center;
-margin: auto;
-display: block;
-color: #fff;
-border-radius: 10px;
+.btn-pop {
+    padding: 10px;
+    background-color: #00556A;
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+    display: block;
+    color: #fff;
+    border-radius: 10px;
 }
 
-.custom{
+.custom {
     padding: 10px;
 }
 
-.custom h2{
+.custom h2 {
     margin-bottom: 20px;
     text-align: center;
 }
 
-.custom img{
+.custom img {
     width: 80px;
     margin: auto;
     display: block;
 }
 
-.legenda{
+.legenda {
     width: 70%;
     display: flex;
     height: 100px;
@@ -224,18 +230,28 @@ border-radius: 10px;
     border-radius: 10px;
 }
 
-.mark{
-    color: #fff ;
+.mark {
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 
-.mark h2{
+.mark h2 {
     margin-left: 10px;
 }
 
-.mark img{
+.mark img {
     width: 40px;
+}
+
+.loading {
+    text-align: center;
+    display: none;
+    margin-top: 15vh;
+}
+
+.loading img{
+    width: 140px;
 }
