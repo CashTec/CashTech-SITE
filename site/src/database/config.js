@@ -23,7 +23,7 @@ var mySqlConfig = {
     database: "cashtech",
     port: 3306,
     user: "root",
-    password: "3db01194",
+    password: "gp123456789.",
 };
 
 function executar(instrucao) {
