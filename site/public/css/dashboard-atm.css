@@ -238,9 +238,17 @@ body::-webkit-scrollbar {
     color: #fff;
     overflow-y: scroll;
     height: 0;
+    z-index: 2;
     opacity: 0;
     transition: 0.7s;
 }
+
+.content-grafico-container{
+    position: relative;
+    height: 100%;
+}
+
+
 
 .card-info.active {
     height: 192px;
@@ -439,4 +447,69 @@ body::-webkit-scrollbar {
 
 .content-processo .card-kpi  h2 {
 font-size: 1em;
-} 
+}
+
+.aviso{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+ row-gap: 10px;
+    background-color: rgba(0, 0, 0,0.7);
+    backdrop-filter: blur(3px);
+    height: 100%;
+    bottom: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: 0.7s;
+}
+
+.aviso>h2{
+    color: rgb(223, 123, 0) !important;
+    font-weight: bold;
+}
+
+.aviso>p{
+    width: 70%;
+    color: #fff;
+    text-align: center;
+}
+
+.aviso.active{
+    z-index: 1;
+    opacity: 1;
+    transition: 0.7s;
+}
+
+
+.legenda{
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    font-size: 0.7em;
+}
+.legenda li::before{
+    content: " ";
+    background-color: #06d339;
+    width: 10px;
+    height: 10px;
+    display: block;
+    margin-right: 10px;
+    
+}
+
+.legenda li:nth-child(1):before{
+    background-color:#E5A50A ;
+}
+
+.legenda li:nth-child(2):before{
+    background-color:#2D7DB3 ;
+}
+
+.legenda li {
+    display: flex;
+    align-items: center;
+  
+}

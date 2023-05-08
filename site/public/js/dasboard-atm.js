@@ -1,5 +1,3 @@
-
-
 const font = new FontFace(
   "Poppins",
   "url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap)"
@@ -111,8 +109,28 @@ function inserirInfoRede(json) {
 }
 
 
+function buscarMetricaComponente() {
 
- function buscarMetricaRede() {
+  const requisicaoProcessador = fetch(`/metricas/metricaComponente/1`)
+  const requisicaoMemoria = fetch(`/metricas/metricaComponente/1`)
+
+  Promise.all(requisicaoMemoria, requisicaoProcessador)
+    .then(resposta => resposta.json())
+    .then(json => {
+      if (json.tipo == "processador") {
+        atualizarMetricaProcessador(json);
+      } else {
+        atualizarMetricaMemoria(json);
+      }
+      setTimeout(() => {
+        buscarMetricaComponente();
+      })
+
+    })
+}
+
+
+function buscarMetricaRede() {
   fetch(`/metricas/metricaRede/2`, {
     headers: {
       'Content-type': 'application/json'
@@ -121,15 +139,14 @@ function inserirInfoRede(json) {
   }).
   then(resposta => resposta.json())
     .then(json => {
-    console.log(json + "sdsdsdsdsd");
       atualizarMetricaRede(json);
-      setTimeout(()=>{
+      setTimeout(() => {
         buscarMetricaRede()
-      }, 2000);
+      }, 1000);
     }).catch((erro) => {
       console.error(erro);
     })
-    
+
 }
 
 
@@ -161,8 +178,6 @@ const config = {
     },
   },
 };
-let dadosRedeDadosRecebidos=[];
-let dadosRedeDadosEnviados=[];
 const graphicBola = document.getElementById("graphicBola");
 const graficoBoll = new Chart(graphicBola, config)
 
@@ -171,17 +186,17 @@ let graficoRede = {
   data: {
     labels: [],
     datasets: [{
-        label: "Consumo médio dos ATMS",
-        data:[] ,
+        label: "Megabytes Enviados",
+        data: [],
         borderWidth: 3,
-        borderColor: "#222"
+        borderColor:"#2D7DB3"
 
       },
       {
-        label: "Consumo médio dos ATMS",
+        label: "Magabytes Recebidos",
         data: [],
         borderWidth: 3,
-        borderColor: "#222"
+        borderColor: "#E5A50A" 
 
       },
 
@@ -194,11 +209,11 @@ let graficoRede = {
         display: false
       },
     },
-
-
     scales: {
 
       y: {
+        suggestedMin: 1,
+        suggestedMax: 10,
         beginAtZero: true,
         border: {
           color: " #222",
@@ -245,6 +260,9 @@ let graficoRede = {
   },
 }
 let grafico3 = new Chart(graphicLine3, graficoRede);
+
+
+
 
 
 // let grafico = {
@@ -400,67 +418,84 @@ let graficoProcessador = {
   },
 }
 
-
-
-
-
-
-
-
-
-
+let grafico1 = new Chart(graphicLine1, graficoProcessador);
 
 // Função que atualiza os dados do gráfico de linha
-let jsonAntigo=[]
-let verificadorCount =0;
-const verificador = (json,copia) =>{JSON.stringify(copia)==JSON.stringify(json) ? verificadorCount++ : verificadorCount=0}
+let jsonAntigo = []
+let verificadorCount = 0;
+
+const verificador = (json, copia) => {
+  JSON.stringify(copia) == JSON.stringify(json) ? verificadorCount++ : verificadorCount = 0
+}
+
+
+function atualizarMetricaProcessador(json) {
+  atualizarData(json,graficoProcessador,"processador",grafico1);
+}
+
+
+function atualizarMetricaMemoria(json) {
+
+}
+
+
+
 function atualizarMetricaRede(json) {
+  verificador(json, jsonAntigo)
+  let containerAviso = document.querySelectorAll(".aviso")[0];
+  if (verificadorCount < 10) {
+    jsonAntigo = json;
+    atualizarData(json, graficoRede, "rede", grafico3);
+    jsonAntigo = json;
+    containerAviso.classList.remove("active")
+  } else {
+    containerAviso.classList.add("active")
+  }
 
-if(verificadorCount<10){
-  verificador(json,jsonAntigo)
-  jsonAntigo=json;
-  atualizarData(json,graficoRede,"rede");
-  jsonAntigo=json;
-}else{
-  console.log("Parou")
 }
-}
 
 
-let dadosComponente=[];
 
+function atualizarData(json, dadosGrafico, tipo, grafico) {
 
-function atualizarData(json, grafico, tipo) {
-let dateYour = new Date();
-let string = `${dateYour.getHours().toString().length ==1 ? dateYour.getHours().toFixed(1).split(".").reverse().join("") : dateYour.getHours()} : ${dateYour.getMinutes()} : ${dateYour.getSeconds()} `
+  const dateTimeFormatado = json[0].dt_metrica.slice(11, 19);
 
-  if(tipo == "rede"){
-  if(dadosRedeDadosEnviados.length < 6 || dadosRedeDadosRecebidos.length < 6) {
-      dadosRedeDadosRecebidos.push(json[0].bytes_recebidos_segundo);
-      grafico.data.datasets[0].data.push(json[0].bytes_recebidos_segundo);
-      dadosRedeDadosEnviados.push(json[0].bytes_enviados_segundo);
-      grafico.data.datasets[1].data.push(json[0].bytes_recebidos_segundo);
-      grafico.data.labels.push(string);
-    return
+  let primeiroDado
+  let segundoDado;
+  switch (tipo) {
+    case "rede":
+      primeiroDado = json[0].bytes_recebidos_segundo/(1024*1024);
+      segundoDado = json[0].bytes_enviados_segundo/ (1024*1024);
     }
 
-
-    grafico.data.datasets[0].data.shift()
-    grafico.data.datasets[0].data.push(json[0].bytes_recebidos_segundo);
-    grafico.data.datasets[1].data.shift();    
-    grafico.data.datasets[1].data.push(json[0].bytes_enviados_segundo);
-    grafico.data.labels.shift();
-    grafico.data.labels.push(string);
-    grafico3.update();
-  }
-  else{
-
-  }
-  }
+    console.log(primeiroDado);
+    console.log(segundoDado);
   
 
-  
+  if (dadosGrafico.data.datasets[0].data.length < 6) {
+    dadosGrafico.data.datasets[0].data.push(primeiroDado);
+    if (tipo == "rede") {
+      dadosGrafico.data.datasets[1].data.push(segundoDado);
+    }
+    dadosGrafico.data.labels.push(dateTimeFormatado);
+    return
+  }
 
+
+
+  dadosGrafico.data.datasets[0].data.shift()
+  dadosGrafico.data.datasets[0].data.push(primeiroDado);
+
+  if (tipo == "rede") {
+    dadosGrafico.data.datasets[1].data.shift();
+    dadosGrafico.data.datasets[1].data.push(segundoDado);
+  }
+
+  dadosGrafico.data.labels.shift();
+  dadosGrafico.data.labels.push(dateTimeFormatado);
+
+  grafico.update();
+}
 
 
 
