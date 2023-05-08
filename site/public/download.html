@@ -30,6 +30,10 @@
                 </div>
                 <div class="indices">
                     <ul class="lista">
+                        <a href="mapa-gestor.html">
+                            <li><img src="./img/map.svg" alt=""> Mapa</li>
+                        </a>
+
                         <a href="dashboard-geral.html">
                             <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
                         </a>
@@ -42,41 +46,69 @@
                             </li>
                         </a>
                         <a href="listaATM.html">
-                            <li class="active-menu"><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
+                            <li><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
                         </a>
+
 
                     </ul>
                 </div>
                 <div>
+                    <a href="./download.html" class="sair downloadMenu">Download</a>
+                </div>
+                <div>
                     <button class="sair" onclick="limparSessao()">Sair</button>
                 </div>
+
             </div>
         </div>
     </aside>
-
-    <div class="section-download">
-        <div class="content-download">
-            <img src="./img/clip.svg" alt="">
-            <div class="title">
-                CashTech application
-            </div>
-            <div class="row">
-                <div class="story-img">
-                    <img src="./img/ControlPanel-cuate.svg" alt="">
+    <main>
+        <div class="section-download">
+            <div class="content-download">
+                <img src="./img/clip.svg" class="clip" alt="">
+                <div class="title">
+                    CashTech application
                 </div>
-                <div class="steps">
-                    <ul class="steps-text">
-                        Baixe o script em seu ATM;
-                        Reinicie o computador;
-                        Vá para o caminho do arquivo
-                        Execute-o com o comando:
-                        
-                        Digite as credencias do usuário
-                        Pronto! O ATM será cadastrado automaticamente em sua empresa!                    </ul>
+                <div class="row">
+                    <div class="story-img">
+                        <img src="./img/ControlPanel-cuate.svg" alt="">
+                    </div>
+                    <div class="steps">
+                        <ol class="steps-text">
+                            <li> Baixe o script em seu ATM; </li>
+                            <li> Reinicie o computador; </li>
+                            <li> Vá para o caminho do arquivo </li>
+                            <li>
+                                Execute-o com o comando: <br>
+                                <div id="copy" class="copy">
+                                    <span>bash</span>
+                                    cashtech-jar
+                                    <button class="copyBtn" id="copyBtn">
+                                        <img src="./img/copy.svg" id="" alt="">
+                                        <div class="copyed">
+                                            <div class="copyedtext">
+                                                Copiar para área de tranferência!
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </li>
+                            <li> Digite as credencias do usuário </li>
+                            <li> Pronto! O ATM será cadastrado automaticamente em sua empresa! </li>
+                        </ol>
+                        <div class="btnDownload">
+                            <a
+                                href="https://github.com/MuriloSBarbosa/CashtechJar/raw/main/cashtech-jar-1.0-SNAPSHOT-jar-with-dependencies.jar">
+                                <img src="./img/download.svg" alt="">
+                                <span>Download</span>
+                            </a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
 
 </html>

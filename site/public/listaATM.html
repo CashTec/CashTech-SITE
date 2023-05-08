@@ -16,48 +16,52 @@
 <body onload="atualizarFeed(), verificarLogin()">
     <aside>
         <div class="backEcplipse">
-          <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
-          <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+            <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+            <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
         </div>
         <div class="menu">
-          <div class="container">
-            <div class="logo-menu">
-              <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
-            </div>
-            <div class="bem-vindo">
-              <h2>Bem Vindo,</h2>
-              <span id="spn_usuarioNome">Nome Empresa</span>
-            </div>
-            <div class="indices">
-              <ul class="lista">
-                <a href="mapa-gestor.html">
-                    <li><img src="./img/map.svg" alt=""> Mapa</li>
-                </a>
-                
-                <a href="dashboard-geral.html">
-                  <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
-                </a>
-                <a href="users.html">
-                  <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
-                </a>
-                <a href="dashboard-parametrizacao.html">
-                  <li>
-                      <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
-                  </li>
-              </a>
-                <a href="listaATM.html">
-                  <li class="active-menu"><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
-                </a>
+            <div class="container">
+                <div class="logo-menu">
+                    <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+                </div>
+                <div class="bem-vindo">
+                    <h2>Bem Vindo,</h2>
+                    <span id="spn_usuarioNome">Nome Empresa</span>
+                </div>
+                <div class="indices">
+                    <ul class="lista">
+                        <a href="mapa-gestor.html">
+                            <li><img src="./img/map.svg" alt=""> Mapa</li>
+                        </a>
 
-              
-              </ul>
+                        <a href="dashboard-geral.html">
+                            <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
+                        </a>
+                        <a href="users.html">
+                            <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                        </a>
+                        <a href="dashboard-parametrizacao.html">
+                            <li>
+                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                            </li>
+                        </a>
+                        <a href="listaATM.html">
+                            <li class="active-menu"><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
+                        </a>
+
+
+                    </ul>
+                </div>
+                <div>
+                    <a href="./download.html" class="sair downloadMenu">Download</a>
+                </div>
+                <div>
+                    <button class="sair" onclick="limparSessao()">Sair</button>
+                </div>
+
             </div>
-            <div>
-              <button class="sair" onclick="limparSessao()">Sair</button>
-            </div>
-          </div>
         </div>
-      </aside>
+    </aside>
     <div class="dashboard">
         <div class="content-users">
             <div class="container">
@@ -117,8 +121,9 @@
                                 <td>2022-02-02 02:21</td>
                                 <td>20:12:56:21</td>
                                 <td>Rua Marcos Oliveira, 298</td>
-                                <td class="tdImg"><button onclick="window.location.href = 'dashboard-atm.html'"><img class="graphic" src="./img/cashTechSystem/bar-chart.png"
-                                            alt=""></button></td>
+                                <td class="tdImg"><button onclick="window.location.href = 'dashboard-atm.html'"><img
+                                            class="graphic" src="./img/cashTechSystem/bar-chart.png" alt=""></button>
+                                </td>
                                 <td class="tdImg"><button onclick="abrir_modalEditar()"><img
                                             src="./img/cashTechSystem/lapis.svg"></button></td>
                                 <td class="tdImg"><button onclick="deletar_musico()"><img
@@ -130,8 +135,9 @@
                                 <td>2022-02-02 06:21</td>
                                 <td>00:12:56:21</td>
                                 <td>Rua Trajano de Carvalho, 298</td>
-                                <td class="tdImg"><button onclick="window.location.href = 'dashboard-atm.html'"><img class="graphic" src="./img/cashTechSystem/bar-chart.png"
-                                            alt=""></button></td>
+                                <td class="tdImg"><button onclick="window.location.href = 'dashboard-atm.html'"><img
+                                            class="graphic" src="./img/cashTechSystem/bar-chart.png" alt=""></button>
+                                </td>
                                 <td class="tdImg"><button onclick="abrir_modalEditar()"><img
                                             src="./img/cashTechSystem/lapis.svg"></button></td>
                                 <td class="tdImg"><button onclick="deletar_musico()"><img
