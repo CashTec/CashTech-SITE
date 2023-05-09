@@ -26,7 +26,7 @@
             </div>
             <div class="bem-vindo">
               <h2>Bem Vindo,</h2>
-              <span id="spn_orquestraNome">Nome Empresa</span>
+              <span id="spn_userNome">Nome Empresa</span>
             </div>
             <div class="indices">
               <ul class="lista">
@@ -106,28 +106,15 @@
                                 <th>Editar</button></th>
                             </tr>
                         </thead>
-                        <tbody id="table_musicos">
-
+                        <tbody id="table_usuarios">
                             <tr>
-                                <td>José</td>
-                                <td>jose@gmail.com</td>
-                                <td>11928382123</td>
-                                <td>senha123</td>
-                                <td>Bradesco</td>
-                                <td>Analista</td>
-                                <td><button onclick="deletar_musico()"><img
-                                            src="./img/cashTechSystem/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar()"><img
-                                            src="./img/cashTechSystem/lapis.svg"></button></td>
-                            </tr>
-                            <tr>
-                                <td>José</td>
-                                <td>jose@gmail.com</td>
-                                <td>11928382123</td>
-                                <td>senha123</td>
-                                <td>Bradesco</td>
-                                <td>Analista</td>
-                                <td><button onclick="deletar_musico()"><img
+                                <td id="usuario_nome">José</td>
+                                <td id="email_usuario">jose@gmail.com</td>
+                                <td id="telefone_usuario">11928382123</td>
+                                <td id="senha_usuario">senha123</td>
+                                <td id="empresa_usuario">Bradesco</td>
+                                <td id="cargo">Analista</td>
+                                <td><button onclick="deletar_usuario()"><img
                                             src="./img/cashTechSystem/lixo.svg"></button></td>
                                 <td><button onclick="abrir_modalEditar()"><img
                                             src="./img/cashTechSystem/lapis.svg"></button></td>
@@ -178,7 +165,7 @@
             <div class="modal-footer">
                 <div class="modal-buttons">
                     <button class="btn_cancelar" onclick="fechar_modalAdicionar()">Cancelar</button>
-                    <button class="btn_adicionar" onclick="adicionarMusico()">Adicionar</button>
+                    <button class="btn_adicionar" onclick="adicionarUsuario()">Adicionar</button>
                 </div>
             </div>
         </div>

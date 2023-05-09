@@ -1,5 +1,12 @@
-spn_orquestraNome.innerHTML = sessionStorage.NOME_ORQUESTRA;
 
+// ****************************************************
+// REVER COMO ESTA SALVO NA SESSION STOREGE
+// Troquei orquestra por empresa e musico por usuario
+// ****************************************************
+
+
+
+spn_userNome.innerHTML = sessionStorage.NOME_EMPRESA;
 // ------------------ Funções de modal ------------------------//
 function abrir_modalAdicionar() {
     div_backgroundModal.style.display = 'flex';
@@ -18,15 +25,15 @@ function fechar_modalAdicionar() {
     }, 500);
 }
 
-function abrir_modalEditar(idOrquestra, idMusico) {
-    console.log(idOrquestra);
+function abrir_modalEditar(idEmpresa, idUsuario) {
+    console.log(idEmpresa);
 
-    listarUm(idOrquestra, idMusico);
+    listarUm(idEmpresa, idUsuario);
     div_backgroundModal.style.display = 'flex';
     div_editarModal.style.display = 'block'
     document.body.style.overflow = 'hidden';
     btn_editar.addEventListener("click", function () {
-        editar(idOrquestra, idMusico);
+        editar(idEmpresa, idUsuario);
     });
 }
 function fechar_modalEditar() {
@@ -64,7 +71,7 @@ function fechar_modalAdicionar() {
 
 // ------------------ Função de Adicionar funcionario ------------------------//
 
-function adicionarMusico() {
+function adicionarUsuario() {
 
     var nome = in_adcNome.value;
     var telefone = in_adcTelefone.value;
@@ -97,7 +104,7 @@ function adicionarMusico() {
         return false;
     }
 
-    var idOrquestra = sessionStorage.ID_ORQUESTRA;
+    var idEmpresa = sessionStorage.ID_EMPRESA;
 
     var corpo = {
         nome: in_adcNome.value,
@@ -105,7 +112,7 @@ function adicionarMusico() {
         instrumento: sel_adcInstrumento.value,
 
     }
-    fetch(`/meusMusicos/cadastrarMusico/${idOrquestra}`, {
+    fetch(`/meusMusicos/cadastrarMusico/${idEmpresa}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -138,16 +145,16 @@ function adicionarMusico() {
 
     return false;
 }
-// ------------------ Fim Função de Adicionar funcionario ------------------------//
+// ------------------ Fim Função de Adicionar Funcionario ------------------------//
 
 
 
 // ------------------ Função de Atualizar Feed ------------------------//
 
 function atualizarFeed(filtro) {
-    var idOrquestra = sessionStorage.ID_ORQUESTRA;
+    var idEmpresa = sessionStorage.ID_EMPRESA;
 
-    fetch(`/meusMusicos/listar/${idOrquestra}/${filtro}`).then(function (resposta) {
+    fetch(`/meusMusicos/listar/${idEmpresa}/${filtro}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 h2_nenhumAchado.innerHTML = "Nenhum funcionario cadastrado."
@@ -156,14 +163,14 @@ function atualizarFeed(filtro) {
 
             resposta.json().then(function (resposta) {
 
-                var texto = 'Listando Musicos';
+                var texto = 'Listando Usuários';
                 aparecer_card(texto);
 
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
 
                 div_planilhaUsers.innerHTML =
                     `
-                <table class="tabela-musicos">
+                <table class="tabela-usuarios">
                     <thead>
                         <tr>
                             <th><button name="btn-filtro" onclick="atualizarFeed('id')">Id</button></th> 
@@ -174,7 +181,7 @@ function atualizarFeed(filtro) {
                             <th>Editar</button></th>
                         </tr>
                     </thead>
-                    <tbody id="table_musicos">
+                    <tbody id="table_usuarios">
                     </tbody>
                 </table>
                 `;
@@ -196,12 +203,12 @@ function atualizarFeed(filtro) {
                     table_musicos.innerHTML +=
                         `
                         <tr>
-                            <td>${musico.idMusico}</td>
+                            <td>${musico.idUsuario}</td>
                             <td>${musico.nome}</td>
                             <td>${musico.instrumento}</td>
                             <td>${musico.telefone}</td>
-                            <td><button onclick="deletar_musico(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lixo.svg"></button></td>
-                            <td><button onclick="abrir_modalEditar(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lapis.svg"></button></td>
+                            <td><button onclick="deletar_usuario(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lixo.svg"></button></td>
+                            <td><button onclick="abrir_modalEditar(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lapis.svg"></button></td>
                         </tr>
                     `
                 }
@@ -224,10 +231,10 @@ function atualizarFeed(filtro) {
 
 
 // ------------------ Função de Deletar funcionario ------------------------//
-function deletar_musico(idOrquestra, idMusico) {
-    console.log("Criar função de excluir musico - ID" + idMusico);
+function deletar_usuario(idEmpresa, idUsuario) {
+    console.log("Criar função de excluir musico - ID" + idUsuario);
 
-    fetch(`/meusMusicos/deletar/${idOrquestra}/${idMusico}`, {
+    fetch(`/meusMuss/deletar/${idEmpresa}/${idUsuario}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
@@ -236,7 +243,7 @@ function deletar_musico(idOrquestra, idMusico) {
         aguardar();
 
         if (resposta.ok) {
-            var texto = `funcionario ${idMusico} deletado com sucesso!`;
+            var texto = `funcionario ${idUsuario} deletado com sucesso!`;
             aparecer_card(texto);
             document.body.style.overflow = 'hidden';
 
@@ -259,13 +266,13 @@ function deletar_musico(idOrquestra, idMusico) {
 
 
 // ------------------ Função de Editar funcionario ------------------------//
-function listarUm(idOrquestra, idMusico) {
+function listarUm(idEmpresa, idUsuario) {
 
-    fetch(`/meusMusicos/listarUm/${idOrquestra}/${idMusico}`).then(function (resposta) {
+    fetch(`/meusMusicos/listarUm/${idEmpresa}/${idUsuario}`).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
-                in_edtId.value = resposta[0].idMusico;
+                in_edtId.value = resposta[0].idUsuario;
                 in_edtNome.value = resposta[0].nome;
                 sel_edtNaipe.value = resposta[0].naipe;
                 qual_edtNaipe();
@@ -281,10 +288,10 @@ function listarUm(idOrquestra, idMusico) {
 }
 
 
-function editar(idOrquestra, idMusico) {
-    console.log("Criar função de editar musico - ID " + idMusico);
+function editar(idEmpresa, idUsuario) {
+    console.log("Criar função de editar musico - ID " + idUsuario);
 
-    fetch(`/meusMusicos/editar/${idOrquestra}/${idMusico}`, {
+    fetch(`/meusMusicos/editar/${idEmpresa}/${idUsuario}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -297,7 +304,7 @@ function editar(idOrquestra, idMusico) {
     }).then(function (resposta) {
 
         if (resposta.ok) {
-            var texto = `funcionario ${idMusico} atualizado com sucesso!`;
+            var texto = `funcionario ${idUsuario} atualizado com sucesso!`;
             aparecer_card(texto);
             document.body.style.overflow = 'hidden';
 
@@ -323,7 +330,7 @@ function editar(idOrquestra, idMusico) {
 // ------------------ Pesquisa de funcionario ------------------------//
 
 function pesquisar() {
-    var idOrquestra = sessionStorage.ID_ORQUESTRA;
+    var idEmpresa = sessionStorage.ID_EMPRESA;
     var tipo = sel_tipoPesquisa.value;
 
     if (pesquisa == '') {
@@ -339,7 +346,7 @@ function pesquisar() {
         if (tipo == 'nome') {
             var pesquisa = in_pesquisa.value;
 
-            fetch(`/meusMusicos/pesquisarNome/${idOrquestra}/${pesquisa}`).then(function (resposta) {
+            fetch(`/meusMusicos/pesquisarNome/${idEmpresa}/${pesquisa}`).then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
                         div_planilhaMusicos.innerHTML =
@@ -381,12 +388,12 @@ function pesquisar() {
                             table_musicos.innerHTML +=
                                 `
                             <tr>
-                                <td>${musico.idMusico}</td>
+                                <td>${musico.idUsuario}</td>
                                 <td>${musico.nome}</td>
                                 <td>${musico.instrumento}</td>
                                 <td>${musico.telefone}</td>
-                                <td><button onclick="deletar_musico(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lapis.svg"></button></td>
+                                <td><button onclick="deletar_musico(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lixo.svg"></button></td>
+                                <td><button onclick="abrir_modalEditar(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lapis.svg"></button></td>
                             </tr>
                         `
                         }
@@ -406,7 +413,7 @@ function pesquisar() {
         } else if (tipo == 'instrumento') {
             var pesquisa = in_pesquisa.value;
 
-            fetch(`/meusMusicos/pesquisarInstrumento/${idOrquestra}/${pesquisa}`).then(function (resposta) {
+            fetch(`/meusMusicos/pesquisarInstrumento/${idEmpresa}/${pesquisa}`).then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
                         div_planilhaMusicos.innerHTML =
@@ -448,12 +455,12 @@ function pesquisar() {
                             table_musicos.innerHTML +=
                                 `
                             <tr>
-                                <td>${musico.idMusico}</td>
+                                <td>${musico.idUsuario}</td>
                                 <td>${musico.nome}</td>
                                 <td>${musico.instrumento}</td>
                                 <td>${musico.telefone}</td>
-                                <td><button onclick="deletar_musico(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lapis.svg"></button></td>
+                                <td><button onclick="deletar_musico(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lixo.svg"></button></td>
+                                <td><button onclick="abrir_modalEditar(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lapis.svg"></button></td>
                             </tr>
                         `
                         }
@@ -473,7 +480,7 @@ function pesquisar() {
         } else if (tipo == 'naipe') {
             pesquisa = sel_pesquisa.value;
 
-            fetch(`/meusMusicos/pesquisarNaipe/${idOrquestra}/${pesquisa}`).then(function (resposta) {
+            fetch(`/meusMusicos/pesquisarNaipe/${idEmpresa}/${pesquisa}`).then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
                         div_planilhaMusicos.innerHTML =
@@ -515,12 +522,12 @@ function pesquisar() {
                             table_musicos.innerHTML +=
                                 `
                             <tr>
-                                <td>${musico.idMusico}</td>
+                                <td>${musico.idUsuario}</td>
                                 <td>${musico.nome}</td>
                                 <td>${musico.instrumento}</td>
                                 <td>${musico.telefone}</td>
-                                <td><button onclick="deletar_musico(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lapis.svg"></button></td>
+                                <td><button onclick="deletar_musico(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lixo.svg"></button></td>
+                                <td><button onclick="abrir_modalEditar(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lapis.svg"></button></td>
                             </tr>
                         `
                         }
@@ -540,7 +547,7 @@ function pesquisar() {
         } else {
             var pesquisa = in_pesquisa.value;
 
-            fetch(`/meusMusicos/pesquisarTelefone/${idOrquestra}/${pesquisa}`).then(function (resposta) {
+            fetch(`/meusMusicos/pesquisarTelefone/${idEmpresa}/${pesquisa}`).then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
                         div_planilhaMusicos.innerHTML =
@@ -582,12 +589,12 @@ function pesquisar() {
                             table_musicos.innerHTML +=
                                 `
                             <tr>
-                                <td>${musico.idMusico}</td>
+                                <td>${musico.idUsuario}</td>
                                 <td>${musico.nome}</td>
                                 <td>${musico.instrumento}</td>
                                 <td>${musico.telefone}</td>
-                                <td><button onclick="deletar_musico(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idOrquestra},${musico.idMusico})"><img src="/assets/imgs/lapis.svg"></button></td>
+                                <td><button onclick="deletar_musico(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lixo.svg"></button></td>
+                                <td><button onclick="abrir_modalEditar(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lapis.svg"></button></td>
                             </tr>
                         `
                         }
