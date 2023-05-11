@@ -5,7 +5,6 @@
 // ****************************************************
 
 
-
 spn_userNome.innerHTML = sessionStorage.NOME_EMPRESA;
 // ------------------ Funções de modal ------------------------//
 function abrir_modalAdicionar() {
@@ -57,8 +56,7 @@ function fechar_modalAdicionar() {
     div_adicionarModal.classList.add('sumirModal');
 
     in_adcNome.value = "";
-    in_adcTelefone.value = "";
-
+    
     setTimeout(() => {
         div_backgroundModal.style.display = 'none';
         div_adicionarModal.classList.remove('sumirModal');
@@ -124,7 +122,7 @@ function adicionarUsuario() {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-            var msg = "Musico adicionado com sucesso!...";
+            var msg = "Usuário adicionado com sucesso!...";
             aparecer_card(msg);
 
             setTimeout(() => {
@@ -156,15 +154,7 @@ function atualizarFeed(filtro) {
 
     fetch(`/meusMusicos/listar/${idEmpresa}/${filtro}`).then(function (resposta) {
         if (resposta.ok) {
-            if (resposta.status == 204) {
-                h2_nenhumAchado.innerHTML = "Nenhum funcionario cadastrado."
-                throw "Nenhum funcionario cadastrado!";
-            }
-
             resposta.json().then(function (resposta) {
-
-                var texto = 'Listando Usuários';
-                aparecer_card(texto);
 
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
 
@@ -174,8 +164,8 @@ function atualizarFeed(filtro) {
                     <thead>
                         <tr>
                             <th><button name="btn-filtro" onclick="atualizarFeed('id')">Id</button></th> 
-                            <th><button name="btn-filtro" onclick="atualizarFeed('musico')">Musico</button></th>
-                            <th><button name="btn-filtro" onclick="atualizarFeed('instrumento')">Instrumento</button></th>
+                            <th><button name="btn-filtro" onclick="atualizarFeed('usuario')">Musico</button></th>
+                            <th><button name="btn-filtro" onclick="atualizarFeed('funcao')">Instrumento</button></th>
                             <th><button name="btn-filtro" onclick="atualizarFeed('telefone')">Telefone</button></th>
                             <th>Excluir</button></th>
                             <th>Editar</button></th>
@@ -234,7 +224,7 @@ function atualizarFeed(filtro) {
 function deletar_usuario(idEmpresa, idUsuario) {
     console.log("Criar função de excluir musico - ID" + idUsuario);
 
-    fetch(`/meusMuss/deletar/${idEmpresa}/${idUsuario}`, {
+    fetch(`/meusUsuarios/deletar/${idEmpresa}/${idUsuario}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
@@ -263,21 +253,18 @@ function deletar_usuario(idEmpresa, idUsuario) {
 // ------------------ Fim Função de Deletar funcionario ------------------------//
 
 
-
-
 // ------------------ Função de Editar funcionario ------------------------//
 function listarUm(idEmpresa, idUsuario) {
 
-    fetch(`/meusMusicos/listarUm/${idEmpresa}/${idUsuario}`).then(function (resposta) {
+    fetch(`/meusAnalistas/listarUm/${idEmpresa}/${idUsuario}`).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
                 in_edtId.value = resposta[0].idUsuario;
                 in_edtNome.value = resposta[0].nome;
-                sel_edtNaipe.value = resposta[0].naipe;
-                qual_edtNaipe();
-                sel_edtInstrumento.value = resposta[0].instrumento;
-                in_edtTelefone.value = resposta[0].telefone;
+                in_edtEmail.value = resposta[0].nome;
+                in_edtFuncao.value = resposta[0].nome;
+                in_edtNome.value = resposta[0].nome;
             });
         } else {
             throw ('Houve um erro na API!');
@@ -289,17 +276,18 @@ function listarUm(idEmpresa, idUsuario) {
 
 
 function editar(idEmpresa, idUsuario) {
-    console.log("Criar função de editar musico - ID " + idUsuario);
+    console.log("Criar função de editar usuario - ID " + idUsuario);
 
-    fetch(`/meusMusicos/editar/${idEmpresa}/${idUsuario}`, {
+    fetch(`/meusUsuarios/editar/${idEmpresa}/${idUsuario}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
             nomeServer: in_edtNome.value,
-            telefoneServer: in_edtTelefone.value,
-            instrumentoServer: sel_edtInstrumento.value,
+            emailServer: in_edtEmail.value,
+            funcaoServer: in_edtFuncao.value,
+            senhaServer: in_edtSenha.value
         })
     }).then(function (resposta) {
 
@@ -325,84 +313,58 @@ function editar(idEmpresa, idUsuario) {
 // ------------------ Fim Função de Editar funcionario ------------------------//
 
 
-
+// Corrigido  fetch(`/meusUsuarios/pesquisar/${idEmpresa}/${tipo}/${pesquisa}`)
 
 // ------------------ Pesquisa de funcionario ------------------------//
 
 function pesquisar() {
     var idEmpresa = sessionStorage.ID_EMPRESA;
     var tipo = sel_tipoPesquisa.value;
+    var pesquisa = in_pesquisa.value;
 
     if (pesquisa == '') {
-        var texto = 'Digite uma pesquisa.';
-        aparecer_card(texto);
-        document.body.style.overflow = 'hidden';
-
-        setTimeout(() => {
-            div_card.style.display = "none";
-            document.body.style.overflow = '';
-        }, "1500")
+        alert("Digite algo");
     } else {
-        if (tipo == 'nome') {
-            var pesquisa = in_pesquisa.value;
-
-            fetch(`/meusMusicos/pesquisarNome/${idEmpresa}/${pesquisa}`).then(function (resposta) {
+        fetch(`/meusUsuarios/pesquisar/${idEmpresa}/${tipo}/${pesquisa}`)
+            .then((resposta) => {
                 if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        div_planilhaMusicos.innerHTML =
-                            `
-                        <div class="nenhum-cadastrado">
-                            <h2>Nenhum '${pesquisa}' encontrado</h2>
-                        </div>
-                        `
-                        console.log("Nenhum funcionario encontrado!")
-                    }
+                    resposta.json()
+                        .then((resposta) => {
+                            console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-                    resposta.json().then(function (resposta) {
-
-                        var texto = 'funcionarios(s) encontrado(s)';
-                        aparecer_card(texto);
-                        document.body.style.overflow = 'hidden';
-
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        div_planilhaMusicos.innerHTML =
-                            `
-                    <table class="tabela-musicos">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Musico</th>
-                                <th>Instrumento</th>
-                                <th>Telefone</th>
-                                <th>Excluir</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_musicos">
-                        </tbody>
-                    </table>
-                    `;
-                        for (let i = 0; i < resposta.length; i++) {
-                            var musico = resposta[i];
-                            table_musicos.innerHTML +=
+                            display_tableUsers.innerHTML =
                                 `
+                            <table class="tabela-users">
+                                <thead>
+                                    <tr>
+                                       <th>Nome</th>
+                                       <th>Email</th>
+                                       <th>Senha</th>
+                                       <th>Função</th>
+                                       <th>Excluir</th>
+                                       <th>Editar</th>
+                                       </tr>
+                                </thead>
+                                <tbody id= "tbody"></tbody>    
+                            </table>
+                            `;
+                            for (let i = 0; i < resposta.length; i++) {
+                                var usuariosResposta = resposta[i];
+                                tbody.innerHTML +=
+                                    `
                             <tr>
-                                <td>${musico.idUsuario}</td>
-                                <td>${musico.nome}</td>
-                                <td>${musico.instrumento}</td>
-                                <td>${musico.telefone}</td>
-                                <td><button onclick="deletar_musico(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lapis.svg"></button></td>
+                                <td>${usuariosResposta.nome}</td>
+                                <td>${usuariosResposta.email}</td>
+                                <td>${usuariosResposta.senha}</td>
+                                <td>${usuariosResposta.funcao}</td>
+                                <td><button onclick="deletar_usuario()"><img
+                                        src="./img/cashTechSystem/lixo.svg"></button></td>
+                                <td><button onclick="abrir_modalEditar()"><img
+                                        src="./img/cashTechSystem/lapis.svg"></button></td>
                             </tr>
                         `
-                        }
-
-                        setTimeout(() => {
-                            div_card.style.display = "none";
-                            document.body.style.overflow = '';
-                        }, "1500")
-                    });
+                            }
+                        });
 
                 } else {
                     throw ('Houve um erro na API!');
@@ -410,208 +372,7 @@ function pesquisar() {
             }).catch(function (resposta) {
                 console.error(resposta);
             });
-        } else if (tipo == 'instrumento') {
-            var pesquisa = in_pesquisa.value;
 
-            fetch(`/meusMusicos/pesquisarInstrumento/${idEmpresa}/${pesquisa}`).then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        div_planilhaMusicos.innerHTML =
-                            `
-                        <div class="nenhum-cadastrado">
-                            <h2>Nenhum registro de instrumento: '${pesquisa}' encontrado</h2>
-                        </div>
-                        `
-                        console.log("Nenhum instrumento encontrado!")
-                    }
-
-                    resposta.json().then(function (resposta) {
-
-                        var texto = `Instrumento: '${pesquisa}' encontrado(s)`;
-                        aparecer_card(texto);
-                        document.body.style.overflow = 'hidden';
-
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        div_planilhaMusicos.innerHTML =
-                            `
-                    <table class="tabela-musicos">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Musico</th>
-                                <th>Instrumento</th>
-                                <th>Telefone</th>
-                                <th>Excluir</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_musicos">
-                        </tbody>
-                    </table>
-                    `;
-                        for (let i = 0; i < resposta.length; i++) {
-                            var musico = resposta[i];
-                            table_musicos.innerHTML +=
-                                `
-                            <tr>
-                                <td>${musico.idUsuario}</td>
-                                <td>${musico.nome}</td>
-                                <td>${musico.instrumento}</td>
-                                <td>${musico.telefone}</td>
-                                <td><button onclick="deletar_musico(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lapis.svg"></button></td>
-                            </tr>
-                        `
-                        }
-
-                        setTimeout(() => {
-                            div_card.style.display = "none";
-                            document.body.style.overflow = '';
-                        }, "1500")
-                    });
-
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-        } else if (tipo == 'naipe') {
-            pesquisa = sel_pesquisa.value;
-
-            fetch(`/meusMusicos/pesquisarNaipe/${idEmpresa}/${pesquisa}`).then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        div_planilhaMusicos.innerHTML =
-                            `
-                        <div class="nenhum-cadastrado">
-                            <h2>Nenhum registro com instrumento de naipe '${pesquisa}' encontrado</h2>
-                        </div>
-                        `
-                        console.log("Nenhum naipe encontrado!")
-                    }
-
-                    resposta.json().then(function (resposta) {
-
-                        var texto = `Instrumento com naipe: '${pesquisa}' encontrado(s)`;
-                        aparecer_card(texto);
-                        document.body.style.overflow = 'hidden';
-
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        div_planilhaMusicos.innerHTML =
-                            `
-                    <table class="tabela-musicos">
-                        <thead>
-                            <tr>
-                                <th>Id</th> 
-                                <th>Musico</th>
-                                <th>Instrumento</th>
-                                <th>Telefone</th>
-                                <th>Excluir</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_musicos">
-                        </tbody>
-                    </table>
-                    `;
-                        for (let i = 0; i < resposta.length; i++) {
-                            var musico = resposta[i];
-                            table_musicos.innerHTML +=
-                                `
-                            <tr>
-                                <td>${musico.idUsuario}</td>
-                                <td>${musico.nome}</td>
-                                <td>${musico.instrumento}</td>
-                                <td>${musico.telefone}</td>
-                                <td><button onclick="deletar_musico(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lapis.svg"></button></td>
-                            </tr>
-                        `
-                        }
-
-                        setTimeout(() => {
-                            div_card.style.display = "none";
-                            document.body.style.overflow = '';
-                        }, "1500")
-                    });
-
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-        } else {
-            var pesquisa = in_pesquisa.value;
-
-            fetch(`/meusMusicos/pesquisarTelefone/${idEmpresa}/${pesquisa}`).then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        div_planilhaMusicos.innerHTML =
-                            `
-                        <div class="nenhum-cadastrado">
-                            <h2>Nenhum registro com telefone '${pesquisa}' encontrado</h2>
-                        </div>
-                        `
-                        console.log("Nenhum telefone encontrado!")
-                    }
-
-                    resposta.json().then(function (resposta) {
-
-                        var texto = `Telefone: '${pesquisa}' encontrado(s)`;
-                        aparecer_card(texto);
-                        document.body.style.overflow = 'hidden';
-
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        div_planilhaMusicos.innerHTML =
-                            `
-                    <table class="tabela-musicos">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Musico</th>
-                                <th>Instrumento</th>
-                                <th>Telefone</th>
-                                <th>Excluir</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_musicos">
-                        </tbody>
-                    </table>
-                    `;
-                        for (let i = 0; i < resposta.length; i++) {
-                            var musico = resposta[i];
-                            table_musicos.innerHTML +=
-                                `
-                            <tr>
-                                <td>${musico.idUsuario}</td>
-                                <td>${musico.nome}</td>
-                                <td>${musico.instrumento}</td>
-                                <td>${musico.telefone}</td>
-                                <td><button onclick="deletar_musico(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idEmpresa},${musico.idUsuario})"><img src="/assets/imgs/lapis.svg"></button></td>
-                            </tr>
-                        `
-                        }
-
-                        setTimeout(() => {
-                            div_card.style.display = "none";
-                            document.body.style.overflow = '';
-                        }, "1500")
-                    });
-
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-        }
     }
 }
 // ------------------ Fim Pesquisa de funcionario ------------------------//

@@ -92,35 +92,8 @@
                 <div class="planilha-users" id="div_planilhaUsers">
                     <div class="nenhum-cadastrado">
                         <h2 id="h2_nenhumAchado"></h2>
-                    </div>
-                    <table class="tabela-users">
-                        <thead>
-                            <tr>
-                                <th><button name="btn-filtro" onclick="atualizarFeed('nome')">Nome</button></th>
-                                <th><button name="btn-filtro" onclick="atualizarFeed('email')">Email</button></th>
-                                <th><button name="btn-filtro" onclick="atualizarFeed('telefone')">Telefone</button></th>
-                                <th><button name="btn-filtro" onclick="atualizarFeed('senha')">Senha</button></th>
-                                <th><button name="btn-filtro" onclick="atualizarFeed('empresa')">Empresa</button></th>
-                                <th><button name="btn-filtro" onclick="atualizarFeed('funcao')">Função</button></th>
-                                <th>Excluir</button></th>
-                                <th>Editar</button></th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_usuarios">
-                            <tr>
-                                <td id="usuario_nome">José</td>
-                                <td id="email_usuario">jose@gmail.com</td>
-                                <td id="telefone_usuario">11928382123</td>
-                                <td id="senha_usuario">senha123</td>
-                                <td id="empresa_usuario">Bradesco</td>
-                                <td id="cargo">Analista</td>
-                                <td><button onclick="deletar_usuario()"><img
-                                            src="./img/cashTechSystem/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar()"><img
-                                            src="./img/cashTechSystem/lapis.svg"></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    </div id="display_tableUsers"> :
+                    <!-- Tabela gerada no fatch -->
                 </div>
             </div>
         </div>
@@ -128,9 +101,6 @@
 
     <div class="background-modal" id="div_backgroundModal">
         <div class="modal modal-adicionar" id="div_adicionarModal">
-            <!-- <div class="modal-head">
-                <h2>Adicionar novo User</h2>
-            </div> -->
             <div class="modal-body">
                 <div class="modal-logo">
                     <img src="./img/cashTechSystem/analysis.svg" style="height: 500px;" alt="">
@@ -141,24 +111,16 @@
                         <input type="text" maxlength="45" id="in_adcNome">
                     </div>
                     <div class="modal-box">
-                        <label for="in_adcTelefone">Email</label>
-                        <input type="text" id="" maxlength="11">
+                        <label for="in_adcEmail">Email</label>
+                        <input type="text" id="in_adcEmail" maxlength="11">
                     </div>
                     <div class="modal-box">
-                        <label for="">Telefone</label>
-                        <input type="text" id="in_adcTelefone" maxlength="11">
+                        <label for="in_adcFuncao">Função</label>
+                        <input type="text" id="in_adcFuncao" maxlength="11">
                     </div>
                     <div class="modal-box">
-                        <label for="">Empresa</label>
-                        <input type="text" id="" maxlength="11">
-                    </div>
-                    <div class="modal-box">
-                        <label for="">Função</label>
-                        <input type="text" id="" maxlength="11">
-                    </div>
-                    <div class="modal-box">
-                        <label for="">Senha</label>
-                        <input type="text" id="" maxlength="11">
+                        <label for="in_adcSenha">Senha</label>
+                        <input type="text" id="in_adcSenha" maxlength="11">
                     </div>
                 </div>
             </div>
@@ -180,24 +142,16 @@
                         <input type="text" maxlength="45" id="in_edtNome">
                     </div>
                     <div class="modal-box">
-                        <label for="in_edtTelefone">Email</label>
-                        <input type="text" id="" maxlength="11">
+                        <label for="in_edtEmail">Email</label>
+                        <input type="text" id="in_edtEmail" maxlength="11">
                     </div>
                     <div class="modal-box">
-                        <label for="">Telefone</label>
-                        <input type="text" id="in_edtTelefone" maxlength="11">
+                        <label for="in_edtFuncao">Função</label>
+                        <input type="text" id="in_edtFuncao" maxlength="11">
                     </div>
                     <div class="modal-box">
-                        <label for="">Empresa</label>
-                        <input type="text" id="" maxlength="11">
-                    </div>
-                    <div class="modal-box">
-                        <label for="">Função</label>
-                        <input type="text" id="" maxlength="11">
-                    </div>
-                    <div class="modal-box">
-                        <label for="">Senha</label>
-                        <input type="text" id="" maxlength="11">
+                        <label for="in_edtSenha">Senha</label>
+                        <input type="text" id="in_edtSenha" maxlength="11">
                     </div>
                 </div>
             </div>
