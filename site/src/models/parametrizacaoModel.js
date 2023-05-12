@@ -23,3 +23,16 @@ function listarParametroHardware(empresa_id) {
 
     return database.executar(instrucao);
 }
+
+
+function atualizarParametroHardware(cpuMax, bytesEnviados, bytesRecebidos, memoriaMax, discoMax, empresa_id) {
+    var instrucao = `
+    update parametrizacao set 
+    qtd_cpu_max = '${cpuMax}', 
+    qtd_bytes_enviado_max = '${bytesEnviados}', 
+    qtd_bytes_recebido_max = '${bytesRecebidos}',
+     qtd_memoria_max = '${memoriaMax}',
+      qtd_disco_max = '${discoMax}'
+         where empresa_id = '${empresa_id}';"
+    `
+}
