@@ -26,6 +26,7 @@ function listarParametroHardware(empresa_id) {
 
 
 function atualizarParametroHardware(cpuMax, bytesEnviados, bytesRecebidos, memoriaMax, discoMax, empresa_id) {
+    
     var instrucao = `
     update parametrizacao set 
     qtd_cpu_max = '${cpuMax}', 
@@ -35,4 +36,8 @@ function atualizarParametroHardware(cpuMax, bytesEnviados, bytesRecebidos, memor
       qtd_disco_max = '${discoMax}'
          where empresa_id = '${empresa_id}';"
     `
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+
+    return database.executar(instrucao);
 }
