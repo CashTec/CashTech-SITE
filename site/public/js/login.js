@@ -1,5 +1,19 @@
 let isLoading = false;
 
+function init() {
+    input_senhaLogin.addEventListener('keydown', entrada);
+    input_emailLogin.addEventListener('keydown', entrada);
+}
+
+function entrada(e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        entrar();
+    }
+}
+
+init();
+
 function entrar() {
     spn_login.style.display = 'none';
     loadingGif.style.display = 'flex';
@@ -49,7 +63,7 @@ function entrar() {
         }
         spn_login.style.display = 'flex';
         loadingGif.style.display = 'none';
-    
+
     }).catch(function (erro) {
         console.log(erro);
         isLoading = false;
