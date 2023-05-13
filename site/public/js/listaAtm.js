@@ -1,34 +1,20 @@
-spn_EmpresaNome.innerHTML = sessionStorage.NOME_Empresa;
+const idEmpresa = sessionStorage.ID_EMPRESA;
+
 
 // ------------------ Funções de modal ------------------------//
-function abrir_modalAdicionar() {
-    div_backgroundModal.style.display = 'flex';
-    div_adicionarModal.style.display = 'block'
-    document.body.style.overflow = 'hidden';
-}
 
-function fechar_modalAdicionar() {
-    div_adicionarModal.classList.add('sumirModal');
+function abrir_modalEditar(idOrquestra, idMusico) {
+    console.log(idOrquestra);
 
-    setTimeout(() => {
-        div_backgroundModal.style.display = 'none';
-        div_adicionarModal.classList.remove('sumirModal');
-        div_adicionarModal.style.display = 'none'
-        document.body.style.overflow = '';
-    }, 500);
-}
-
-function abrir_modalEditar(idEmpresa, idUser) {
-    console.log(idEmpresa);
-
-    listarUm(idEmpresa, idUser);
+    listarUm(idOrquestra, idMusico);
     div_backgroundModal.style.display = 'flex';
     div_editarModal.style.display = 'block'
     document.body.style.overflow = 'hidden';
     btn_editar.addEventListener("click", function () {
-        editar(idEmpresa, idUser);
+        editar(idOrquestra, idMusico);
     });
 }
+
 function fechar_modalEditar() {
     div_editarModal.classList.add('sumirModal');
     setTimeout(() => {
@@ -39,215 +25,84 @@ function fechar_modalEditar() {
     }, 500);
 }
 
-
-function abrir_modalPesquisar() {
-    div_backgroundModal.style.display = 'flex';
-    div_pesquisarModal.style.display = 'block'
-    document.body.style.overflow = 'hidden';
-}
-
-function fechar_modalAdicionar() {
-    div_adicionarModal.classList.add('sumirModal');
-
-    in_adcNome.value = "";
-    in_adcTelefone.value = "";
-
-    setTimeout(() => {
-        div_backgroundModal.style.display = 'none';
-        div_adicionarModal.classList.remove('sumirModal');
-        div_adicionarModal.style.display = 'none'
-        document.body.style.overflow = '';
-    }, 500);
-}
 // ------------------ FIM Funções de modal ------------------------//
-
-
-// ------------------ Função de Adicionar funcionario ------------------------//
-
-function adicionarUser() {
-
-    var nome = in_adcNome.value;
-    var telefone = in_adcTelefone.value;
-    var naipe = sel_adcNaipe.value;
-    var instrumento = sel_adcInstrumento.value;
-
-    in_adcNome.parentElement.childNodes[1].style.color = '#000';
-    in_adcNome.parentElement.childNodes[3].style.boxShadow = '0 0 3px rgb(0 0 0 / 30%)';
-    sel_adcInstrumento.parentElement.childNodes[1].style.color = '#000';
-    sel_adcInstrumento.parentElement.childNodes[3].style.boxShadow = '0 0 3px rgb(0 0 0 / 30%)';
-    sel_adcNaipe.parentElement.childNodes[1].style.color = '#000';
-    sel_adcNaipe.parentElement.childNodes[3].style.boxShadow = '0 0 3px rgb(0 0 0 / 30%)';
-
-    if (nome == "" || instrumento == "" || naipe == "") {
-        if (nome == "") {
-            in_adcNome.parentElement.childNodes[1].style.color = 'red';
-            in_adcNome.parentElement.childNodes[3].style.boxShadow = '0 0 3px rgb(255 0 0 / 30%)';
-        }
-
-        if (instrumento == "") {
-            sel_adcInstrumento.parentElement.childNodes[1].style.color = 'red';
-            sel_adcInstrumento.parentElement.childNodes[3].style.boxShadow = '0 0 3px rgb(255 0 0 / 30%)';
-        }
-        if (naipe == "") {
-            sel_adcNaipe.parentElement.childNodes[1].style.color = 'red';
-            sel_adcNaipe.parentElement.childNodes[3].style.boxShadow = '0 0 3px rgb(255 0 0 / 30%)';
-        }
-
-        alert("Preencha todos os campos");
-        return false;
-    }
-
-    var idEmpresa = sessionStorage.ID_Empresa;
-
-    var corpo = {
-        nome: in_adcNome.value,
-        telefone: in_adcTelefone.value,
-        instrumento: sel_adcInstrumento.value,
-
-    }
-    fetch(`/meusUsers/cadastrarUser/${idEmpresa}`, {
-        method: "post",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(corpo)
-    }).then(function (resposta) {
-        h2_loading.innerHTML = 'Adicionando...';
-
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-            var msg = "User adicionado com sucesso!...";
-            aparecer_card(msg);
-
-            setTimeout(() => {
-                div_card.style.display = "none";
-                finalizarAguardar();
-                window.location = "./meusUsers.html";
-            }, "1500")
-
-        } else if (resposta.status == 404) {
-            window.alert("Deu 404!");
-        } else {
-            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
-    });
-
-    return false;
-}
-// ------------------ Fim Função de Adicionar funcionario ------------------------//
-
 
 
 // ------------------ Função de Atualizar Feed ------------------------//
 
-function atualizarFeed(filtro) {
-    var idEmpresa = sessionStorage.ID_Empresa;
+function atualizarFeed(tipo, campo) {
 
-    fetch(`/meusUsers/listar/${idEmpresa}/${filtro}`).then(function (resposta) {
+    let filtroComponente = '';
+    if (tipo != undefined && campo != undefined) {
+        filtroComponente = `/${tipo}/${campo}`;
+    }
+
+    fetch(`/listaAtm/${idEmpresa}${filtroComponente}`).then((resposta) => {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                h2_nenhumAchado.innerHTML = "Nenhum funcionario cadastrado."
-                throw "Nenhum funcionario cadastrado!";
+                nenhumAchado();
+            } else {
+                resposta.json().then((json) => {
+                    plotarTabela(json);
+                });
             }
 
-            resposta.json().then(function (resposta) {
+        } else {
+            nenhumAchado();
+            throw ('Houve um erro na API!');
+        }
+    }).catch((erro) => {
+        console.error(erro);
+    });
+}
 
-                var texto = 'Listando Users';
-                aparecer_card(texto);
+// ------------------ Fim Função de Atualizar Feed ------------------------//
 
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
+function pesquisar(event) {
+    if (event.keyCode === 13 || event.type === 'click') {
+        atualizarFeed(sel_tipoPesquisa.value, in_pesquisa.value)
+    }
+}
 
-                div_planilhaUsers.innerHTML =
-                    `
-                <table class="tabela-Users">
-                    <thead>
-                        <tr>
-                            <th><button name="btn-filtro" onclick="atualizarFeed('id')">Id</button></th> 
-                            <th><button name="btn-filtro" onclick="atualizarFeed('User')">User</button></th>
-                            <th><button name="btn-filtro" onclick="atualizarFeed('instrumento')">Instrumento</button></th>
-                            <th><button name="btn-filtro" onclick="atualizarFeed('telefone')">Telefone</button></th>
-                            <th>Excluir</button></th>
-                            <th>Editar</button></th>
-                        </tr>
-                    </thead>
-                    <tbody id="table_Users">
-                    </tbody>
-                </table>
-                `;
+function ordernarLista(tipo) {
+    fetch(`/listaAtm/ordernar/${idEmpresa}/${tipo}`).then((resposta) => {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                nenhumAchado();
+            } else {
+                resposta.json().then((json) => {
+                    plotarTabela(json);
 
-                var btn_filtro = document.getElementsByName('btn-filtro');
+                    let btn_ordernar = document.getElementById(`btn_${tipo}`);
 
-                if (filtro == 'id') {
-                    btn_filtro[0].classList.add('active-filtro');
-                } else if (filtro == 'User') {
-                    btn_filtro[1].classList.add('active-filtro');
-                } else if (filtro == 'instrumento') {
-                    btn_filtro[2].classList.add('active-filtro');
-                } else if (filtro == 'telefone') {
-                    btn_filtro[3].classList.add('active-filtro');
-                }
-
-                for (let i = 0; i < resposta.length; i++) {
-                    var User = resposta[i];
-                    table_Users.innerHTML +=
-                        `
-                        <tr>
-                            <td>${User.idUser}</td>
-                            <td>${User.nome}</td>
-                            <td>${User.instrumento}</td>
-                            <td>${User.telefone}</td>
-                            <td><button onclick="deletar_User(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lixo.svg"></button></td>
-                            <td><button onclick="abrir_modalEditar(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lapis.svg"></button></td>
-                        </tr>
-                    `
-                }
-
-                setTimeout(() => {
-                    div_card.style.display = "none";
-                    document.body.style.overflow = '';
-                }, "1500")
-            });
-
+                    btn_ordernar.classList.add('active-filtro');
+                })
+            }
         } else {
             throw ('Houve um erro na API!');
         }
-    }).catch(function (resposta) {
-        console.error(resposta);
+    }).catch((erro) => {
+        console.error(erro);
     });
 }
-// ------------------ Fim Função de Atualizar Feed ------------------------//
-
-
 
 // ------------------ Função de Deletar funcionario ------------------------//
-function deletar_User(idEmpresa, idUser) {
-    console.log("Criar função de excluir User - ID" + idUser);
+function deletar_atm(idAtm) {
 
-    fetch(`/meusUsers/deletar/${idEmpresa}/${idUser}`, {
+    fetch(`/listaAtm/${idEmpresa}/${idAtm}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
         }
-    }).then(function (resposta) {
-        aguardar();
+    }).then((resposta) => {
 
         if (resposta.ok) {
-            var texto = `funcionario ${idUser} deletado com sucesso!`;
-            aparecer_card(texto);
-            document.body.style.overflow = 'hidden';
-
+            alert("Deletado com sucesso!");
             setTimeout(() => {
-                window.location = "./meusUsers.html";
+                window.location.reload();
             }, "1500")
-
-        } else if (resposta.status == 404) {
-            window.alert("Deu 404!");
         } else {
-            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            throw ("Houve um erro ao tentar realizar o delete!: " + resposta.status);
         }
     }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
@@ -279,7 +134,6 @@ function listarUm(idEmpresa, idUser) {
         console.error(resposta);
     });
 }
-
 
 function editar(idEmpresa, idUser) {
 
@@ -357,300 +211,71 @@ function editar(idEmpresa, idUser) {
 
 // ------------------ Fim Função de Editar funcionario ------------------------//
 
+function nenhumAchado() {
+    div_planilhaAtm.innerHTML = `
+    <div class="nenhumAchado">
+        <h1>Nenhum Atm encontrado</h1>
+    </div>
+    `
+}
+function plotarTabela(json) {
 
+    div_planilhaAtm.innerHTML = `
+        <table class="tabela-users tabelalistaAtm">
+            <thead>
+                <tr>
+                    <th><button id="btn_identificador" onclick="ordernarLista('identificador')">Identificador</button></th>
+                    <th><button id="btn_situacao" onclick="ordernarLista('situacao')">Situação</button></th>
+                    <th class="tdInicio"><button id="btn_inicio" onclick="ordernarLista('inicio')">Início</button></th>
+                    <th><button id="btn_atividade" onclick="ordernarLista('atividade')">Atividade</button></th>
+                    <th><button id="btn_endereco" onclick="ordernarLista('endereco')">Endereço</button></th>
+                    <th><button>Gráficos</button></th>
+                    <th><button>Editar</button></th>
+                    <th><button>Excluir</button></th>
+                </tr>
+            </thead>
+            <tbody id="table_atm">
+            </tbody>
+        </table>`;
 
+    for (const element of json) {
+        //Converter data para o formato dd/mm/yyyy hh:mm:ss
+        var data = new Date(element.iniciado);
+        element.iniciado = data.toLocaleString();
 
-// ------------------ Pesquisa de funcionario ------------------------//
+        // conversor de segundos para dias, horas e minutos
+        var segundos = element.tempo_atividade;
+        var dias = Math.floor(segundos / (60 * 60 * 24));
+        segundos -= dias * (60 * 60 * 24);
+        var horas = Math.floor(segundos / (60 * 60));
+        segundos -= horas * (60 * 60);
+        var minutos = Math.floor(segundos / 60);
+        segundos -= minutos * 60;
 
-function pesquisar() {
-    var idEmpresa = sessionStorage.ID_Empresa;
-    var tipo = sel_tipoPesquisa.value;
+        element.tempo_atividade = `${dias} dias, ${horas}horas e ${minutos} minutos`;
 
-    if (pesquisa == '') {
-        var texto = 'Digite uma pesquisa.';
-        aparecer_card(texto);
-        document.body.style.overflow = 'hidden';
-
-        setTimeout(() => {
-            div_card.style.display = "none";
-            document.body.style.overflow = '';
-        }, "1500")
-    } else {
-        if (tipo == 'nome') {
-            var pesquisa = in_pesquisa.value;
-
-            fetch(`/meusUsers/pesquisarNome/${idEmpresa}/${pesquisa}`).then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        div_planilhaUsers.innerHTML =
-                            `
-                        <div class="nenhum-cadastrado">
-                            <h2>Nenhum '${pesquisa}' encontrado</h2>
-                        </div>
-                        `
-                        console.log("Nenhum funcionario encontrado!")
-                    }
-
-                    resposta.json().then(function (resposta) {
-
-                        var texto = 'funcionarios(s) encontrado(s)';
-                        aparecer_card(texto);
-                        document.body.style.overflow = 'hidden';
-
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        div_planilhaUsers.innerHTML =
-                            `
-                    <table class="tabela-Users">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>User</th>
-                                <th>Instrumento</th>
-                                <th>Telefone</th>
-                                <th>Excluir</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_Users">
-                        </tbody>
-                    </table>
-                    `;
-                        for (let i = 0; i < resposta.length; i++) {
-                            var User = resposta[i];
-                            table_Users.innerHTML +=
-                                `
-                            <tr>
-                                <td>${User.idUser}</td>
-                                <td>${User.nome}</td>
-                                <td>${User.instrumento}</td>
-                                <td>${User.telefone}</td>
-                                <td><button onclick="deletar_User(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lapis.svg"></button></td>
-                            </tr>
-                        `
-                        }
-
-                        setTimeout(() => {
-                            div_card.style.display = "none";
-                            document.body.style.overflow = '';
-                        }, "1500")
-                    });
-
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-        } else if (tipo == 'instrumento') {
-            var pesquisa = in_pesquisa.value;
-
-            fetch(`/meusUsers/pesquisarInstrumento/${idEmpresa}/${pesquisa}`).then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        div_planilhaUsers.innerHTML =
-                            `
-                        <div class="nenhum-cadastrado">
-                            <h2>Nenhum registro de instrumento: '${pesquisa}' encontrado</h2>
-                        </div>
-                        `
-                        console.log("Nenhum instrumento encontrado!")
-                    }
-
-                    resposta.json().then(function (resposta) {
-
-                        var texto = `Instrumento: '${pesquisa}' encontrado(s)`;
-                        aparecer_card(texto);
-                        document.body.style.overflow = 'hidden';
-
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        div_planilhaUsers.innerHTML =
-                            `
-                    <table class="tabela-Users">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>User</th>
-                                <th>Instrumento</th>
-                                <th>Telefone</th>
-                                <th>Excluir</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_Users">
-                        </tbody>
-                    </table>
-                    `;
-                        for (let i = 0; i < resposta.length; i++) {
-                            var User = resposta[i];
-                            table_Users.innerHTML +=
-                                `
-                            <tr>
-                                <td>${User.idUser}</td>
-                                <td>${User.nome}</td>
-                                <td>${User.instrumento}</td>
-                                <td>${User.telefone}</td>
-                                <td><button onclick="deletar_User(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lapis.svg"></button></td>
-                            </tr>
-                        `
-                        }
-
-                        setTimeout(() => {
-                            div_card.style.display = "none";
-                            document.body.style.overflow = '';
-                        }, "1500")
-                    });
-
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-        } else if (tipo == 'naipe') {
-            pesquisa = sel_pesquisa.value;
-
-            fetch(`/meusUsers/pesquisarNaipe/${idEmpresa}/${pesquisa}`).then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        div_planilhaUsers.innerHTML =
-                            `
-                        <div class="nenhum-cadastrado">
-                            <h2>Nenhum registro com instrumento de naipe '${pesquisa}' encontrado</h2>
-                        </div>
-                        `
-                        console.log("Nenhum naipe encontrado!")
-                    }
-
-                    resposta.json().then(function (resposta) {
-
-                        var texto = `Instrumento com naipe: '${pesquisa}' encontrado(s)`;
-                        aparecer_card(texto);
-                        document.body.style.overflow = 'hidden';
-
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        div_planilhaUsers.innerHTML =
-                            `
-                    <table class="tabela-Users">
-                        <thead>
-                            <tr>
-                                <th>Id</th> 
-                                <th>User</th>
-                                <th>Instrumento</th>
-                                <th>Telefone</th>
-                                <th>Excluir</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_Users">
-                        </tbody>
-                    </table>
-                    `;
-                        for (let i = 0; i < resposta.length; i++) {
-                            var User = resposta[i];
-                            table_Users.innerHTML +=
-                                `
-                            <tr>
-                                <td>${User.idUser}</td>
-                                <td>${User.nome}</td>
-                                <td>${User.instrumento}</td>
-                                <td>${User.telefone}</td>
-                                <td><button onclick="deletar_User(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lapis.svg"></button></td>
-                            </tr>
-                        `
-                        }
-
-                        setTimeout(() => {
-                            div_card.style.display = "none";
-                            document.body.style.overflow = '';
-                        }, "1500")
-                    });
-
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-        } else {
-            var pesquisa = in_pesquisa.value;
-
-            fetch(`/meusUsers/pesquisarTelefone/${idEmpresa}/${pesquisa}`).then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        div_planilhaUsers.innerHTML =
-                            `
-                        <div class="nenhum-cadastrado">
-                            <h2>Nenhum registro com telefone '${pesquisa}' encontrado</h2>
-                        </div>
-                        `
-                        console.log("Nenhum telefone encontrado!")
-                    }
-
-                    resposta.json().then(function (resposta) {
-
-                        var texto = `Telefone: '${pesquisa}' encontrado(s)`;
-                        aparecer_card(texto);
-                        document.body.style.overflow = 'hidden';
-
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        div_planilhaUsers.innerHTML =
-                            `
-                    <table class="tabela-Users">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>User</th>
-                                <th>Instrumento</th>
-                                <th>Telefone</th>
-                                <th>Excluir</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_Users">
-                        </tbody>
-                    </table>
-                    `;
-                        for (let i = 0; i < resposta.length; i++) {
-                            var User = resposta[i];
-                            table_Users.innerHTML +=
-                                `
-                            <tr>
-                                <td>${User.idUser}</td>
-                                <td>${User.nome}</td>
-                                <td>${User.instrumento}</td>
-                                <td>${User.telefone}</td>
-                                <td><button onclick="deletar_User(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lixo.svg"></button></td>
-                                <td><button onclick="abrir_modalEditar(${idEmpresa},${User.idUser})"><img src="/assets/imgs/lapis.svg"></button></td>
-                            </tr>
-                        `
-                        }
-
-                        setTimeout(() => {
-                            div_card.style.display = "none";
-                            document.body.style.overflow = '';
-                        }, "1500")
-                    });
-
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-        }
+        table_atm.innerHTML += `
+            <tr>
+                <td>${element.identificador}</td>
+                <td>${element.situacao}</td>
+                <td>${element.iniciado}</td>
+                <td>${element.tempo_atividade}</td>
+                <td>${element.rua}, ${element.numero}</td>
+                <td class="tdImg">
+                    <button onclick="window.location.href = 'dashboard-atm.html'">
+                        <img class="graphic" src="./img/cashTechSystem/bar-chart.png" alt="">
+                    </button>
+                </td>
+                <td class="tdImg">
+                    <button onclick="abrir_modalEditar(${element.id})">
+                        <img src="./img/cashTechSystem/lapis.svg">
+                    </button>
+                </td>
+                <td class="tdImg">
+                    <button onclick="deletar_atm(${element.id})">
+                        <img src="./img/cashTechSystem/lixo.svg">
+                    </button>
+                </td>
+            </tr>`;
     }
 }
-// ------------------ Fim Pesquisa de funcionario ------------------------//
-
-
-// ------------------ Transformar Endereço emm Latitude e Longitude ------------------------//
-
-
-

@@ -15,6 +15,7 @@ var compontentesRouter = require("./src/routes/componentes");
 var enderecoRouter = require("./src/routes/endereco");
 var parametrizacaoRouter = require("./src/routes/parametrizacao");
 var processosRouter = require("./src/routes/processos")
+var listaAtmRouter = require("./src/routes/listaAtm")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,6 +28,8 @@ app.use("/componentes", compontentesRouter);
 app.use("/endereco", enderecoRouter);
 app.use("/parametrizacao", parametrizacaoRouter)
 app.use("/processos", processosRouter);
+app.use("/listaAtm", listaAtmRouter);
+
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
