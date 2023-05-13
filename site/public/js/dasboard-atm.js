@@ -379,45 +379,95 @@ function atualizarMetricaRede(json) {
 
 
 
-function atualizarData(json, dadosGrafico, tipo, grafico) {
-  console.log(json)
-  let containerAviso = document.querySelectorAll(".aviso")[0];
-  const dateTimeFormatado = json[0].dt_metrica.slice(11, 19);
-  let primeiroDado;
-  let segundoDado;
- if(tipo=="rede"){
-      primeiroDado = json[0].bytes_recebidos_segundo/(1024*1024);
-      segundoDado = json[0].bytes_enviados_segundo/ (1024*1024);
- }
- else{
-  console.log("Entrou Componente")
-  primeiroDado = json[0].qtd_consumido / (1024*1024);
- }
 
-      
-  if (dadosGrafico.data.datasets[0].data.length < 6) {
-    containerAviso.classList.add("active");
-    containerAviso.innerHTML="<h2>Aguardando dados<h2/>";
-    dadosGrafico.data.datasets[0].data.push(primeiroDado);
-    if (tipo == "rede") {
-      dadosGrafico.data.datasets[1].data.push(segundoDado);
-    }
-    dadosGrafico.data.labels.push(dateTimeFormatado);
-    return
-  }
+})
+
+
+// Função para passar para outra tela 
+const btnBolinha = document.querySelectorAll(".content-btn button");
+btnBolinha.forEach(element => {
+  element.addEventListener("click", passarTela);
+});
+
+
+window.scroll(0, 0);
+
+
+ function coletarInfoComponente(componente) {
+  componente.forEach(element=>{
+   fetch("compontentes/infoComponente", {
+      headers: {
+        "Content-type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify({
+        idAtmServer: 1,
+        componenteServer: element,
+      })
+    })
+    .then(resposta => {
+      if (resposta.status != 200) {
+        console.log("foi")
+        throw "Erro"
+      }
+      resposta.json().then(json => {
+
+        if(element=="memoria"){
+          inserirInfoMemoria(json)
+        }
+
+        else if(element=="processador"){
+          inserirInfoProcessador(json)
+        }
+
+        else if(element=="disco"){
+          inserirInfoDisco(json)
+        }
+        else{
+          console.log("Componente não valido")
+        }
+        
+      })
+    })
+
+    .catch(erro => {
+      console.log(erro)
+    })
+  })
+}
+
+let variavelAuxiliar;
+
+function trocarInfoHd(){
+
+  tamanhoHd.innerText= variavelAuxiliar[sel_hd.value].qtd_maxima;
+  velocidade.innerText= variavelAuxiliar[sel_hd.value].frequencia+" rpm";
+  modeloHd.innerText=  variavelAuxiliar[sel_hd.value].serie == "unknown" ? "--" :variavelAuxiliar[sel_hd.value].serie ;
+}
 
 
   dadosGrafico.data.datasets[0].data.shift();
   dadosGrafico.data.datasets[0].data.push(primeiroDado);
 
-  if (tipo == "rede") {
-    dadosGrafico.data.datasets[1].data.shift();
-    dadosGrafico.data.datasets[1].data.push(segundoDado);
-  }
+function inserirInfoProcessador(json){
+modelo.innerText=json[0].modelo;
+core.innerText=json[0].qtd_cpu_fisica;
+thread.innerText=" "+json[0].qtd_cpu_logica;
+frequencia.innerText=" "+json[0].frequencia.slice(0,2).split("").join(".")+"Ghz";
+}
+function inserirInfoDisco(json){
+  variavelAuxiliar=json;
+  tamanhoHd.innerText= json[0].qtd_maxima;
+  velocidade.innerText= json[0].frequencia+"rpm";
+  modeloHd.innerText= json[0].serie;
 
-  dadosGrafico.data.labels.shift();
-  dadosGrafico.data.labels.push(dateTimeFormatado);
-  grafico.update();
+  for(let i =0; i < json.length;i++){
+    sel_hd.innerHTML+=`<option value="${i}">HD${i}</option>`
+  }
+}
+
+function inserirInfoMemoria(json){
+  tamanhoRam.innerText= json[0].qtd_maxima;
 }
 
 
