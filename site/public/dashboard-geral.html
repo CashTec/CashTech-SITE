@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
@@ -15,13 +15,13 @@
   <link rel="icon" href="">
 </head>
 
-<body>
+<body onload="verificarLogin()">
   <div class="backEcplipse">
     <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
     <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
   </div>
   <aside>
-    
+
     <div class="backEcplipse">
       <img src="../img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
       <img src="../img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
@@ -36,13 +36,13 @@
         </div>
         <div class="bem-vindo">
           <h2>Bem Vindo,</h2>
-          <span id="spn_orquestraNome">Nome Empresa</span>
+          <span id="spn_usuarioNome">Nome Empresa</span>
         </div>
         <div class="indices">
           <ul class="lista">
             <a href="mapa-gestor.html">
               <li><img src="./img/map.svg" alt=""> Mapa</li>
-          </a>
+            </a>
             <a href="dashboard-geral.html">
               <li class="active-menu"><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
             </a>
@@ -51,14 +51,17 @@
             </a>
             <a href="dashboard-parametrizacao.html">
               <li>
-                  <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
               </li>
-          </a>
+            </a>
             <a href="listaATM.html">
               <li><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
             </a>
-            
+
           </ul>
+        </div>
+        <div>
+          <a href="./download.html" class="sair downloadMenu">Download</a>
         </div>
         <div>
           <button class="sair" onclick="limparSessao()">Sair</button>
@@ -70,7 +73,7 @@
     <div class="row row-1">
       <div class="content-row">
 
-        
+
         <div class="square">
           <div class="content-indicadores">
             <h2>Cidade com mais ATMs inativos</h2>
@@ -98,7 +101,7 @@
 
         <div class="square">
           <h2>Lista de ATMS com funcionamento fora do normal</h2>
-          
+
           <div class="list-atm">
             <div class="line">
               <div class="icon"><img src="img/Group.svg" alt=""></div>
@@ -136,7 +139,7 @@
               <div class="indicators"> Disco - 30% </div>
               <button><img src="img/seta.svg" alt=""></button>
             </div>
-            
+
           </div>
         </div>
 
@@ -144,7 +147,10 @@
           <h2>Status do ATM</h2>
           <div class="content-graphic">
             <canvas class="canva" id="graphicBola"></canvas>
-            <div class="qtdAtm"><h3>90</h3><p>TOTAL ATMS</p></div>
+            <div class="qtdAtm">
+              <h3>90</h3>
+              <p>TOTAL ATMS</p>
+            </div>
           </div>
         </div>
       </div>
@@ -152,8 +158,9 @@
 
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="js/dashboard-geral.js"></script>
 </body>
 
 </html>
+<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/dashboard-geral.js"></script>

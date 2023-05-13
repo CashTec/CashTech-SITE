@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
 
 </head>
 
-<body onload="atualizarFeed()">
+<body onload="atualizarFeed(), verificarLogin()">
     <aside>
         <div class="backEcplipse">
           <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
@@ -49,6 +49,9 @@
                 </a>
                 
               </ul>
+            </div>
+            <div>
+                <a href="./download.html" class="sair downloadMenu">Download</a>
             </div>
             <div>
               <button class="sair" onclick="limparSessao()">Sair</button>
@@ -181,3 +184,4 @@
 
 </html>
 <script src="./js/users.js"></script>
+<script src="js/script.js"></script>

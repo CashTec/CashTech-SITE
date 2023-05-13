@@ -11,7 +11,11 @@ var app = express();
 // Isso é uma base de outro projeto, Mudar de acordo com o grupo
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-var compontentesRouter = require("./src/routes/componentes")
+var compontentesRouter = require("./src/routes/componentes");
+var enderecoRouter = require("./src/routes/endereco");
+var parametrizacaoRouter = require("./src/routes/parametrizacao");
+var processosRouter = require("./src/routes/processos")
+var listaAtmRouter = require("./src/routes/listaAtm")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -21,6 +25,11 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/componentes", compontentesRouter);
+app.use("/endereco", enderecoRouter);
+app.use("/parametrizacao", parametrizacaoRouter)
+app.use("/processos", processosRouter);
+app.use("/listaAtm", listaAtmRouter);
+
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

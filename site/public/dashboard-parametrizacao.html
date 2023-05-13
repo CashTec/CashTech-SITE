@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
     <link rel="icon" href="">
 </head>
 
-<body>
+<body onload="verificarLogin()">
     <div class="backElipse">
         <img src="img/cashTechSystem/ElipseUpInverso.png" class="elipseUp">
     </div>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="bem-vindo">
                     <h2>Bem Vindo,</h2>
-                    <span id="spn_orquestraNome">Nome Empresa</span>
+                    <span id="spn_usuarioNome">Nome Empresa</span>
                 </div>
                 <div class="indices">
                     <ul class="lista">
@@ -53,6 +53,9 @@
                         </a>
 
                     </ul>
+                </div>
+                <div>
+                    <a href="./download.html" class="sair downloadMenu">Download</a>
                 </div>
                 <div>
                     <button class="sair" onclick="limparSessao()">Sair</button>
@@ -213,7 +216,8 @@
             </div>
         </div>
     </main>
-    <script src="js/dashboard-parametrizacao.js"></script>
 </body>
 
 </html>
+<script src="js/dashboard-parametrizacao.js"></script>
+<script src="js/script.js"></script>

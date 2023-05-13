@@ -203,9 +203,7 @@ function atualizarData() {
   if (grafico.data.labels.length > 4) {
     graficoLine.data.datasets[0].data.shift();
     grafico.data.datasets[0].data.shift();
-    grafico.data.datasets[1].data.shift(￼Alerta
-22%
-Modelo: Disco Fixo Local (C:));
+    grafico.data.datasets[1].data.shift();
     grafico.data.labels.shift();
     graficoLine.data.labels.shift();
   }

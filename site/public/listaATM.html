@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -13,51 +13,55 @@
 
 </head>
 
-<body onload="atualizarFeed()">
+<body onload="atualizarFeed(), verificarLogin()">
     <aside>
         <div class="backEcplipse">
-          <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
-          <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+            <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+            <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
         </div>
         <div class="menu">
-          <div class="container">
-            <div class="logo-menu">
-              <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
-            </div>
-            <div class="bem-vindo">
-              <h2>Bem Vindo,</h2>
-              <span id="spn_orquestraNome">Nome Empresa</span>
-            </div>
-            <div class="indices">
-              <ul class="lista">
-                <a href="mapa-gestor.html">
-                    <li><img src="./img/map.svg" alt=""> Mapa</li>
-                </a>
-                
-                <a href="dashboard-geral.html">
-                  <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
-                </a>
-                <a href="users.html">
-                  <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
-                </a>
-                <a href="dashboard-parametrizacao.html">
-                  <li>
-                      <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
-                  </li>
-              </a>
-                <a href="listaATM.html">
-                  <li class="active-menu"><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
-                </a>
+            <div class="container">
+                <div class="logo-menu">
+                    <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+                </div>
+                <div class="bem-vindo">
+                    <h2>Bem Vindo,</h2>
+                    <span id="spn_usuarioNome">Nome Empresa</span>
+                </div>
+                <div class="indices">
+                    <ul class="lista">
+                        <a href="mapa-gestor.html">
+                            <li><img src="./img/map.svg" alt=""> Mapa</li>
+                        </a>
 
-              
-              </ul>
+                        <a href="dashboard-geral.html">
+                            <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
+                        </a>
+                        <a href="users.html">
+                            <li> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                        </a>
+                        <a href="dashboard-parametrizacao.html">
+                            <li>
+                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                            </li>
+                        </a>
+                        <a href="listaATM.html">
+                            <li class="active-menu"><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
+                        </a>
+
+
+                    </ul>
+                </div>
+                <div>
+                    <a href="./download.html" class="sair downloadMenu">Download</a>
+                </div>
+                <div>
+                    <button class="sair" onclick="limparSessao()">Sair</button>
+                </div>
+
             </div>
-            <div>
-              <button class="sair" onclick="limparSessao()">Sair</button>
-            </div>
-          </div>
         </div>
-      </aside>
+    </aside>
     <div class="dashboard">
         <div class="content-users">
             <div class="container">
@@ -66,14 +70,15 @@
                 </div>
                 <div class="tipo-pesquisa">
                     <span>Pesquisar por:</span>
-                    <select id="sel_tipoPesquisa" onchange="tipoNaipe()">
-                        <option value="nome">- Identificador -</option>
-                        <option value="instrumento">-- Situação --</option>
-                        <option value="telefone">---- Cep ----</option>
-                        <option value="telefone">---- Rua ----</option>
-                        <option value="telefone">---- Cidade ----</option>
-                        <option value="telefone">---- Bairro ----</option>
-                        <option value="telefone">---- UF ----</option>
+                    <select id="sel_tipoPesquisa">
+                        <option value="identificador">- Identificador -</option>
+                        <option value="situacao">-- Situação --</option>
+                        <option value="inicio">---- Inicio ----</option>
+                        <option value="atividade">---- Atividade ----</option>
+                        <option value="cep">---- Cep ----</option>
+                        <option value="rua">---- Rua ----</option>
+                        <option value="cidade">---- Cidade ----</option>
+                        <option value="bairro">---- Bairro ----</option>
                     </select>
                 </div>
                 <div class="users-inputs">
@@ -82,18 +87,16 @@
                             Pesquisa:
                         </span>
                         <div class="input-select" id="input_select">
-                            <input type="text" id="in_pesquisa">
+                            <input type="text" id="in_pesquisa" onkeydown="pesquisar(event)">
                         </div>
-                        <button onclick="pesquisar()"><img src="./img/cashTechSystem/search.svg" alt=""></button>
+                        <button onclick="pesquisar(event)"><img src="./img/cashTechSystem/search.svg" alt=""></button>
                     </div>
                     <div class="todosusers">
                         <button onclick="atualizarFeed()">Limpar filtro</button>
                     </div>
                 </div>
-                <div class="planilha-users" id="div_planilhaUsers">
-                    <div class="nenhum-cadastrado">
-                        <h2 id="h2_nenhumAchado"></h2>
-                    </div>
+                <div class="planilha-users" id="div_planilhaAtm">
+                    
                 </div>
             </div>
         </div>
@@ -167,5 +170,6 @@
 </body>
 
 </html>
-<script src="./js/users.js"></script>
+<script src="./js/listaAtm.js"></script>
 <script src="./js/apiCEP.js"></script>
+<script src="js/script.js"></script>
