@@ -1,9 +1,9 @@
 var database = require("../database/config")
 
-function listarProcessos(empresa_id) {
+function listarProcessos(idEmpresa) {
 
     var instrucao = `
-        select nome from ProcessoPermitido where empresa_id = '${empresa_id}';
+        select nome from ProcessoPermitido where empresa_id = '${idEmpresa}';
     `
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -12,11 +12,11 @@ function listarProcessos(empresa_id) {
 }
 
 
-function listarParametroHardware(empresa_id) {
+function listarParametroHardware(idEmpresa) {
 
 
     var instrucao = `
-        select qtd_cpu_max, qtd_bytes_enviado_max, qtd_bytes_recebido_max,qtd_memoria_max, qtd_disco_max from parametrizacao where empresa_id = '${empresa_id};'
+        select qtd_cpu_max, qtd_bytes_enviado_max, qtd_bytes_recebido_max,qtd_memoria_max, qtd_disco_max from parametrizacao where empresa_id = '${idEmpresa};'
     `
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -25,7 +25,7 @@ function listarParametroHardware(empresa_id) {
 }
 
 
-function atualizarParametroHardware(cpuMax, bytesEnviados, bytesRecebidos, memoriaMax, discoMax, empresa_id) {
+function atualizarParametroHardware(cpuMax, bytesEnviados, bytesRecebidos, memoriaMax, discoMax, idEmpresa) {
     
     var instrucao = `
     update parametrizacao set 
@@ -34,10 +34,17 @@ function atualizarParametroHardware(cpuMax, bytesEnviados, bytesRecebidos, memor
     qtd_bytes_recebido_max = '${bytesRecebidos}',
      qtd_memoria_max = '${memoriaMax}',
       qtd_disco_max = '${discoMax}'
-         where empresa_id = '${empresa_id}';"
+         where empresa_id = '${idEmpresa}';"
     `
 
     console.log("Executando a instrução SQL: \n" + instrucao);
 
     return database.executar(instrucao);
 }
+
+
+module.exports = {
+    listarProcessos,
+    listarParametroHardware,
+    atualizarParametroHardware
+};
