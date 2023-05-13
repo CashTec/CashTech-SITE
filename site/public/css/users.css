@@ -207,7 +207,7 @@ button:active {
 }
 
 .tabela-users thead button:hover,
-.tabela-users .active-filtro {
+.tabela-users thead tr .active-filtro {
     color: #00bbff;
 }
 
