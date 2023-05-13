@@ -124,6 +124,7 @@ button:active {
 .pesquisar * {
     background-color: #FCFCFC;
 }
+
 .pesquisar input {
     padding: 0 10px;
     width: 100%;
@@ -457,4 +458,57 @@ td {
     background-color: #e1e1e1;
 }
 
+.modalDeletar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+    background-color: #003B48;
+    border-radius: 10px;
+    color: #ffffff;
+    animation: surgir-modal 500ms ease;
+}
+
+.modalDeletar h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.modalDeletar .buttons {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    gap: 20px;
+}
+
+.modalDeletar .buttons button {
+    padding: 8px 50px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.modalDeletar .buttons .cancelar {
+    background-color: #bbbbbb;
+    border: 1px solid #000;
+    color: #000000;
+}
+
+.modalDeletar .buttons .remover {
+    background-color: red;
+    border: 1px solid #000;
+    color: #000;
+}
+
 /* --------- FIM Modal ---------- */
+
+.loading {
+    text-align: center;
+    display: block;
+    margin-top: 15vh;
+}
+
+.loading img {
+    width: 180px;
+}
