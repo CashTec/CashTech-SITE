@@ -3,7 +3,7 @@ var database = require("../database/config")
 function listarProcessosPermitidos(idEmpresa) {
 
     var instrucao = `
-        select nome from ProcessoPermitido where empresa_id = '${idEmpresa}';
+        select id, nome from ProcessoPermitido where empresa_id = ${idEmpresa};
     `
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -25,16 +25,12 @@ function listarParametroHardware(idEmpresa) {
 }
 
 
-function atualizarParametroHardware(cpuMax, bytesEnviados, bytesRecebidos, memoriaMax, discoMax, idEmpresa) {
+function atualizarParametroHardware(campo, valor, idEmpresa) {
     
     var instrucao = `
     update parametrizacao set 
-    qtd_cpu_max = '${cpuMax}', 
-    qtd_bytes_enviado_max = '${bytesEnviados}', 
-    qtd_bytes_recebido_max = '${bytesRecebidos}',
-     qtd_memoria_max = '${memoriaMax}',
-      qtd_disco_max = '${discoMax}'
-         where empresa_id = '${idEmpresa}';"
+      ${campo} = '${valor}'
+        where empresa_id = ${idEmpresa};"
     `
 
     console.log("Executando a instrução SQL: \n" + instrucao);
