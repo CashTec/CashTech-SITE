@@ -25,13 +25,27 @@ function fechar_modalEditar() {
     }, 500);
 }
 
+function abrir_modalDeletar() {
+    div_backgroundModal.style.display = 'flex';
+    div_deletarModal.style.display = 'block'
+    document.body.style.overflow = 'hidden';
+}
+function fechar_modalDeletar() {
+    div_deletarModal.classList.add('sumirModal');
+    setTimeout(() => {
+        div_backgroundModal.style.display = 'none';
+        div_deletarModal.classList.remove('sumirModal');
+        div_deletarModal.style.display = 'none'
+        document.body.style.overflow = '';
+    }, 500);
+}
 // ------------------ FIM Funções de modal ------------------------//
 
 
 // ------------------ Função de Atualizar Feed ------------------------//
 
 function atualizarFeed(tipo, campo) {
-
+    loadingGif();
     let filtroComponente = '';
     if (tipo != undefined && campo != undefined) {
         filtroComponente = `/${tipo}/${campo}`;
@@ -59,7 +73,7 @@ function atualizarFeed(tipo, campo) {
 // ------------------ Fim Função de Atualizar Feed ------------------------//
 
 function pesquisar(event) {
-    if (event.keyCode === 13 || event.type === 'click') {
+    if (event.key === 'Enter' || event.type === 'click') {
         atualizarFeed(sel_tipoPesquisa.value, in_pesquisa.value)
     }
 }
@@ -88,25 +102,33 @@ function ordernarLista(tipo) {
 
 // ------------------ Função de Deletar funcionario ------------------------//
 function deletar_atm(idAtm) {
+    abrir_modalDeletar();
 
-    fetch(`/listaAtm/${idEmpresa}/${idAtm}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then((resposta) => {
-
-        if (resposta.ok) {
-            alert("Deletado com sucesso!");
-            setTimeout(() => {
-                window.location.reload();
-            }, "1500")
-        } else {
-            throw ("Houve um erro ao tentar realizar o delete!: " + resposta.status);
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+    const deletar = btn_deletar.addEventListener("click", function () {
+        return true;
     });
+
+    if (deletar) {
+
+        fetch(`/listaAtm/${idEmpresa}/${idAtm}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((resposta) => {
+
+            if (resposta.ok) {
+                alert("Deletado com sucesso!");
+                setTimeout(() => {
+                    window.location.reload();
+                }, "1500")
+            } else {
+                throw ("Houve um erro ao tentar realizar o delete!: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
 }
 // ------------------ Fim Função de Deletar funcionario ------------------------//
 
@@ -278,4 +300,12 @@ function plotarTabela(json) {
                 </td>
             </tr>`;
     }
+}
+
+function loadingGif() {
+    div_planilhaAtm.innerHTML = `
+    <div class="loading" id="loadingGif">
+        <img src="img/cashTechSystem/loadingGif.svg" alt="">
+    </div>
+    `
 }
