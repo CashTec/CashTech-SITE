@@ -281,7 +281,7 @@ td {
 
 @keyframes surgir-modal {
     0% {
-        transform: translateY(-200%)
+        transform: translateY(-100vh)
     }
 
     100% {
@@ -290,7 +290,7 @@ td {
 }
 
 .sumirModal {
-    animation: sumir-modal 500ms ease;
+    animation: sumir-modal 510ms ease;
 }
 
 @keyframes sumir-modal {
@@ -299,7 +299,7 @@ td {
     }
 
     100% {
-        transform: translateY(-200%)
+        transform: translateY(-100vh)
     }
 }
 
@@ -459,6 +459,10 @@ td {
 }
 
 .modalDeletar {
+    display: none;
+}
+
+.contentDeletar{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -470,7 +474,6 @@ td {
     color: #ffffff;
     animation: surgir-modal 500ms ease;
 }
-
 .modalDeletar h2 {
     font-size: 20px;
     font-weight: 600;
@@ -479,26 +482,28 @@ td {
 .modalDeletar .buttons {
     display: flex;
     justify-content: space-between;
-    font-size: 16px;
     gap: 20px;
 }
 
 .modalDeletar .buttons button {
     padding: 8px 50px;
     font-size: 16px;
+    font-weight: 800;
     border-radius: 5px;
 }
+
 
 .modalDeletar .buttons .cancelar {
     background-color: #bbbbbb;
     border: 1px solid #000;
     color: #000000;
+
 }
 
 .modalDeletar .buttons .remover {
     background-color: red;
     border: 1px solid #000;
-    color: #000;
+    color: #fff;
 }
 
 /* --------- FIM Modal ---------- */

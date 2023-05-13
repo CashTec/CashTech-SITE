@@ -30,6 +30,7 @@ function abrir_modalDeletar() {
     div_deletarModal.style.display = 'block'
     document.body.style.overflow = 'hidden';
 }
+
 function fechar_modalDeletar() {
     div_deletarModal.classList.add('sumirModal');
     setTimeout(() => {
