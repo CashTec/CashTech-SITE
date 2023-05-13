@@ -1,6 +1,6 @@
 var database = require("../database/config")
 
-function listarProcessos(idEmpresa) {
+function listarProcessosPermitidos(idEmpresa) {
 
     var instrucao = `
         select nome from ProcessoPermitido where empresa_id = '${idEmpresa}';
@@ -44,7 +44,7 @@ function atualizarParametroHardware(cpuMax, bytesEnviados, bytesRecebidos, memor
 
 
 module.exports = {
-    listarProcessos,
+    listarProcessosPermitidos,
     listarParametroHardware,
     atualizarParametroHardware
 };
