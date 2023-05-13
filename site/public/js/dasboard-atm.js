@@ -1,9 +1,14 @@
+
+
 const font = new FontFace(
   "Poppins",
   "url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap)"
 );
 
+sessionStorage.setItem("idAtm",1)
 
+let idMemoria;
+let idProcessador;
 
 function passarTela() {
 
@@ -17,9 +22,6 @@ btnInfo.forEach((element, i) => {
   element.addEventListener("click", () => {
     divCardInfo[i].classList.toggle("active");
   })
-
-
-
 })
 
 
@@ -39,18 +41,19 @@ function coletarInfoComponente(componente) {
         },
         method: "POST",
         body: JSON.stringify({
-          idAtmServer: 1,
+          idAtmServer: Number(sessionStorage.idAtm),
           componenteServer: element,
         })
       })
       .then(resposta => {
         if (resposta.status != 200) {
-          throw "Erro"
+          throw "Erro";
         }
         resposta.json().then(json => {
 
           if (element == "memoria") {
             inserirInfoMemoria(json)
+            console.log(json);
           } else if (element == "processador") {
             inserirInfoProcessador(json)
           } else if (element == "disco") {
@@ -80,6 +83,7 @@ function trocarInfoHd() {
 
 
 function inserirInfoProcessador(json) {
+  idProcessador = json[0].id;
   modelo.innerText = json[0].nome;
   core.innerText = json[0].qtd_cpu_fisica;
   thread.innerText = " " + json[0].qtd_cpu_logica;
@@ -99,39 +103,12 @@ function inserirInfoDisco(json) {
 }
 
 function inserirInfoMemoria(json) {
+  idMemoria=json[0].id;
   tamanhoRam.innerText = (json[0].qtd_maxima / 1073741824).toFixed(1) + "GB";
 }
 
-function inserirInfoRede(json) {
-  macRede.innerText = `${json[0].mac}`
-  nomeRede.innerText = `${json[0].nome}`
-  ipRede.innerText = `${json[0].ipv4}`
-}
-
-
-function buscarMetricaComponente() {
-
-  const requisicaoProcessador = fetch(`/metricas/metricaComponente/1`)
-  const requisicaoMemoria = fetch(`/metricas/metricaComponente/1`)
-
-  Promise.all(requisicaoMemoria, requisicaoProcessador)
-    .then(resposta => resposta.json())
-    .then(json => {
-      if (json.tipo == "processador") {
-        atualizarMetricaProcessador(json);
-      } else {
-        atualizarMetricaMemoria(json);
-      }
-      setTimeout(() => {
-        buscarMetricaComponente();
-      })
-
-    })
-}
-
-
 function buscarMetricaRede() {
-  fetch(`/metricas/metricaRede/2`, {
+  fetch(`/metricas/metricaRede/1`, {
     headers: {
       'Content-type': 'application/json'
     },
@@ -139,7 +116,9 @@ function buscarMetricaRede() {
   }).
   then(resposta => resposta.json())
     .then(json => {
+      console.log("aaaa")
       atualizarMetricaRede(json);
+      console.log(json)
       setTimeout(() => {
         buscarMetricaRede()
       }, 1000);
@@ -148,6 +127,38 @@ function buscarMetricaRede() {
     })
 
 }
+
+function inserirInfoRede(json) {
+  sessionStorage.setItem("rede",json[0].id)
+  macRede.innerText = `${json[0].mac}`
+  nomeRede.innerText = `${json[0].nome}`
+  ipRede.innerText = `${json[0].ipv4}`
+}
+
+
+function buscarMetricaComponente(componentes) {
+componentes.forEach((element)=>{
+  fetch(`/metricas/metricaComponente/1/${element}`,{
+    headers:{
+      "Content-type":"Application/json"
+    },
+    method:"GET"
+  }).then(response=>response.json())
+  .then((json)=>{
+    if(json[0].tipo=="processador"){
+     atualizarMetricaProcessador(json)
+    }
+  }).catch((erro)=>{
+    console.log(erro);
+  })
+})
+setTimeout(()=>{
+  buscarMetricaComponente(["processador","memoria"]);
+},2000)
+}
+
+
+
 
 
 
@@ -179,8 +190,7 @@ const config = {
   },
 };
 const graphicBola = document.getElementById("graphicBola");
-const graficoBoll = new Chart(graphicBola, config)
-
+const graficoBoll = new Chart(graphicBola, config);
 let graficoRede = {
   type: "line",
   data: {
@@ -262,89 +272,6 @@ let graficoRede = {
 let grafico3 = new Chart(graphicLine3, graficoRede);
 
 
-
-
-
-// let grafico = {
-//   type: "line",
-//   data: {
-//     labels: [],
-//     datasets: [{
-//         label: "Consumo médio dos ATMS",
-//         data: [],
-//         borderWidth: 3,
-//         borderColor: "#017529"
-
-//       },
-//       {
-//         label: "Consumo médio dos ATMS",
-//         data: [],
-//         borderWidth: 3,
-//         borderColor: "#A41B1B"
-//       },
-//     ],
-//   },
-//   options: {
-//     plugins: {
-//       legend: {
-//         display: false
-//       },
-//     },
-
-
-//     scales: {
-
-//       y: {
-
-//         beginAtZero: true,
-//         border: {
-//           color: " #222",
-//         },
-//         fonts: {
-//           color: " #222",
-//         },
-
-//         ticks: {
-//           color: " #222",
-//           backgroundColor: "#222",
-//         },
-
-//         grid: {
-//           color: "#222",
-//           display: false,
-//         },
-//       },
-//       x: {
-//         border: {
-//           color: " #222",
-//         },
-//         ticks: {
-//           color: " #222",
-//           weight: "700",
-//           family: "Poppins",
-//         },
-//         grid: {
-//           display: false,
-//         },
-//       },
-//     },
-//     elements: {
-//       line: {
-//         tension: 0.4,
-//         backgroundColor: "#222",
-//         borderColor: "#222",
-//         spanGaps: true,
-//       },
-//     },
-//     animation: {
-//       duration: 800,
-//     },
-//   },
-// }
-
-
-
-
 let graficoProcessador = {
   type: "line",
   data: {
@@ -422,34 +349,30 @@ let grafico1 = new Chart(graphicLine1, graficoProcessador);
 
 // Função que atualiza os dados do gráfico de linha
 let jsonAntigo = []
+
 let verificadorCount = 0;
-
 const verificador = (json, copia) => {
-  JSON.stringify(copia) == JSON.stringify(json) ? verificadorCount++ : verificadorCount = 0
+JSON.stringify(copia) == JSON.stringify(json) ? verificadorCount++ : verificadorCount = 0
 }
-
-
 function atualizarMetricaProcessador(json) {
   atualizarData(json,graficoProcessador,"processador",grafico1);
 }
-
-
 function atualizarMetricaMemoria(json) {
-
+  // atualizarData(json,graficoProcessador,"memoria",grafico1);
 }
 
 
 
 function atualizarMetricaRede(json) {
-  verificador(json, jsonAntigo)
+  verificador(json, jsonAntigo);
   let containerAviso = document.querySelectorAll(".aviso")[0];
   if (verificadorCount < 10) {
     jsonAntigo = json;
     atualizarData(json, graficoRede, "rede", grafico3);
     jsonAntigo = json;
-    containerAviso.classList.remove("active")
   } else {
-    containerAviso.classList.add("active")
+    containerAviso.classList.add("active");
+    containerAviso.innerHTML="<h2>Não há dados recentes</h2><p>Verifique o software de monitoramento do caixa eletrônico  </p>";
   }
 
 }
@@ -457,22 +380,24 @@ function atualizarMetricaRede(json) {
 
 
 function atualizarData(json, dadosGrafico, tipo, grafico) {
-
+  console.log(json)
+  let containerAviso = document.querySelectorAll(".aviso")[0];
   const dateTimeFormatado = json[0].dt_metrica.slice(11, 19);
-
-  let primeiroDado
+  let primeiroDado;
   let segundoDado;
-  switch (tipo) {
-    case "rede":
+ if(tipo=="rede"){
       primeiroDado = json[0].bytes_recebidos_segundo/(1024*1024);
       segundoDado = json[0].bytes_enviados_segundo/ (1024*1024);
-    }
+ }
+ else{
+  console.log("Entrou Componente")
+  primeiroDado = json[0].qtd_consumido / (1024*1024);
+ }
 
-    console.log(primeiroDado);
-    console.log(segundoDado);
-  
-
+      
   if (dadosGrafico.data.datasets[0].data.length < 6) {
+    containerAviso.classList.add("active");
+    containerAviso.innerHTML="<h2>Aguardando dados<h2/>";
     dadosGrafico.data.datasets[0].data.push(primeiroDado);
     if (tipo == "rede") {
       dadosGrafico.data.datasets[1].data.push(segundoDado);
@@ -482,8 +407,7 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
   }
 
 
-
-  dadosGrafico.data.datasets[0].data.shift()
+  dadosGrafico.data.datasets[0].data.shift();
   dadosGrafico.data.datasets[0].data.push(primeiroDado);
 
   if (tipo == "rede") {
@@ -493,7 +417,6 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
 
   dadosGrafico.data.labels.shift();
   dadosGrafico.data.labels.push(dateTimeFormatado);
-
   grafico.update();
 }
 
@@ -502,3 +425,4 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
 
 coletarInfoComponente(["processador", "disco", "memoria", "rede"]);
 buscarMetricaRede();
+buscarMetricaComponente(["processador","memoria"]);

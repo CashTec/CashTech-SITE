@@ -7,7 +7,7 @@ router.get("/metricaRede/:idRede",(req,res)=>{
 controllerMetrica.coletarMetricaRedeController(req,res);
 })
 
-router.get("/metricaComponente/:idComponente",(req,res)=>{
+router.get("/metricaComponente/:idCaixa/:tipo",(req,res)=>{
     controllerMetrica.coletarMetricaComponenteController(req,res);
     })
 

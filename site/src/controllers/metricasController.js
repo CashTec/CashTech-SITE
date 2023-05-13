@@ -3,19 +3,14 @@ var modelMetrica = require("../models/metricaModel");
 
 
 function coletarMetricaComponenteController(req, res) {
-    var idComponente = parseInt(req.params.idComponente);
-    console.log(typeof idComponente)
-    if (typeof idComponente == "number") {
-        console.log("------------AI-----------------")
-        modelMetrica.coletarMetricaRede(idComponente).then((resposta) => {
-            console.log("------------ds-----------------")
-            console.log("alora")
+    var tipo = req.params.tipo;
+    var idCaixa = parseInt(req.params.idCaixa);
+    if (typeof idCaixa == "number") {
+        modelMetrica.coletarMetricaComponente(idCaixa,tipo).then((resposta) => {
             if (resposta.length < 1) {
                 res.status(204).send();
             } else {
                 res.json(resposta)
-                res.status(200).send()
-
             }
         }).catch((erro) => {
             console.log(erro);
@@ -26,6 +21,7 @@ function coletarMetricaComponenteController(req, res) {
 
 function coletarMetricaRedeController(req, res) {
     var idComponente = parseInt(req.params.idRede);
+    console.log(typeof idComponente)
     if (!isNaN(idComponente)) {
         modelMetrica.coletarMetricaRede(idComponente).then((resposta) => {
             if (resposta.length < 1) {

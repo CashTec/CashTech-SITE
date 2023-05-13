@@ -387,18 +387,7 @@ body::-webkit-scrollbar {
     flex-direction: row;
 }
 
-.content-processo .row .table .title-table {
-    font-size: 1.3em;
-    margin-bottom: 10px;
-    color: #0E4354;
-    font-weight: 500;
 
-}
-
-.content-processo .row .table {
-    display: flex;
-    flex-direction: column;
-}
 
 
 .content-processo .row .content-info {
@@ -443,6 +432,12 @@ body::-webkit-scrollbar {
 .content-processo .row .table:nth-child(2) {
     flex: 2;
     height: 400px;
+}
+
+.content-processo .row .table:nth-child(2) td {
+    border: 1px solid black;
+    text-align: center;
+   
 }
 
 .content-processo .card-kpi  h2 {
