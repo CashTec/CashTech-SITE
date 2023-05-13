@@ -190,7 +190,7 @@ CREATE TABLE Componente (
   qtd_cpu_logica INT,
   qtd_maxima BIGINT NULL,
   qtd_disponivel BIGINT NULL,
-  ponto_montagem VARCHAR(45) NULL,
+  ponto_montagem VARCHAR(255) NULL,
   sistema_arquivos VARCHAR(5) NULL,
   caixa_eletronico_id INT NOT NULL,
   PRIMARY KEY (id),
