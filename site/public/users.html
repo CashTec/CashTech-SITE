@@ -66,10 +66,9 @@
                     <span>Pesquisar por:</span>
                     <select id="sel_tipoPesquisa" onchange="tipoNaipe()">
                         <option value="nome">----- nome -----</option>
-                        <option value="instrumento">---- email ----</option>
-                        <option value="telefone">---- telefone ----</option>
-                        <option value="empresa">---- empresa ----</option>
-                        <option value="naipe">---- função ----</option>
+                        <option value="email">---- email ----</option>
+                        <option value="telefone">---- telefone ----</option>2
+                        <option value="funcao">---- função ----</option>
                     </select>
                 </div>
                 <div class="users-inputs">
@@ -80,7 +79,7 @@
                         <div class="input-select" id="input_select">
                             <input type="text" id="in_pesquisa">
                         </div>
-                        <button onclick="pesquisar()"><img src="./img/cashTechSystem/search.svg" alt=""></button>
+                        <button onclick="atualizarFeed(sel_tipoPesquisa.value, input_select.value)"><img src="./img/cashTechSystem/search.svg" alt=""></button>
                     </div>
                     <div class="todosusers">
                         <button onclick="atualizarFeed()">Limpar Filtro</button>
