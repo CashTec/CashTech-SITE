@@ -1,5 +1,6 @@
 const idEmpresa = sessionStorage.ID_EMPRESA;
-const idAtm = sessionStorage.ID_ATM;
+const idAtm = sessionStorage.idAtm;
+
 let jsonProcessosAgora = "";
 let jsonProcessosKilled = "";
 
