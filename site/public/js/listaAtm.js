@@ -223,6 +223,7 @@ function nenhumAchado() {
     `
 }
 function plotarTabela(json) {
+
     div_planilhaAtm.innerHTML = `
         <table class="tabela-users tabelalistaAtm">
             <thead>
@@ -242,6 +243,21 @@ function plotarTabela(json) {
         </table>`;
 
     for (const element of json) {
+        //Converter data para o formato dd/mm/yyyy hh:mm:ss
+        var data = new Date(element.iniciado);
+        element.iniciado = data.toLocaleString();
+
+        // conversor de segundos para dias, horas e minutos
+        var segundos = element.tempo_atividade;
+        var dias = Math.floor(segundos / (60 * 60 * 24));
+        segundos -= dias * (60 * 60 * 24);
+        var horas = Math.floor(segundos / (60 * 60));
+        segundos -= horas * (60 * 60);
+        var minutos = Math.floor(segundos / 60);
+        segundos -= minutos * 60;
+
+        element.tempo_atividade = `${dias} dias, ${horas}horas e ${minutos} minutos`;
+
         table_atm.innerHTML += `
             <tr>
                 <td>${element.identificador}</td>
