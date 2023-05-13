@@ -1,16 +1,15 @@
 var express = require("express");
 var router = express.Router();
 
-var parametrizacaoControllers = require("../controllers/parametrizacaoControllers");
+let parametrizacaoControllers = require("../controllers/parametrizacaoControllers");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
-router.post("/cadastrar", function (req, res) {
-    usuarioController.cadastrar(req, res);
+
+router.get("/verParametroHardware/:idEmpresa", function (req, res) {
+    parametrizacaoControllers.verParametroHardware(req, res);
 })
 
-router.post("/autenticar", function (req, res) {
-    usuarioController.entrar(req, res);
-    console.log("Entrei routes");
+router.get("/verProcessosPermitidos/:idEmpresa", function (req, res) {
+    parametrizacaoControllers.verProcessosPermitidos(req, res);
 });
 
 module.exports = router;
