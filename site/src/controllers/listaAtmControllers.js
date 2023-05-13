@@ -88,11 +88,7 @@ function deletar(req, res) {
     }
 
     listaAtmModel.deletar(idEmpresa, idAtm).then((resposta) => {
-        if (resposta.affectedRows > 0) {
-            return res.status(200).json(resposta);
-        } else {
-            return res.status(204).send("Não há dados!");
-        }
+        return res.status(200).json(resposta);
     }).catch((error) => {
         console.log(error);
         console.log("\nHouve um erro ao realizar a busca com filtro! Erro: ", error.sqlMessage);

@@ -48,6 +48,7 @@ function atualizarFeed(tipo, campo) {
             }
 
         } else {
+            nenhumAchado();
             throw ('Houve um erro na API!');
         }
     }).catch((erro) => {
@@ -96,14 +97,12 @@ function deletar_atm(idAtm) {
     }).then((resposta) => {
 
         if (resposta.ok) {
-            alert("Postagem deletada com sucesso!");
+            alert("Deletado com sucesso!");
             setTimeout(() => {
                 window.location.reload();
             }, "1500")
-        } else if (resposta.status === 404) {
-            window.alert("Deu 404!");
         } else {
-            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            throw ("Houve um erro ao tentar realizar o delete!: " + resposta.status);
         }
     }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
@@ -135,7 +134,6 @@ function listarUm(idEmpresa, idUser) {
         console.error(resposta);
     });
 }
-
 
 function editar(idEmpresa, idUser) {
 
@@ -212,8 +210,6 @@ function editar(idEmpresa, idUser) {
 }
 
 // ------------------ Fim Função de Editar funcionario ------------------------//
-
-
 
 function nenhumAchado() {
     div_planilhaAtm.innerHTML = `
