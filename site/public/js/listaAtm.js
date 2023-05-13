@@ -241,6 +241,7 @@ function nenhumAchado() {
     </div>
     `
 }
+
 function plotarTabela(json) {
 
     div_planilhaAtm.innerHTML = `
@@ -285,7 +286,7 @@ function plotarTabela(json) {
                 <td>${element.tempo_atividade}</td>
                 <td>${element.rua}, ${element.numero}</td>
                 <td class="tdImg">
-                    <button onclick="window.location.href = 'dashboard-atm.html'">
+                    <button onclick="redirecionarAtm(${element.id})">
                         <img class="graphic" src="./img/cashTechSystem/bar-chart.png" alt="">
                     </button>
                 </td>
@@ -309,4 +310,9 @@ function loadingGif() {
         <img src="img/cashTechSystem/loadingGif.svg" alt="">
     </div>
     `
+}
+
+function redirecionarAtm(idAtm){
+    sessionStorage.idAtm = idAtm;
+    window.location.href = `dashboard-atm.html`;
 }

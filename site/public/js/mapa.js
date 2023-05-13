@@ -117,7 +117,7 @@ function mostrarMapa(array) {
 
 function redirecionarAtm(id) {
   sessionStorage.setItem("idAtm", id);
-  window.location.pathname = "dashboard-atm.html"
+  window.location.href = "dashboard-atm.html"
 }
 
 
