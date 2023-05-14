@@ -392,6 +392,26 @@ body::-webkit-scrollbar {
     flex-direction: column;
 }
 
+.backProcessosKilled {
+    width: 32vw;
+    height: 45.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.backProcessosExecucao {
+    width: 52vw;
+    height: 45.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading {
+    width: 15vh;
+}   
+
 .processosExecucao table {
     width: 52vw;
     display: flex;
@@ -451,9 +471,10 @@ tr {
     flex: 2;
 }
 
-.tres{
+.tres {
     flex: 3;
 }
+
 td {
     padding: 10px 0 10px 20px;
     flex: 1;

@@ -289,7 +289,7 @@
                 <div class="card-kpi">
                     <h2 class="title">Tempo desde o último processo encerrado</h2>
                     <div class="content-indicator">
-                        <span class="number-indicator">12 minutos</span>
+                        <span class="number-indicator" id="spn_tempoUltimoProcesso">0 minutos</span>
                         <span class="text-indicator"></span>
                     </div>
                 </div>
@@ -299,12 +299,22 @@
                 <div class="encerrado">
                     <div class="titulo">Processos encerrados</div>
                     <div class="processosKilled" id="div_processosKilled">
+                        <div class="backProcessosKilled">
+                            <div class="loading" id="loadingGif">
+                                <img src="./img/cashTechSystem/loadingGif.svg" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="execucao">
-                    <div class="titulo">Processos em execução <span id="span_horario"></span></div>
+                    <div class="titulo">Processos em execução: <span id="span_horario"></span></div>
                     <div class="processosExecucao" id="div_processosExecucao">
+                        <div class="backProcessosExecucao">
+                            <div class="loading" id="loadingGif">
+                                <img src="./img/cashTechSystem/loadingGif.svg" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

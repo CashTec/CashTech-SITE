@@ -3,6 +3,8 @@ const idAtm = sessionStorage.idAtm;
 
 let jsonProcessosAgora = "";
 let jsonProcessosKilled = "";
+let ultimoProcessoKilled = "";
+let dtUltimoProcesso = "";
 
 atualizarProcessos();
 atualizarProcessosKilled();
@@ -13,15 +15,19 @@ function atualizarProcessos() {
             if (response.status === 200) {
                 response.json()
                     .then((json) => {
+                        if (json.length > 0) {
+                            jsonString = JSON.stringify(json);
 
-                        jsonString = JSON.stringify(json);
+                            if (jsonString === jsonProcessosAgora) {
+                                console.log("Não há alteração nos processos Killed");
+                                return;
+                            } else {
+                                jsonProcessosAgora = jsonString;
 
-                        if (jsonString === jsonProcessosAgora) {
-                            console.log("Não há alteração nos processos Agora");
-                            return;
+                                plotarProcessosExecucao(json);
+                            }
                         } else {
-                            jsonProcessosAgora = jsonString;
-                            plotarProcessosExecucao(json);
+                            nenhumAchado(div_processosExecucao);
                         }
 
                     }).catch(error => {
@@ -44,15 +50,21 @@ function atualizarProcessosKilled() {
             if (response.status === 200) {
                 response.json()
                     .then((json) => {
-                        jsonString = JSON.stringify(json);
+                        if (json.length > 0) {
+                            ultimoProcessoKilled = json[0].dt_processo;
+                            tempoUltimoProcesso()
+                            jsonString = JSON.stringify(json);
 
-                        if (jsonString === jsonProcessosKilled) {
-                            console.log("Não há alteração nos processos Killed");
-                            return;
+                            if (jsonString === jsonProcessosKilled) {
+                                console.log("Não há alteração nos processos Killed");
+                                return;
+                            } else {
+                                jsonProcessosKilled = jsonString;
+
+                                plotarProcessosKilled(json);
+                            }
                         } else {
-                            jsonProcessosKilled = jsonString;
-
-                            plotarProcessosKilled(json);
+                            nenhumAchado(div_processosKilled);
                         }
                     }).catch(error => {
                         console.log(error);
@@ -68,8 +80,41 @@ function atualizarProcessosKilled() {
     }, 3000)
 }
 
+function tempoUltimoProcesso() {
+    const date = new Date();
+    dtUltimoProcesso = new Date(ultimoProcessoKilled);
 
+    let tempo = date - dtUltimoProcesso;
 
+    let segundos = Math.floor(tempo / 1000);
+    let minutos = Math.floor(segundos / 60);
+    let horas = Math.floor(minutos / 60) - 3;
+
+    segundos %= 60;
+    minutos %= 60;
+    horas %= 60;
+
+    if (horas < 10) {
+        horas = `0${horas}`;
+    }
+    if (minutos < 10) {
+        minutos = `0${minutos}`;
+    }
+    if (segundos < 10) {
+        segundos = `0${segundos}`;
+    }
+
+    spn_tempoUltimoProcesso.innerHTML = `${horas}:${minutos}:${segundos}`;
+
+    setTimeout(() => {
+        tempoUltimoProcesso();
+    }, 1000);
+}
+
+const formatarData = (data) => {
+    const regexDate = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.\d+Z$/;
+    return data.replace(regexDate, '$3/$2/$1 $4:$5:$6');
+}
 function plotarProcessosKilled(json) {
     div_processosKilled.innerHTML =
         `
@@ -85,19 +130,15 @@ function plotarProcessosKilled(json) {
         </tbody>
     </table>
     `;
-    let agora = json[0].dt_processo;
-    var data = new Date(agora.dt_processo);
-    agora.dt_processo = data.toLocaleString();
-    span_horario.innerHTML = agora;
 
     for (const element of json) {
-        var data = new Date(element.dt_processo);
-        element.dt_processo = data.toLocaleString();
+
+        let data = formatarData(element.dt_processo);
 
         tby_encerrado.innerHTML +=
             `
         <tr>
-            <td class="dois">${element.dt_processo}</td>
+            <td class="dois">${data}</td>
             <td class="dois">${element.nome}</td>
             <td>${element.pid}</td>
         </tr>
@@ -123,6 +164,9 @@ function plotarProcessosExecucao(json) {
     </table>
     `;
 
+    let agora = formatarData(json[0].dt_processo);
+    span_horario.innerHTML = agora;
+
     for (const element of json) {
         element.uso_cpu = element.uso_cpu.toFixed(2);
         tby_execucao.innerHTML +=
@@ -136,4 +180,15 @@ function plotarProcessosExecucao(json) {
         </tr>
         `;
     }
+}
+
+function nenhumAchado(div) {
+    div.innerHTML =
+        `
+        <div class="backProcessosExecucao">
+            <div class="nenhumAchado">
+                <h1>Nenhum processo encerrado</h1>
+            </div>
+        </div>
+    `;
 }
