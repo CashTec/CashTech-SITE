@@ -85,6 +85,11 @@ function plotarProcessosKilled(json) {
         </tbody>
     </table>
     `;
+    let agora = json[0].dt_processo;
+    var data = new Date(agora.dt_processo);
+    agora.dt_processo = data.toLocaleString();
+    span_horario.innerHTML = agora;
+
     for (const element of json) {
         var data = new Date(element.dt_processo);
         element.dt_processo = data.toLocaleString();
