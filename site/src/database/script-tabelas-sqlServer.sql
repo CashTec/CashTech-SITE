@@ -107,11 +107,11 @@ CREATE TABLE Usuario (
 CREATE TABLE Parametrizacao (
 	id INT NOT NULL IDENTITY(1, 1),
 	empresa_id INT NOT NULL,
-	qtd_cpu_max INT NULL DEFAULT 90,
-	qtd_bytes_enviado_max INT NULL DEFAULT 100000,
-	qtd_bytes_recebido_max INT NULL DEFAULT 100000,
-	qtd_memoria_max INT NULL DEFAULT 90,
-	qtd_disco_max INT NULL DEFAULT 90,
+	qtd_cpu_max BIGINT NULL DEFAULT 90,
+	qtd_bytes_enviado_max BIGINT NULL DEFAULT 100000,
+	qtd_bytes_recebido_max BIGINT NULL DEFAULT 100000,
+	qtd_memoria_max BIGINT NULL DEFAULT 90,
+	qtd_disco_max BIGINT NULL DEFAULT 90,
 	PRIMARY KEY (id),
 	FOREIGN KEY (empresa_id) REFERENCES Empresa (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -134,8 +134,8 @@ CREATE TABLE NetworkInterface (
 -- -----------------------------------------------------
 CREATE TABLE MetricaRedeInterface (
 	id INT NOT NULL IDENTITY(1, 1),
-	bytes_recebidos_segundo INT NULL,
-	bytes_enviados_segundo INT NULL,
+	bytes_recebidos_segundo BIGINT NULL,
+	bytes_enviados_segundo BIGINT NULL,
 	dt_metrica DATETIME NULL,
 	network_interface_id INT NOT NULL,
 	PRIMARY KEY (id),
