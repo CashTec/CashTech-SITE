@@ -16,7 +16,7 @@ function listarParametroHardware(idEmpresa) {
 
 
     var instrucao = `
-        select qtd_cpu_max, qtd_bytes_enviado_max, qtd_bytes_recebido_max,qtd_memoria_max, qtd_disco_max from parametrizacao where empresa_id = '${idEmpresa};'
+        select qtd_cpu_max, qtd_bytes_enviado_max, qtd_bytes_recebido_max,qtd_memoria_max, qtd_disco_max from parametrizacao where empresa_id = ${idEmpresa};
     `
 
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -26,12 +26,9 @@ function listarParametroHardware(idEmpresa) {
 
 
 function atualizarParametroHardware(campo, valor, idEmpresa) {
-    
+
     var instrucao = `
-    update parametrizacao set 
-      ${campo} = '${valor}'
-        where empresa_id = ${idEmpresa};"
-    `
+    update parametrizacao set ${campo} = ${valor} where empresa_id = ${idEmpresa};`;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
 
