@@ -1,7 +1,4 @@
 const idEmpresa = sessionStorage.ID_EMPRESA;
-const campo = sessionStorage.CAMPO;
-const valor = sessionStorage.VALOR;
-
 
 exibirProcessosPermitidos();
 
@@ -122,22 +119,30 @@ function semProcesso() {
     `;
 }
 
-function atualizarParametroHardware(req, res) {
-    fetch(`/parametrizacao/atualizarParametroHardware/${campo}${valor}${idEmpresa}`).then((response) => {
-        if(response.ok) {
+function exibirParametro() {
+    fetch(`/parametrizacao/verParametroHardware/${idEmpresa}`).then((response) => {
+        if (response.ok) {
             response.json().then((json) => {
-                parametro = json;
-                console.log("Parametro");
-                console.log(parametro);
-
-                if(parametro.length > 0) {
-
-                } else {
-                    console.log("Falta de dados");
+                if(json.length > 0) {
+                    plotarParametro();
                 }
-            }).catch((erro) => {
-                console.log(erro);
+            }).catch((error) => {
+                console.log(error);
             })
+        }
+    })
+}
+
+function plotarParametro() {
+    
+}
+
+function atualizarParametroHardware(req, res) {
+    fetch(`/parametrizacao/atualizarParametroHardware/${idEmpresa}/${campo}/${valor}`).then((response) => {
+        if (response.ok) {
+            alert(`${campo} atualizado!`);
+        } else {
+            alert("Ocorreu um erro!");
         }
     }).catch((erro) => {
         console.log("Ocorreu um erro: " + erro);

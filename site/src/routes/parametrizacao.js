@@ -12,8 +12,8 @@ router.get("/verProcessosPermitidos/:idEmpresa", function (req, res) {
     parametrizacaoControllers.verProcessosPermitidos(req, res);
 });
 
-router.put("/atualizarParametroHardware/:campo:valor:idEmpresa", function (req, res) {
-   parametrizacaoModel.atualizarParametroHardware(req, res0); 
+router.put("/atualizarParametroHardware/:idEmpresa/:campo/:valor", function (req, res) {
+   parametrizacaoModel.atualizarParametroHardware(req, res); 
 });
 
 module.exports = router;
