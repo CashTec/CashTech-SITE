@@ -134,9 +134,21 @@
                         <h3>Threads: <span id="thread"></span></h3>
                         <h3>Frequencia Máxima:<span id="frequencia"></span></h3>
                     </div>
-                    <canvas id="graphicLine1">
-
-                    </canvas>
+                    <div class="content-grafico-container">
+                        <div class="legenda">
+                            <ul>
+                                <li>Megabytes Enviados</li>
+                                <li>Megabytes Recebidos</li>
+                            </ul>
+                        </div>
+                        <div class="aviso">
+                            <h2>Não há dados recentes</h2>
+                            <p>Verifique o software de monitoramento do caixa eletrônico  </p>
+                        </div>
+                        <canvas id="graphicLine1">
+                           
+                        </canvas>
+                    </div>
                 </div>
             </div>
 
@@ -163,9 +175,22 @@
                                     <h2>Informações da RAM</h2>
                                     <h3>Tamanho: <span id="tamanhoRam"></span></h3>
                                 </div>
-                                <canvas id="graphicLine2">
 
-                                </canvas>
+                                <div class="content-grafico-container">
+                                    <div class="legenda">
+                                        <ul>
+                                            <li>Megabytes Enviados</li>
+                                            <li>Megabytes Recebidos</li>
+                                        </ul>
+                                    </div>
+                                    <div class="aviso">
+                                        <h2>Não há dados recentes</h2>
+                                        <p>Verifique o software de monitoramento do caixa eletrônico  </p>
+                                    </div>
+                                    <canvas id="graphicLine2">
+                                       
+                                    </canvas>
+                                </div>
                             </div>
                     </div>
 
@@ -186,11 +211,11 @@
                             <div class="grafico">
                                 <div class="card-info">
                                     <h2>Informações da Rede</h2>
-                                    <h3>Nome da Interface: Intel Core i5 10Th
-                                        Generation
+                                    <h3 > Nome da Interface: <span id="nomeRede">Intel Core i5 10Th
+                                       </span> Generation
                                     </h3>
-                                    <h3>Host:192.168.18.1 </h3>
-                                    <h3>Velocidade:2.5Ghz </h3>
+                                    <h3>Host: <span id="ipRede">192.168.18.1</span> </h3>
+                                    <h3 >Mac: <span id="macRede">2.5Ghz</span></h3>
                                 </div>
                                 <div class="content-title">
 
@@ -198,10 +223,22 @@
                                     <button class="btn-alert">Alerta</button>
                                 </div>
 
+
+                               <div class="content-grafico-container">
+                                <div class="legenda">
+                                    <ul>
+                                        <li>Megabytes Enviados</li>
+                                        <li>Megabytes Recebidos</li>
+                                    </ul>
+                                </div>
+                                <div class="aviso">
+                                    <h2>Não há dados recentes</h2>
+                                    <p>Verifique o software de monitoramento do caixa eletrônico  </p>
+                                </div>
                                 <canvas id="graphicLine3">
-
+                                   
                                 </canvas>
-
+                            </div>
                             </div>
                         </div>
 
@@ -232,7 +269,8 @@
 
                                     <div class="info-hd">
                                         <canvas id="graphicBola" class="graficoHd"></canvas>
-                                        <div class="numberHD">32%
+                                        <div class="numberHD" id="disponivelHd">
+                                            <h2>32%</h2>
                                         </div>
                                         <div class="content-HD">
                                             <h3>Modelo:
@@ -241,9 +279,8 @@
                                             <h3>Tamanho:
                                                 <span id="tamanhoHd">128GB</span>
                                             </h3>
-                                            <h3>Velocidade:
-                                                <span id="velocidade">7200
-                                                    rpm</span>
+                                            <h3>Ponto de Montagem:
+                                                <span id="montagem"></span>
                                             </h3>
                                         </div>
                                     </div>
@@ -359,108 +396,55 @@
                 </div>
 
 
-                <div class="table">
-
-                    <h2 class="title-table">Processos em execução</h2>
-                    <div class="content-info">
-                        <div class="column">
-                            <h2>PID</h2>
-                            <div class="row">
-                                544
-                            </div>
-                            <div class="row">
-                                598
-                            </div>
-                            <div class="row">
-                                103
-                            </div>
-                            <div class="row">
-                                1024
-                            </div>
-                            <div class="row">
-                                12
-                            </div>
-                        </div>
-                        <div class="column">
-                            <h2>Nome</h2>
-                            <div class="row">
-                                transaction
-                            </div>
-                            <div class="row">
-                                gedit
-                            </div>
-                            <div class="row">
-                                mysql
-                            </div>
-                            <div class="row">
-                                nano
-                            </div>
-                            <div class="row">
-                                bash
-                            </div>
-                        </div>
-
-                        <div class="column">
-                            <h2>Uso CPU</h2>
-                            <div class="row">
-                                10%
-                            </div>
-                            <div class="row">
-                                11,4%
-                            </div>
-                            <div class="row">
-                                12%
-                            </div>
-                            <div class="row">
-                                10%
-                            </div>
-                            <div class="row">
-                                30%
-                            </div>
-                        </div>
-
-                        <div class="column">
-                            <h2>Uso RAM</h2>
-                            <div class="row">
-                                10%
-                            </div>
-                            <div class="row">
-                                11,4%
-                            </div>
-                            <div class="row">
-                                12%
-                            </div>
-                            <div class="row">
-                                10%
-                            </div>
-                            <div class="row">
-                                30%
-                            </div>
-                        </div>
-
-
-                        <div class="column">
-                            <h2>Bytes Utilizados</h2>
-                            <div class="row">
-                                1024
-                            </div>
-                            <div class="row">
-                                2000
-                            </div>
-                            <div class="row">
-                                100
-                            </div>
-                            <div class="row">
-                                10
-                            </div>
-                            <div class="row">
-                                500
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
+                <table class="table">
+                    <caption>Processos em execução</caption>
+                    <thead>
+                        <tr>
+                            <th>PID</th>
+                            <th>Nome</th>
+                            <th>Uso CPU</th>
+                            <th>Uso RAM</th>
+                            <th>Bytes Utilizados</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>544</td>
+                            <td>transaction</td>
+                            <td>10%</td>
+                            <td>10%</td>
+                            <td>1024</td>
+                        </tr>
+                        <tr >
+                            <td>598</td>
+                            <td>gedit</td>
+                            <td>11,4%</td>
+                            <td>11,4%</td>
+                            <td>2000</td>
+                        </tr>
+                        <tr >
+                            <td>103</td>
+                            <td>mysql</td>
+                            <td>12%</td>
+                            <td>12%</td>
+                            <td>100</td>
+                        </tr>
+                        <tr >
+                            <td>1024</td>
+                            <td>nano</td>
+                            <td>10%</td>
+                            <td>10%</td>
+                            <td>10</td>
+                        </tr>
+                        <tr >
+                            <td >12</td>
+                            <td>bash</td>
+                            <td>30%</td>
+                            <td>30%</td>
+                            <td>500</td>
+                        </tr>
+                    </tbody>
+                </table>
 
             </div>
 

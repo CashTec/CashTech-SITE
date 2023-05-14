@@ -295,9 +295,22 @@ body::-webkit-scrollbar {
 
 .numberHD {
     position: absolute;
-    transform: translate(80px, 85px);
-    font-size: 1.4em;
+    transform: translate(77px, 75px);
+    text-align: center;
+}
+
+.numberHD h2{
+    font-size: 1.2em;
     font-weight: 700;
+    text-align: center;
+    color: #222 !important;
+}
+
+.numberHD h3{
+    font-size: 0.9em;
+    font-weight: 400;
+    text-align: center;
+    color: #222 !important;
 }
 
 .column-kpi {
