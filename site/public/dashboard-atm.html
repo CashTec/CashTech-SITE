@@ -138,9 +138,21 @@
                         <h3>Threads: <span id="thread"></span></h3>
                         <h3>Frequencia Máxima:<span id="frequencia"></span></h3>
                     </div>
-                    <canvas id="graphicLine1">
-
-                    </canvas>
+                    <div class="content-grafico-container">
+                        <div class="legenda">
+                            <ul>
+                                <li>Megabytes Enviados</li>
+                                <li>Megabytes Recebidos</li>
+                            </ul>
+                        </div>
+                        <div class="aviso">
+                            <h2>Não há dados recentes</h2>
+                            <p>Verifique o software de monitoramento do caixa eletrônico  </p>
+                        </div>
+                        <canvas id="graphicLine1">
+                           
+                        </canvas>
+                    </div>
                 </div>
             </div>
 
@@ -167,9 +179,22 @@
                                     <h2>Informações da RAM</h2>
                                     <h3>Tamanho: <span id="tamanhoRam"></span></h3>
                                 </div>
-                                <canvas id="graphicLine2">
 
-                                </canvas>
+                                <div class="content-grafico-container">
+                                    <div class="legenda">
+                                        <ul>
+                                            <li>Megabytes Enviados</li>
+                                            <li>Megabytes Recebidos</li>
+                                        </ul>
+                                    </div>
+                                    <div class="aviso">
+                                        <h2>Não há dados recentes</h2>
+                                        <p>Verifique o software de monitoramento do caixa eletrônico  </p>
+                                    </div>
+                                    <canvas id="graphicLine2">
+                                       
+                                    </canvas>
+                                </div>
                             </div>
                     </div>
 
@@ -190,8 +215,11 @@
                             <div class="grafico">
                                 <div class="card-info">
                                     <h2>Informações da Rede</h2>
-                                    <h3 id="nomeRede"> Nome da Interface: <span id="nomeRede">Intel Core i5 10Th
-                                        </span> Generation
+
+                                    <h3 > Nome da Interface: <span id="nomeRede">Intel Core i5 10Th
+                                       </span> Generation
+
+
                                     </h3>
                                     <h3>Host: <span id="ipRede">192.168.18.1</span> </h3>
                                     <h3>Mac: <span id="macRede">2.5Ghz</span></h3>
@@ -202,10 +230,22 @@
                                     <button class="btn-alert">Alerta</button>
                                 </div>
 
+
+                               <div class="content-grafico-container">
+                                <div class="legenda">
+                                    <ul>
+                                        <li>Megabytes Enviados</li>
+                                        <li>Megabytes Recebidos</li>
+                                    </ul>
+                                </div>
+                                <div class="aviso">
+                                    <h2>Não há dados recentes</h2>
+                                    <p>Verifique o software de monitoramento do caixa eletrônico  </p>
+                                </div>
                                 <canvas id="graphicLine3">
-
+                                   
                                 </canvas>
-
+                            </div>
                             </div>
                         </div>
 
@@ -236,7 +276,8 @@
 
                                     <div class="info-hd">
                                         <canvas id="graphicBola" class="graficoHd"></canvas>
-                                        <div class="numberHD" id="disponivelHd">32%
+                                        <div class="numberHD" id="disponivelHd">
+                                            <h2>32%</h2>
                                         </div>
                                         <div class="content-HD">
                                             <h3>Modelo:
@@ -297,6 +338,7 @@
 
             <div class="row">
 
+
                 <table>
                     <caption>Processos encerrados</caption>
                     
@@ -356,20 +398,25 @@
                             <td>10%</td>
                             <td>1024</td>
                         </tr>
+
                         <tr>
+
                             <td>598</td>
                             <td>gedit</td>
                             <td>11,4%</td>
                             <td>11,4%</td>
                             <td>2000</td>
                         </tr>
+
                         <tr>
+
                             <td>103</td>
                             <td>mysql</td>
                             <td>12%</td>
                             <td>12%</td>
                             <td>100</td>
                         </tr>
+
                         <tr>
                             <td>1024</td>
                             <td>nano</td>
@@ -377,8 +424,10 @@
                             <td>10%</td>
                             <td>10</td>
                         </tr>
+
                         <tr>
                             <td>12</td>
+
                             <td>bash</td>
                             <td>30%</td>
                             <td>30%</td>
