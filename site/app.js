@@ -11,6 +11,8 @@ var app = express();
 // Isso é uma base de outro projeto, Mudar de acordo com o grupo
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
+var compontentesRouter = require("./src/routes/componentes")
+var metricasRouter = require("./src/routes/metricas")
 var compontentesRouter = require("./src/routes/componentes");
 var enderecoRouter = require("./src/routes/endereco");
 var parametrizacaoRouter = require("./src/routes/parametrizacao");
@@ -25,6 +27,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/componentes", compontentesRouter);
+app.use("/metricas", metricasRouter);
 app.use("/endereco", enderecoRouter);
 app.use("/parametrizacao", parametrizacaoRouter)
 app.use("/processos", processosRouter);

@@ -66,7 +66,7 @@ function cadastrarUsuario(nomeResponsavel, login, senha) {
 
         var instrucao = `INSERT INTO usuario (nome, login, senha, empresa_id, tipo_usuario) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT TOP 1 id FROM EMPRESA ORDER BY id DESC), 'administrador');`
     } else {
-        var instrucao = `INSERT INTO Usuario (nome, login, senha, empresa_id, tipo_usuario) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT id FROM Empresa ORDER BY id DESC LIMIT 1), 'administrador');`;
+        var instrucao = `INSERT INTO Usuario (nome, login, senha, empresa_id) VALUES ('${nomeResponsavel}', '${login}', '${senha}',(SELECT id FROM Empresa ORDER BY id DESC LIMIT 1));`;
     }
 
     console.log("Executando a instrução SQL: \n" + instrucao);
