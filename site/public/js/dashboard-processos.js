@@ -4,8 +4,11 @@ const idAtm = sessionStorage.idAtm;
 let jsonProcessosAgora = "";
 let jsonProcessosKilled = "";
 
+atualizarProcessos();
+atualizarProcessosKilled();
+
 function atualizarProcessos() {
-    fetch(`/processos/processosAgora/${idAtm}`)
+    fetch(`/processos/processosAgora/${idAtm}`,)
         .then((response) => {
             if (response.status === 200) {
                 response.json()
@@ -18,24 +21,7 @@ function atualizarProcessos() {
                             return;
                         } else {
                             jsonProcessosAgora = jsonString;
-                            var columnPid = [];
-                            var columnNome = [];
-                            var columnUsoCpu = [];
-                            var columnMemoria = [];
-                            var columnBytes = [];
-
-                            for (const element of json) {
-                                columnPid.push(element.pid);
-                                columnNome.push(element.nome);
-                                columnUsoCpu.push(element.uso_cpu);
-                                columnMemoria.push(element.uso_memoria);
-                                columnBytes.push(element.byte_utilizado);
-                            }
-
-                            console.log(columnPid);
-                            console.log(columnNome);
-                            console.log(columnUsoCpu);
-                            console.log(columnBytes);
+                            plotarProcessosExecucao(json);
                         }
 
                     }).catch(error => {
@@ -48,11 +34,9 @@ function atualizarProcessos() {
             console.error(error);
         })
     setTimeout(() => {
-        // atualizarProcessos();
+        atualizarProcessos();
     }, 3000)
 }
-
-atualizarProcessos();
 
 function atualizarProcessosKilled() {
     fetch(`/processos/processosKilled/${idAtm}`)
@@ -67,28 +51,9 @@ function atualizarProcessosKilled() {
                             return;
                         } else {
                             jsonProcessosKilled = jsonString;
-                            var columnPid = [];
-                            var columnNome = [];
-                            var columnDtProcesso = [];
 
-                            for (const element of json) {
-                                columnPid.push(element.pid);
-                                columnNome.push(element.nome);
-
-                                //Converter data para o formato dd/mm/yyyy hh:mm:ss
-                                var data = new Date(element.dt_processo);
-                                element.dt_processo = data.toLocaleString();
-
-                                columnDtProcesso.push(element.dt_processo);
-                            }
-
-                            // console.log(columnPid);
-                            // console.log(columnNome);
-                            // console.log(columnDtProcesso);
+                            plotarProcessosKilled(json);
                         }
-
-
-
                     }).catch(error => {
                         console.log(error);
                     })
@@ -103,4 +68,67 @@ function atualizarProcessosKilled() {
     }, 3000)
 }
 
-atualizarProcessosKilled();
+
+
+function plotarProcessosKilled(json) {
+    div_processosKilled.innerHTML =
+        `
+        <table>
+        <thead>
+            <tr>
+                <th class="dois">Horário</th>
+                <th class="dois">Nome</th>
+                <th>PID</th>
+            </tr>
+        </thead>
+        <tbody id="tby_encerrado">
+        </tbody>
+    </table>
+    `;
+    for (const element of json) {
+        var data = new Date(element.dt_processo);
+        element.dt_processo = data.toLocaleString();
+
+        tby_encerrado.innerHTML +=
+            `
+        <tr>
+            <td class="dois">${element.dt_processo}</td>
+            <td class="dois">${element.nome}</td>
+            <td>${element.pid}</td>
+        </tr>
+        `
+    }
+}
+
+function plotarProcessosExecucao(json) {
+    div_processosExecucao.innerHTML =
+        `
+    <table class="table">
+        <thead>
+            <tr>
+                <th>PID</th>
+                <th class="dois">Nome</th>
+                <th>Uso CPU</th>
+                <th>Uso RAM</th>
+                <th class="dois">Bytes Utilizados</th>
+            </tr>
+        </thead>
+        <tbody id="tby_execucao">
+        </tbody>
+    </table>
+    `;
+
+    for (const element of json) {
+        element.uso_cpu = element.uso_cpu.toFixed(2);
+        tby_execucao.innerHTML +=
+            `
+        <tr>
+            <td>${element.pid}</td>
+            <td class="dois">${element.nome}</td>
+            <td>${element.uso_cpu}</td>
+            <td>${element.uso_memoria}</td>
+            <td class="dois">${element.byte_utilizado}</td>
+        </tr>
+        `;
+    }
+}

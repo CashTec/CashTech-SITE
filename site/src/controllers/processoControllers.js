@@ -12,7 +12,7 @@ function processosAgora(req, res) {
         if (resposta.length > 0) {
             return res.status(200).json(resposta);
         } else {
-            return res.status(403).send("Não há dados!");
+            return res.status(204).send("Não há dados!");
         }
     }).catch((error) => {
         console.log(error);
@@ -34,7 +34,7 @@ function processosKilled(req, res) {
         if (resposta.length > 0) {
             return res.status(200).json(resposta);
         } else {
-            return res.status(403).send("Não há dados!");
+            return res.status(204).send("Não há dados!");
         }
     }).catch((error) => {
         console.log(error);
