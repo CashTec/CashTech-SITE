@@ -168,7 +168,6 @@ let graficoRede = {
         data: [],
         borderWidth: 3,
         borderColor: "#2D7DB3"
-
       },
       {
         label: "Magabytes Recebidos",

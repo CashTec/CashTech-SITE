@@ -124,6 +124,7 @@ button:active {
 .pesquisar * {
     background-color: #FCFCFC;
 }
+
 .pesquisar input {
     padding: 0 10px;
     width: 100%;
@@ -207,7 +208,7 @@ button:active {
 }
 
 .tabela-users thead button:hover,
-.tabela-users .active-filtro {
+.tabela-users thead tr .active-filtro {
     color: #00bbff;
 }
 
@@ -280,7 +281,7 @@ td {
 
 @keyframes surgir-modal {
     0% {
-        transform: translateY(-200%)
+        transform: translateY(-100vh)
     }
 
     100% {
@@ -289,7 +290,7 @@ td {
 }
 
 .sumirModal {
-    animation: sumir-modal 500ms ease;
+    animation: sumir-modal 510ms ease;
 }
 
 @keyframes sumir-modal {
@@ -298,7 +299,7 @@ td {
     }
 
     100% {
-        transform: translateY(-200%)
+        transform: translateY(-100vh)
     }
 }
 
@@ -457,4 +458,62 @@ td {
     background-color: #e1e1e1;
 }
 
+.modalDeletar {
+    display: none;
+}
+
+.contentDeletar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+    background-color: #003B48;
+    border-radius: 10px;
+    color: #ffffff;
+    animation: surgir-modal 500ms ease;
+}
+.modalDeletar h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.modalDeletar .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.modalDeletar .buttons button {
+    padding: 8px 50px;
+    font-size: 16px;
+    font-weight: 800;
+    border-radius: 5px;
+}
+
+
+.modalDeletar .buttons .cancelar {
+    background-color: #bbbbbb;
+    border: 1px solid #000;
+    color: #000000;
+
+}
+
+.modalDeletar .buttons .remover {
+    background-color: red;
+    border: 1px solid #000;
+    color: #fff;
+}
+
 /* --------- FIM Modal ---------- */
+
+.loading {
+    text-align: center;
+    display: block;
+    margin-top: 15vh;
+}
+
+.loading img {
+    width: 180px;
+}

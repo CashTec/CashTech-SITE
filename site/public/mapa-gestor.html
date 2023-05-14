@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="css/dashboard-mapa.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
-   
+
 
     <title>CashTec</title>
     <link rel="icon" href="">
 </head>
 
-<body>
+<body onload="verificarLogin()">
     <div class="backElipse">
         <img src="img/cashTechSystem/ElipseUpInverso.png" class="elipseUp">
     </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="bem-vindo">
                     <h2>Bem Vindo,</h2>
-                    <span id="spn_orquestraNome">Nome Empresa</span>
+                    <span id="spn_usuarioNome">Nome Empresa</span>
                 </div>
                 <div class="indices">
                     <ul class="lista">
@@ -55,9 +55,12 @@
                             <li><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
                         </a>
 
-                        
+
 
                     </ul>
+                </div>
+                <div>
+                    <a href="./download.html" class="sair downloadMenu">Download</a>
                 </div>
                 <div>
                     <button class="sair" onclick="limparSessao()">Sair</button>
@@ -70,81 +73,31 @@
 
 
         <div class="content-kpi">
-           
+
             <div class="title">
-               
+
                 <h3>Mapa de localização dos ATMs</h3>
             </div>
-
-            <div class="content-atm">
-                <h2>ATMs em alerta e com maior tempo de downtime</h2>
+            <div id="contentAtm" class="content-atm">
+                <h2>ATMs em alerta e inativos</h2>
                 <button class="button-carrossel" data-info="up">></button>
                 <button class="button-carrossel" data-info="down"><</button>
-                
-                <div class="list">
-                    
-                <div class="square">
-                    <div class="content-status">
-                        <div class="icon"><img src="img/warn.svg" alt=""></div>
-                        <div class="nome">ATM 2023</div>
-                        <div class="time">Há 2 dias</div>
-                    </div>
 
-                    <button class="btn" onclick="mostrarMapa([-23.549201765276454, -46.664647698257816])">Ver no mapa</button>
-                </div>
-
-                <div class="square">
-                    <div class="content-status">
-                        <div class="icon"><img src="img/warn.svg" alt=""></div>
-                        <div class="nome">ATM 2023</div>
-                        <div class="time">Há 2 dias</div>
-                    </div>
-
-                    <button class="btn">Ver no mapa</button>
-                </div>  <div class="square">
-                    <div class="content-status">
-                        <div class="icon"><img src="img/warn.svg" alt=""></div>
-                        <div class="nome">ATM 2023</div>
-                        <div class="time">Há 2 dias</div>
-                    </div>
-
-                    <button class="btn">Ver no mapa</button>
-                </div>  <div class="square">
-                    <div class="content-status">
-                        <div class="icon"><img src="img/warn.svg" alt=""></div>
-                        <div class="nome">ATM 2023</div>
-                        <div class="time">Há 2 dias</div>
-                    </div>
-
-                    <button class="btn">Ver no mapa</button>
-                </div>  <div class="square">
-                    <div class="content-status">
-                        <div class="icon"><img src="img/warn.svg" alt=""></div>
-                        <div class="nome">ATM 2023</div>
-                        <div class="time">Há 2 dias</div>
-                    </div>
-
-                    <button class="btn">Ver no mapa</button>
-                </div>  
-                <div class="square">
-                    <div class="content-status">
-                        <div class="icon"><img src="img/warn.svg" alt=""></div>
-                        <div class="nome">ATM 2023</div>
-                        <div class="time">Há 2 dias</div>
-                    </div>
-
-                    <button class="btn">Ver no mapa</button>
-                </div>
+                        <div class="list" id="div_alertaEndereco">
+                        </div>
             </div>
+            <div id="div_NotAlert">Está tudo certo, <br><b>Não há alertas!</b></div>
+            <div class="loading" id="loadingGif">
+                <img src="img/cashTechSystem/loadingGif.svg" alt="">
             </div>
-          
+
         </div>
         <div class="content-mapa">
             <div id="map-id"></div>
             <div class="legenda">
                 <div class="mark">
                     <img src="img/danger.svg" alt="">
-                    <h2>Inátivo</h2>
+                    <h2>Inativo</h2>
                 </div>
 
                 <div class="mark">
@@ -154,11 +107,10 @@
             </div>
         </div>
     </main>
-   
-   
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" ></script>
-     <script src="js/mapa.js"></script>
 </body>
 
-</html> 
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+<script src="js/mapa.js"></script>
+<script src="js/script.js"></script>

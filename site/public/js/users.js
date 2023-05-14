@@ -1,4 +1,4 @@
-spn_orquestraNome.innerHTML = sessionStorage.NOME_ORQUESTRA;
+spn_usuarioNome.innerHTML = sessionStorage.NOME_ORQUESTRA;
 
 // ------------------ Funções de modal ------------------------//
 function abrir_modalAdicionar() {

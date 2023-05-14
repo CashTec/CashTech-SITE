@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -47,12 +47,18 @@
                             <label for="">Senha</label>
                             <input type="password" id="input_senhaLogin" placeholder="+8 caracteres">
                         </div>
+                        <span id="spn_invalido">Login e/ou senha inválido(s)!</span>
                     </div>
                 </div>
 
                 <div class="all-login-register">
                     <div class="form-login-btn">
-                        <button onclick="entrar()">Login</button>
+                        <button onkeydown="entrada(e)" onclick="entrar()">
+                            <span id="spn_login" class="spn_login">Login</span>
+                            <div class="loading" id="loadingGif">
+                                <img src="img/loadingGifWhite.svg" alt="">
+                            </div>
+                        </button>
                     </div>
                     <span class="frase_registrar">
                         Ainda não possui uma conta?

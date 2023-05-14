@@ -37,4 +37,7 @@
     text-decoration: none;
     color: unset;
   }
+  button{
+    cursor: pointer;
+  }
   /*  */
