@@ -120,6 +120,88 @@ async function cadastrar(req, res) {
     }
 }
 
+function addUser(req, res) {
+    let idEmpresa = req.params.idEmpresa;
+    let nomeServer = req.body.nome;
+    let emailServer = req.body.email;
+    let senhaServer = req.body.senha;
+    let funcaoServer = req.body.funcao;
+
+
+    if (
+        idEmpresa == undefined ||
+        nomeServer == undefined ||
+        emailServer == undefined ||
+        senhaServer == undefined ||
+        funcaoServer == undefined
+    ) {
+        res.status(400).send("Alguma informação de cadastro está inválida!");
+    }
+
+    usuarioModel.addUser(idEmpresa,
+        nomeServer,
+        emailServer,
+        senhaServer,
+        funcaoServer).then((resultado) => {
+
+            res.status(200).json(resultado);
+
+        }).catch((erro) => {
+            console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+
+}
+
+function editar(req, res) {
+    let idUsuario = req.params.idUsuario;
+    let nome = req.body.nomeServer;
+    let email = req.body.emailServer;
+    let senha = req.body.senhaServer;
+    let funcao = req.body.funcaoServer;
+
+    if (
+        nome == undefined ||
+        email == undefined ||
+        senha == undefined ||
+        funcao == undefined ||
+        idUsuario == undefined
+    ) {
+        res.status(400).send("Alguma informação de cadastro está inválida!");
+    }
+
+    usuarioModel.editar(
+        idUsuario,
+        nome,
+        email,
+        senha,
+        funcao
+        ).then((resultado) => {
+            res.status(200).json(resultado);
+        }).catch((erro) => {
+            console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+function listarUm(req, res){
+    let idUsuario = req.params.idUsuario;
+
+    if (idUsuario === undefined) {
+        res.status(400).send("IdUsuario está inválido!");
+    }
+
+    usuarioModel.listarUm(idUsuario).then((resultado) => {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Não há dados!");
+        }
+    }).catch((err) => {
+        console.log("\nHouve um erro ao realizar o login! Erro: ", err.sqlMessage);
+        res.status(500).json(err.sqlMessage);
+    })
+}
+
 function listar(req, res) {
     let idEmpresa = req.params.idEmpresa;
 
@@ -160,9 +242,26 @@ function listarFiltro(req, res) {
     })
 }
 
+function deletar_usuario(req, res){
+    let idUsuario = req.params.idUsuario;
+
+    usuarioModel.deletar_usuario(idUsuario).then((resultado) => {
+        
+            res.status(200).json(resultado);
+    }).catch((erro) => {
+        console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+
 module.exports = {
     entrar,
     cadastrar,
     listar,
-    listarFiltro
+    listarFiltro,
+    addUser,
+    editar,
+    listarUm,
+    deletar_usuario
 };

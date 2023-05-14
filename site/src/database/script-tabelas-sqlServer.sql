@@ -134,8 +134,8 @@ CREATE TABLE NetworkInterface (
 -- -----------------------------------------------------
 CREATE TABLE MetricaRedeInterface (
 	id INT NOT NULL IDENTITY(1, 1),
-	bytes_recebidos_segundo INT NULL,
-	bytes_enviados_segundo INT NULL,
+	bytes_recebidos_segundo BIGINT NULL,
+	bytes_enviados_segundo BIGINT NULL,
 	dt_metrica DATETIME NULL,
 	network_interface_id INT NOT NULL,
 	PRIMARY KEY (id),

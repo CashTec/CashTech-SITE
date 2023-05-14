@@ -13,12 +13,29 @@ router.post("/autenticar", function (req, res) {
   console.log("Entrei routes");
 });
 
-router.get("/listar/:idEmpresa", (req, res) => {
-  usuarioController.listar(req, res);
+router.post("/addUser/:idEmpresa", (req, res) => {
+  usuarioController.addUser(req, res);
+  console.log("Entrei routes");
 });
 
 router.get("/listar/:idEmpresa/:tipo/:campo", (req, res) => {
   usuarioController.listarFiltro(req, res);
+});
+
+router.get("/listar/:idEmpresa", (req, res) => {
+  usuarioController.listar(req, res);
+});
+
+router.get("/listarUm/:idUsuario", (req, res) => {
+  usuarioController.listarUm(req, res);
+});
+
+router.put("/editar/:idUsuario", (req, res) => {
+  usuarioController.editar(req, res);
+});
+
+router.delete("/deletar_usuario/:idUsuario", (req, res) => {
+  usuarioController.deletar_usuario(req, res);
 });
 
 module.exports = router;

@@ -67,11 +67,10 @@
                 </div>
                 <div class="tipo-pesquisa">
                     <span>Pesquisar por:</span>
-                    <select id="sel_tipoPesquisa" onchange="tipoNaipe()">
-                        <option value="nome">----- nome -----</option>
-                        <option value="email">---- email ----</option>
-                        <option value="telefone">---- telefone ----</option>2
-                        <option value="funcao">---- função ----</option>
+                    <select id="sel_tipoPesquisa">
+                        <option value="nome">----- Nome -----</option>
+                        <option value="login">---- E-mail ----</option>
+                        <option value="tipo_usuario">---- Função ----</option>
                     </select>
                 </div>
                 <div class="users-inputs">
@@ -80,9 +79,9 @@
                             Pesquisa:
                         </span>
                         <div class="input-select" id="input_select">
-                            <input type="text" id="in_pesquisa">
+                            <input type="text" id="in_pesquisa" onkeydown="pesquisar(event)">
                         </div>
-                        <button onclick="atualizarFeed(sel_tipoPesquisa.value, input_select.value)"><img src="./img/cashTechSystem/search.svg" alt=""></button>
+                        <button onclick="pesquisar(event)"><img src="./img/cashTechSystem/search.svg" alt=""></button>
                     </div>
                     <div class="todosusers">
                         <button onclick="atualizarFeed()">Limpar Filtro</button>
@@ -166,6 +165,8 @@
         </div>
     </div>
 
+
+
     <!-- loading-gif -->
     <div class="loading-gif" id="loading_gif">
         <h2 id="h2_loading"></h2>
@@ -180,6 +181,7 @@
     </div>
     <!-- Fim card -->
 
+   
 </body>
 
 </html>

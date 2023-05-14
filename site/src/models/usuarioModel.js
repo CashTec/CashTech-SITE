@@ -66,16 +66,57 @@ function cadastrarParametro() {
 }
 
 
-function listar(idEmpresa){
+function listar(idEmpresa) {
     let instrucao = `select * from usuario where empresa_id = ${idEmpresa}`;
     return database.executar(instrucao);
 }
 
-function listarFiltro(idEmpresa, tipo, campo){
-    let instrucao = `Select * from usuario where ${tipo} like '%${campo}% and empresa_id = ${idEmpresa}'`;
+function listarFiltro(idEmpresa, tipo, campo) {
+    let instrucao = `Select * from usuario where ${tipo} like '%${campo}%' and empresa_id = ${idEmpresa}`;
     return database.executar(instrucao);
 }
 
+function addUser(idEmpresa, nomeServer, emailServer, senhaServer, funcaoServer) {
+    var instrucao = `INSERT INTO usuario (
+        nome,
+        login,
+        senha,
+        empresa_id,
+        tipo_usuario) VALUES (
+            '${nomeServer}',
+            '${emailServer}',
+            '${senhaServer}',
+            '${idEmpresa}',
+            '${funcaoServer}');
+            `
+    console.log(nomeServer, emailServer, senhaServer, funcaoServer, idEmpresa);
+    return database.executar(instrucao);
+}
+
+function editar(idUsuario, nome, email, senha, funcao) {
+    var instrucao = `
+                    UPDATE usuario SET
+                    nome = '${nome}',
+                    login = '${email}',
+                    senha = '${senha}',
+                    tipo_usuario = '${funcao}' where id = ${idUsuario}
+                    `;
+    return database.executar(instrucao);
+}
+
+function listarUm(idUsuario){
+    var instrucao = `
+                   SELECT * FROM usuario WHERE id = ${idUsuario}
+                    `;
+    return database.executar(instrucao);
+}
+
+function deletar_usuario(idUsuario){
+    var instrucao = `
+                  DELETE FROM usuario WHERE id = ${idUsuario}
+                    `;
+    return database.executar(instrucao);
+}
 
 module.exports = {
     entrar,
@@ -85,5 +126,9 @@ module.exports = {
     verificarUsuario,
     cadastrarParametro,
     listar,
-    listarFiltro
+    listarFiltro,
+    addUser,
+    editar,
+    listarUm,
+    deletar_usuario
 };
