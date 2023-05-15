@@ -182,7 +182,7 @@ CREATE TABLE Componente (
 	qtd_maxima BIGINT NULL,
 	qtd_disponivel BIGINT NULL,
 	ponto_montagem VARCHAR(255) NULL,
-	sistema_arquivos VARCHAR(5) NULL,
+	sistema_arquivos VARCHAR(255) NULL,
 	caixa_eletronico_id INT NOT NULL,
 	PRIMARY KEY (id),
 	CONSTRAINT fk_Componente_CaixaEletronico FOREIGN KEY (caixa_eletronico_id) REFERENCES CaixaEletronico (id) ON UPDATE CASCADE ON DELETE CASCADE
