@@ -394,6 +394,7 @@ body::-webkit-scrollbar {
 .content-processo .row:nth-child(3) {
     display: flex;
     align-items: center;
+    column-gap: 5vw;
     justify-content: center;
     height: 100%;
     flex: 6;
@@ -401,51 +402,108 @@ body::-webkit-scrollbar {
 }
 
 
+.content-processo .card-kpi h2 {
+    font-size: 1em;
+}
 
-
-.content-processo .card-kpi  h2 {
-font-size: 1em;
-} 
-
-table{
-    width: 80%;
+.processosKilled table {
+    width: 32vw;
     display: flex;
+    background-color: #fff;
+    flex-direction: column;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.backProcessosKilled {
+    width: 32vw;
+    height: 45.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.backProcessosExecucao {
+    width: 52vw;
+    height: 45.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading {
+    width: 15vh;
+}   
+
+.processosExecucao table {
+    width: 52vw;
+    display: flex;
+    background-color: #fff;
     flex-direction: column;
 }
 
-thead{
+.titulo {
+    font-size: 1.6em;
+    font-weight: 800;
+    color: #0E4354;
     padding: 10px;
+    text-align: start;
 }
 
-
-thead tr{
-    display: flex;
-
+thead tr {
+    font-size: 1em;
+    text-align: start;
+    color: #fff;
+    background-color: #0E4354;
+    padding: 10px;
+    font-weight: 500;
 }
 
-thead th{
-    padding: 10px;
+thead th {
     flex: 1;
-    text-align: center  ;
+    text-align: start;
+    padding: 0 10px;
 }
 
-tbody{
+tbody {
     display: flex;
     flex-direction: column;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+tbody::-webkit-scrollbar {
+    width: 5px;
+    background-color: #cdcdcd;
+    /* Largura da barra de rolagem */
+}
+
+tbody::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #888;
+}
+
+
+tr {
+    display: flex;
     width: 100%;
 }
 
-tr{
-   display: flex; 
-    width: 100%;
+.dois {
+    flex: 2;
+}
+
+.tres {
+    flex: 3;
+}
+
+td {
+    padding: 10px 0 10px 20px;
     flex: 1;
-}
-
-td{
-    padding: 10px;
-  flex: 1;
     border-bottom: 1px solid black;
-    text-align: center  ;
+    text-align: start;
 }
 
 
