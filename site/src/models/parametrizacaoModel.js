@@ -11,6 +11,16 @@ function listarProcessosPermitidos(idEmpresa) {
     return database.executar(instrucao);
 }
 
+function pesquisarProcessoPermitido(idEmpresa, nome) {
+
+    var instrucao = `
+        select id, nome from ProcessoPermitido where nome = ${nome};
+    `
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+
+    return database.executar(instrucao);
+}
 
 function listarParametroHardware(idEmpresa) {
 
@@ -39,5 +49,6 @@ function atualizarParametroHardware(campo, valor, idEmpresa) {
 module.exports = {
     listarProcessosPermitidos,
     listarParametroHardware,
-    atualizarParametroHardware
+    atualizarParametroHardware,
+    pesquisarProcessoPermitido
 };
