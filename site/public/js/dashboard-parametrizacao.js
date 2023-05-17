@@ -28,50 +28,67 @@ function editarUsoMax(campo) {
             isPorcentagem = true;
             valor = 'qtd_disco_max';
             break;
-        case 'BytesRecebidos':
-            in_campo = edtBytesRecebidos;
-            img_campo = imgBytesRecebidos;
-            valor = 'qtd_bytes_recebido_max';
-            break;
-        case 'BytesEnviados':
-            in_campo = edtBytesEnviados;
-            img_campo = imgBytesEnviados;
-            valor = 'qtd_bytes_enviado_max';
-            break;
-        default:
-            break;
-    }
-
-    if (img_campo.src.match("lapis-parametro.svg")) {
-        img_campo.src = "img/cashTechSystem/confirm.svg";
-        in_campo.disabled = false;
-        in_campo.style.border = "1px solid green";
-
+            case 'BytesRecebidos':
+                in_campo = edtBytesRecebidos;
+                img_campo = imgBytesRecebidos;
+                valor = 'qtd_bytes_recebido_max';
+                break;
+                case 'BytesEnviados':
+                    in_campo = edtBytesEnviados;
+                    img_campo = imgBytesEnviados;
+                    valor = 'qtd_bytes_enviado_max';
+                    break;
+                    default:
+                        break;
+                    }
+                    
+                    if (img_campo.src.match("lapis-parametro.svg")) {
+                        img_campo.src = "img/cashTechSystem/confirm.svg";
+                        in_campo.disabled = false;
+                        in_campo.style.border = "1px solid green";
+                        
         if (isPorcentagem) {
             in_campo.style.borderRight = "0px solid white";
             in_campo.parentElement.children[1].style.color = "#000";
             in_campo.parentElement.children[1].style.border = "1px solid green";
             in_campo.parentElement.children[1].style.borderLeft = "0px solid white";
         }
-
+        
     } else {
         img_campo.src = "img/cashTechSystem/lapis-parametro.svg"
         in_campo.disabled = true;
         in_campo.style.border = "none";
-
-
+        
+        
         if (isPorcentagem) {
             in_campo.parentElement.children[1].style.color = "#848484";
             in_campo.parentElement.children[1].style.border = "none";
         }
-
+        
         let valorCampo = in_campo.value;
-
+        
         atualizarParametroHardware(valor, valorCampo);
     }
-
+    
 }
 
+function pesquisarProcesso() {
+    var pesquisa = ipt_pesquisa.value 
+
+    if(pesquisa = "") {
+        alert("Insira uma pesquisa!");
+    } else {
+        
+    }
+
+    fetch(`/parametrizacao/pesquisarProcesso/${idEmpresa}${nome}`).then((response) => {
+        if(response.ok) {
+            response.json().then((json) => {
+                processos = json;
+            })
+        }
+    })
+}
 
 function exibirProcessosPermitidos() {
     fetch(`/parametrizacao/verProcessosPermitidos/${idEmpresa}`).then((response) => {
@@ -80,7 +97,7 @@ function exibirProcessosPermitidos() {
                 processos = json;
                 console.log("Processos");
                 console.log(processos);
-
+                
                 if (processos.length > 0) {
                     // plotar processos
                     plotarTabela(processos);
@@ -145,6 +162,7 @@ function exibirParametro() {
         }
     })
 }
+
 
 function plotarParametro(parametrizacao) {
     edtProcessador.value = parametrizacao.qtd_cpu_max;
