@@ -5,7 +5,8 @@ function coletarMetricaRede(idRede) {
 
     var instrucao;
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucao = `SELECT TOP 1 * FROM MetricaRedeInterface where network_interface_id=${idRede} ORDER BY dt_metrica DESC `;
+        instrucao = `SELECT TOP 1 *  FROM CaixaEletronico ce join NetworkInterface ni on ni.caixa_eletronico_id = ce.id  join MetricaRedeInterface mc on mc.network_interface_id = ni.id where ni.caixa_eletronico_id=${idRede} ORDER BY mc.dt_metrica DESC`;
+
     } else {
         instrucao = `SELECT * FROM MetricaRedeInterface where network_interface_id=${idRede} ORDER BY dt_metrica DESC LIMIT 1`;
     }

@@ -242,7 +242,7 @@ let graficoHd = {
       label: "ATM",
       data: [12, 19],
       borderWidth: [0],
-      backgroundColor: [ "#FF6384","#36A2EB"]
+      backgroundColor: ["#FF6384", "#36A2EB"]
     }, ],
   },
   options: {
@@ -332,7 +332,7 @@ function coletarInfoComponente(componente) {
 
 
 function buscarMetricaRede() {
-  fetch(`/metricas/metricaRede/${sessionStorage.idAtm}`).
+  fetch(`/metricas/metricaRede/${Number(sessionStorage.idAtm)}`).
   then(resposta => resposta.json())
     .then(json => {
       if (json.length > 0) {
@@ -364,6 +364,7 @@ function buscarMetricaComponente(componentes) {
             default:
               console.log("Componente inválido");
           }
+
         }
       }).catch((erro) => {
         console.log(erro);
@@ -374,9 +375,27 @@ function buscarMetricaComponente(componentes) {
   }, 3200)
 }
 
+let contadoraRequisicao = 0;
 
-function obterParametrizacao(){
-  
+let parametrizacao;
+
+function obterParametrizacao() {
+  return fetch(`/parametrizacao/verParametroHardware/${sessionStorage.ID_EMPRESA}`).then((response) => {
+    if (response.ok) {
+      return response.json().then((json) => {
+
+        if (json.length > 0) {
+          if (contadoraRequisicao < 1) {
+            return json
+          }
+        }
+
+      }).catch((error) => {
+        console.log(error);
+      })
+    }
+  })
+
 }
 
 
@@ -384,17 +403,70 @@ function obterParametrizacao(){
 let variavelAuxiliar;
 
 function trocarInfoHd() {
-  graficoHd.data.datasets[0].data=[];
+  graficoHd.data.datasets[0].data = [];
   graficoHd.data.datasets[0].data.push(variavelAuxiliar[sel_hd.value].qtd_disponivel);
-  graficoHd.data.datasets[0].data.push(variavelAuxiliar[sel_hd.value].qtd_maxima- variavelAuxiliar[sel_hd.value].qtd_disponivel);
+  graficoHd.data.datasets[0].data.push(variavelAuxiliar[sel_hd.value].qtd_maxima - variavelAuxiliar[sel_hd.value].qtd_disponivel);
+  atualizarAlertaDisco(json);
 
   grafico4.update();
 
   tamanhoHd.innerText = (variavelAuxiliar[sel_hd.value].qtd_maxima / 1073741824).toFixed(1) + "Gb";
   montagem.innerText = variavelAuxiliar[sel_hd.value].ponto_montagem;
   modeloHd.innerText = variavelAuxiliar[sel_hd.value].nome == "unknown" ? "--" : variavelAuxiliar[sel_hd.value].nome;
-  disponivelHd.innerHTML ="<h2>"+Math.floor((variavelAuxiliar[sel_hd.value].qtd_disponivel / variavelAuxiliar[sel_hd.value].qtd_maxima) * 100)+"%</h2><h3>Usado </h3>";
+  disponivelHd.innerHTML = "<h2>" + Math.floor((variavelAuxiliar[sel_hd.value].qtd_disponivel / variavelAuxiliar[sel_hd.value].qtd_maxima) * 100) + "%</h2><h3>Usado </h3>";
 }
+
+async function inserirParametrizacao() {
+  let json = await obterParametrizacao();
+  console.log("aaaaaaaaaaa")
+  console.log(json)
+  let divs = document.querySelectorAll(".legend");
+  parametrizacao = [{
+      type: "Processador",
+      normal: json[0].qtd_cpu_max * 0.75,
+      alerta: json[0].qtd_cpu_max * 0.75,
+      perigo: json[0].qtd_cpu_max
+    },
+    {
+      type: "Memória",
+      normal: json[0].qtd_memoria_max * 0.75,
+      alerta: json[0].qtd_memoria_max * 0.75,
+      perigo: json[0].qtd_memoria_max
+    },
+    {
+
+    },
+    {
+      type: "Disco",
+      normal: json[0].qtd_disco_max * 0.75,
+      alerta: json[0].qtd_disco_max * 0.75,
+      perigo: json[0].qtd_disco_max
+    }
+  ];
+
+  divs.forEach((element, i) => {
+    const {
+      type,
+      normal,
+      alerta,
+      perigo
+    } = parametrizacao[i];
+    element.innerHTML = `
+        <div class="label">
+          <span></span>
+          Normal < ${normal}
+        </div>
+        <div class="label">
+          <span></span>
+          Alerta > ${alerta}
+        </div>
+        <div class="label">
+          <span></span>
+          Perigo > ${perigo}
+        </div>`;
+  });
+}
+
 
 
 function inserirInfoProcessador(json) {
@@ -407,7 +479,7 @@ function inserirInfoProcessador(json) {
 }
 
 function inserirInfoDisco(json) {
-  graficoHd.data.datasets[0].data=[];
+  graficoHd.data.datasets[0].data = [];
   graficoHd.data.datasets[0].data.push(json[0].qtd_disponivel);
   graficoHd.data.datasets[0].data.push(json[0].qtd_maxima - json[0].qtd_disponivel);
   grafico4.update();
@@ -416,8 +488,9 @@ function inserirInfoDisco(json) {
   tamanhoHd.innerText = (json[0].qtd_maxima / 1073741824).toFixed(1) + "GB";
   montagem.innerText = json[0].ponto_montagem;
   modeloHd.innerText = json[0].nome;
-  disponivelHd.innerHTML ="<h2>"+(Math.floor((json[0].qtd_disponivel / json[0].qtd_maxima) * 100))+"%</h2>" + "<h3>Usado </h3>";
-
+  disponivelHd.innerHTML = "<h2>" + (Math.floor((json[0].qtd_disponivel / json[0].qtd_maxima) * 100)) + "%</h2>" + "<h3>Usado </h3>";
+  
+  atualizarAlertaDisco(json);
   for (let i = 0; i < json.length; i++) {
     sel_hd.innerHTML += `<option value="${i}">HD${i}</option>`
   }
@@ -499,8 +572,8 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
 
     case "rede":
       containerAviso = document.querySelectorAll(".aviso")[2];
-      primeiroDado = json[0].bytes_recebidos_segundo / (1024* 1024);
-      segundoDado = json[0].bytes_enviados_segundo / (1024* 1024) ;
+      primeiroDado = json[0].bytes_recebidos_segundo / (1024 * 1024);
+      segundoDado = json[0].bytes_enviados_segundo / (1024 * 1024);
       break;
     case "processador":
       containerAviso = document.querySelectorAll(".aviso")[0];
@@ -527,12 +600,19 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
     dadosGrafico.data.labels.push(dateTimeFormatado);
     return
   }
-
+  
+  if(tipo=="memoria"){
+  atualizarAlertaMemoria(json);  
+}
+if(tipo=="rede"){
+ atualizarAlertaRede(json)
+}
+if(tipo=="processador"){
+atualizarAlertaCPU(json);
+}
   if (containerAviso.classList.contains("active")) {
     containerAviso.classList.remove("active")
   }
-
-
   dadosGrafico.data.datasets[0].data.shift();
   dadosGrafico.data.datasets[0].data.push(primeiroDado);
 
@@ -540,17 +620,100 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
     dadosGrafico.data.datasets[1].data.shift();
     dadosGrafico.data.datasets[1].data.push(segundoDado);
   }
-
   dadosGrafico.data.labels.shift();
   dadosGrafico.data.labels.push(dateTimeFormatado);
   grafico.update();
 }
 
+async function atualizarAlertaRede(metricaRede){
+  let qtd_enviado = metricaRede[0].bytes_enviados_segundo/ (1024 * 1024);
+  let qtd_recebido = metricaRede[0].bytes_recebidos_segundo / (1024 * 1024);
+  let parametrizacao = await obterParametrizacao();
+  let alerta = parametrizacao[0].qtd_bytes_enviados_max * 0.75;
+  let perigo = parametrizacao[0].qtd_bytes_recebidos_max;
 
+  if (perigo < qtd_enviado || perigo < qtd_recebido) {
+    alertRede.innerHTML = "Perigo";
+    alertRede.style.backgroundColor = "red";
+  } else if (alerta < qtd_enviado || alerta < qtd_recebido ) {
+    alertRede.innerHTML = "Normal";
+    alertRede.style.backgroundColor = "green";
+  }
+  else{
+    alertRede.innerHTML = "Alerta";
+    alertRede.style.backgroundColor = "yellow";
+  }
+
+}
+
+async function atualizarAlertaCPU(metricaCPU) {
+  metricaCPU =Number(metricaCPU[0].qtd_consumido.toFixed(2));
+  console.log(metricaCPU);
+  let parametrizacao = await obterParametrizacao();
+  console.log(parametrizacao[0].qtd_cpu_max)
+  let alerta = parametrizacao[0].qtd_cpu_max * 0.75;
+  let perigo = parametrizacao[0].qtd_cpu_max;
+
+  if (perigo < metricaCPU) {
+    alertCpu.innerHTML = "Perigo";
+    alertCpu.style.backgroundColor = "red";
+  } else if (metricaCPU < alerta) {
+    alertCpu.innerHTML = "Normal";
+    alertCpu.style.backgroundColor = "green";
+  }
+  else{
+    alertCpu.innerHTML = "Alerta";
+    alertCpu.style.backgroundColor = "yellow";
+  }
+}
+
+async function atualizarAlertaMemoria(metricaMemoria) {
+  metricaMemoria= ((metricaMemoria[0].qtd_consumido / 1073741824) / Number(tamanhoRam.innerHTML.replace("GB", ""))) * 100;
+  let parametrizacao = await obterParametrizacao();
+  let alerta = Number(parametrizacao[0].qtd_memoria_max) * 0.75;
+  let perigo = Number(parametrizacao[0].qtd_memoria_max);
+  if (perigo < metricaMemoria) {
+    console.log(metricaMemoria)
+    alertRam.innerHTML = "Perigo";
+    alertRam.style.backgroundColor = "red";
+  } 
+  
+  else if (metricaMemoria< alerta) {
+    alertRam.innerHTML = "Normal";
+    alertRam.style.backgroundColor = "green";
+  }
+  else{
+    alertRam.innerHTML = "Alerta";
+    alertRam.style.backgroundColor = "yellow";
+  }
+
+}
+
+
+async function atualizarAlertaDisco(metricaDisco) {
+  let parametrizacao = await obterParametrizacao();
+  metricaDisco = Math.floor((metricaDisco[0].qtd_disponivel / metricaDisco[0].qtd_maxima) * 100);
+  let alerta = parametrizacao[0].qtd_disco_max * 0.75;
+  let perigo = parametrizacao[0].qtd_disco_max;
+  if (perigo < metricaDisco) {
+    alertDisco.innerHTML = "Perigo";
+    alertDisco.style.backgroundColor = "red";
+    alertDisco.style.color = "white";
+  } else if (metricaDisco < alerta) {
+    alertDisco.innerHTML = "Normal";
+    alertDisco.style.backgroundColor = "green";
+    alertDisco.style.color = "white";
+  }
+  else{
+    alertDisco.innerHTML = "Alerta";
+    alertDisco.style.backgroundColor = "yellow";
+  }
+}
 
 
 
 // CHAMANDO FUNÇÕES PARA SEREM EXECUTADAS - CHAMAR
-coletarInfoComponente(["processador", "memoria", "rede","disco"]);
+coletarInfoComponente(["processador", "memoria", "rede", "disco"]);
 buscarMetricaRede();
 buscarMetricaComponente(["processador", "memoria"]);
+inserirParametrizacao();
