@@ -5,18 +5,40 @@ function listarProcessosPermitidos(idEmpresa) {
     var instrucao = `
         select id, nome from ProcessoPermitido where empresa_id = ${idEmpresa};
     `
-
+    
     console.log("Executando a instrução SQL: \n" + instrucao);
-
+    
     return database.executar(instrucao);
 }
 
-function pesquisarProcessoPermitido(idEmpresa, nome) {
+function pesquisarProcessoPermitido(nome) {
+    
+    var instrucao = `
+    select id, nome from ProcessoPermitido where nome like '%${nome}%'
+    `
+    
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    
+    return database.executar(instrucao);
+}
+
+function deletarProcesso(id) {
 
     var instrucao = `
-        select id, nome from ProcessoPermitido where nome = ${nome};
+        delete from ProcessoPermitido where id = ${id}
     `
 
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    
+    return database.executar(instrucao);
+}
+
+function adicionarProcesso(id, nome, valor, idEmpresa) {
+    
+    var instrucao = `
+        update ProcessoPermitido set ${id} = ${valor}, '${nome}' = ${valor}
+         where empresa_id = ${idEmpresa};
+    `
     console.log("Executando a instrução SQL: \n" + instrucao);
 
     return database.executar(instrucao);
@@ -45,10 +67,11 @@ function atualizarParametroHardware(campo, valor, idEmpresa) {
     return database.executar(instrucao);
 }
 
-
 module.exports = {
     listarProcessosPermitidos,
     listarParametroHardware,
     atualizarParametroHardware,
-    pesquisarProcessoPermitido
+    pesquisarProcessoPermitido,
+    deletarProcesso,
+    adicionarProcesso
 };

@@ -73,21 +73,35 @@ function editarUsoMax(campo) {
 }
 
 function pesquisarProcesso() {
-    var pesquisa = ipt_pesquisa.value 
-
-    if(pesquisa = "") {
+    var nome = ipt_pesquisa.value 
+    if(nome == "") {
         alert("Insira uma pesquisa!");
     } else {
-        
-    }
+        fetch(`/parametrizacao/pesquisarProcessoPermitido/${nome}`).then((response) => {
+            if(response.ok) {
+                response.json().then((json) => {
+                    if(response.status == 200) {
 
-    fetch(`/parametrizacao/pesquisarProcesso/${idEmpresa}${nome}`).then((response) => {
-        if(response.ok) {
-            response.json().then((json) => {
-                processos = json;
-            })
-        }
-    })
+                        processoPermitido = json;
+                        console.log("Processipesquisan");
+                        console.log(processoPermitido);
+
+                        if(processoPermitido.length > 0) {
+                            plotarProcessoPermitido(processoPermitido);
+                        }
+                }else {
+                    console.log("Não encontrei!")
+                    alert("O processo não foi encontrado ou foi deletado!")
+                }
+                }).catch((erro) => {
+                    console.log(erro);
+                }) 
+            }
+        }).catch((erro) => {
+            console.log(erro);
+        })
+    }
+    
 }
 
 function exibirProcessosPermitidos() {
@@ -113,12 +127,34 @@ function exibirProcessosPermitidos() {
     })
 }
 
+function deletarProcessoPermitido(id) {
+
+    fetch(`/parametrizacao/deletarProcesso/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then((response) => {
+        if (response.ok) {
+            alert("aaaa")
+        } else {
+            console.log("else");
+        }
+    }).catch((erro) => {
+        console.log(erro);
+    })
+}
+
+function adicionarNovoProcesso() {
+    
+}
+
 function plotarTabela(processos) {
     div_planilhaProcessos.innerHTML =
         `
     <table class="tabela-processos">
         <tbody id="lista_processos">
-        </tbody>
+        </tbody>    
     </table>
     `;
 
@@ -128,7 +164,32 @@ function plotarTabela(processos) {
         <tr>
             <td>${processo.nome}</td>
             <td>
-                <button onclick="deletarProcesso(${processo.id})">
+                <button onclick="${deletarProcessoPermitido(processo.id)}">
+                    <img src="./img/cashTechSystem/lixo.svg" alt="">
+                </button>
+            </td>
+        </tr>
+        `;
+    }
+}
+
+function plotarProcessoPermitido(processoPermitido) {
+    div_planilhaProcessos.innerHTML =
+        `
+    <table class="tabela-processos">
+        <tbody id="lista_processos">
+        </tbody>
+    </table>
+    `;
+
+    
+    for (const processo of processoPermitido) {
+        lista_processos.innerHTML +=
+            `
+        <tr>
+            <td>${processo.nome}</td>
+            <td>
+                <button onclick="${deletarProcessoPermitido(processo.id)}">
                     <img src="./img/cashTechSystem/lixo.svg" alt="">
                 </button>
             </td>
