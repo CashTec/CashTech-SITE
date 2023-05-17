@@ -1,7 +1,7 @@
 var database = require("../database/config")
 
 function verProcessosAgora(idAtm) {
-    let query = `select top 10 * from processo where id_dead = 0 and caixa_eletronico_id = ${idAtm}`
+    let query = `select top 10 * from processo where id_dead = 0 and caixa_eletronico_id = ${idAtm} order by dt_processo desc`
     return database.executar(query);
 }
 

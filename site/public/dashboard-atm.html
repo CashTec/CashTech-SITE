@@ -330,112 +330,34 @@
                 <div class="card-kpi">
                     <h2 class="title">Tempo desde o último processo encerrado</h2>
                     <div class="content-indicator">
-                        <span class="number-indicator">12 minutos</span>
+                        <span class="number-indicator" id="spn_tempoUltimoProcesso">0 minutos</span>
                         <span class="text-indicator"></span>
                     </div>
                 </div>
             </div>
 
             <div class="row">
+                <div class="encerrado">
+                    <div class="titulo">Processos encerrados</div>
+                    <div class="processosKilled" id="div_processosKilled">
+                        <div class="backProcessosKilled">
+                            <div class="loading" id="loadingGif">
+                                <img src="./img/cashTechSystem/loadingGif.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
-                <table>
-                    <caption>Processos encerrados</caption>
-                    
-                    <thead>
-                      <tr>
-                        <th>Nome</th>
-                        <th>Horário</th>
-                        <th>Quantidade</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>jask.bat</td>
-                        <td>12:00</td>
-                        <td>25</td>
-                      </tr>
-                      <tr>
-                        <td>outlook</td>
-                        <td>19:00</td>
-                        <td>20</td>
-                      </tr>
-                      <tr>
-                        <td>lord.sh</td>
-                        <td>14:23</td>
-                        <td>10</td>
-                      </tr>
-                      <tr>
-                        <td>world.deb</td>
-                        <td>15:17</td>
-                        <td>5</td>
-                      </tr>
-                      <tr>
-                        <td>clock.jar</td>
-                        <td>12:00</td>
-                        <td>2</td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-
-                <table class="table">
-                    <caption>Processos em execução</caption>
-                    <thead>
-                        <tr>
-                            <th>PID</th>
-                            <th>Nome</th>
-                            <th>Uso CPU</th>
-                            <th>Uso RAM</th>
-                            <th>Bytes Utilizados</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>544</td>
-                            <td>transaction</td>
-                            <td>10%</td>
-                            <td>10%</td>
-                            <td>1024</td>
-                        </tr>
-
-                        <tr>
-
-                            <td>598</td>
-                            <td>gedit</td>
-                            <td>11,4%</td>
-                            <td>11,4%</td>
-                            <td>2000</td>
-                        </tr>
-
-                        <tr>
-
-                            <td>103</td>
-                            <td>mysql</td>
-                            <td>12%</td>
-                            <td>12%</td>
-                            <td>100</td>
-                        </tr>
-
-                        <tr>
-                            <td>1024</td>
-                            <td>nano</td>
-                            <td>10%</td>
-                            <td>10%</td>
-                            <td>10</td>
-                        </tr>
-
-                        <tr>
-                            <td>12</td>
-
-                            <td>bash</td>
-                            <td>30%</td>
-                            <td>30%</td>
-                            <td>500</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                <div class="execucao">
+                    <div class="titulo">Processos em execução: <span id="span_horario"></span></div>
+                    <div class="processosExecucao" id="div_processosExecucao">
+                        <div class="backProcessosExecucao">
+                            <div class="loading" id="loadingGif">
+                                <img src="./img/cashTechSystem/loadingGif.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
     </main>

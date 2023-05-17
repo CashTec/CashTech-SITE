@@ -5,11 +5,6 @@ const font = new FontFace(
 );
 
 // GRAFICOS
-
-
-sessionStorage.setItem("idAtm", 2);
-
-
 let graficoProcessador = {
   type: "line",
   data: {
@@ -335,6 +330,7 @@ function coletarInfoComponente(componente) {
 }
 
 
+
 function buscarMetricaRede() {
   fetch(`/metricas/metricaRede/${sessionStorage.idAtm}`).
   then(resposta => resposta.json())
@@ -376,6 +372,11 @@ function buscarMetricaComponente(componentes) {
   setTimeout(() => {
     buscarMetricaComponente(["processador", "memoria"]);
   }, 3200)
+}
+
+
+function obterParametrizacao(){
+  
 }
 
 
