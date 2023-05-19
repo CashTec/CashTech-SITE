@@ -28,80 +28,80 @@ function editarUsoMax(campo) {
             isPorcentagem = true;
             valor = 'qtd_disco_max';
             break;
-            case 'BytesRecebidos':
-                in_campo = edtBytesRecebidos;
-                img_campo = imgBytesRecebidos;
-                valor = 'qtd_bytes_recebido_max';
-                break;
-                case 'BytesEnviados':
-                    in_campo = edtBytesEnviados;
-                    img_campo = imgBytesEnviados;
-                    valor = 'qtd_bytes_enviado_max';
-                    break;
-                    default:
-                        break;
-                    }
-                    
-                    if (img_campo.src.match("lapis-parametro.svg")) {
-                        img_campo.src = "img/cashTechSystem/confirm.svg";
-                        in_campo.disabled = false;
-                        in_campo.style.border = "1px solid green";
-                        
+        case 'BytesRecebidos':
+            in_campo = edtBytesRecebidos;
+            img_campo = imgBytesRecebidos;
+            valor = 'qtd_bytes_recebido_max';
+            break;
+        case 'BytesEnviados':
+            in_campo = edtBytesEnviados;
+            img_campo = imgBytesEnviados;
+            valor = 'qtd_bytes_enviado_max';
+            break;
+        default:
+            break;
+    }
+
+    if (img_campo.src.match("lapis-parametro.svg")) {
+        img_campo.src = "img/cashTechSystem/confirm.svg";
+        in_campo.disabled = false;
+        in_campo.style.border = "1px solid green";
+
         if (isPorcentagem) {
             in_campo.style.borderRight = "0px solid white";
             in_campo.parentElement.children[1].style.color = "#000";
             in_campo.parentElement.children[1].style.border = "1px solid green";
             in_campo.parentElement.children[1].style.borderLeft = "0px solid white";
         }
-        
+
     } else {
         img_campo.src = "img/cashTechSystem/lapis-parametro.svg"
         in_campo.disabled = true;
         in_campo.style.border = "none";
-        
-        
+
+
         if (isPorcentagem) {
             in_campo.parentElement.children[1].style.color = "#848484";
             in_campo.parentElement.children[1].style.border = "none";
         }
-        
+
         let valorCampo = in_campo.value;
-        
+
         atualizarParametroHardware(valor, valorCampo);
     }
-    
+
 }
 
 function pesquisarProcesso() {
-    var nome = ipt_pesquisa.value 
-    if(nome == "") {
+    var nome = ipt_pesquisa.value
+    if (nome == "") {
         alert("Insira uma pesquisa!");
     } else {
         fetch(`/parametrizacao/pesquisarProcessoPermitido/${nome}`).then((response) => {
-            if(response.ok) {
+            if (response.ok) {
                 response.json().then((json) => {
-                    if(response.status == 200) {
+                    if (response.status == 200) {
 
                         processoPermitido = json;
                         console.log("Processipesquisan");
                         console.log(processoPermitido);
 
-                        if(processoPermitido.length > 0) {
+                        if (processoPermitido.length > 0) {
                             plotarProcessoPermitido(processoPermitido);
                         }
-                }else {
-                    console.log("Não encontrei!")
-                    alert("O processo não foi encontrado ou foi deletado!")
-                }
+                    } else {
+                        console.log("Não encontrei!")
+                        alert("O processo não foi encontrado ou foi deletado!")
+                    }
                 }).catch((erro) => {
                     console.log(erro);
-                }) 
+                })
             }
         }).catch((erro) => {
             console.log(erro);
         })
     }
-    
+
 }
 
 function exibirProcessosPermitidos() {
@@ -111,7 +111,7 @@ function exibirProcessosPermitidos() {
                 processos = json;
                 console.log("Processos");
                 console.log(processos);
-                
+
                 if (processos.length > 0) {
                     // plotar processos
                     plotarTabela(processos);
@@ -128,7 +128,6 @@ function exibirProcessosPermitidos() {
 }
 
 function deletarProcessoPermitido(id) {
-
     fetch(`/parametrizacao/deletarProcesso/${id}`, {
         method: "DELETE",
         headers: {
@@ -136,9 +135,9 @@ function deletarProcessoPermitido(id) {
         }
     }).then((response) => {
         if (response.ok) {
-            alert("aaaa")
+            console.log("Deu certo!")
         } else {
-            console.log("else");
+            console.log("Deu errado!");
         }
     }).catch((erro) => {
         console.log(erro);
@@ -146,7 +145,24 @@ function deletarProcessoPermitido(id) {
 }
 
 function adicionarNovoProcesso() {
-    
+    var adicionarProcesso = ipt_add - process.value
+
+    if (adicionarProcesso == "") {
+        alert("Insira um valor!");
+    } else {
+        fetch(`/parametrizacao/adicionarProcesso/${id}/${nome}/${valor}/${idEmpresa}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((response) => {       
+            if (response.ok) {
+                console.log("Deu certo!");
+            } else {
+                console.log("Deu errado!")
+            }
+        })
+    }
 }
 
 function plotarTabela(processos) {
@@ -182,7 +198,7 @@ function plotarProcessoPermitido(processoPermitido) {
     </table>
     `;
 
-    
+
     for (const processo of processoPermitido) {
         lista_processos.innerHTML +=
             `
@@ -240,12 +256,12 @@ function atualizarParametroHardware(campo, valor) {
             "Content-Type": "application/json"
         }
     }).then((response) => {
-            if (response.ok) {
-                alert(`${campo} atualizado para o valor: ${valor}!`);
-            } else {
-                alert("Ocorreu um erro!");
-            }
-        }).catch((erro) => {
-            console.log("Ocorreu um erro: " + erro);
-        })
+        if (response.ok) {
+            alert(`${campo} atualizado para o valor: ${valor}!`);
+        } else {
+            alert("Ocorreu um erro!");
+        }
+    }).catch((erro) => {
+        console.log("Ocorreu um erro: " + erro);
+    })
 }
