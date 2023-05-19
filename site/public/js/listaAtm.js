@@ -1,18 +1,12 @@
 const idEmpresa = sessionStorage.ID_EMPRESA;
 
-
 // ------------------ Funções de modal ------------------------//
 
-function abrir_modalEditar(idOrquestra, idMusico) {
-    console.log(idOrquestra);
-
-    listarUm(idOrquestra, idMusico);
+function abrir_modalEditar(idAtm) {
+    listarUm(idAtm);
     div_backgroundModal.style.display = 'flex';
     div_editarModal.style.display = 'block'
     document.body.style.overflow = 'hidden';
-    btn_editar.addEventListener("click", function () {
-        editar(idOrquestra, idMusico);
-    });
 }
 
 function fechar_modalEditar() {
@@ -46,7 +40,7 @@ function fechar_modalDeletar() {
 // ------------------ Função de Atualizar Feed ------------------------//
 
 function atualizarFeed(tipo, campo) {
-    loadingGif();
+    loadingGifList();
     let filtroComponente = '';
     if (tipo != undefined && campo != undefined) {
         filtroComponente = `/${tipo}/${campo}`;
@@ -105,13 +99,11 @@ function ordernarLista(tipo) {
 function deletar_atm(idAtm) {
     abrir_modalDeletar();
 
-    const deletar = btn_deletar.addEventListener("click", function () {
-        return true;
-    });
+    btn_deletar.addEventListener("click", function () {
 
-    if (deletar) {
+        loadingGifSmall(btn_deletar, "white");
 
-        fetch(`/listaAtm/${idEmpresa}/${idAtm}`, {
+        fetch(`/listaAtm/${idAtm}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -119,17 +111,19 @@ function deletar_atm(idAtm) {
         }).then((resposta) => {
 
             if (resposta.ok) {
-                alert("Deletado com sucesso!");
                 setTimeout(() => {
                     window.location.reload();
                 }, "1500")
             } else {
                 throw ("Houve um erro ao tentar realizar o delete!: " + resposta.status);
             }
+            btn_deletar.innerHTML = "Deletar";
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
+            btn_deletar.innerHTML = "Deletar";
         });
-    }
+    });
+
 }
 // ------------------ Fim Função de Deletar funcionario ------------------------//
 
@@ -137,99 +131,109 @@ function deletar_atm(idAtm) {
 
 
 // ------------------ Função de Editar funcionario ------------------------//
-function listarUm(idEmpresa, idUser) {
-
-    fetch(`/meusUsers/listarUm/${idEmpresa}/${idUser}`).then(function (resposta) {
+function listarUm(idAtm) {
+    fetch(`/listaAtm/listarUm/${idAtm}`).then((resposta) => {
         if (resposta.ok) {
-            resposta.json().then(function (resposta) {
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
-                in_edtId.value = resposta[0].idUser;
-                in_edtNome.value = resposta[0].nome;
-                sel_edtNaipe.value = resposta[0].naipe;
-                qual_edtNaipe();
-                sel_edtInstrumento.value = resposta[0].instrumento;
-                in_edtTelefone.value = resposta[0].telefone;
+            resposta.json().then((resposta) => {
+                const atm = resposta[0];
+
+                in_edtIdentificador.value = atm.identificador;
+                sel_edtSituacao.value = atm.situacao;
+                in_edtCep.value = atm.cep;
+                in_edtNumero.value = atm.numero;
+                in_edtRua.value = atm.rua;
+                in_edtCidade.value = atm.cidade;
+                in_edtBairro.value = atm.bairro;
+
+
+                btn_editar.addEventListener("click", () => {
+                    editar(idAtm);
+                });
+
             });
         } else {
             throw ('Houve um erro na API!');
         }
-    }).catch(function (resposta) {
-        console.error(resposta);
     });
 }
 
-function editar(idEmpresa, idUser) {
+async function editar(idAtm) {
 
+
+    loadingGifSmall(btn_editar, "black");
     // Transformar enderco para latitude e longitude -- Não Mexer
-    let cep = in_edtCep.value;
     let numero = in_edtNumero.value;
     let rua = in_edtRua.value;
     let cidade = in_edtCidade.value;
     let bairro = in_edtBairro.value;
-    let coordenadas = {
-        lat: null,
-        lng: null
-    };
 
-    let endereco = `${rua}, ${numero}, ${bairro} - ${cidade}`
-    console.log(endereco);
-    const url = `https://nominatim.openstreetmap.org/search.php?q='${endereco}'&format=jsonv2`;
-    fetch(url)
-        .then(response =>
-            response.json()).then(data => {
-                console.log(data)
+    if (numero == "" || rua == "" || cidade == "" || bairro == "") {
+        alert("Preencha todos os campos!");
+        btn_editar.innerHTML = "Editar";
+    } else {
+        let coordenadas = {
+            lat: null,
+            lng: null
+        };
 
-                if (data.length > 0) {
-                    coordenadas = {
-                        lat: Number(data[0].lat),
-                        lng: Number(data[0].lon)
-                    }
+        let endereco = `${rua}, ${numero}, ${bairro} - ${cidade}`;
+        console.log(endereco);
 
-                    console.log("Coordenadas");
-                    console.log(coordenadas);
-                };
-            }).catch((error) => {
-                console.log("Erro ao transformar Json");
+        alert(endereco)
+        await fetch(`https://nominatim.openstreetmap.org/search.php?q='${endereco}'&format=jsonv2`)
+            .then(response =>
+                response.json()).then(data => {
+                    console.log(data)
+                    alert(data);
+
+                    if (data.length > 0) {
+                        coordenadas = {
+                            lat: Number(data[0].lat),
+                            lng: Number(data[0].lon)
+                        }
+
+                        console.log("Coordenadas");
+                        console.log(coordenadas);
+                    };
+                }).catch((error) => {
+                    console.log("Erro ao transformar Json");
+                    console.log(error);
+                })
+            .catch((error) => {
+                console.log("Erro na requisição");
                 console.log(error);
             })
-        .catch((error) => {
-            console.log("Erro na requisição");
-            console.log(error);
-        })
 
-    // ----------------------------------------------
+        // ----------------------------------------------
 
-    // console.log("Criar função de editar User - ID " + idUser);
 
-    // fetch(`/meusUsers/editar/${idEmpresa}/${idUser}`, {
-    //     method: "PUT",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //         nomeServer: in_edtNome.value,
-    //         telefoneServer: in_edtTelefone.value,
-    //         instrumentoServer: sel_edtInstrumento.value,
-    //     })
-    // }).then(function (resposta) {
+        await fetch(`/listaAtm/atualizar/${idAtm}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                identificador: in_edtIdentificador.value,
+                situacao: sel_edtSituacao.value,
+                cep: in_edtCep.value,
+                numero: in_edtNumero.value,
+                rua: in_edtRua.value,
+                cidade: in_edtCidade.value,
+                bairro: in_edtBairro.value,
+                lat: Number(coordenadas.lat),
+                lng: Number(coordenadas.lng)
+            })
+        }).then((resposta) => {
 
-    //     if (resposta.ok) {
-    //         var texto = `funcionario ${idUser} atualizado com sucesso!`;
-    //         aparecer_card(texto);
-    //         document.body.style.overflow = 'hidden';
-
-    //         setTimeout(() => {
-    //             window.location = "./meusUsers.html";
-    //         }, "1500")
-
-    //     } else if (resposta.status == 404) {
-    //         window.alert("Deu 404!");
-    //     } else {
-    //         throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-    //     }
-    // }).catch(function (resposta) {
-    //     console.log(`#ERRO: ${resposta}`);
-    // });
+            if (resposta.ok) {
+                window.location = "/listaAtm.html";
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
 }
 
 // ------------------ Fim Função de Editar funcionario ------------------------//
@@ -278,13 +282,14 @@ function plotarTabela(json) {
 
         element.tempo_atividade = `${dias} dias, ${horas}horas e ${minutos} minutos`;
 
+        let endereco = `${element.rua}, ${element.numero}` == "null, null" ? `<span style="color:gray">Sem endereço<span/>` : `${element.rua}, ${element.numero}`;
         table_atm.innerHTML += `
             <tr>
                 <td>${element.identificador}</td>
                 <td>${element.situacao}</td>
                 <td>${element.iniciado}</td>
                 <td>${element.tempo_atividade}</td>
-                <td>${element.rua}, ${element.numero}</td>
+                <td>${endereco}</td>
                 <td class="tdImg">
                     <button onclick="redirecionarAtm(${element.id})">
                         <img class="graphic" src="./img/cashTechSystem/bar-chart.png" alt="">
@@ -304,7 +309,7 @@ function plotarTabela(json) {
     }
 }
 
-function loadingGif() {
+function loadingGifList() {
     div_planilhaAtm.innerHTML = `
     <div class="loading" id="loadingGif">
         <img src="img/cashTechSystem/loadingGif.svg" alt="">
@@ -312,7 +317,18 @@ function loadingGif() {
     `
 }
 
-function redirecionarAtm(idAtm){
+function loadingGifSmall(div, color) {
+    color == "white" ? color = "img/loadingGifWhite.svg" : color = "img/loadingGifBlack.svg";
+
+    div.innerHTML = `
+    <div class="loadingSmall" id="loadingGifSmall">
+        <img src="${color}" alt="">
+    </div>
+    `;
+}
+
+function redirecionarAtm(idAtm) {
     sessionStorage.idAtm = idAtm;
     window.location.href = `dashboard-atm.html`;
 }
+

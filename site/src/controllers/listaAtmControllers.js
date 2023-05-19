@@ -76,18 +76,13 @@ function ordernar(req, res) {
 }
 
 function deletar(req, res) {
-    const idEmpresa = req.params.idEmpresa;
     const idAtm = req.params.idAtm;
-
-    if (idEmpresa == null) {
-        return res.status(400).send("idEmpresa está null!")
-    }
 
     if (idAtm == null) {
         return res.status(400).send("idAtm está null!")
     }
 
-    listaAtmModel.deletar(idEmpresa, idAtm).then((resposta) => {
+    listaAtmModel.deletar(idAtm).then((resposta) => {
         return res.status(200).json(resposta);
     }).catch((error) => {
         console.log(error);
@@ -112,9 +107,74 @@ function verificarTipo(tipo) {
 
     return tipos[tipo];
 }
+
+function listarUm(req, res) {
+    const idAtm = req.params.idAtm;
+
+    if (idAtm == null) {
+        return res.status(400).send("idAtm está null!")
+    }
+
+    listaAtmModel.listarUm(idAtm).then((resposta) => {
+        if (resposta.length > 0) {
+            return res.status(200).json(resposta);
+        } else {
+            return res.status(403).send("Não há dados!");
+        }
+    }).catch((error) => {
+        console.log(error);
+        console.log("\nHouve um erro ao realizar a busca! Erro: ", error.sqlMessage);
+        res.status(500).json(error.sqlMessage);
+    })
+}
+
+async function atualizar(req, res) {
+    const idAtm = req.params.idAtm;
+    const identificador = req.body.identificador;
+    const situacao = req.body.situacao;
+    const cep = req.body.cep;
+    const numero = req.body.numero;
+    const rua = req.body.rua;
+    const cidade = req.body.cidade;
+    const bairro = req.body.bairro;
+    const lat = req.body.lat;
+    const lng = req.body.lng;
+
+    const camposObrigatorios = [
+        'identificador',
+        'situacao',
+        'cep',
+        'numero',
+        'rua',
+        'cidade',
+        'bairro',
+        'lat',
+        'lng'
+    ];
+
+    const camposFaltantes = camposObrigatorios.filter(campo => req.body[campo] === undefined);
+
+    if (camposFaltantes.length > 0) {
+        res.status(400).send(`Os seguintes campos estão faltando: ${camposFaltantes.join(', ')}`);
+        return;
+    }
+
+    try {
+        await listaAtmModel.atualizarAtm(idAtm, identificador, situacao);
+        await listaAtmModel.atualizarEndereco(idAtm, cep, numero, rua, cidade, bairro, lat, lng);
+        res.status(200).send("Atualização realizada com sucesso!");
+    } catch (error) {
+        console.log(error);
+        console.log("\nHouve um erro ao realizar a atualização! Erro: ", error.sqlMessage);
+        res.status(500).json(error.sqlMessage);
+    }
+}
+
 module.exports = {
     listarAtm,
     filtroPesquisa,
     ordernar,
-    deletar
+    deletar,
+    listarUm,
+    atualizar
 };

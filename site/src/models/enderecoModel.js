@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 function verEnderecosInativo(idEmpresa) {
-    let instrucao = `SELECT DISTINCT e.*, ce.id as idAtm, ce.identificador as nomeAtm
+    let instrucao = `SELECT DISTINCT latitude, longitude, ce.id as idAtm, ce.identificador  as nomeAtm
     FROM Endereco e
     JOIN Empresa em ON em.endereco_id = e.id
     JOIN CaixaEletronico ce ON ce.empresa_id = em.id
@@ -25,7 +25,7 @@ function verEnderecosAlerta(idEmpresa) {
         OR (c.tipo = 'processador' AND mc.qtd_consumido > (p.qtd_cpu_max * 0.75))
         OR (c.tipo = 'disco' AND mc.qtd_consumido > (p.qtd_disco_max * 0.75))
         OR (mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max * 0.75) OR mri.bytes_recebidos_segundo  > (p.qtd_bytes_recebido_max * 0.75)))
-        AND mc.dt_metrica  >= DATEADD(second, -5, GETDATE());`;
+        AND mc.dt_metrica  >= DATEADD(second, -10805, GETDATE());`;
     return database.executar(instrucao);
 }
 
