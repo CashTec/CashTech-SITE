@@ -3,6 +3,9 @@ const idEmpresa = sessionStorage.ID_EMPRESA;
 exibirProcessosPermitidos();
 exibirParametro();
 
+let processosPermitido = [];
+let todosProcessos = "";
+
 function editarUsoMax(campo) {
     var in_campo;
     var img_campo;
@@ -28,90 +31,77 @@ function editarUsoMax(campo) {
             isPorcentagem = true;
             valor = 'qtd_disco_max';
             break;
-            case 'BytesRecebidos':
-                in_campo = edtBytesRecebidos;
-                img_campo = imgBytesRecebidos;
-                valor = 'qtd_bytes_recebido_max';
-                break;
-                case 'BytesEnviados':
-                    in_campo = edtBytesEnviados;
-                    img_campo = imgBytesEnviados;
-                    valor = 'qtd_bytes_enviado_max';
-                    break;
-                    default:
-                        break;
-                    }
-                    
-                    if (img_campo.src.match("lapis-parametro.svg")) {
-                        img_campo.src = "img/cashTechSystem/confirm.svg";
-                        in_campo.disabled = false;
-                        in_campo.style.border = "1px solid green";
-                        
+        case 'BytesRecebidos':
+            in_campo = edtBytesRecebidos;
+            img_campo = imgBytesRecebidos;
+            valor = 'qtd_bytes_recebido_max';
+            break;
+        case 'BytesEnviados':
+            in_campo = edtBytesEnviados;
+            img_campo = imgBytesEnviados;
+            valor = 'qtd_bytes_enviado_max';
+            break;
+        default:
+            break;
+    }
+
+    if (img_campo.src.match("lapis-parametro.svg")) {
+        img_campo.src = "img/cashTechSystem/confirm.svg";
+        in_campo.disabled = false;
+        in_campo.style.border = "1px solid green";
+
         if (isPorcentagem) {
             in_campo.style.borderRight = "0px solid white";
             in_campo.parentElement.children[1].style.color = "#000";
             in_campo.parentElement.children[1].style.border = "1px solid green";
             in_campo.parentElement.children[1].style.borderLeft = "0px solid white";
         }
-        
+
     } else {
         img_campo.src = "img/cashTechSystem/lapis-parametro.svg"
         in_campo.disabled = true;
         in_campo.style.border = "none";
-        
-        
+
+
         if (isPorcentagem) {
             in_campo.parentElement.children[1].style.color = "#848484";
             in_campo.parentElement.children[1].style.border = "none";
         }
-        
+
         let valorCampo = in_campo.value;
-        
+
         atualizarParametroHardware(valor, valorCampo);
     }
-    
+
 }
 
 function pesquisarProcesso() {
-    var nome = ipt_pesquisa.value 
-    if(nome == "") {
-        alert("Insira uma pesquisa!");
-    } else {
-        fetch(`/parametrizacao/pesquisarProcessoPermitido/${nome}`).then((response) => {
-            if(response.ok) {
-                response.json().then((json) => {
-                    if(response.status == 200) {
+    var nome = ipt_pesquisa.value
+    let jsonAux = [];
+    if (nome != "") {
 
-                        processoPermitido = json;
-                        console.log("Processipesquisan");
-                        console.log(processoPermitido);
-
-                        if(processoPermitido.length > 0) {
-                            plotarProcessoPermitido(processoPermitido);
-                        }
-                }else {
-                    console.log("Não encontrei!")
-                    alert("O processo não foi encontrado ou foi deletado!")
-                }
-                }).catch((erro) => {
-                    console.log(erro);
-                }) 
+        for (const processoPermitido of processosPermitido) {
+            if (processoPermitido.nome == nome) {
+                jsonAux.push(processoPermitido);
+                div_planilhaProcessos.innerHTML = "ACHEI!";
+                break;
+            } else {
+                div_planilhaProcessos.innerHTML = todosProcessos;
             }
-        }).catch((erro) => {
-            console.log(erro);
-        })
+        }
+    } else {
     }
-    
+
 }
 
 function exibirProcessosPermitidos() {
     fetch(`/parametrizacao/verProcessosPermitidos/${idEmpresa}`).then((response) => {
         if (response.ok) {
             response.json().then((json) => {
+                processosPermitido = json;
                 processos = json;
                 console.log("Processos");
                 console.log(processos);
-                
                 if (processos.length > 0) {
                     // plotar processos
                     plotarTabela(processos);
@@ -146,7 +136,7 @@ function deletarProcessoPermitido(id) {
 }
 
 function adicionarNovoProcesso() {
-    
+
 }
 
 function plotarTabela(processos) {
@@ -171,6 +161,8 @@ function plotarTabela(processos) {
         </tr>
         `;
     }
+
+    todosProcessos = div_planilhaProcessos.innerHTML;
 }
 
 function plotarProcessoPermitido(processoPermitido) {
@@ -182,7 +174,7 @@ function plotarProcessoPermitido(processoPermitido) {
     </table>
     `;
 
-    
+
     for (const processo of processoPermitido) {
         lista_processos.innerHTML +=
             `
@@ -203,7 +195,7 @@ function semProcesso() {
         `
     <div class="nenhum-cadastrado">
         <h2 id="h2_nenhumAchado">
-            Nenhum processo cadastrado!
+            Não há nenhúm processo!
         </h2>
     </div>
     `;
@@ -240,12 +232,12 @@ function atualizarParametroHardware(campo, valor) {
             "Content-Type": "application/json"
         }
     }).then((response) => {
-            if (response.ok) {
-                alert(`${campo} atualizado para o valor: ${valor}!`);
-            } else {
-                alert("Ocorreu um erro!");
-            }
-        }).catch((erro) => {
-            console.log("Ocorreu um erro: " + erro);
-        })
+        if (response.ok) {
+            alert(`${campo} atualizado para o valor: ${valor}!`);
+        } else {
+            alert("Ocorreu um erro!");
+        }
+    }).catch((erro) => {
+        console.log("Ocorreu um erro: " + erro);
+    })
 }
