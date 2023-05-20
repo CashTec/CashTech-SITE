@@ -45,11 +45,6 @@ function editarUsoMax(campo) {
             break;
     }
 
-    if (img_campo.src.match("lapis-parametro.svg")) {
-        img_campo.src = "img/cashTechSystem/confirm.svg";
-        in_campo.disabled = false;
-        in_campo.style.border = "1px solid green";
-    }
 
     if (img_campo.src.match("lapis-parametro.svg")) {
         img_campo.src = "img/cashTechSystem/confirm.svg";
@@ -69,14 +64,10 @@ function editarUsoMax(campo) {
         in_campo.disabled = true;
         in_campo.style.border = "none";
 
-
-
-
         if (isPorcentagem) {
             in_campo.parentElement.children[1].style.color = "#848484";
             in_campo.parentElement.children[1].style.border = "none";
         }
-
 
         let valorCampo = in_campo.value;
 
