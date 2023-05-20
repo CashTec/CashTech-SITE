@@ -79,7 +79,6 @@ let graficoProcessador = {
 }
 const grafico1 = new Chart(graphicLine1, graficoProcessador);
 
-
 let graficoMemoria = {
   type: "line",
   data: {
@@ -267,7 +266,6 @@ const grafico4 = new Chart(graphicBola, graficoHd);
 // FUNCIONALIDADES UI UX - FUNC
 function passarTela() {
   window.scroll((window.scrollX >= window.innerWidth ? 0 : window.innerWidth), 0);
-  console.log(window.innerWidth);
 }
 
 const divCardInfo = document.querySelectorAll(".card-info");
@@ -319,13 +317,10 @@ function coletarInfoComponente(componente) {
               case "rede":
                 inserirInfoRede(json);
               default:
-                console.log("Componente inválido");
             }
           })
       })
-      .catch(erro => {
-        console.log(erro)
-      })
+      .catch(erro => {})
   })
 }
 
@@ -338,9 +333,7 @@ function buscarMetricaRede() {
       if (json.length > 0) {
         atualizarMetricaRede(json);
       }
-    }).catch((erro) => {
-      console.error(erro);
-    })
+    }).catch((erro) => {})
   setTimeout(() => {
     buscarMetricaRede()
   }, 3200);
@@ -362,13 +355,10 @@ function buscarMetricaComponente(componentes) {
               atualizarMetricaProcessador(json);
               break;
             default:
-              console.log("Componente inválido");
           }
 
         }
-      }).catch((erro) => {
-        console.log(erro);
-      })
+      }).catch((erro) => {})
   })
   setTimeout(() => {
     buscarMetricaComponente(["processador", "memoria"]);
@@ -376,23 +366,21 @@ function buscarMetricaComponente(componentes) {
 }
 
 let contadoraRequisicao = 0;
-
 let parametrizacao;
 
-function obterParametrizacao() {
+async function obterParametrizacao() {
   return fetch(`/parametrizacao/verParametroHardware/${sessionStorage.ID_EMPRESA}`).then((response) => {
     if (response.ok) {
-      return response.json().then((json) => {
+      return response.json()
+        .then((json) => {
 
-        if (json.length > 0) {
-          if (contadoraRequisicao < 1) {
-            return json
+          if (json.length > 0) {
+            if (contadoraRequisicao < 1) {
+              return json
+            }
           }
-        }
 
-      }).catch((error) => {
-        console.log(error);
-      })
+        }).catch((error) => {})
     }
   })
 
@@ -406,7 +394,8 @@ function trocarInfoHd() {
   graficoHd.data.datasets[0].data = [];
   graficoHd.data.datasets[0].data.push(variavelAuxiliar[sel_hd.value].qtd_disponivel);
   graficoHd.data.datasets[0].data.push(variavelAuxiliar[sel_hd.value].qtd_maxima - variavelAuxiliar[sel_hd.value].qtd_disponivel);
-  atualizarAlertaDisco(json);
+  atualizarAlertaDisco(variavelAuxiliar[sel_hd.value]);
+  inserirKpiDisco(sel_hd.value);
 
   grafico4.update();
 
@@ -418,8 +407,7 @@ function trocarInfoHd() {
 
 async function inserirParametrizacao() {
   let json = await obterParametrizacao();
-  console.log("aaaaaaaaaaa")
-  console.log(json)
+
   let divs = document.querySelectorAll(".legend");
   parametrizacao = [{
       type: "Processador",
@@ -434,7 +422,13 @@ async function inserirParametrizacao() {
       perigo: json[0].qtd_memoria_max
     },
     {
-
+      type: "Rede",
+      normalEnviado: (json[0].qtd_bytes_enviado_max / 1024).toFixed(2),
+      normalRecebido: (json[0].qtd_bytes_enviado_max / 1024).toFixed(2),
+      alertaEnviado: ((json[0].qtd_bytes_enviado_max / 1024) * 0.75).toFixed(2),
+      alertaRecebido: ((json[0].qtd_bytes_enviado_max / 1024) * 0.75).toFixed(2),
+      perigoEnviado: (json[0].qtd_bytes_enviado_max / 1024).toFixed(2),
+      perigoRecebido: (json[0].qtd_bytes_enviado_max / 1024).toFixed(2),
     },
     {
       type: "Disco",
@@ -451,7 +445,8 @@ async function inserirParametrizacao() {
       alerta,
       perigo
     } = parametrizacao[i];
-    element.innerHTML = `
+    if (i != 2) {
+      element.innerHTML = `
         <div class="label">
           <span></span>
           Normal < ${normal}
@@ -464,13 +459,25 @@ async function inserirParametrizacao() {
           <span></span>
           Perigo > ${perigo}
         </div>`;
+    } else {
+      element.innerHTML = `
+<span>E:</span>
+<span>${parametrizacao[2].normalEnviado}KB</span>
+<span>${parametrizacao[2].alertaEnviado}KB</span>
+<span>${parametrizacao[2].perigoEnviado}KB</span>
+<span>R:</span>
+<span> ${parametrizacao[2].normalRecebido}KB</span>
+<span>${parametrizacao[2].alertaRecebido}KB</span>
+ <span>${parametrizacao[2].perigoRecebido}KB</span>
+   `
+    }
   });
+
 }
 
 
 
 function inserirInfoProcessador(json) {
-  console.log(json[0].frequencia)
   idProcessador = json[0].id;
   modelo.innerText = json[0].nome;
   core.innerText = json[0].qtd_cpu_fisica;
@@ -482,6 +489,7 @@ function inserirInfoDisco(json) {
   graficoHd.data.datasets[0].data = [];
   graficoHd.data.datasets[0].data.push(json[0].qtd_disponivel);
   graficoHd.data.datasets[0].data.push(json[0].qtd_maxima - json[0].qtd_disponivel);
+  inserirKpiDisco(0);
   grafico4.update();
 
   variavelAuxiliar = json;
@@ -489,8 +497,8 @@ function inserirInfoDisco(json) {
   montagem.innerText = json[0].ponto_montagem;
   modeloHd.innerText = json[0].nome;
   disponivelHd.innerHTML = "<h2>" + (Math.floor((json[0].qtd_disponivel / json[0].qtd_maxima) * 100)) + "%</h2>" + "<h3>Usado </h3>";
-  
-  atualizarAlertaDisco(json);
+
+  atualizarAlertaDisco(json[0]);
   for (let i = 0; i < json.length; i++) {
     sel_hd.innerHTML += `<option value="${i}">HD${i}</option>`
   }
@@ -509,6 +517,17 @@ function inserirInfoRede(json) {
 }
 
 
+function inserirEndereco() {
+  fetch(`/endereco/exibirEndereco/${sessionStorage.idAtm}`)
+    .then((res) => res.json()
+      .then(json => {
+        let divClass = document.querySelector(".info-atm");
+        let endereco = json[0];
+        divClass.innerHTML = `<h2>${endereco.nome}</h2> <span class="bolinha"></span> <span>${endereco.cidade == null ? "" : endereco.cidade+","} ${endereco.bairro == null ? "": endereco.bairro+","} ${endereco.rua== null ? "":endereco.rua+"-"}  ${endereco.numero == null ? "" : endereco.numero+","}</span>`
+      })
+    ).catch((erro) => console.log(erro));
+}
+inserirEndereco()
 // FUNÇÕES PARA PLOTAR DADOS NO GRÁFICO - PLOTAR
 
 
@@ -523,14 +542,17 @@ let contadoraRede = 0;
 let contadorMemoria = 0;
 
 function atualizarMetricaProcessador(json) {
+
   let containerAviso = document.querySelectorAll(".aviso")[0];
   verificador(json, graficoProcessador) ? contadoraProcessador++ : contadoraProcessador = 0;
-  if (contadoraProcessador < 2) {
+  kpiTempoInativo(json[0].dt_metrica);
+  if (contadoraProcessador < 5) {
     atualizarData(json, graficoProcessador, "processador", grafico1);
   } else {
     containerAviso.classList.add("active");
     containerAviso.innerHTML = "<h2>Não há dados recentes</h2><p>Verifique o software de monitoramento do caixa eletrônico  </p>";
   }
+
 }
 
 function atualizarMetricaMemoria(json) {
@@ -546,6 +568,7 @@ function atualizarMetricaMemoria(json) {
 
 
 function atualizarMetricaRede(json) {
+  inserirKpiRede()
   let containerAviso = document.querySelectorAll(".aviso")[2];
   verificador(json, graficoRede) ? contadoraRede++ : contadoraRede = 0;
   if (contadoraRede < 2) {
@@ -555,8 +578,6 @@ function atualizarMetricaRede(json) {
     containerAviso.innerHTML = "<h2>Não há dados recentes</h2><p>Verifique o software de monitoramento do caixa eletrônico  </p>";
   }
 }
-
-
 
 //ATUALIZA DADOS DO GRÁFICO
 
@@ -577,12 +598,10 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
       break;
     case "processador":
       containerAviso = document.querySelectorAll(".aviso")[0];
-      console.log(containerAviso)
       primeiroDado = json[0].qtd_consumido;
       break;
 
     case "memoria":
-      console.log(containerAviso)
       containerAviso = document.querySelectorAll(".aviso")[1];
       primeiroDado = ((json[0].qtd_consumido / 1073741824) / Number(tamanhoRam.innerHTML.replace("GB", ""))) * 100;
       break;
@@ -600,16 +619,16 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
     dadosGrafico.data.labels.push(dateTimeFormatado);
     return
   }
-  
-  if(tipo=="memoria"){
-  atualizarAlertaMemoria(json);  
-}
-if(tipo=="rede"){
- atualizarAlertaRede(json)
-}
-if(tipo=="processador"){
-atualizarAlertaCPU(json);
-}
+
+  if (tipo == "memoria") {
+    atualizarAlertaMemoria(json);
+  }
+  if (tipo == "rede") {
+    atualizarAlertaRede(json)
+  }
+  if (tipo == "processador") {
+    atualizarAlertaCPU(json);
+  }
   if (containerAviso.classList.contains("active")) {
     containerAviso.classList.remove("active")
   }
@@ -625,8 +644,8 @@ atualizarAlertaCPU(json);
   grafico.update();
 }
 
-async function atualizarAlertaRede(metricaRede){
-  let qtd_enviado = metricaRede[0].bytes_enviados_segundo/ (1024 * 1024);
+async function atualizarAlertaRede(metricaRede) {
+  let qtd_enviado = metricaRede[0].bytes_enviados_segundo / (1024 * 1024);
   let qtd_recebido = metricaRede[0].bytes_recebidos_segundo / (1024 * 1024);
   let parametrizacao = await obterParametrizacao();
   let alerta = parametrizacao[0].qtd_bytes_enviados_max * 0.75;
@@ -635,11 +654,10 @@ async function atualizarAlertaRede(metricaRede){
   if (perigo < qtd_enviado || perigo < qtd_recebido) {
     alertRede.innerHTML = "Perigo";
     alertRede.style.backgroundColor = "red";
-  } else if (alerta < qtd_enviado || alerta < qtd_recebido ) {
+  } else if (alerta < qtd_enviado || alerta < qtd_recebido) {
     alertRede.innerHTML = "Normal";
     alertRede.style.backgroundColor = "green";
-  }
-  else{
+  } else {
     alertRede.innerHTML = "Alerta";
     alertRede.style.backgroundColor = "yellow";
   }
@@ -647,10 +665,8 @@ async function atualizarAlertaRede(metricaRede){
 }
 
 async function atualizarAlertaCPU(metricaCPU) {
-  metricaCPU =Number(metricaCPU[0].qtd_consumido.toFixed(2));
-  console.log(metricaCPU);
+  metricaCPU = Number(metricaCPU[0].qtd_consumido.toFixed(2));
   let parametrizacao = await obterParametrizacao();
-  console.log(parametrizacao[0].qtd_cpu_max)
   let alerta = parametrizacao[0].qtd_cpu_max * 0.75;
   let perigo = parametrizacao[0].qtd_cpu_max;
 
@@ -660,29 +676,24 @@ async function atualizarAlertaCPU(metricaCPU) {
   } else if (metricaCPU < alerta) {
     alertCpu.innerHTML = "Normal";
     alertCpu.style.backgroundColor = "green";
-  }
-  else{
+  } else {
     alertCpu.innerHTML = "Alerta";
     alertCpu.style.backgroundColor = "yellow";
   }
 }
 
 async function atualizarAlertaMemoria(metricaMemoria) {
-  metricaMemoria= ((metricaMemoria[0].qtd_consumido / 1073741824) / Number(tamanhoRam.innerHTML.replace("GB", ""))) * 100;
+  metricaMemoria = ((metricaMemoria[0].qtd_consumido / 1073741824) / Number(tamanhoRam.innerHTML.replace("GB", ""))) * 100;
   let parametrizacao = await obterParametrizacao();
   let alerta = Number(parametrizacao[0].qtd_memoria_max) * 0.75;
   let perigo = Number(parametrizacao[0].qtd_memoria_max);
   if (perigo < metricaMemoria) {
-    console.log(metricaMemoria)
     alertRam.innerHTML = "Perigo";
     alertRam.style.backgroundColor = "red";
-  } 
-  
-  else if (metricaMemoria< alerta) {
+  } else if (metricaMemoria < alerta) {
     alertRam.innerHTML = "Normal";
     alertRam.style.backgroundColor = "green";
-  }
-  else{
+  } else {
     alertRam.innerHTML = "Alerta";
     alertRam.style.backgroundColor = "yellow";
   }
@@ -692,7 +703,7 @@ async function atualizarAlertaMemoria(metricaMemoria) {
 
 async function atualizarAlertaDisco(metricaDisco) {
   let parametrizacao = await obterParametrizacao();
-  metricaDisco = Math.floor((metricaDisco[0].qtd_disponivel / metricaDisco[0].qtd_maxima) * 100);
+  metricaDisco = Math.floor((metricaDisco.qtd_disponivel / metricaDisco.qtd_maxima) * 100);
   let alerta = parametrizacao[0].qtd_disco_max * 0.75;
   let perigo = parametrizacao[0].qtd_disco_max;
   if (perigo < metricaDisco) {
@@ -703,15 +714,144 @@ async function atualizarAlertaDisco(metricaDisco) {
     alertDisco.innerHTML = "Normal";
     alertDisco.style.backgroundColor = "green";
     alertDisco.style.color = "white";
-  }
-  else{
+  } else {
     alertDisco.innerHTML = "Alerta";
+    alertDisco.style.color = "black";
     alertDisco.style.backgroundColor = "yellow";
   }
 }
 
 
+// KPIS
 
+function kpiTempoInativo(ultimaMetrica) {
+  if (contadoraProcessador > 2) {
+
+    const date = new Date();
+    let dtUltimaMetrica = new Date(ultimaMetrica);
+    let tempo = date - dtUltimaMetrica;
+
+    let segundos = Math.floor(tempo / 1000);
+    let minutos = Math.floor(segundos / 60);
+
+    let horas = Math.floor(minutos / 60) - 3;
+
+    segundos %= 60;
+    minutos %= 60;
+    horas %= 60;
+
+
+    if (horas < 10) {
+      horas = `0${horas}`;
+    }
+    if (minutos < 10) {
+      minutos = `0${minutos}`;
+    }
+    if (segundos < 10) {
+      segundos = `0${segundos}`;
+    }
+
+    kpiInatividade.innerHTML = `${horas}:${minutos}:${segundos}`;
+  }
+}
+
+const conversorDataMesAno = () => {
+  const data = new Date();
+  data.setMonth(data.getMonth());
+  let dataFormatadaHoje =  data.getMonth()+1 +"-" + data.getFullYear();
+  let dataFormatadaOntem = data.getMonth() + "-" +data.getFullYear();
+  return [dataFormatadaHoje,dataFormatadaOntem]
+}
+
+async function buscarKpiDisco(data) {
+  return fetch(`metricas/dadosGravados/${sessionStorage.idAtm}/${data}`)
+    .then((resposta) => {
+        return resposta.json()
+          .then((json) => {
+            return json
+          })
+
+ 
+    }).catch((erro) => console.log(erro))
+}
+
+
+async function inserirKpiDisco(disco) {
+  
+  disco = parseInt(disco)
+  let dadosHoje = await buscarKpiDisco(conversorDataMesAno()[0]);
+
+  if (disco == 0) {
+
+    conta = dadosHoje[disco+1].qtd_consumido - dadosHoje[disco].qtd_consumido;
+  } 
+  else {
+    conta = dadosHoje[disco+2].qtd_consumido - dadosHoje[disco+1].qtd_consumido;
+
+  }
+
+  console.log("kpiHd")
+  console.log(conta);
+  let contaDias = (Number(tamanhoHd.innerHTML.replace("GB","")*1024)) / (conta / (1024*1024));
+
+  if(contaDias>100){
+    textHd.innerHTML="Seu volume não corre o risco de ficar cheio"
+  }
+  else{
+    textHd.innerHTML=`Seu volume demorará mais de ${parseInt(contaDias)*30} dias para ocupar toda a sua capacidade cheio`
+  }
+  
+  kpiHd.innerHTML=(conta / (1024*1024)).toFixed(2)+ "MB";
+}
+
+async function buscarKpiRede(data) {
+  console.log(data)
+  return fetch(`metricas/dadosGravadosRede/${sessionStorage.idAtm}/${data}`)
+    .then((resposta) => {
+      if(resposta.status==200){
+        return resposta.json()
+          .then((json) => {
+            return json
+          })
+        }else{
+          return []
+        }
+    })
+    .catch((erro) => console.log(erro))
+
+}
+
+
+async function inserirKpiRede() {
+  let date = new Date().getDate()
+  let dtHoje =`${("0"+conversorDataMesAno()[0]).split("-").reverse().join("-")}-${Number(date)}`;
+  let dtOntem =`${("0"+conversorDataMesAno()[0]).split("-").reverse().join("-")}-${Number(date)-1}`;
+  let dadosHoje = await buscarKpiRede(dtHoje);
+  let dadosOntem = await buscarKpiRede(dtOntem);
+  let contaDias;
+  let conta;
+  let contaOntem;
+  if(dadosHoje.length>0){
+    conta = Number(dadosHoje[1].bytes_recebidos_segundo) - Number(dadosHoje[0].bytes_recebidos_segundo);
+    console.log(conta)
+  }
+  
+  if(dadosOntem.length>0){
+    contaOntem = Number(dadosOntem[1].bytes_recebidos_segundo) - Number(dadosOntem[0].bytes_recebidos_segundo);
+    contaDias = conta - contaOntem;
+  }
+
+  kpiRede.innerHTML= conta!=undefined? (conta / (1024*1024)).toFixed(2)+"MB" : "Não há dados";
+
+  if(contaDias>conta){
+  textRede.innerHTML= contaDias!=undefined? (contaDias / (1024*1024)).toFixed+"MB Há mais que ontem":"";
+  }
+  else{
+    textRede.innerHTML= contaDias!=undefined?(( contaDias* -1) / (1024*1024)).toFixed(2)+"MB Há menos que ontem" : "";
+  }
+}
+
+inserirKpiRede()
 // CHAMANDO FUNÇÕES PARA SEREM EXECUTADAS - CHAMAR
 coletarInfoComponente(["processador", "memoria", "rede", "disco"]);
 buscarMetricaRede();

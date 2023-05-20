@@ -19,7 +19,7 @@ function atualizarProcessos() {
                             jsonString = JSON.stringify(json);
 
                             if (jsonString === jsonProcessosAgora) {
-                                console.log("Não há alteração nos processos Killed");
+                          
                                 return;
                             } else {
                                 jsonProcessosAgora = jsonString;
@@ -34,7 +34,7 @@ function atualizarProcessos() {
                         console.log(error);
                     })
             } else {
-                console.log("Não há processos Agora");
+             
             }
         }).catch((error) => {
             console.error(error);
@@ -56,7 +56,7 @@ function atualizarProcessosKilled() {
                             jsonString = JSON.stringify(json);
 
                             if (jsonString === jsonProcessosKilled) {
-                                console.log("Não há alteração nos processos Killed");
+                              
                                 return;
                             } else {
                                 jsonProcessosKilled = jsonString;
@@ -85,9 +85,10 @@ function tempoUltimoProcesso() {
     dtUltimoProcesso = new Date(ultimoProcessoKilled);
 
     let tempo = date - dtUltimoProcesso;
-
     let segundos = Math.floor(tempo / 1000);
+    console
     let minutos = Math.floor(segundos / 60);
+    
     let horas = Math.floor(minutos / 60) - 3;
 
     segundos %= 60;
