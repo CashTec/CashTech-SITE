@@ -258,6 +258,24 @@ function atualizarParametroHardware(campo, valor) {
         }
     }).then((response) => {
         if (response.ok) {
+            switch (campo) {
+                case "qtd_cpu_max":
+                    campo = "Quantidade de CPU";
+                    break;
+                case "qtd_memoria_max":
+                    campo = "Quantidade de Memória";
+                    break;
+                case "qtd_disco_max":
+                    campo = "Quantidade de Disco";
+                    break;
+                case "qtd_bytes_enviado_max":
+                    campo = "Quantidade de Bytes Enviados";
+                    break;
+                case "qtd_bytes_recebido_max":
+                    campo = "Quantidade de Bytes Recebidos";
+                    break;
+            }
+
             alert(`${campo} atualizado para o valor: ${valor}!`);
         } else {
             alert("Ocorreu um erro!");
