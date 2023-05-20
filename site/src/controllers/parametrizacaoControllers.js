@@ -62,7 +62,7 @@ function verProcessosPermitidos(req, res) {
 function pesquisarProcessoPermitido(req, res) {
     const nome = req.params.nome;
 
-    if(nome == undefined) {
+    if (nome == undefined) {
         return res.status(400).send("Nome está nulo!");
     } else {
         parametrizacaoModel.pesquisarProcessoPermitido(nome).then((resposta) => {
@@ -80,38 +80,30 @@ function pesquisarProcessoPermitido(req, res) {
 function deletarProcesso(req, res) {
     const id = req.params.id;
 
-    if(id == undefined) {
+    if (id == undefined) {
         return res.status(400).send("id está nulo!");
     } else {
         parametrizacaoModel.deletarProcesso(id).then((resposta) => {
-            if (resposta.length > 0) {
-                return res.status(200).json(resposta);
-            } else {
-                return res.status(204).send("Não há dados!");
-            }
-        }).catch((erro) => {
-            console.log(erro);
+            return res.status(200).json(resposta);
+        }).catch((error) => {
+            console.log("\nHouve um erro ao realizar a busca com filtro! Erro: ", error.sqlMessage);
+            res.status(500).json(error.sqlMessage);
         })
     }
-}   
+}
 
 function adicionarProcesso(req, res) {
-    const id = req.params.id;
     const nome = req.params.nome;
-    const valor = req.params.valor;
     const idEmpresa = req.params.idEmpresa;
 
-    if(id == null || nome == undefined || valor == null || idEmpresa == null) {
+    if (nome == undefined || idEmpresa == null) {
         return res.status(400).send("Campos nulos/undefined!");
     } else {
-        parametrizacaoModel.adicionarProcesso(id, nome, valor, idEmpresa).then((resposta) => {
-            if(resposta.length > 0) {
-                return res.status(200).json(resposta);
-            } else {
-                return res.status(204).send("Não há dados");
-            }
-        }).catch((erro) => {
-            console.log(erro)
+        parametrizacaoModel.adicionarProcesso(nome, idEmpresa).then((resposta) => {
+            return res.status(200).json(resposta);
+        }).catch((error) => {
+            console.log("\nHouve um erro ao realizar a busca com filtro! Erro: ", error.sqlMessage);
+            res.status(500).json(error.sqlMessage);
         })
     }
 }

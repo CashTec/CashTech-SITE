@@ -49,6 +49,12 @@ function editarUsoMax(campo) {
         img_campo.src = "img/cashTechSystem/confirm.svg";
         in_campo.disabled = false;
         in_campo.style.border = "1px solid green";
+    }
+
+    if (img_campo.src.match("lapis-parametro.svg")) {
+        img_campo.src = "img/cashTechSystem/confirm.svg";
+        in_campo.disabled = false;
+        in_campo.style.border = "1px solid green";
 
         if (isPorcentagem) {
             in_campo.style.borderRight = "0px solid white";
@@ -57,10 +63,13 @@ function editarUsoMax(campo) {
             in_campo.parentElement.children[1].style.borderLeft = "0px solid white";
         }
 
+
     } else {
         img_campo.src = "img/cashTechSystem/lapis-parametro.svg"
         in_campo.disabled = true;
         in_campo.style.border = "none";
+
+
 
 
         if (isPorcentagem) {
@@ -68,30 +77,51 @@ function editarUsoMax(campo) {
             in_campo.parentElement.children[1].style.border = "none";
         }
 
+
         let valorCampo = in_campo.value;
+
 
         atualizarParametroHardware(valor, valorCampo);
     }
+
 
 }
 
 function pesquisarProcesso() {
     var nome = ipt_pesquisa.value
+    lista_processos.innerHTML = "";
+    tabela_processos.style = "";
+
     let jsonAux = [];
     if (nome != "") {
-
         for (const processoPermitido of processosPermitido) {
-            if (processoPermitido.nome == nome) {
+            if (processoPermitido.nome.includes(nome)) {
                 jsonAux.push(processoPermitido);
-                div_planilhaProcessos.innerHTML = "ACHEI!";
-                break;
-            } else {
-                div_planilhaProcessos.innerHTML = todosProcessos;
             }
         }
-    } else {
-    }
 
+        if (jsonAux.length > 0) {
+            for (const processo of jsonAux) {
+                lista_processos.innerHTML +=
+                    `
+                    <tr>
+                    <td>${processo.nome}</td>
+                        <td>
+                            <button onclick="deletarProcessoPermitido(${processo.id})">
+                                <img src="./img/cashTechSystem/lixo.svg" alt="">
+                            </button>
+                        </td>
+                    </tr>
+                    `;
+            }
+        } else {
+            lista_processos.innerHTML = "<span id='teste' class='nenhumProcesso'>Nenhum processo encontrado!</span>";
+            tabela_processos.style = "margin-top: 4vh;"
+        }
+
+    } else {
+        lista_processos.innerHTML = todosProcessos;
+    }
 }
 
 function exibirProcessosPermitidos() {
@@ -118,7 +148,6 @@ function exibirProcessosPermitidos() {
 }
 
 function deletarProcessoPermitido(id) {
-
     fetch(`/parametrizacao/deletarProcesso/${id}`, {
         method: "DELETE",
         headers: {
@@ -126,9 +155,11 @@ function deletarProcessoPermitido(id) {
         }
     }).then((response) => {
         if (response.ok) {
-            alert("aaaa")
+            console.log("Deu certo!");
+            alert("Deletado com sucesso!");
+            window.location.reload();
         } else {
-            console.log("else");
+            console.log("Deu errado!");
         }
     }).catch((erro) => {
         console.log(erro);
@@ -136,25 +167,47 @@ function deletarProcessoPermitido(id) {
 }
 
 function adicionarNovoProcesso() {
+    var nome = ipt_add_process.value;
 
+    if (nome == "") {
+        alert("Insira um valor!");
+    } else {
+        fetch(`/parametrizacao/adicionarProcesso/${nome}/${idEmpresa}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then((response) => {
+            console.log(response);
+            if (response.ok) {
+                alert(`Processo adicionado!`);
+                window.location.reload();
+            } else {
+                console.log("Deu errado!")
+            }
+        }).catch((erro) => {
+            console.log(erro);
+        })
+    }
 }
 
 function plotarTabela(processos) {
     div_planilhaProcessos.innerHTML =
         `
-    <table class="tabela-processos">
+    <table id="tabela_processos" class="tabela-processos">
         <tbody id="lista_processos">
         </tbody>    
     </table>
     `;
 
     for (const processo of processos) {
+
         lista_processos.innerHTML +=
             `
-        <tr>
+        <tr class="processoLista">
             <td>${processo.nome}</td>
             <td>
-                <button onclick="${deletarProcessoPermitido(processo.id)}">
+                <button onclick="deletarProcessoPermitido(${processo.id})">
                     <img src="./img/cashTechSystem/lixo.svg" alt="">
                 </button>
             </td>
@@ -162,33 +215,9 @@ function plotarTabela(processos) {
         `;
     }
 
-    todosProcessos = div_planilhaProcessos.innerHTML;
+    todosProcessos = lista_processos.innerHTML;
 }
 
-function plotarProcessoPermitido(processoPermitido) {
-    div_planilhaProcessos.innerHTML =
-        `
-    <table class="tabela-processos">
-        <tbody id="lista_processos">
-        </tbody>
-    </table>
-    `;
-
-
-    for (const processo of processoPermitido) {
-        lista_processos.innerHTML +=
-            `
-        <tr>
-            <td>${processo.nome}</td>
-            <td>
-                <button onclick="${deletarProcessoPermitido(processo.id)}">
-                    <img src="./img/cashTechSystem/lixo.svg" alt="">
-                </button>
-            </td>
-        </tr>
-        `;
-    }
-}
 
 function semProcesso() {
     div_planilhaProcessos.innerHTML =
@@ -240,4 +269,5 @@ function atualizarParametroHardware(campo, valor) {
     }).catch((erro) => {
         console.log("Ocorreu um erro: " + erro);
     })
+
 }

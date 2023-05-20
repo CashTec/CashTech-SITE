@@ -9,7 +9,6 @@
     <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/dashboard-parametrizacao.css">
-    <link rel="stylesheet" href="./css/style.css">
 
     <title>CashTech</title>
     <link rel="icon" href="">
@@ -79,10 +78,10 @@
                         <h2>Processos permitidos</h2>
                     </div>
                     <div class="pesquisa">
-                        <div class="input-pesquisa" id="input-select" onchange="pesquisarProcesso()">
+                        <div class="input-pesquisa" id="input-select" onkeyup="pesquisarProcesso()">
                             <input type="text" id="ipt_pesquisa">
                             <button>
-                                <img src="img/cashTechSystem/search-parametro.svg" alt="" ">
+                                <img src="img/cashTechSystem/search-parametro.svg" alt="">
                             </button>
                         </div>
                     </div>
@@ -99,9 +98,9 @@
                         <h2>Adicionar processos</h2>
                         <div class="pesquisa">
                             <div class="input-pesquisa">
-                                <input type="text" id="ipt_add-process">
-                                <button>
-                                    <img src="img/cashTechSystem/add-process.svg" alt="" onclick="addProcesso()">
+                                <input type="text" id="ipt_add_process">
+                                <button onclick="adicionarNovoProcesso()">
+                                    <img src="img/cashTechSystem/add-process.svg" alt="">
                                 </button>
                             </div>
                         </div>
