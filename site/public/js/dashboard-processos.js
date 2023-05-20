@@ -35,7 +35,7 @@ function atualizarProcessos() {
                         console.log(error);
                     })
             } else {
-                console.log("Não há processos Agora");
+             
             }
         }).catch((error) => {
             console.error(error);
@@ -85,9 +85,10 @@ function tempoUltimoProcesso() {
     dtUltimoProcesso = new Date(ultimoProcessoKilled);
 
     let tempo = date - dtUltimoProcesso;
-
     let segundos = Math.floor(tempo / 1000);
+    console
     let minutos = Math.floor(segundos / 60);
+    
     let horas = Math.floor(minutos / 60) - 3;
 
     segundos %= 60;

@@ -29,7 +29,14 @@ function verEnderecosAlerta(idEmpresa) {
     return database.executar(instrucao);
 }
 
+function buscarEnderecoAtm(idAtm){
+    let instrucao= `SELECT e.rua,e.bairro,e.cidade,e.numero, s.nome,  FROM Endereco e JOIN CaixaEletronico ce on ce.endereco_id  = e.id  
+    JOIN Sistema s on ce.sistema_id = s.id  where ce.id = ${idAtm}`;
+    return database.executar(instrucao);
+}
+
 module.exports = {
     verEnderecosAlerta,
-    verEnderecosInativo
-}
+    verEnderecosInativo,
+    buscarEnderecoAtm
+} 

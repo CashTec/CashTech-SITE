@@ -42,6 +42,14 @@ function entrar(req, res) {
 
 }
 
+
+
+// 
+    // JOCA ESTEVE AQUI
+
+
+
+
 async function cadastrar(req, res) {
     const camposObrigatorios = [
         'nomeEmpresaServer',
