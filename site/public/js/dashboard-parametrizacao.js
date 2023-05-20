@@ -79,21 +79,22 @@ function pesquisarProcesso() {
     } else {
         fetch(`/parametrizacao/pesquisarProcessoPermitido/${nome}`).then((response) => {
             if (response.ok) {
-                response.json().then((json) => {
+                response.json().
+                then((json) => {
+                    processoPermitido = json;
                     if (response.status == 200) {
 
-                        processoPermitido = json;
                         console.log("Processipesquisan");
                         console.log(processoPermitido);
 
                         if (processoPermitido.length > 0) {
-                            plotarProcessoPermitido(processoPermitido);
+                            plotarPesquisaProcessoPermitido(processoPermitido);
                         }
                     } else {
                         console.log("Não encontrei!")
-                        alert("O processo não foi encontrado ou foi deletado!")
                     }
                 }).catch((erro) => {
+                    alert("O processo não foi encontrado ou foi deletado!")
                     console.log(erro);
                 })
             }
@@ -145,22 +146,28 @@ function deletarProcessoPermitido(id) {
 }
 
 function adicionarNovoProcesso() {
-    var adicionarProcesso = ipt_add - process.value
+    var nome = ipt_add_process.value;
 
-    if (adicionarProcesso == "") {
+    if (nome == "") {
         alert("Insira um valor!");
     } else {
-        fetch(`/parametrizacao/adicionarProcesso/${id}/${nome}/${valor}/${idEmpresa}`, {
-            method: "PUT",
+        fetch(`/parametrizacao/adicionarProcesso/${nome}/${idEmpresa}`, {
+            method: "POST",
             headers: {
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nome: nome,
+                idEmpresa: idEmpresa
+            })
         }).then((response) => {       
             if (response.ok) {
-                console.log("Deu certo!");
+                alert(`Foi adicionado o processo de nome: ${nome}!`);
             } else {
                 console.log("Deu errado!")
             }
+        }).catch((erro)=> {
+            console.log(erro);
         })
     }
 }
@@ -180,7 +187,7 @@ function plotarTabela(processos) {
         <tr>
             <td>${processo.nome}</td>
             <td>
-                <button onclick="${deletarProcessoPermitido(processo.id)}">
+                <button onclick="${processo.id}">
                     <img src="./img/cashTechSystem/lixo.svg" alt="">
                 </button>
             </td>
@@ -189,7 +196,7 @@ function plotarTabela(processos) {
     }
 }
 
-function plotarProcessoPermitido(processoPermitido) {
+function plotarPesquisaProcessoPermitido(processoPermitido) {
     div_planilhaProcessos.innerHTML =
         `
     <table class="tabela-processos">
@@ -205,7 +212,7 @@ function plotarProcessoPermitido(processoPermitido) {
         <tr>
             <td>${processo.nome}</td>
             <td>
-                <button onclick="${deletarProcessoPermitido(processo.id)}">
+                <button onclick="${processo.id}">
                     <img src="./img/cashTechSystem/lixo.svg" alt="">
                 </button>
             </td>

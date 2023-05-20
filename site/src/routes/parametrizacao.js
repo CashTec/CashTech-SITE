@@ -25,7 +25,7 @@ router.get("/verProcessosPermitidos/:idEmpresa", function (req, res) {
     parametrizacaoControllers.verProcessosPermitidos(req, res);
 });
 
-router.post("/adicionarProcesso/:id/:nome/:valor/:idEmpresa", function (req, res) {
+router.post("/adicionarProcesso/:nome/:idEmpresa", function (req, res) {
     parametrizacaoControllers.adicionarProcesso(req, res);
 })
 
