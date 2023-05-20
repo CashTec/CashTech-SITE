@@ -41,7 +41,7 @@ function atualizarParametroHardware(req, res) {
 function verProcessosPermitidos(req, res) {
     const idEmpresa = req.params.idEmpresa;
 
-    if (idEmpresa == null) {
+    if (idEmpresa == undefined) {
         return res.status(400).send("IdEmpresa está nulo!");
     } else {
         parametrizacaoModel.listarProcessosPermitidos(idEmpresa).then((resposta) => {
@@ -59,32 +59,60 @@ function verProcessosPermitidos(req, res) {
 
 }
 
-function pesquisarProcesso(req, res) {
-    const idEmpresa = req.params.idEmpresa;
+function pesquisarProcessoPermitido(req, res) {
     const nome = req.params.nome;
 
-    if(idEmpresa == null) {
-        return res.status(400).send("IdEmpresa está nulo!");
+    if (nome == undefined) {
+        return res.status(400).send("Nome está nulo!");
     } else {
-        parametrizacaoModel.listarProcessosPermitidos(idEmpresa)(nome).then((resposta) => {
-            if(resposta.length > 0 ) {
+        parametrizacaoModel.pesquisarProcessoPermitido(nome).then((resposta) => {
+            if (resposta.length > 0) {
                 return res.status(200).json(resposta);
             } else {
-                return res.status(403).send("Não há dados!");
+                return res.status(204).send("Não há dados!");
             }
+        }).catch((erro) => {
+            console.log(erro);
+        })
+    }
+}
+
+function deletarProcesso(req, res) {
+    const id = req.params.id;
+
+    if (id == undefined) {
+        return res.status(400).send("id está nulo!");
+    } else {
+        parametrizacaoModel.deletarProcesso(id).then((resposta) => {
+            return res.status(200).json(resposta);
         }).catch((error) => {
-            console.log(error);
-            console.log("\nHouve um erro ao realizar a busca! Erro: ", error.sqlMessage);
+            console.log("\nHouve um erro ao realizar a busca com filtro! Erro: ", error.sqlMessage);
             res.status(500).json(error.sqlMessage);
         })
     }
 }
 
+function adicionarProcesso(req, res) {
+    const nome = req.params.nome;
+    const idEmpresa = req.params.idEmpresa;
 
+    if (nome == undefined || idEmpresa == null) {
+        return res.status(400).send("Campos nulos/undefined!");
+    } else {
+        parametrizacaoModel.adicionarProcesso(nome, idEmpresa).then((resposta) => {
+            return res.status(200).json(resposta);
+        }).catch((error) => {
+            console.log("\nHouve um erro ao realizar a busca com filtro! Erro: ", error.sqlMessage);
+            res.status(500).json(error.sqlMessage);
+        })
+    }
+}
 
 module.exports = {
     verProcessosPermitidos,
     verParametroHardware,
     atualizarParametroHardware,
-    pesquisarProcesso
+    pesquisarProcessoPermitido,
+    deletarProcesso,
+    adicionarProcesso
 } 

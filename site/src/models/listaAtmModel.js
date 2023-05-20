@@ -122,15 +122,32 @@ function ordernar(idEmpresa, tipo) {
     return database.executar(query);
 }
 
-function deletar(idEmpresa, idAtm) {
-    let query = `DELETE FROM CaixaEletronico WHERE id = ${idAtm} and empresa_id = ${idEmpresa};`
+function deletar(idAtm) {
+    let query = `DELETE FROM CaixaEletronico WHERE id = ${idAtm};`
     return database.executar(query);
 }
 
+function listarUm(idAtm) {
+    let query = `SELECT * FROM CaixaEletronico c join endereco e on c.endereco_id = e.id WHERE c.id = ${idAtm};`
+    return database.executar(query);
+}
+
+function atualizarAtm(idAtm, identificador, situacao) {
+    let query = `UPDATE CaixaEletronico SET identificador = '${identificador}', situacao = '${situacao}' WHERE id = ${idAtm};`
+    return database.executar(query);
+}
+
+function atualizarEndereco(idAtm, cep, numero, rua, cidade, bairro, lat, lng) {
+    let query = `UPDATE Endereco SET cep = '${cep}', numero = '${numero}', rua = '${rua}', cidade = '${cidade}', bairro = '${bairro}', latitude = '${lat}', longitude = '${lng}' WHERE id = (SELECT endereco_id FROM CaixaEletronico WHERE id = ${idAtm});`
+    return database.executar(query);
+}
 
 module.exports = {
     listarAtm,
     filtroPesquisa,
     ordernar,
-    deletar
+    deletar,
+    listarUm,
+    atualizarAtm,
+    atualizarEndereco
 }

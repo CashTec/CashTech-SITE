@@ -517,3 +517,12 @@ td {
 .loading img {
     width: 180px;
 }
+
+.loadingSmal {
+    text-align: center;
+    display: block;
+}
+
+.loadingSmall img {
+    width: 30px;
+}

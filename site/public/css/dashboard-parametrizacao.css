@@ -149,6 +149,11 @@ button:active {
     background-color: #FCFCFC;
 }
 
+.content-table-processos {
+    width: 30vw;
+    height: 50vh;
+}
+
 .nome-processo {
     display: flex;
     justify-content: flex-start;
@@ -220,7 +225,6 @@ button:active {
     width: 100%;
     overflow: hidden;
     border-radius: 5px 5px 0 0;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
     animation: aparecer_planilha 1000ms ease-out;
 }
 
@@ -239,7 +243,6 @@ button:active {
 
 
 .tabela-processos td {
-    align-items: center;
     width: max-content;
     margin: 0;
 }
@@ -247,13 +250,17 @@ button:active {
 .tabela-processos td img,
 .tabela-processos td button {
     height: 23px;
-    right: 1px;
 }
 
 .tabela-processos tr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #c9c9c9;
 }
-
+.tabela-processos tr * {
+    font-size: 16px;
+}
 .tabela-processos tr:last-of-type {
     border-bottom: 2px solid #00556A;
 }
@@ -396,4 +403,25 @@ td {
     padding: 5px 5px 5px 1px;
 
     border-radius: 0 5px 5px 0;
+}
+
+.nenhumProcesso {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 2vw;
+}
+
+.loadingGif {
+    position: fixed;
+    z-index: 10;
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: #0000008a;
+}
+
+.loadingGif img {
+    height: 30vh;
 }

@@ -12,14 +12,21 @@ router.put("/atualizarParametroHardware/:idEmpresa/:campo/:valor", function (req
    parametrizacaoControllers.atualizarParametroHardware(req, res); 
 });
 
-router.put("/pesquisarProcesso/:idEmpresa/:nome", function (req, res) {
+router.get("/pesquisarProcessoPermitido/:nome", function (req, res) {
     parametrizacaoControllers.pesquisarProcessoPermitido(req, res);
     
+})
+
+router.delete("/deletarProcesso/:id", function (req, res) {
+    parametrizacaoControllers.deletarProcesso(req, res);
 })
 
 router.get("/verProcessosPermitidos/:idEmpresa", function (req, res) {
     parametrizacaoControllers.verProcessosPermitidos(req, res);
 });
 
+router.post("/adicionarProcesso/:nome/:idEmpresa", function (req, res) {
+    parametrizacaoControllers.adicionarProcesso(req, res);
+})
 
 module.exports = router;

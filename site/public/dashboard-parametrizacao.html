@@ -9,7 +9,6 @@
     <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/dashboard-parametrizacao.css">
-    <link rel="stylesheet" href="./css/style.css">
 
     <title>CashTech</title>
     <link rel="icon" href="">
@@ -79,10 +78,10 @@
                         <h2>Processos permitidos</h2>
                     </div>
                     <div class="pesquisa">
-                        <div class="input-pesquisa" id="input-select">
+                        <div class="input-pesquisa" id="input-select" onkeyup="pesquisarProcesso()">
                             <input type="text" id="ipt_pesquisa">
                             <button>
-                                <img src="img/cashTechSystem/search-parametro.svg" alt="" onclick="pesquisar()">
+                                <img src="img/cashTechSystem/search-parametro.svg" alt="">
                             </button>
                         </div>
                     </div>
@@ -99,9 +98,9 @@
                         <h2>Adicionar processos</h2>
                         <div class="pesquisa">
                             <div class="input-pesquisa">
-                                <input type="text" id="ipt_add-process">
-                                <button>
-                                    <img src="img/cashTechSystem/add-process.svg" alt="" onclick="addProcesso()">
+                                <input type="text" id="ipt_add_process">
+                                <button onclick="adicionarNovoProcesso()">
+                                    <img src="img/cashTechSystem/add-process.svg" alt="">
                                 </button>
                             </div>
                         </div>
@@ -128,8 +127,8 @@
                                 <tr>
                                     <td>Processador</td>
                                     <td>
-                                        <input id="edtProcessador" type="text" maxlength="2"
-                                            class="input-porcentagem" disabled>
+                                        <input id="edtProcessador" type="text" maxlength="2" class="input-porcentagem"
+                                            disabled>
                                         <span>%</span>
                                     </td>
                                     <td><button onclick="editarUsoMax('Processador')"><img id="imgProcessador"
@@ -138,8 +137,8 @@
                                 </tr>
                                 <tr>
                                     <td>Memória</td>
-                                    <td> <input id="edtMemoria" type="text"  maxlength="2"
-                                            class="input-porcentagem" disabled>
+                                    <td> <input id="edtMemoria" type="text" maxlength="2" class="input-porcentagem"
+                                            disabled>
                                         <span>%</span>
                                     </td>
                                     <td><button onclick="editarUsoMax('Memoria')"><img id="imgMemoria"
@@ -148,8 +147,8 @@
                                 </tr>
                                 <tr>
                                     <td>Disco</td>
-                                    <td> <input id="edtDisco" type="text" maxlength="2"
-                                            class="input-porcentagem" disabled>
+                                    <td> <input id="edtDisco" type="text" maxlength="2" class="input-porcentagem"
+                                            disabled>
                                         <span>%</span>
                                     </td>
                                     <td><button onclick="editarUsoMax('Disco')"><img id="imgDisco"
@@ -158,8 +157,7 @@
                                 </tr>
                                 <tr>
                                     <td>KBytes recebidos/s</td>
-                                    <td> <input id="edtBytesRecebidos" type="text" class="input-bytes" 
-                                            disabled></td>
+                                    <td> <input id="edtBytesRecebidos" type="text" class="input-bytes" disabled></td>
                                     <td><button onclick="editarUsoMax('BytesRecebidos')"><img id="imgBytesRecebidos"
                                                 src="img/cashTechSystem/lapis-parametro.svg"></button>
                                     </td>
@@ -179,6 +177,10 @@
             </div>
         </div>
     </main>
+
+    <div class="loadingGif" id="loadingGif">
+        <img src="img/loadingGifWhite.svg" alt="">
+    </div>
 </body>
 
 </html>
