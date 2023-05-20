@@ -40,6 +40,19 @@ async function verEnderecos(req, res) {
     return res.json(resposta);
 }
 
+
+function exibirEndereco(req,res){
+const idAtm = req.params.idAtm;
+enderecoModel.buscarEnderecoAtm(idAtm)
+.then((resposta)=>{
+    console.log(res)
+    res.json(resposta)
+
+})
+.catch(erro=>console.log(erro))
+}
+
 module.exports = {
-    verEnderecos
+    verEnderecos,
+    exibirEndereco
 }

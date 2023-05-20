@@ -397,7 +397,7 @@ body::-webkit-scrollbar {
     column-gap: 5vw;
     justify-content: center;
     height: 100%;
-    flex: 6;
+    flex: 6;    
     flex-direction: row;
 }
 
@@ -581,3 +581,37 @@ font-size: 1em;
     align-items: center;
   
 }
+
+.rede{
+    display: grid !important;
+    grid-template-columns:1fr 2fr 2fr 2fr;
+    grid-template-rows:1fr 1fr  ;
+    column-gap: 0 !important;
+    align-items: center;
+    padding: 0 !important;
+    justify-content: center;
+    text-align: center;
+}
+
+.rede span{
+    border: 1px solid white;
+    padding: 5px;
+    font-weight: bold;
+    color: white    ;
+}
+
+
+.rede span:nth-child(2),.rede span:nth-child(6){
+color:  #06d339;
+}
+
+
+.rede span:nth-child(3),.rede span:nth-child(7){
+    color: yellow;
+    }
+
+    
+    .rede span:nth-child(4  ),.rede span:nth-child(8){
+        color: red;
+        }
+        

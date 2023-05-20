@@ -11,4 +11,13 @@ router.get("/metricaComponente/:idCaixa/:tipo",(req,res)=>{
     controllerMetrica.coletarMetricaComponenteController(req,res);
     })
 
+    router.get("/dadosGravados/:idAtm/:dtHoje",(req,res)=>{
+        controllerMetrica.coletarQuantidadeGravadaController(req,res)
+    })
+
+    router.get("/dadosGravadosRede/:idAtm/:dtHoje",(req,res)=>{
+        controllerMetrica.coletarQuantidadeGravadaRedeController(req,res)
+    })
+
+
 module.exports=router;

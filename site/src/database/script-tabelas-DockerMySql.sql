@@ -103,7 +103,7 @@ CREATE TABLE MetricaSistema (
 -- -----------------------------------------------------
 CREATE TABLE Notificacao (
 	id INT NOT NULL AUTO_INCREMENT,
-	descricao VARCHAR(255) NULL,
+	descricao VARCHAR(500) NULL,
 	dt_notificacao DATETIME NULL,
 	empresa_id INT NOT NULL,
 	PRIMARY KEY (id)
