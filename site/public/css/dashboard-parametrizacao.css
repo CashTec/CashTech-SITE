@@ -258,7 +258,9 @@ button:active {
     align-items: center;
     border-bottom: 1px solid #c9c9c9;
 }
-
+.tabela-processos tr * {
+    font-size: 16px;
+}
 .tabela-processos tr:last-of-type {
     border-bottom: 2px solid #00556A;
 }
