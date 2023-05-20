@@ -149,10 +149,11 @@ button:active {
     background-color: #FCFCFC;
 }
 
-.content-table-processos{
+.content-table-processos {
     width: 30vw;
     height: 50vh;
 }
+
 .nome-processo {
     display: flex;
     justify-content: flex-start;
@@ -402,8 +403,23 @@ td {
     border-radius: 0 5px 5px 0;
 }
 
-.nenhumProcesso{
+.nenhumProcesso {
     font-size: 20px;
     font-weight: bold;
     margin-left: 2vw;
+}
+
+.loadingGif {
+    position: fixed;
+    z-index: 10;
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: #0000008a;
+}
+
+.loadingGif img {
+    height: 30vh;
 }

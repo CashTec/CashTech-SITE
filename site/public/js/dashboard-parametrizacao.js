@@ -116,6 +116,7 @@ function pesquisarProcesso() {
 }
 
 function exibirProcessosPermitidos() {
+    loadingGif.style.display = "flex";
     fetch(`/parametrizacao/verProcessosPermitidos/${idEmpresa}`).then((response) => {
         if (response.ok) {
             response.json().then((json) => {
@@ -129,8 +130,12 @@ function exibirProcessosPermitidos() {
                 } else {
                     semProcesso();
                 }
+                loadingGif.style.display = "none";
+
             }).catch((erro) => {
                 console.log(erro);
+                loadingGif.style.display = "none";
+
             })
         }
     }).catch((erro) => {
