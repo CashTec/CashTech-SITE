@@ -86,14 +86,15 @@ function pesquisarProcesso() {
     let jsonAux = [];
     if (nome != "") {
         for (const processoPermitido of processosPermitido) {
-            if (processoPermitido.nome.includes(nome)) {
+            if (processoPermitido.nome.toLowerCase().includes(nome.toLowerCase())) {
                 jsonAux.push(processoPermitido);
             }
         }
 
         if (jsonAux.length > 0) {
+            let listaASerPlotada = "";
             for (const processo of jsonAux) {
-                lista_processos.innerHTML +=
+                listaASerPlotada +=
                     `
                     <tr>
                     <td>${processo.nome}</td>
@@ -105,6 +106,7 @@ function pesquisarProcesso() {
                     </tr>
                     `;
             }
+            lista_processos.innerHTML = listaASerPlotada;
         } else {
             lista_processos.innerHTML = "<span id='teste' class='nenhumProcesso'>Nenhum processo encontrado!</span>";
             tabela_processos.style = "margin-top: 4vh;"
@@ -129,9 +131,8 @@ function exibirProcessosPermitidos() {
                     plotarTabela(processos);
                 } else {
                     semProcesso();
+                    loadingGif.style.display = "none";
                 }
-                loadingGif.style.display = "none";
-
             }).catch((erro) => {
                 console.log(erro);
                 loadingGif.style.display = "none";
@@ -198,7 +199,7 @@ function plotarTabela(processos) {
 
     for (const processo of processos) {
 
-        lista_processos.innerHTML +=
+        todosProcessos +=
             `
         <tr class="processoLista">
             <td>${processo.nome}</td>
@@ -210,8 +211,8 @@ function plotarTabela(processos) {
         </tr>
         `;
     }
-
-    todosProcessos = lista_processos.innerHTML;
+    lista_processos.innerHTML = todosProcessos;
+    loadingGif.style.display = "none";
 }
 
 
