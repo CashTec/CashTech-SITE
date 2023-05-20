@@ -139,7 +139,7 @@ function plotarProcessosKilled(json) {
             `
         <tr>
             <td class="dois">${data}</td>
-            <td class="dois">${element.nome}</td>
+            <td class="dois truncated-text">${element.nome}</td>
             <td>${element.pid}</td>
         </tr>
         `

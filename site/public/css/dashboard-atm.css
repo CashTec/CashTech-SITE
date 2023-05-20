@@ -243,7 +243,7 @@ body::-webkit-scrollbar {
     transition: 0.7s;
 }
 
-.content-grafico-container{
+.content-grafico-container {
     position: relative;
     height: 100%;
 }
@@ -299,14 +299,14 @@ body::-webkit-scrollbar {
     text-align: center;
 }
 
-.numberHD h2{
+.numberHD h2 {
     font-size: 1.2em;
     font-weight: 700;
     text-align: center;
     color: #222 !important;
 }
 
-.numberHD h3{
+.numberHD h3 {
     font-size: 0.9em;
     font-weight: 400;
     text-align: center;
@@ -432,7 +432,7 @@ body::-webkit-scrollbar {
 
 .loading {
     width: 15vh;
-}   
+}
 
 .processosExecucao table {
     width: 52vw;
@@ -508,22 +508,22 @@ td {
 .content-processo .row .table:nth-child(2) td {
     border: 1px solid black;
     text-align: center;
-   
+
 }
 
-.content-processo .card-kpi  h2 {
-font-size: 1em;
+.content-processo .card-kpi h2 {
+    font-size: 1em;
 }
 
-.aviso{
+.aviso {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     position: absolute;
- row-gap: 10px;
-    background-color: rgba(0, 0, 0,0.7);
+    row-gap: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(3px);
     height: 100%;
     bottom: 0;
@@ -532,50 +532,65 @@ font-size: 1em;
     transition: 0.7s;
 }
 
-.aviso>h2{
+.aviso>h2 {
     color: rgb(223, 123, 0) !important;
     font-weight: bold;
 }
 
-.aviso>p{
+.aviso>p {
     width: 70%;
     color: #fff;
     text-align: center;
 }
 
-.aviso.active{
+.aviso.active {
     z-index: 1;
     opacity: 1;
     transition: 0.7s;
 }
 
 
-.legenda{
+.legenda {
     position: absolute;
     right: 30px;
     top: 10px;
     font-size: 0.7em;
 }
-.legenda li::before{
+
+.legenda li::before {
     content: " ";
     background-color: #06d339;
     width: 10px;
     height: 10px;
     display: block;
     margin-right: 10px;
-    
+
 }
 
-.legenda li:nth-child(1):before{
-    background-color:#E5A50A ;
+.legenda li:nth-child(1):before {
+    background-color: #E5A50A;
 }
 
-.legenda li:nth-child(2):before{
-    background-color:#2D7DB3 ;
+.legenda li:nth-child(2):before {
+    background-color: #2D7DB3;
 }
 
 .legenda li {
     display: flex;
     align-items: center;
-  
+
+}
+
+.truncated-text-titulo {
+    width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.truncated-text {
+    max-width: 180px ;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
