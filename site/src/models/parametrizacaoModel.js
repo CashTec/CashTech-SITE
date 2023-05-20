@@ -33,11 +33,10 @@ function deletarProcesso(id) {
     return database.executar(instrucao);
 }
 
-function adicionarProcesso(id, nome, valor, idEmpresa) {
+function adicionarProcesso(nome, idEmpresa) {
     
     var instrucao = `
-        update ProcessoPermitido set ${id} = ${valor}, '${nome}' = ${valor}
-         where empresa_id = ${idEmpresa};
+        insert into ProcessoPermitido (nome, empresa_id) values ('${nome}', ${idEmpresa});  
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
 

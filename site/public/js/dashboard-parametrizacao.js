@@ -28,80 +28,81 @@ function editarUsoMax(campo) {
             isPorcentagem = true;
             valor = 'qtd_disco_max';
             break;
-            case 'BytesRecebidos':
-                in_campo = edtBytesRecebidos;
-                img_campo = imgBytesRecebidos;
-                valor = 'qtd_bytes_recebido_max';
-                break;
-                case 'BytesEnviados':
-                    in_campo = edtBytesEnviados;
-                    img_campo = imgBytesEnviados;
-                    valor = 'qtd_bytes_enviado_max';
-                    break;
-                    default:
-                        break;
-                    }
-                    
-                    if (img_campo.src.match("lapis-parametro.svg")) {
-                        img_campo.src = "img/cashTechSystem/confirm.svg";
-                        in_campo.disabled = false;
-                        in_campo.style.border = "1px solid green";
-                        
+        case 'BytesRecebidos':
+            in_campo = edtBytesRecebidos;
+            img_campo = imgBytesRecebidos;
+            valor = 'qtd_bytes_recebido_max';
+            break;
+        case 'BytesEnviados':
+            in_campo = edtBytesEnviados;
+            img_campo = imgBytesEnviados;
+            valor = 'qtd_bytes_enviado_max';
+            break;
+        default:
+            break;
+    }
+
+    if (img_campo.src.match("lapis-parametro.svg")) {
+        img_campo.src = "img/cashTechSystem/confirm.svg";
+        in_campo.disabled = false;
+        in_campo.style.border = "1px solid green";
+
         if (isPorcentagem) {
             in_campo.style.borderRight = "0px solid white";
             in_campo.parentElement.children[1].style.color = "#000";
             in_campo.parentElement.children[1].style.border = "1px solid green";
             in_campo.parentElement.children[1].style.borderLeft = "0px solid white";
         }
-        
+
     } else {
         img_campo.src = "img/cashTechSystem/lapis-parametro.svg"
         in_campo.disabled = true;
         in_campo.style.border = "none";
-        
-        
+
+
         if (isPorcentagem) {
             in_campo.parentElement.children[1].style.color = "#848484";
             in_campo.parentElement.children[1].style.border = "none";
         }
-        
+
         let valorCampo = in_campo.value;
-        
+
         atualizarParametroHardware(valor, valorCampo);
     }
-    
+
 }
 
 function pesquisarProcesso() {
-    var nome = ipt_pesquisa.value 
-    if(nome == "") {
+    var nome = ipt_pesquisa.value
+    if (nome == "") {
         alert("Insira uma pesquisa!");
     } else {
         fetch(`/parametrizacao/pesquisarProcessoPermitido/${nome}`).then((response) => {
-            if(response.ok) {
-                response.json().then((json) => {
-                    if(response.status == 200) {
+            if (response.ok) {
+                response.json().
+                then((json) => {
+                    processoPermitido = json;
+                    if (response.status == 200) {
 
-                        processoPermitido = json;
                         console.log("Processipesquisan");
                         console.log(processoPermitido);
 
-                        if(processoPermitido.length > 0) {
-                            plotarProcessoPermitido(processoPermitido);
+                        if (processoPermitido.length > 0) {
+                            plotarPesquisaProcessoPermitido(processoPermitido);
                         }
-                }else {
-                    console.log("Não encontrei!")
-                    alert("O processo não foi encontrado ou foi deletado!")
-                }
+                    } else {
+                        console.log("Não encontrei!")
+                    }
                 }).catch((erro) => {
+                    alert("O processo não foi encontrado ou foi deletado!")
                     console.log(erro);
-                }) 
+                })
             }
         }).catch((erro) => {
             console.log(erro);
         })
     }
-    
+
 }
 
 function exibirProcessosPermitidos() {
@@ -111,7 +112,7 @@ function exibirProcessosPermitidos() {
                 processos = json;
                 console.log("Processos");
                 console.log(processos);
-                
+
                 if (processos.length > 0) {
                     // plotar processos
                     plotarTabela(processos);
@@ -128,7 +129,6 @@ function exibirProcessosPermitidos() {
 }
 
 function deletarProcessoPermitido(id) {
-
     fetch(`/parametrizacao/deletarProcesso/${id}`, {
         method: "DELETE",
         headers: {
@@ -136,9 +136,9 @@ function deletarProcessoPermitido(id) {
         }
     }).then((response) => {
         if (response.ok) {
-            alert("aaaa")
+            console.log("Deu certo!")
         } else {
-            console.log("else");
+            console.log("Deu errado!");
         }
     }).catch((erro) => {
         console.log(erro);
@@ -146,7 +146,30 @@ function deletarProcessoPermitido(id) {
 }
 
 function adicionarNovoProcesso() {
-    
+    var nome = ipt_add_process.value;
+
+    if (nome == "") {
+        alert("Insira um valor!");
+    } else {
+        fetch(`/parametrizacao/adicionarProcesso/${nome}/${idEmpresa}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nome: nome,
+                idEmpresa: idEmpresa
+            })
+        }).then((response) => {       
+            if (response.ok) {
+                alert(`Foi adicionado o processo de nome: ${nome}!`);
+            } else {
+                console.log("Deu errado!")
+            }
+        }).catch((erro)=> {
+            console.log(erro);
+        })
+    }
 }
 
 function plotarTabela(processos) {
@@ -164,7 +187,7 @@ function plotarTabela(processos) {
         <tr>
             <td>${processo.nome}</td>
             <td>
-                <button onclick="${deletarProcessoPermitido(processo.id)}">
+                <button onclick="${processo.id}">
                     <img src="./img/cashTechSystem/lixo.svg" alt="">
                 </button>
             </td>
@@ -173,7 +196,7 @@ function plotarTabela(processos) {
     }
 }
 
-function plotarProcessoPermitido(processoPermitido) {
+function plotarPesquisaProcessoPermitido(processoPermitido) {
     div_planilhaProcessos.innerHTML =
         `
     <table class="tabela-processos">
@@ -182,14 +205,14 @@ function plotarProcessoPermitido(processoPermitido) {
     </table>
     `;
 
-    
+
     for (const processo of processoPermitido) {
         lista_processos.innerHTML +=
             `
         <tr>
             <td>${processo.nome}</td>
             <td>
-                <button onclick="${deletarProcessoPermitido(processo.id)}">
+                <button onclick="${processo.id}">
                     <img src="./img/cashTechSystem/lixo.svg" alt="">
                 </button>
             </td>
@@ -240,12 +263,12 @@ function atualizarParametroHardware(campo, valor) {
             "Content-Type": "application/json"
         }
     }).then((response) => {
-            if (response.ok) {
-                alert(`${campo} atualizado para o valor: ${valor}!`);
-            } else {
-                alert("Ocorreu um erro!");
-            }
-        }).catch((erro) => {
-            console.log("Ocorreu um erro: " + erro);
-        })
+        if (response.ok) {
+            alert(`${campo} atualizado para o valor: ${valor}!`);
+        } else {
+            alert("Ocorreu um erro!");
+        }
+    }).catch((erro) => {
+        console.log("Ocorreu um erro: " + erro);
+    })
 }

@@ -87,7 +87,7 @@ function deletarProcesso(req, res) {
             if (resposta.length > 0) {
                 return res.status(200).json(resposta);
             } else {
-                return res.status(204).send("Não há dados!");
+                return res.status(403).send("Não há dados!");
             }
         }).catch((erro) => {
             console.log(erro);
@@ -96,19 +96,17 @@ function deletarProcesso(req, res) {
 }   
 
 function adicionarProcesso(req, res) {
-    const id = req.params.id;
     const nome = req.params.nome;
-    const valor = req.params.valor;
     const idEmpresa = req.params.idEmpresa;
 
-    if(id == null || nome == undefined || valor == null || idEmpresa == null) {
+    if(nome == undefined || idEmpresa == null) {
         return res.status(400).send("Campos nulos/undefined!");
     } else {
-        parametrizacaoModel.adicionarProcesso(id, nome, valor, idEmpresa).then((resposta) => {
+        parametrizacaoModel.adicionarProcesso(nome, idEmpresa).then((resposta) => {
             if(resposta.length > 0) {
                 return res.status(200).json(resposta);
             } else {
-                return res.status(204).send("Não há dados");
+                return res.status(403).send("Não há dados");
             }
         }).catch((erro) => {
             console.log(erro)
