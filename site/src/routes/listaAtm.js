@@ -16,8 +16,16 @@ router.get('/:idEmpresa/:tipo/:campo', (req, res) => {
 });
 
 
-router.delete('/:idEmpresa/:idAtm', (req, res) => {
+router.delete('/:idAtm', (req, res) => {
     listaAtmController.deletar(req, res);
+});
+
+router.get('/listarUm/:idAtm', (req, res) => {
+    listaAtmController.listarUm(req, res);
+});
+
+router.put('/atualizar/:idAtm', (req, res) => {
+    listaAtmController.atualizar(req, res);
 });
 
 module.exports = router;

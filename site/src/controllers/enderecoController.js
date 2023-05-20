@@ -28,6 +28,7 @@ async function verEnderecos(req, res) {
         .then(response => {
             if (response.length > 0) {
                 response.forEach((res) => {
+                    if (resposta.enderecosInativos.find(e => e.idAtm == res.idAtm) != null) return;
                     resposta.enderecosAlerta.push(res)
                 });
             }

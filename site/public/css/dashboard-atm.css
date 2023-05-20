@@ -412,8 +412,6 @@ body::-webkit-scrollbar {
     background-color: #fff;
     flex-direction: column;
     max-height: 40vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
 }
 
 .backProcessosKilled {

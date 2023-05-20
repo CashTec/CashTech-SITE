@@ -266,7 +266,7 @@ const grafico4 = new Chart(graphicBola, graficoHd);
 
 // FUNCIONALIDADES UI UX - FUNC
 function passarTela() {
-  window.scroll((window.scrollX >= window.innerWidth ? 0 : window.innerWidth), 0);
+  window.scroll((window.scrollX >= (window.innerWidth * 3 )/ 4 ? 0 : window.innerWidth), 0);
   console.log(window.innerWidth);
 }
 

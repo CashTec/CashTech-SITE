@@ -8,6 +8,8 @@ let dtUltimoProcesso = "";
 
 atualizarProcessos();
 atualizarProcessosKilled();
+verProcessoMaisFinalizado();
+verHorarioMaisFinalizado();
 
 function atualizarProcessos() {
     fetch(`/processos/processosAgora/${idAtm}`,)
@@ -19,7 +21,6 @@ function atualizarProcessos() {
                             jsonString = JSON.stringify(json);
 
                             if (jsonString === jsonProcessosAgora) {
-                                console.log("Não há alteração nos processos Killed");
                                 return;
                             } else {
                                 jsonProcessosAgora = jsonString;
@@ -41,6 +42,8 @@ function atualizarProcessos() {
         })
     setTimeout(() => {
         atualizarProcessos();
+        verProcessoMaisFinalizado();
+        verHorarioMaisFinalizado();
     }, 3000)
 }
 
@@ -56,7 +59,6 @@ function atualizarProcessosKilled() {
                             jsonString = JSON.stringify(json);
 
                             if (jsonString === jsonProcessosKilled) {
-                                console.log("Não há alteração nos processos Killed");
                                 return;
                             } else {
                                 jsonProcessosKilled = jsonString;
@@ -69,8 +71,6 @@ function atualizarProcessosKilled() {
                     }).catch(error => {
                         console.log(error);
                     })
-            } else {
-                console.log("Não há processos Killed");
             }
         }).catch((error) => {
             console.error(error);
@@ -191,4 +191,59 @@ function nenhumAchado(div) {
             </div>
         </div>
     `;
+}
+function verProcessoMaisFinalizado() {
+    let dtProcesso = new Date();
+
+    // Passar para o formato dia,mes,ano e colocar o fuseau horário de brasília
+    dtProcesso = dtProcesso.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+    dtProcesso = dtProcesso.replaceAll('/', '%2F');
+
+    fetch(`/processos/verProcessoMaisFinalizado/${idAtm}/${dtProcesso}`)
+        .then((response) => {
+            if (response.status === 200) {
+                response.json()
+                    .then((json) => {
+                        if (json.length > 0) {
+                            spn_processoMaisFinalizado.innerHTML = json[0].nome;
+                            spn_qtdProcessoFinalizado.innerHTML = json[0].numero;
+                        } else {
+                            spn_processoMaisFinalizado.innerHTML = "Nenhum processo finalizado";
+                            spn_qtdProcessoFinalizado.innerHTML = "0";
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                    })
+            }
+        }).catch((error) => {
+            console.error(error);
+        })
+}
+
+function verHorarioMaisFinalizado() {
+    let dtProcesso = new Date();
+
+    // Passar para o formato dia,mes,ano e colocar o fuseau horário de brasília
+    dtProcesso = dtProcesso.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+    dtProcesso = dtProcesso.replaceAll('/', '%2F');
+
+    fetch(`/processos/verHorarioMaisFinalizado/${idAtm}/${dtProcesso}`)
+        .then((response) => {
+            if (response.status === 200) {
+                response.json()
+                    .then((json) => {
+                        if (json.length > 0) {
+                            spn_horarioMaisFinalizado.innerHTML = json[0].dt;
+                            spn_qtdHorarioFinalizado.innerHTML = `${json[0].quantidade} processos finalizados`;
+                        } else {
+                            spn_horarioMaisFinalizado.innerHTML = "Nenhum processo finalizado";
+                            spn_qtdHorarioFinalizado.innerHTML = "0";
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                    })
+            }
+        }).catch((error) => {
+            console.error(error);
+        })
 }

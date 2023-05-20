@@ -36,6 +36,8 @@ function mapa() {
           if (json.enderecosInativos.length > 0) {
             json.enderecosInativos.forEach((endereco, i) => {
               const idAtm = endereco.idAtm;
+              const nomeAtm = endereco.nomeAtm;
+
               const coordenadas = {
                 lat: Number(endereco.latitude),
                 lng: Number(endereco.longitude)
@@ -55,12 +57,21 @@ function mapa() {
 
               marker.bindPopup(customPoup, customOptions);
 
+              div_alertaEndereco.innerHTML += `
+              <div class="square">
+                          <div class="content-status">
+                              <div class="icon"><img src="img/danger-pop.svg" alt=""></div>
+                              <div class="nome">${nomeAtm}</div>
+                          </div>
+                          <button class="btn" onclick="mostrarMapa([${coordenadas.lat}, ${coordenadas.lng}])">Ver no mapa</button>
+                      </div>
+              `
+
             })
           }
 
           if (json.enderecosAlerta.length > 0) {
             json.enderecosAlerta.forEach((endereco, i) => {
-              console.log(endereco);
               const idAtm = endereco.idAtm;
               const nomeAtm = endereco.nomeAtm;
 
