@@ -79,7 +79,6 @@ function adicionarUsuario() {
   })
     .then(function (resposta) {
       if (resposta.ok) {
-        alert("Usuario adicionado com sucesso!");
         fechar_modalAdicionar();
         atualizarFeed();
       } else if (resposta.status == 404) {
@@ -104,7 +103,7 @@ function adicionarUsuario() {
 
 function atualizarFeed(tipo, campo) {
   let filtroComponente = "";
-
+  loadingGif();
   if (tipo != undefined && campo != undefined) {
     filtroComponente = `/${tipo}/${campo}`;
   }
@@ -114,6 +113,7 @@ function atualizarFeed(tipo, campo) {
   fetch(`/usuarios/listar/${idEmpresa}${filtroComponente}`)
     .then((resposta) => {
       if (resposta.ok) {
+        in_pesquisa.value = "";
         resposta.json().then((json) => {
           console.log("Dados recebidos: ", JSON.stringify(json));
           plotarTabela(json);
@@ -145,7 +145,6 @@ function deletar_usuario(idUsuario) {
   })
     .then(function (resposta) {
       if (resposta.ok) {
-        alert("Usuario deletado");
         atualizarFeed();
       } else if (resposta.status == 404) {
         window.alert("Deu 404!");
@@ -198,8 +197,6 @@ function editar(idUsuario) {
   })
     .then(function (resposta) {
       if (resposta.ok) {
-        var texto = `funcionario ${idUsuario} atualizado com sucesso!`;
-        alert(texto);
         atualizarFeed();
         fechar_modalEditar();
       } else if (resposta.status == 404) {
@@ -267,12 +264,11 @@ function plotarTabela(json) {
   }
 }
 
-// criar função ordenar
+function loadingGif() {
+  div_planilhaUsers.innerHTML = `
+  <div class="loading" id="loadingGif">
+      <img src="img/cashTechSystem/loadingGif.svg" alt="">
+  </div>
+  `
+}
 
-// plotar tabela pronto -> atualizar feed pronto
-
-// deletar (ver o que fiz do atm, abrir modal)
-
-// implementar o loadingGif
-
-// listar um / editar
