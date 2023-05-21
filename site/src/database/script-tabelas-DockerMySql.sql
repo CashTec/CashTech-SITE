@@ -50,7 +50,7 @@ CREATE TABLE Processo (
 	id INT NOT NULL AUTO_INCREMENT,
 	caixa_eletronico_id INT NOT NULL,
 	nome VARCHAR(255) NULL,
-	pid CHAR(5) NULL,
+	pid VARCHAR(100) NULL,
 	uso_cpu FLOAT NULL,
 	uso_memoria INT NULL,
 	byte_utilizado INT NULL,
