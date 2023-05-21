@@ -166,6 +166,8 @@ function deletarProcessoPermitido(id) {
 function adicionarNovoProcesso() {
     var nome = ipt_add_process.value;
 
+    nome = nome.replaceAll("/", "%2F");
+
     if (nome == "") {
         alert("Insira um valor!");
     } else {

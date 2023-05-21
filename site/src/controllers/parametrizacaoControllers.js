@@ -93,8 +93,10 @@ function deletarProcesso(req, res) {
 }
 
 function adicionarProcesso(req, res) {
-    const nome = req.params.nome;
+    let nome = req.params.nome;
     const idEmpresa = req.params.idEmpresa;
+
+    nome = nome.replaceAll("%2F", "/");
 
     if (nome == undefined || idEmpresa == null) {
         return res.status(400).send("Campos nulos/undefined!");
