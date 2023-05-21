@@ -178,14 +178,10 @@ async function editar(idAtm) {
 
         let endereco = `${rua}, ${numero}, ${bairro} - ${cidade}`;
         console.log(endereco);
-
-        alert(endereco)
         await fetch(`https://nominatim.openstreetmap.org/search.php?q='${endereco}'&format=jsonv2`)
             .then(response =>
                 response.json()).then(data => {
                     console.log(data)
-                    alert(data);
-
                     if (data.length > 0) {
                         coordenadas = {
                             lat: Number(data[0].lat),
