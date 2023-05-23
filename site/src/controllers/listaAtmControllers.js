@@ -130,7 +130,6 @@ function listarUm(req, res) {
 
 async function atualizar(req, res) {
     const idAtm = req.params.idAtm;
-    const identificador = req.body.identificador;
     const situacao = req.body.situacao;
     const cep = req.body.cep;
     const numero = req.body.numero;
@@ -141,7 +140,6 @@ async function atualizar(req, res) {
     const lng = req.body.lng;
 
     const camposObrigatorios = [
-        'identificador',
         'situacao',
         'cep',
         'numero',
@@ -160,7 +158,7 @@ async function atualizar(req, res) {
     }
 
     try {
-        await listaAtmModel.atualizarAtm(idAtm, identificador, situacao);
+        await listaAtmModel.atualizarAtm(idAtm, situacao);
         await listaAtmModel.atualizarEndereco(idAtm, cep, numero, rua, cidade, bairro, lat, lng);
         res.status(200).send("Atualização realizada com sucesso!");
     } catch (error) {

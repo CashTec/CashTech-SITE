@@ -132,8 +132,8 @@ function listarUm(idAtm) {
     return database.executar(query);
 }
 
-function atualizarAtm(idAtm, identificador, situacao) {
-    let query = `UPDATE CaixaEletronico SET identificador = '${identificador}', situacao = '${situacao}' WHERE id = ${idAtm};`
+function atualizarAtm(idAtm, situacao) {
+    let query = `UPDATE CaixaEletronico SET situacao = '${situacao}' WHERE id = ${idAtm};`
     return database.executar(query);
 }
 
