@@ -69,8 +69,14 @@ function editarUsoMax(campo) {
             in_campo.parentElement.children[1].style.border = "none";
         }
 
-        let valorCampo = in_campo.value;
-
+        let valorCampo;
+        
+        if(valor == "qtd_bytes_recebido_max" || valor == "qtd_bytes_enviado_max"){
+            // trasnformar mb para bytes
+            valorCampo = in_campo.value * 1024 * 1024;
+        } else {
+            valorCampo = in_campo.value;
+        }
 
         atualizarParametroHardware(valor, valorCampo);
     }
@@ -249,8 +255,8 @@ function plotarParametro(parametrizacao) {
     edtProcessador.value = parametrizacao.qtd_cpu_max;
     edtMemoria.value = parametrizacao.qtd_memoria_max;
     edtDisco.value = parametrizacao.qtd_disco_max;
-    edtBytesEnviados.value = parametrizacao.qtd_bytes_enviado_max;
-    edtBytesRecebidos.value = parametrizacao.qtd_bytes_recebido_max;
+    edtBytesEnviados.value = parametrizacao.qtd_bytes_enviado_max / (1024 * 1024);
+    edtBytesRecebidos.value = parametrizacao.qtd_bytes_recebido_max / (1024 * 1024);
 }
 
 function atualizarParametroHardware(campo, valor) {
@@ -273,9 +279,11 @@ function atualizarParametroHardware(campo, valor) {
                     break;
                 case "qtd_bytes_enviado_max":
                     campo = "Quantidade de Bytes Enviados";
+                    valor = valor / (1024 * 1024);
                     break;
                 case "qtd_bytes_recebido_max":
                     campo = "Quantidade de Bytes Recebidos";
+                    valor = valor / (1024 * 1024);
                     break;
             }
 

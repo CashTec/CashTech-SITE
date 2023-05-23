@@ -150,7 +150,7 @@ button:active {
 }
 
 .content-table-processos {
-    width: 30vw;
+    width: 35vw;
     height: 50vh;
 }
 
@@ -259,7 +259,7 @@ button:active {
     border-bottom: 1px solid #c9c9c9;
 }
 .tabela-processos tr * {
-    font-size: 16px;
+    font-size: 18px;
 }
 .tabela-processos tr:last-of-type {
     border-bottom: 2px solid #00556A;
@@ -313,7 +313,7 @@ button:active {
 
 .table-info {
     border-collapse: collapse;
-    width: 40vw;
+    width: 30vw;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
@@ -353,7 +353,7 @@ button:active {
 .table-info th,
 td {
     padding: 12px 15px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .table-info img {
@@ -386,10 +386,6 @@ td {
 
 }
 
-.table-parametro .input-bytes {
-    width: 220px;
-    border-radius: 5px;
-}
 
 .table-parametro input:disabled,
 .table-parametro span {
@@ -424,4 +420,8 @@ td {
 
 .loadingGif img {
     height: 30vh;
+}
+
+.input-bytes{
+    width: 9vw;
 }
