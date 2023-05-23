@@ -137,7 +137,6 @@ function listarUm(idAtm) {
             resposta.json().then((resposta) => {
                 const atm = resposta[0];
 
-                in_edtIdentificador.value = atm.identificador;
                 sel_edtSituacao.value = atm.situacao;
                 in_edtCep.value = atm.cep;
                 in_edtNumero.value = atm.numero;
@@ -209,7 +208,6 @@ async function editar(idAtm) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                identificador: in_edtIdentificador.value,
                 situacao: sel_edtSituacao.value,
                 cep: in_edtCep.value,
                 numero: in_edtNumero.value,
