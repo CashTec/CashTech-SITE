@@ -726,23 +726,22 @@ async function atualizarAlertaDisco(metricaDisco) {
 
 // KPIS
 
-function kpiTempoInativo(ultimaMetrica) {
-  if (contadoraProcessador > 2) {
+function kpiTempoInativo(ultimaMetrica)
 
+
+{
+   
+kpiInatividade.innerHTML = `00:00:00`;
+  if (contadoraProcessador >=2) {
     const date = new Date();
     let dtUltimaMetrica = new Date(ultimaMetrica);
     let tempo = date - dtUltimaMetrica;
-
     let segundos = Math.floor(tempo / 1000);
     let minutos = Math.floor(segundos / 60);
-
     let horas = Math.floor(minutos / 60) - 3;
-
     segundos %= 60;
     minutos %= 60;
     horas %= 60;
-
-
     if (horas < 10) {
       horas = `0${horas}`;
     }
@@ -752,7 +751,6 @@ function kpiTempoInativo(ultimaMetrica) {
     if (segundos < 10) {
       segundos = `0${segundos}`;
     }
-
     kpiInatividade.innerHTML = `${horas}:${minutos}:${segundos}`;
   }
 }
@@ -779,32 +777,35 @@ async function buscarKpiDisco(data) {
 
 
 async function inserirKpiDisco(disco) {
-  
-  disco = parseInt(disco)
+  disco = parseInt(disco);
   let dadosHoje = await buscarKpiDisco(conversorDataMesAno()[0]);
+  let conta;
 
-  if (disco == 0) {
-
-    conta = dadosHoje[disco+1].qtd_consumido - dadosHoje[disco].qtd_consumido;
-  } 
-  else {
-    conta = dadosHoje[disco+2].qtd_consumido - dadosHoje[disco+1].qtd_consumido;
-
+console.table(dadosHoje)
+  if (disco === 0) {
+    conta = dadosHoje[disco + 1].qtd_consumido - dadosHoje[disco].qtd_consumido;
+  } else {
+    conta = dadosHoje[disco + 2].qtd_consumido - dadosHoje[disco + 1].qtd_consumido;
   }
-
-  console.log("kpiHd")
-  console.log(conta);
-  let contaDias = (Number(tamanhoHd.innerHTML.replace("GB","")*1024)) / (conta / (1024*1024));
-
-  if(contaDias>100){
-    textHd.innerHTML="Seu volume não corre o risco de ficar cheio"
+  
+console.log(dadosHoje[disco + 1].qtd_consumido - dadosHoje[disco].qtd_consumido)
+  let contaDias 
+  if(conta>0){
+  contaDias = 100-((Number(tamanhoHd.innerHTML.replace("GB", "")) * 1024) / (conta / (1024 * 1024)));
   }
   else{
-    textHd.innerHTML=`Seu volume demorará mais de ${parseInt(contaDias)*30} dias para ocupar toda a sua capacidade cheio`
+    contaDias= 0;
   }
-  
-  kpiHd.innerHTML=(conta / (1024*1024)).toFixed(2)+ "MB";
+
+  if (contaDias > 100) {
+    textHd.innerHTML = "Seu volume não corre o risco de ficar cheio";
+  } else {
+    textHd.innerHTML = `Seu volume demorará mais de ${contaDias.toFixed(2)} dias para ocupar toda a sua capacidade cheio`;
+  }
+
+  kpiHd.innerHTML = (conta / (1024 * 1024)).toFixed(2) + "MB";
 }
+
 
 async function buscarKpiRede(data) {
   console.log(data)
@@ -826,21 +827,20 @@ async function buscarKpiRede(data) {
 
 async function inserirKpiRede() {
   let date = new Date().getDate()
+
   let dtHoje =`${("0"+conversorDataMesAno()[0]).split("-").reverse().join("-")}-${Number(date)}`;
   let dtOntem =`${("0"+conversorDataMesAno()[0]).split("-").reverse().join("-")}-${Number(date)-1}`;
   let dadosHoje = await buscarKpiRede(dtHoje);
   let dadosOntem = await buscarKpiRede(dtOntem);
-  let contaDias;
+  dadosHoje=dadosHoje[0].dados;
+  dadosOntem=dadosOntem[0].dados;
   let conta;
-  let contaOntem;
-  if(dadosHoje.length>0){
-    conta = Number(dadosHoje[1].bytes_recebidos_segundo) - Number(dadosHoje[0].bytes_recebidos_segundo);
-    console.log(conta)
+
+  if(dadosHoje!=null){
+    conta = dadosHoje;
   }
-  
-  if(dadosOntem.length>0){
-    contaOntem = Number(dadosOntem[1].bytes_recebidos_segundo) - Number(dadosOntem[0].bytes_recebidos_segundo);
-    contaDias = conta - contaOntem;
+  if(dadosOntem!=null){
+    conta = dadosHoje;
   }
 
   kpiRede.innerHTML= conta!=undefined? (conta / (1024*1024)).toFixed(2)+"MB" : "Não há dados";
@@ -849,7 +849,7 @@ async function inserirKpiRede() {
   textRede.innerHTML= contaDias!=undefined? (contaDias / (1024*1024)).toFixed+"MB Há mais que ontem":"";
   }
   else{
-    textRede.innerHTML= contaDias!=undefined?(( contaDias* -1) / (1024*1024)).toFixed(2)+"MB Há menos que ontem" : "";
+    textRede.innerHTML= contaDias!=undefined?(( contaDias * -1) / (1024*1024)).toFixed(2)+"MB Há menos que ontem" : "";
   }
 }
 
