@@ -3,8 +3,9 @@
 // Troquei orquestra por empresa e musico por usuario
 // ****************************************************
 
-spn_userNome.innerHTML = sessionStorage.NOME_EMPRESA;
+spn_userNome.innerHTML = sessionStorage.NOME_USUARIO;
 const idEmpresa = sessionStorage.ID_EMPRESA;
+
 // ------------------ Funções de modal ------------------------//
 function abrir_modalAdicionar() {
   div_backgroundModal.style.display = "flex";
