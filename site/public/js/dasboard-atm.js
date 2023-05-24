@@ -382,7 +382,9 @@ async function obterParametrizacao() {
             }
           }
 
-        }).catch((error) => {})
+        }).catch((error) => {
+          console.log(error);
+        })
     }
   })
 
@@ -393,18 +395,18 @@ async function obterParametrizacao() {
 let variavelAuxiliar;
 
 function trocarInfoHd() {
+
   graficoHd.data.datasets[0].data = [];
   graficoHd.data.datasets[0].data.push(variavelAuxiliar[sel_hd.value].qtd_disponivel);
   graficoHd.data.datasets[0].data.push(variavelAuxiliar[sel_hd.value].qtd_maxima - variavelAuxiliar[sel_hd.value].qtd_disponivel);
   atualizarAlertaDisco(variavelAuxiliar[sel_hd.value]);
   inserirKpiDisco(sel_hd.value);
-
   grafico4.update();
-
   tamanhoHd.innerText = (variavelAuxiliar[sel_hd.value].qtd_maxima / 1073741824).toFixed(1) + "Gb";
   montagem.innerText = variavelAuxiliar[sel_hd.value].ponto_montagem;
   modeloHd.innerText = variavelAuxiliar[sel_hd.value].nome == "unknown" ? "--" : variavelAuxiliar[sel_hd.value].nome;
-  disponivelHd.innerHTML = "<h2>" + Math.floor((variavelAuxiliar[sel_hd.value].qtd_disponivel / variavelAuxiliar[sel_hd.value].qtd_maxima) * 100) + "%</h2><h3>Usado </h3>";
+  disponivelHd.innerHTML = "<h2>" + (100-(Math.floor((variavelAuxiliar[sel_hd.value].qtd_disponivel / variavelAuxiliar[sel_hd.value].qtd_maxima) * 100))) + "%</h2><h3>Disponivel</h3>";
+
 }
 
 async function inserirParametrizacao() {
@@ -425,12 +427,12 @@ async function inserirParametrizacao() {
     },
     {
       type: "Rede",
-      normalEnviado: (json[0].qtd_bytes_enviado_max / 1024).toFixed(2),
-      normalRecebido: (json[0].qtd_bytes_enviado_max / 1024).toFixed(2),
-      alertaEnviado: ((json[0].qtd_bytes_enviado_max / 1024) * 0.75).toFixed(2),
-      alertaRecebido: ((json[0].qtd_bytes_enviado_max / 1024) * 0.75).toFixed(2),
-      perigoEnviado: (json[0].qtd_bytes_enviado_max / 1024).toFixed(2),
-      perigoRecebido: (json[0].qtd_bytes_enviado_max / 1024).toFixed(2),
+      normalEnviado: (json[0].qtd_bytes_enviado_max / (1024*1024)* 0.75).toFixed(2),
+      normalRecebido: (json[0].qtd_bytes_recebido_max / (1024*1024)* 0.75).toFixed(2),
+      alertaEnviado: ((json[0].qtd_bytes_enviado_max / (1024*1024)) * 0.75).toFixed(2),
+      alertaRecebido: ((json[0].qtd_bytes_recebido_max / (1024*1024)) * 0.75).toFixed(2),
+      perigoEnviado: (json[0].qtd_bytes_enviado_max / (1024*1024)).toFixed(2),
+      perigoRecebido: (json[0].qtd_bytes_recebido_max / (1024*1024)).toFixed(2),
     },
     {
       type: "Disco",
@@ -464,13 +466,13 @@ async function inserirParametrizacao() {
     } else {
       element.innerHTML = `
 <span>E:</span>
-<span>${parametrizacao[2].normalEnviado}KB</span>
-<span>${parametrizacao[2].alertaEnviado}KB</span>
-<span>${parametrizacao[2].perigoEnviado}KB</span>
+<span> < ${parametrizacao[2].normalEnviado}KB</span>
+<span> > ${parametrizacao[2].alertaEnviado}KB</span>
+<span> > ${parametrizacao[2].perigoEnviado}KB</span>
 <span>R:</span>
-<span> ${parametrizacao[2].normalRecebido}KB</span>
-<span>${parametrizacao[2].alertaRecebido}KB</span>
- <span>${parametrizacao[2].perigoRecebido}KB</span>
+<span> < ${parametrizacao[2].normalRecebido}KB</span>
+<span> > ${parametrizacao[2].alertaRecebido}KB</span>
+ <span> > ${parametrizacao[2].perigoRecebido}KB</span>
    `
     }
   });
@@ -498,11 +500,12 @@ function inserirInfoDisco(json) {
   tamanhoHd.innerText = (json[0].qtd_maxima / 1073741824).toFixed(1) + "GB";
   montagem.innerText = json[0].ponto_montagem;
   modeloHd.innerText = json[0].nome;
-  disponivelHd.innerHTML = "<h2>" + (Math.floor((json[0].qtd_disponivel / json[0].qtd_maxima) * 100)) + "%</h2>" + "<h3>Usado </h3>";
-
+  disponivelHd.innerHTML = "<h2>" + (100 - Math.floor((json[0].qtd_disponivel / json[0].qtd_maxima) * 100)) + "%</h2>"+"<h3>Disponivel</h3>";
   atualizarAlertaDisco(json[0]);
   for (let i = 0; i < json.length; i++) {
-    sel_hd.innerHTML += `<option value="${i}">HD${i}</option>`
+    if(json[i].qtd_maxima>0){
+      sel_hd.innerHTML += `<option value="${i}">HD${i}</option>`
+    }
   }
 }
 
@@ -595,8 +598,8 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
 
     case "rede":
       containerAviso = document.querySelectorAll(".aviso")[2];
-      primeiroDado = json[0].bytes_recebidos_segundo / (1024 * 1024);
-      segundoDado = json[0].bytes_enviados_segundo / (1024 * 1024);
+      primeiroDado = json[0].bytes_recebidos_segundo / 1024;
+      segundoDado = json[0].bytes_enviados_segundo / 1024 ;
       break;
     case "processador":
       containerAviso = document.querySelectorAll(".aviso")[0];
@@ -647,12 +650,12 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
 }
 
 async function atualizarAlertaRede(metricaRede) {
-  let qtd_enviado = metricaRede[0].bytes_enviados_segundo / (1024 * 1024);
-  let qtd_recebido = metricaRede[0].bytes_recebidos_segundo / (1024 * 1024);
+  let qtd_enviado = Number(metricaRede[0].bytes_enviados_segundo) / 1024 ;
+  let qtd_recebido = Number(metricaRede[0].bytes_recebidos_segundo) / 1024;
   let parametrizacao = await obterParametrizacao();
-  let alerta = parametrizacao[0].qtd_bytes_enviados_max * 0.75;
-  let perigo = parametrizacao[0].qtd_bytes_recebidos_max;
-
+  let alerta = (Number(parametrizacao[0].qtd_bytes_enviados_max) /1024) * 0.75;
+  let perigo = (Number(parametrizacao[0].qtd_bytes_recebidos_max)/1024);
+console.log(alerta)
   if (perigo < qtd_enviado || perigo < qtd_recebido) {
     alertRede.innerHTML = "Perigo";
     alertRede.style.backgroundColor = "red";
@@ -781,25 +784,29 @@ async function inserirKpiDisco(disco) {
   let dadosHoje = await buscarKpiDisco(conversorDataMesAno()[0]);
   let conta;
 
-console.table(dadosHoje)
+  console.log(dadosHoje)
   if (disco === 0) {
     conta = dadosHoje[disco + 1].qtd_consumido - dadosHoje[disco].qtd_consumido;
   } else {
-    conta = dadosHoje[disco + 2].qtd_consumido - dadosHoje[disco + 1].qtd_consumido;
+
+    conta = dadosHoje[disco + 1].qtd_consumido - dadosHoje[disco + 2].qtd_consumido;
+  console.log(dadosHoje[disco + 2].qtd_consumido);
+  console.log(dadosHoje[disco + 1].qtd_consumido);
   }
   
-console.log(dadosHoje[disco + 1].qtd_consumido - dadosHoje[disco].qtd_consumido)
-  let contaDias 
-  if(conta>0){
-  contaDias = 100-((Number(tamanhoHd.innerHTML.replace("GB", "")) * 1024) / (conta / (1024 * 1024)));
-  }
-  else{
-    contaDias= 0;
-  }
 
-  if (contaDias > 100) {
+let tamanhoTotal =(Number(tamanhoHd.innerHTML.replace("GB", "")) * 1024);
+let contaHd=  (conta / (1024 * 1024)/30);
+let contaDias=contaHd;
+
+while(contaDias<tamanhoTotal || contaDias<100){ 
+  contaDias+=contaHd;
+} 
+
+
+  if (contaDias > 100 ) {
     textHd.innerHTML = "Seu volume não corre o risco de ficar cheio";
-  } else {
+  } else {  
     textHd.innerHTML = `Seu volume demorará mais de ${contaDias.toFixed(2)} dias para ocupar toda a sua capacidade cheio`;
   }
 
@@ -832,25 +839,29 @@ async function inserirKpiRede() {
   let dtOntem =`${("0"+conversorDataMesAno()[0]).split("-").reverse().join("-")}-${Number(date)-1}`;
   let dadosHoje = await buscarKpiRede(dtHoje);
   let dadosOntem = await buscarKpiRede(dtOntem);
-  dadosHoje=dadosHoje[0].dados;
-  dadosOntem=dadosOntem[0].dados;
+    
+console.log(dadosHoje[0].dados)
+console.log(dadosOntem[0].dados) 
+console.log("------------"); 
+
+
+console.log(dadosOntem[0].dados == null);
+  dadosHoje=dadosHoje[0].dados == null ? 0 :dadosHoje[0].dados;
+  dadosOntem=dadosOntem[0].dados ==  null ? 0 :dadosOntem[0].dados;
+
   let conta;
+  let contaDias;
 
-  if(dadosHoje!=null){
-    conta = dadosHoje;
-  }
+console.log(typeof dadosHoje);
   if(dadosOntem!=null){
-    conta = dadosHoje;
+    conta = Number(dadosHoje) - Number(dadosOntem);
   }
 
-  kpiRede.innerHTML= conta!=undefined? (conta / (1024*1024)).toFixed(2)+"MB" : "Não há dados";
+  
+  kpiRede.innerHTML=  conta > 0 ? (conta / (1024*1024)).toFixed(2)+"MB" : "Não há dados" ;
 
-  if(contaDias>conta){
-  textRede.innerHTML= contaDias!=undefined? (contaDias / (1024*1024)).toFixed+"MB Há mais que ontem":"";
-  }
-  else{
-    textRede.innerHTML= contaDias!=undefined?(( contaDias * -1) / (1024*1024)).toFixed(2)+"MB Há menos que ontem" : "";
-  }
+ 
+  
 }
 
 inserirKpiRede()

@@ -183,8 +183,6 @@ body::-webkit-scrollbar {
     display: flex;
     column-gap: 10px;
     align-items: center;
-
-
 }
 
 .column-graphic .grafico .content-title select {
@@ -288,14 +286,14 @@ body::-webkit-scrollbar {
 }
 
 .graficoHd {
-    width: 200px !important;
-    height: 200px !important;
+    width: 230px !important;
+    height: 230px !important;
 
 }
 
 .numberHD {
     position: absolute;
-    transform: translate(77px, 75px);
+    transform: translate(80px, 85px);
     text-align: center;
 }
 
