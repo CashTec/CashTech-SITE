@@ -16,49 +16,49 @@
 <body onload="atualizarFeed(), verificarLogin()">
     <aside>
         <div class="backEcplipse">
-          <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
-          <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
+            <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
+            <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
         </div>
         <div class="menu">
-          <div class="container">
-            <div class="logo-menu">
-              <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+            <div class="container">
+                <div class="logo-menu">
+                    <img src="./img/cashTechSystem/logo.svg" height="50px" alt="">
+                </div>
+                <div class="bem-vindo">
+                    <h2>Bem Vindo,</h2>
+                    <span id="spn_userNome">Nome Empresa</span>
+                </div>
+                <div class="indices">
+                    <ul class="lista">
+                        <a href="mapa-gestor.html">
+                            <li><img src="./img/map.svg" alt=""> Mapa</li>
+                        </a>
+                        <a href="dashboard-geral.html">
+                            <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
+                        </a>
+                        <a href="users.html">
+                            <li class="active-menu"> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
+                        </a>
+                        <a href="dashboard-parametrizacao.html">
+                            <li>
+                                <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
+                            </li>
+                        </a>
+                        <a href="listaATM.html">
+                            <li><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
+                        </a>
+
+                    </ul>
+                </div>
+                <div>
+                    <a href="./download.html" class="sair downloadMenu">Download</a>
+                </div>
+                <div>
+                    <button class="sair" onclick="limparSessao()">Sair</button>
+                </div>
             </div>
-            <div class="bem-vindo">
-              <h2>Bem Vindo,</h2>
-              <span id="spn_userNome">Nome Empresa</span>
-            </div>
-            <div class="indices">
-              <ul class="lista">
-                <a href="mapa-gestor.html">
-                    <li><img src="./img/map.svg" alt=""> Mapa</li>
-                </a>
-                <a href="dashboard-geral.html">
-                  <li><img src="./img/cashTechSystem/atms.png" alt=""> Dashboard</li>
-                </a>
-                <a href="users.html">
-                  <li class="active-menu"> <img src="./img/cashTechSystem/analista.png" alt=""> Analistas</li>
-                </a>
-                <a href="dashboard-parametrizacao.html">
-                  <li>
-                      <img src="img/cashTechSystem/edit-parametro.png" alt="">Paramêtros
-                  </li>
-              </a>
-                <a href="listaATM.html">
-                  <li><img src="./img/cashTechSystem/process.png" alt=""> Lista ATMS</li>
-                </a>
-                
-              </ul>
-            </div>
-            <div>
-                <a href="./download.html" class="sair downloadMenu">Download</a>
-            </div>
-            <div>
-              <button class="sair" onclick="limparSessao()">Sair</button>
-            </div>
-          </div>
         </div>
-      </aside>
+    </aside>
     <div class="dashboard">
         <div class="content-users">
             <div class="container">
@@ -163,6 +163,15 @@
                 </div>
             </div>
         </div>
+        <div class="modalDeletar" id="div_deletarModal">
+            <div class="contentDeletar">
+                <h2>Deseja mesmo remover o ATM?</h2>
+                <div class="buttons">
+                    <button class="cancelar" onclick="fechar_modalDeletar()">cancelar</button>
+                    <button class="remover" id="btn_deletar">remover</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -173,15 +182,7 @@
     </div>
     <!-- Fim loading-gif -->
 
-    <!-- card -->
-    <div class="msgCard" id="div_card">
-        <div class="mensagem">
-            <span id="mensagem_erro"></span>
-        </div>
-    </div>
-    <!-- Fim card -->
 
-   
 </body>
 
 </html>

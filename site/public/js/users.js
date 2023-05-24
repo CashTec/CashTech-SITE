@@ -61,6 +61,24 @@ function fechar_modalAdicionar() {
     document.body.style.overflow = "";
   }, 500);
 }
+
+function abrir_modalDeletar(idUsuario) {
+  div_backgroundModal.style.display = 'flex';
+  div_deletarModal.style.display = 'block'
+  document.body.style.overflow = 'hidden';
+
+  btn_deletar.addEventListener("click", ()=> {deletar_usuario(idUsuario)});
+}
+
+function fechar_modalDeletar() {
+  div_deletarModal.classList.add('sumirModal');
+  setTimeout(() => {
+      div_backgroundModal.style.display = 'none';
+      div_deletarModal.classList.remove('sumirModal');
+      div_deletarModal.style.display = 'none'
+      document.body.style.overflow = '';
+  }, 500);
+}
 // ------------------ FIM Funções de modal ------------------------//
 
 // ------------------ Função de Adicionar funcionario ------------------------//
@@ -138,6 +156,7 @@ function pesquisar(event) {
 }
 // ------------------ Função de Deletar funcionario ------------------------//
 function deletar_usuario(idUsuario) {
+  
   fetch(`/usuarios/deletar_usuario/${idUsuario}`, {
     method: "DELETE",
     headers: {
@@ -147,6 +166,7 @@ function deletar_usuario(idUsuario) {
     .then(function (resposta) {
       if (resposta.ok) {
         atualizarFeed();
+        fechar_modalDeletar();
       } else if (resposta.status == 404) {
         window.alert("Deu 404!");
       } else {
@@ -256,7 +276,7 @@ function plotarTabela(json) {
         </button>
       </td>
       <td class="tdImg">
-        <button onclick="deletar_usuario(${usuario.id})">
+        <button onclick="abrir_modalDeletar(${usuario.id})">
           <img src="./img/cashTechSystem/lixo.svg">
         </button>
       </td>
