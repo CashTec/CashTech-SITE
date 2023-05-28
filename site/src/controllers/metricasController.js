@@ -20,10 +20,10 @@ function coletarMetricaComponenteController(req, res) {
 }
 
 function coletarMetricaRedeController(req, res) {
-    var idComponente = parseInt(req.params.idRede);
-    console.log(typeof idComponente)
+    var idComponente = parseInt(req.params.idAtm);
     if (!isNaN(idComponente)) {
         modelMetrica.coletarMetricaRede(idComponente).then((resposta) => {
+            console.log("----------ENTREI NA CONTROLLER REDE");
             if (resposta.length < 1) {
                 res.status(204).send();
             } else {
@@ -81,7 +81,28 @@ function coletarQuantidadeGravadaRedeController(req,res){
 }
 
 
+function coletarApiceRedeController(req,res){
+    const idAtm = Number(req.params.idAtm);
+    let dtHoje = new Date();
+    dtHoje = dtHoje.getDate()+"/"+((dtHoje.getMonth()+1).toString().length==1 ?"0":"")+(dtHoje.getMonth()+1)+"/"+dtHoje.getFullYear();
+    console.log(dtHoje);
+    modelRede.coletarApiceRede(idAtm,dtHoje)
+    .then((response)=>{
+        if(response.length>0){
+        res.status(200).json(response);
+        }
+        else{
+        res.status(204).send();
+        }
+    })
+    .catch((erro)=>{
+        res.status(400).send(erro)
+    })
+}
+
+
 module.exports = {
+    coletarApiceRedeController,
     coletarMetricaRedeController,
     coletarMetricaComponenteController,
     coletarQuantidadeGravadaRedeController,

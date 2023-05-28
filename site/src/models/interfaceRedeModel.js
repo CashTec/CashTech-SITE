@@ -8,32 +8,29 @@ function coletarInformacaoRede(idAtm) {
 }
 
 function coletarQuantidadeGravadaHoje(idAtm,data){
-
+    console.log("------data--------");
+    console.log(data);
     let instrucao = 
-    `SELECT mri.dt_metrica, mri.bytes_recebidos_segundo ,mri.bytes_enviados_segundo 
-    FROM caixaeletronico ce
-    JOIN NetworkInterface ni ON ce.id = ni.caixa_eletronico_id
-    JOIN MetricaRedeInterface mri  ON ni.id = mri.network_interface_id 
-    WHERE  ce.id = ${idAtm}
-      AND (mri.dt_metrica = (
-        SELECT MAX(mri2.dt_metrica)
-        FROM caixaeletronico ce2
-        JOIN NetworkInterface ni2  ON ce2.id = ni2.caixa_eletronico_id
-        JOIN MetricaRedeInterface mri2  ON ni2.id = mri2.network_interface_id
-        WHERE ce2.id = ${idAtm}
-          AND  CONVERT(varchar, mri2.dt_metrica, 23) like '${data}'
-      ) OR mri.dt_metrica = (
-        SELECT MIN(mri3.dt_metrica)
-        FROM caixaeletronico ce3
-        JOIN NetworkInterface ni3  ON ce3.id = ni3.caixa_eletronico_id
-        JOIN MetricaRedeInterface mri3  ON ni3 .id = mri3.network_interface_id
-        WHERE ce3.id = ${idAtm} and
-          CONVERT(varchar, mri3.dt_metrica, 23) like '${data}'
-      ))`
+    `SELECT SUM(mri.bytes_recebidos_segundo) as dados FROM CaixaEletronico ce join NetworkInterface ni on ce.id=ni.caixa_eletronico_id join MetricaRedeInterface mri on ni.id = mri.network_interface_id  where ce.id = ${idAtm} and CONVERT(varchar,mri.dt_metrica,23)='${data}';
+    `
 return database.executar(instrucao);
+}
+
+function coletarApiceRede(idAtm,dtMedida){
+ let instrucao =  `
+  SELECT top 1 LEFT(CONVERT(varchar, dt_metrica, 108), 5) as dataApice 
+  FROM CaixaEletronico ce 
+  join NetworkInterface ni on ce.id = ni.caixa_eletronico_id 
+      join MetricaRedeInterface mri on ni.id=mri.network_interface_id 
+          where ce.id = ${idAtm} 
+          and
+          CONVERT(varchar, dt_metrica, 103) = '${dtMedida}'
+order by mri.bytes_recebidos_segundo desc;`
+return database.executar(instrucao)
 }
 
 module.exports={
     coletarInformacaoRede,
-    coletarQuantidadeGravadaHoje
+    coletarQuantidadeGravadaHoje,
+    coletarApiceRede
 }

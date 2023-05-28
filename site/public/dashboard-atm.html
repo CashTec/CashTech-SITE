@@ -77,15 +77,21 @@
             <div class="card-kpi">
                 <h2 class="title">Tempo inativo</h2>
                 <div class="content-indicator">
-                    <span class="number-indicator" id="kpiInatividade">8 Horas</span>
-                    <span class="text-indicator">3 horas a mais que ontem</span>
+                    <span class="number-indicator" id="kpiInatividade">
+                        <div class="loadingGif" id="loadingGif">
+                            <img src="img/loadingGifWhite.svg" alt="">
+                        </div>
+                    </span>
+               
                 </div>
             </div>
 
             <div class="card-kpi">
-                <h2 class="title">Dados gravados (HD) <span>Mês anterior</span></h2>
+                <h2 class="title">Dados gravados (HD) <span>Mes anterior</span></h2>
                 <div class="content-indicator">
-                    <span class="number-indicator" id="kpiHd">1 GB </span>
+                    <span class="number-indicator" id="kpiHd">  <div class="loadingGif" id="loadingGif">
+                        <img src="img/loadingGifWhite.svg" alt="">
+                    </div></span>
                     <span class="text-indicator" id="textHd">Tempo estimado para atingir seu limite:<br>12 dias</span>
                 </div>
 
@@ -94,15 +100,20 @@
             <div class="card-kpi">
                 <h2 class="title">Dados recebidos hoje (Rede)</h2>
                 <div class="content-indicator">
-                    <span class="number-indicator" id="kpiRede" ></span>
+                    <span class="number-indicator" id="kpiRede" >  <div class="loadingGif" id="loadingGif">
+                        <img src="img/loadingGifWhite.svg" alt="">
+                    </div></span>
                     <span class="text-indicator" id="textRede">2 MB a menos que ontem</span>
                 </div>
+                
             </div>
 
             <div class="card-kpi">
                 <h2 class="title">Horario do ápice rede</h2>
                 <div class="content-indicator">
-                    <span class="number-indicator">12:00</span>
+                    <span class="number-indicator" id="kpiApiceRede">  <div class="loadingGif" id="loadingGif">
+                        <img src="img/loadingGifWhite.svg" alt="">
+                    </div></span>
                     <span class="text-indicator">Comum nesse horário</span>
                 </div>
             </div>
@@ -139,12 +150,7 @@
                         <h3>Frequencia Máxima:<span id="frequencia"></span></h3>
                     </div>
                     <div class="content-grafico-container">
-                        <div class="legenda">
-                            <ul>
-                                <li>Megabytes Enviados</li>
-                                <li>Megabytes Recebidos</li>
-                            </ul>
-                        </div>
+                      
                         <div class="aviso">
                             <h2>Não há dados recentes</h2>
                             <p>Verifique o software de monitoramento do caixa eletrônico  </p>
@@ -181,12 +187,7 @@
                                 </div>
 
                                 <div class="content-grafico-container">
-                                    <div class="legenda">
-                                        <ul>
-                                            <li>Megabytes Enviados</li>
-                                            <li>Megabytes Recebidos</li>
-                                        </ul>
-                                    </div>
+                                 
                                     <div class="aviso">
                                         <h2>Não há dados recentes</h2>
                                         <p>Verifique o software de monitoramento do caixa eletrônico  </p>
