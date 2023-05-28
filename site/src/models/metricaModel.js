@@ -1,13 +1,15 @@
 var database = require('../database/config');
 
 
-function coletarMetricaRede(idRede) {
+function coletarMetricaRede(idAtm) {
     var instrucao;
+    console.log("----------ENTREI NA MODEL REDE");
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucao = `SELECT TOP 1 *  FROM CaixaEletronico ce join NetworkInterface ni on ni.caixa_eletronico_id = ce.id  join MetricaRedeInterface mc on mc.network_interface_id = ni.id where ni.caixa_eletronico_id=${idRede} ORDER BY mc.dt_metrica DESC`;
+        instrucao = `SELECT TOP 1 *  FROM CaixaEletronico ce join NetworkInterface ni on ni.caixa_eletronico_id = ce.id  join MetricaRedeInterface mc on mc.network_interface_id = ni.id where ni.caixa_eletronico_id=${idAtm} ORDER BY mc.dt_metrica DESC`;
     } else {
-        instrucao = `SELECT * FROM MetricaRedeInterface where network_interface_id=${idRede} ORDER BY dt_metrica DESC LIMIT 1`;
+        instrucao = `SELECT * FROM MetricaRedeInterface where network_interface_id=${idAtm} ORDER BY dt_metrica DESC LIMIT 1`;
     }
+    
     return database.executar(instrucao);
 }
 
@@ -53,8 +55,7 @@ function coletarQuantidadeGravadaHoje(idAtm,data){
           WHERE c3.tipo = 'disco' AND ce3.id = ${idAtm}
             AND MONTH(mc3.dt_metrica) = '${data[0]}'
             AND YEAR(mc3.dt_metrica) = ${data[1]}
-        )
-       ORDER BY c.nome;
+        )order by c.nome ;
     `;
 
     return database.executar(instrucao);

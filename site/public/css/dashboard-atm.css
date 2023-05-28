@@ -204,7 +204,7 @@ body::-webkit-scrollbar {
     padding: 5px;
     width: 120px;
     font-weight: bold;
-    background-color: yellow;
+    background-color: white;
     color: #222;
 }
 
@@ -293,7 +293,7 @@ body::-webkit-scrollbar {
 
 .numberHD {
     position: absolute;
-    transform: translate(80px, 85px);
+    transform: translate(90px, 85px);
     text-align: center;
 }
 
