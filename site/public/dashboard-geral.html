@@ -9,7 +9,6 @@
   <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/dashboard-geral.css">
-  <link rel="stylesheet" href="style.css">
 
   <title>CashTech</title>
   <link rel="icon" href="">
@@ -83,15 +82,15 @@
 
         <div class="square">
           <div class="content-indicadores">
-            <h2>ATMs com downtime superior a um dia.</h2>
-            <span>90 </span>
+            <h2>Quantidade de ATMs inativos</h2>
+            <span id="atms_inativos">--</span>
           </div>
         </div>
         <div class="square">
 
           <div class="content-indicadores">
-            <h2>Processo mais encerrado nos ATMs</h2>
-            <span>mysql</span>
+            <h2>Processo mais encerrado nos ATMs hoje</h2>
+            <span id="processo_mais_encerrado" class="truncated-text">--</span>
           </div>
         </div>
       </div>
@@ -102,44 +101,8 @@
         <div class="square">
           <h2>Lista de ATMS com funcionamento fora do normal</h2>
 
-          <div class="list-atm">
-            <div class="line">
-              <div class="icon"><img src="img/Group.svg" alt=""></div>
-              <div class="nome">ATM2304</div>
-              <div class="status"> ALERTA</div>
-              <div class="indicators"> CPU - 20%</div>
-              <div class="indicators"> Memória - 20%</div>
-              <div class="indicators"> Disco - 30% </div>
-              <button><img src="img/seta.svg" alt=""></button>
-            </div>
-            <div class="line">
-              <div class="icon"><img src="img/Group.svg" alt=""></div>
-              <div class="nome">ATM2304</div>
-              <div class="status"> ALERTA</div>
-              <div class="indicators"> CPU - 20%</div>
-              <div class="indicators"> Memória - 20%</div>
-              <div class="indicators"> Disco - 30% </div>
-              <button><img src="img/seta.svg" alt=""></button>
-            </div>
-            <div class="line">
-              <div class="icon"><img src="img/Group.svg" alt=""></div>
-              <div class="nome">ATM2304</div>
-              <div class="status"> ALERTA</div>
-              <div class="indicators"> CPU - 20%</div>
-              <div class="indicators"> Memória - 20%</div>
-              <div class="indicators"> Disco - 30% </div>
-              <button><img src="img/seta.svg" alt=""></button>
-            </div>
-            <div class="line">
-              <div class="icon"><img src="img/Group.svg" alt=""></div>
-              <div class="nome">ATM2304</div>
-              <div class="status"> ALERTA</div>
-              <div class="indicators"> CPU - 20%</div>
-              <div class="indicators"> Memória - 20%</div>
-              <div class="indicators"> Disco - 30% </div>
-              <button><img src="img/seta.svg" alt=""></button>
-            </div>
-
+          <div class="list-atm" id="list_atm">
+            
           </div>
         </div>
 

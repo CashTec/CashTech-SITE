@@ -481,13 +481,13 @@ async function inserirParametrizacao() {
     } else {
       element.innerHTML = `
 <span>E:</span>
-<span> < ${parametrizacao[2].normalEnviado}KB</span>
-<span> > ${parametrizacao[2].alertaEnviado}KB</span>
-<span> > ${parametrizacao[2].perigoEnviado}KB</span>
+<span> < ${parametrizacao[2].normalEnviado / (1024 * 1024)}MB</span>
+<span> > ${parametrizacao[2].alertaEnviado / (1024 * 1024)}MB</span>
+<span> > ${parametrizacao[2].perigoEnviado / (1024 * 1024)}MB</span>
 <span>R:</span>
-<span> < ${parametrizacao[2].normalRecebido}KB</span>
-<span> > ${parametrizacao[2].alertaRecebido}KB</span>
- <span> > ${parametrizacao[2].perigoRecebido}KB</span>
+<span> < ${parametrizacao[2].normalRecebido / (1024 * 1024)}MB</span>
+<span> > ${parametrizacao[2].alertaRecebido / (1024 * 1024)}MB</span>
+ <span> > ${parametrizacao[2].perigoRecebido / (1024 * 1024)}MB</span>
    `
     }
   });

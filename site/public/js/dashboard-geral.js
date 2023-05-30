@@ -1,81 +1,12 @@
+const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+
 const font = new FontFace(
   "Poppins",
   "url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap)"
 );
 
-const graphicLine = document.getElementById("graphicLine");
 const graphicBola = document.getElementById("graphicBola");
 
-// Define opções do gráfico de linha
-const grafico = new Chart(graphicLine, {
-  type: "line",
-  data: {
-    labels: [],
-    datasets: [
-      {
-        label: "Consumo médio dos ATMS",
-        data: [],
-        borderWidth: 5,
-      },
-    ],
-  },
-  options: {
-    plugins: {
-      legend: {
-        labels: {
-          color: "#fff",
-        }
-      },
-    },
-    scales: {
-      
-      y: {
-        
-        beginAtZero: true,
-        border:{
-          color: " #fff",
-        },
-        fonts:{
-          color: " #fff",
-        },
-        
-        ticks: {
-          color: " #fff",
-          backgroundColor: "rgba(255,255,255,1)",
-        },
-        
-        grid: {
-          color: "rgba(255,255,255,0.4)",
-          display: false,
-        },
-      },
-      x: {
-        border:{
-          color: " #fff",
-        },
-        ticks: {
-          color: " #fff",
-          weight: "700",
-          family: "Poppins",
-        },
-        grid: {
-          display: false,
-        },
-      },
-    },
-    elements: {
-      line: {
-        tension: 0.4,
-        backgroundColor: "rgba(255,255,255,1)",
-        borderColor: "rgba(255,255,255,1)",
-        spanGaps: true,
-      },
-    },
-    animation: {
-      duration: 800,
-    },
-  },
-});
 
 // Define opções do gráfico de rosca
 const config = {
@@ -87,13 +18,13 @@ const config = {
         label: "ATM",
         data: [12, 19, 3],
         borderWidth: [0],
-        backgroundColor:["#A20505","#F1AC15","#24C72E"]
+        backgroundColor: ["#A20505", "#F1AC15", "#24C72E"]
       },
     ],
   },
   options: {
-    radius:"90%",
-    cutout:  90,
+    radius: "90%",
+    cutout: 90,
     elements: {
       arc: {
         borderRadius: 90,
@@ -120,21 +51,115 @@ const config = {
 
 const myChart = new Chart(graphicBola, config);
 
-// Função que atualiza os dados do gráfico de linha
-function atualizarData() {
-  let sortear = Math.floor(30 + Math.random() * 39); // dados mockados
-  let criarData = new Date(); // dados mockados
-  if (grafico.data.labels.length > 4) {
-    grafico.data.datasets[0].data.shift();
-    grafico.data.labels.shift();
-  }
 
-  grafico.data.datasets[0].data.push(sortear);
-  grafico.data.labels.push(criarData.getSeconds());
-  grafico.update();
+function verAtmAnormal() {
+  list_atm.innerHTML =
+    `
+  <div class="loadingGif-list">
+    <img src="img/loadingGifWhite.svg" alt="">
+  </div>
+  `;
+  const data = new Date();
+  let atms = []
+  fetch(`/geral/verAtmAnormal/${idEmpresa}/${data}`)
+    .then((res) => {
+      if (res.status == 200) {
+        res.json().then((data) => {
+          for (const atm of data) {
+            let json = {
+              id: 0,
+              identificador: "",
+              qtdMax: 0,
+              metrica: []
+            }
+            for (const metrica of atm) {
+              console.log(metrica);
+              if (metrica.qtd_maxima != null) {
+                json.qtdMax = metrica.qtd_maxima;
+              }
 
-  setTimeout(atualizarData, 1000);
+              json.id = metrica.idAtm;
+              json.identificador = metrica.identificador;
+              json.metrica.push({
+                consumo: metrica.qtd_consumido,
+                tipo: metrica.tipo
+              })
+            }
+            atms.push(json);
+          }
+
+          let atmsAnormais = "";
+
+          for (const atm of atms) {
+            console.log(atm);
+            atmsAnormais +=
+              `
+            <div class="line">
+            <div class="icon"><img src="img/Group.svg" alt=""></div>
+            <div class="nome">${atm.identificador}</div>
+            <div class="status"> ALERTA</div>
+            <div class="indicators"> CPU - ${atm.metrica[1].tipo == "processador" ? atm.metrica[1].consumo.toFixed(0) : atm.metrica[0].consumo.toFixed(0)}%</div>
+            <div class="indicators"> Memória - ${atm.metrica[0].tipo == "memoria" ? calcularPorcentagem(atm.qtdMax, atm.metrica[0].consumo) / (1024 * 1024) : calcularPorcentagem(atm.qtdMax, atm.metrica[1].consumo)}%</div>
+            <button onclick='redirecionarAtm(${atm.id})'><img src="img/seta.svg" alt=""></button>
+            </div>
+            `
+          }
+
+          list_atm.innerHTML = atmsAnormais;
+        })
+
+      }
+      else {
+        console.log(res.status);
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
 }
 
-// Inicia a atualização dos dados do gráfico de linha
-atualizarData();
+
+function calcularPorcentagem(qtdMax, consumo) {
+  console.log("Consumo: " + consumo);
+  console.log("QtdMax: " + qtdMax);
+  return ((consumo / qtdMax) * 100).toFixed(0);
+}
+
+
+function verQtdAtmInativos() {
+  fetch(`/geral/qtdAtmInativo/${idEmpresa}`)
+    .then((res) => {
+      res.json().then((data) => {
+        console.log(data);
+        atms_inativos.innerHTML = data[0].qtdInativo;
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+}
+
+function verProcessoMaisEncerrado() {
+  const data = new Date();
+  fetch(`/geral/processoMaisEncerrado/${idEmpresa}/${data}`)
+    .then((res) => {
+      if (res.status == 200) {
+        res.json().then((data) => {
+          console.log(data);
+          processo_mais_encerrado.innerHTML = data[0].nome;
+        });
+      } else {
+        console.log(res.status);
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+}
+
+function redirecionarAtm(id) {
+  sessionStorage.setItem("idAtm", id);
+  window.location.href = "dashboard-atm.html"
+}
+
+
+verQtdAtmInativos();
+verProcessoMaisEncerrado();
+verAtmAnormal();
