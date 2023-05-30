@@ -80,8 +80,12 @@ function ordernarLista(tipo) {
                 nenhumAchado();
             } else {
                 resposta.json().then((json) => {
-                    plotarTabela(json);
+                    plotarTabela(json,true);
 
+                    document.querySelectorAll('.active-filtro').forEach((elemento) => {
+                        elemento.classList.remove('active-filtro');
+                    });
+                    
                     let btn_ordernar = document.getElementById(`btn_${tipo}`);
 
                     btn_ordernar.classList.add('active-filtro');
@@ -240,9 +244,10 @@ function nenhumAchado() {
     `
 }
 
-function plotarTabela(json) {
+function plotarTabela(json, isOrdernar) {
 
-    div_planilhaAtm.innerHTML = `
+    if (!isOrdernar || isOrdernar == undefined) {
+        div_planilhaAtm.innerHTML = `
         <table class="tabela-users tabelalistaAtm">
             <thead>
                 <tr>
@@ -259,6 +264,9 @@ function plotarTabela(json) {
             <tbody id="table_atm">
             </tbody>
         </table>`;
+
+    }
+    let caixas = "";
 
     for (const element of json) {
         //Converter data para o formato dd/mm/yyyy hh:mm:ss
@@ -277,7 +285,7 @@ function plotarTabela(json) {
         element.tempo_atividade = `${dias} dias, ${horas}horas e ${minutos} minutos`;
 
         let endereco = `${element.rua}, ${element.numero}` == "null, null" ? `<span style="color:gray">Sem endereço<span/>` : `${element.rua}, ${element.numero}`;
-        table_atm.innerHTML += `
+        caixas += `
             <tr>
                 <td>${element.identificador}</td>
                 <td>${element.situacao}</td>
@@ -301,6 +309,8 @@ function plotarTabela(json) {
                 </td>
             </tr>`;
     }
+
+    table_atm.innerHTML = caixas;
 }
 
 function loadingGifList() {

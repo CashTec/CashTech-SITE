@@ -52,7 +52,7 @@ function filtroPesquisa(req, res) {
 
 function ordernar(req, res) {
     const idEmpresa = req.params.idEmpresa;
-    const tipo = verificarTipo(req.params.tipo);
+    let tipo = verificarTipo(req.params.tipo);
 
     if (idEmpresa == null) {
         return res.status(400).send("idEmpresa está null!")
@@ -102,7 +102,8 @@ function verificarTipo(tipo) {
         'numero': 'e.numero',
         'bairro': 'e.bairro',
         'cidade': 'e.cidade',
-        'atividade': 'ms.tempo_atividade'
+        'atividade': 'ms.tempo_atividade',
+        'endereco': 'e.rua'
     };
 
     return tipos[tipo];
