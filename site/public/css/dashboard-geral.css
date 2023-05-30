@@ -56,7 +56,7 @@ body {
 }
 
 .content-indicadores span {
-  font-size: 1.3em;
+  font-size: 0.85em;
   font-weight: bold;
   color: #00556A;
 }
@@ -80,6 +80,7 @@ body {
   flex: 2;
   height: 100%;
 }
+
 .graphic>.square {
   display: flex;
   flex-direction: column;
@@ -88,37 +89,39 @@ body {
   background-color: #00556A;
 }
 
-.graphic>.square:nth-child(1){
+.graphic>.square:nth-child(1) {
   display: flex;
   flex-direction: column;
   max-height: 550px;
 
 }
 
-.list-atm::-webkit-scrollbar{
+.list-atm::-webkit-scrollbar {
   width: 5px;
 }
-.list-atm::-webkit-scrollbar-button{
- display: none;
+
+.list-atm::-webkit-scrollbar-button {
+  display: none;
 }
 
-.list-atm::-webkit-scrollbar-track-piece{
-background-color: #222;
+.list-atm::-webkit-scrollbar-track-piece {
+  background-color: #222;
 }
 
-.list-atm::-webkit-scrollbar-thumb{
+.list-atm::-webkit-scrollbar-thumb {
   background-color: #fff;
   border-radius: 10px;
 }
 
-.list-atm{
+.list-atm {
   width: 100%;
   overflow-y: scroll;
 }
-.list-atm .line{
-  width:90%;
+
+.list-atm .line {
+  width: 90%;
   margin: auto;
-padding: 15px;
+  padding: 15px;
   background-color: #222;
   display: flex;
   border-radius: 10px;
@@ -129,25 +132,25 @@ padding: 15px;
 
 }
 
-.list-atm .line button{
+.list-atm .line button {
   padding: 9px;
   border-radius: 15px;
   background-color: #ffffff;
   color: #fff;
   cursor: pointer;
- 
+
 }
 
-.list-atm .line button img{
+.list-atm .line button img {
   width: 25px;
   vertical-align: middle;
 }
 
-.list-atm .icon{
+.list-atm .icon {
   width: 25px;
- display: flex;
- align-items: center;
- justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -158,25 +161,22 @@ padding: 15px;
   color: #fff;
   margin-bottom: 20px;
 }
+
 .graphic>.square:nth-child(2) {
   flex: 1;
   background-color: #00556A;
   max-height: 550px;
 }
 
-.status{
+.status {
   color: rgb(239, 199, 0);
 }
+
 .graphic>.square:nth-child(2) h2 {
   margin: 10px auto 0 auto;
   font-size: 2em;
   color: #fff;
 }
-
-
-
-
-
 
 .content-graphic {
   display: flex;
@@ -189,7 +189,7 @@ padding: 15px;
 .qtdAtm {
   position: absolute;
   transform: translate(0px, -50px);
-  
+
 
 }
 
@@ -208,4 +208,26 @@ padding: 15px;
   font-size: 1.1em;
   font-weight: bold;
   color: #fff;
+}
+
+.truncated-text {
+  display: block;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loadingGif-list{
+  width: 170px;
+  margin: auto;
+  margin-top: 3vh;
+}
+
+.spn_naoEncontrado{
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #24c72e;
+  margin-left: 10px;
+  margin-top: 3vh;
 }

@@ -18,6 +18,7 @@ var enderecoRouter = require("./src/routes/endereco");
 var parametrizacaoRouter = require("./src/routes/parametrizacao");
 var processosRouter = require("./src/routes/processos")
 var listaAtmRouter = require("./src/routes/listaAtm")
+var geralRouter = require("./src/routes/geral");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,6 +33,7 @@ app.use("/endereco", enderecoRouter);
 app.use("/parametrizacao", parametrizacaoRouter)
 app.use("/processos", processosRouter);
 app.use("/listaAtm", listaAtmRouter);
+app.use("/geral", geralRouter);
 
 
 app.listen(PORTA, function () {
