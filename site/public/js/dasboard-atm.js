@@ -543,7 +543,7 @@ function inserirEndereco() {
       .then(json => {
         let divClass = document.querySelectorAll(".info-atm");
         let endereco = json[0];
-        divClass.forEach(element=>{element.innerHTML = `<h2>${endereco.identificador}</h2> <span class="bolinha"></span> <span>${endereco.cidade == null ? "" : endereco.cidade + ","} ${endereco.bairro == null ? "" : endereco.bairro + ","} ${endereco.rua == null ? "" : endereco.rua + "-"}  ${endereco.numero == null ? "" : endereco.numero + ","}</span>`})
+        divClass.forEach(element=>{element.innerHTML = `<h2>${endereco.identificador}</h2> <span class="bolinha"></span> <span>${endereco.bairro == null ? "" : endereco.bairro + ","} ${endereco.rua == null ? "" : endereco.rua + "-"}  ${endereco.numero == null ? "" : endereco.numero}</span>`})
       })
     ).catch((erro) => console.log(erro));
 }

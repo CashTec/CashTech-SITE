@@ -34,6 +34,7 @@ function mapa() {
         } else {
           contentAtm.style.display = 'block';
           if (json.enderecosInativos.length > 0) {
+
             json.enderecosInativos.forEach((endereco, i) => {
               const idAtm = endereco.idAtm;
               const nomeAtm = endereco.nomeAtm;
@@ -42,7 +43,6 @@ function mapa() {
                 lat: Number(endereco.latitude),
                 lng: Number(endereco.longitude)
               }
-
               let customPoup;
 
               let marker = L.marker([coordenadas.lat, coordenadas.lng], { icon: marcadores[0] }).addTo(map);

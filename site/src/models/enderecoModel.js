@@ -1,11 +1,14 @@
 var database = require("../database/config");
 
 function verEnderecosInativo(idEmpresa) {
-    let instrucao = `SELECT DISTINCT latitude, longitude, ce.id as idAtm, ce.identificador  as nomeAtm
+    let instrucao = 
+    `
+    SELECT DISTINCT e.latitude, e.longitude, ce.id as idAtm, ce.identificador  as nomeAtm
     FROM Endereco e
-    JOIN Empresa em ON em.endereco_id = e.id
-    JOIN CaixaEletronico ce ON ce.empresa_id = em.id
-    WHERE ce.situacao = 'inativo' and em.id = ${idEmpresa}`;
+    JOIN CaixaEletronico ce ON ce.endereco_id = e.id
+    JOIN Empresa em ON em.id = ce.empresa_id 
+    WHERE ce.situacao = 'inativo' and em.id = ${idEmpresa};
+    `;
     return database.executar(instrucao);
 }
 
