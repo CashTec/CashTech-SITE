@@ -42,20 +42,20 @@ async function verEnderecos(req, res) {
 }
 
 
-function exibirEndereco(req,res){
-const idAtm = Number(req.params.idAtm);
-enderecoModel.buscarEnderecoAtm(idAtm)
-.then((resposta)=>{
-    if(resposta.length>0){
-    res.status(200).json(resposta)
-    }
-    else{
-        res.status(204).send()
-    }
-})
-.catch(erro=>{
-    res.status(400).send(erro)
-})
+function exibirEndereco(req, res) {
+    const idAtm = Number(req.params.idAtm);
+    enderecoModel.buscarEnderecoAtm(idAtm)
+        .then((resposta) => {
+            if (resposta.length > 0) {
+                res.status(200).json(resposta)
+            }
+            else {
+                res.status(204).send()
+            }
+        })
+        .catch(erro => {
+            res.status(400).send(erro)
+        })
 }
 
 module.exports = {
