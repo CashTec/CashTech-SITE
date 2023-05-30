@@ -888,7 +888,7 @@ async function inserirKpiRede() {
     textRede.innerHTML = `${(conta/(1024*1024)).toFixed(2)}MB a mais que ontem`;
   }
   else if (conta < 0) {
-    textRede.innerHTML = `${(conta/(1024*1024)).toFixed(2)}MB a menos que ontem`;
+    textRede.innerHTML = `${(conta/(1024*1024) * -1).toFixed(2)}MB a menos que ontem`;
   }
   else {
     textRede.innerHTML = ``;
