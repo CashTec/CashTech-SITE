@@ -9,14 +9,13 @@
   <link rel="shortcut icon" href="img/favicon_transparent_32x32.png" type="image/x-icon">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/dashboard-geral.css">
-  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="./css/helpdesk.css">
   <title>CashTech</title>
   <link rel="icon" href="">
 </head>
 
 <body onload="verificarLogin()">
-  
+
   <div class="backEcplipse">
     <img src="./img/cashTechSystem/EllipseUp.png" class="eclipseUp" alt="">
     <img src="./img/cashTechSystem/EllipseDown.png" class="eclipseDown" alt="">
@@ -101,7 +100,7 @@
           <h2>Lista de ATMS com funcionamento fora do normal</h2>
 
           <div class="list-atm" id="list_atm">
-            
+
           </div>
         </div>
 
@@ -109,9 +108,10 @@
           <h2>Status do ATM</h2>
           <div class="content-graphic">
             <canvas class="canva" id="graphicBola"></canvas>
-            <div class="qtdAtm">
-              <h3>90</h3>
-              <p>TOTAL ATMS</p>
+            <div class="qtdAtm" id="div_status">
+              <div class="loadingGif" id="loadingGif">
+                <img src="img/loadingGifWhite.svg" alt="">
+            </div>
             </div>
           </div>
         </div>
