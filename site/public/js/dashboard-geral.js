@@ -99,7 +99,7 @@ function verAtmAnormal() {
             <div class="nome">${atm.identificador}</div>
             <div class="status"> ALERTA</div>
             <div class="indicators"> CPU - ${atm.metrica[1].tipo == "processador" ? atm.metrica[1].consumo.toFixed(0) : atm.metrica[0].consumo.toFixed(0)}%</div>
-            <div class="indicators"> Memória - ${atm.metrica[0].tipo == "memoria" ? calcularPorcentagem(atm.qtdMax, atm.metrica[0].consumo) / (1024 * 1024) : calcularPorcentagem(atm.qtdMax, atm.metrica[1].consumo)}%</div>
+            <div class="indicators"> Memória - ${atm.metrica[0].tipo == "memoria" ? calcularPorcentagem(atm.qtdMax, atm.metrica[0].consumo) : calcularPorcentagem(atm.qtdMax, atm.metrica[1].consumo)}%</div>
             <button onclick='redirecionarAtm(${atm.id})'><img src="img/seta.svg" alt=""></button>
             </div>
             `
@@ -122,6 +122,7 @@ function verAtmAnormal() {
 function calcularPorcentagem(qtdMax, consumo) {
   console.log("Consumo: " + consumo);
   console.log("QtdMax: " + qtdMax);
+  console.log("Resultado: " + ((consumo / qtdMax) * 100).toFixed(0));
   return ((consumo / qtdMax) * 100).toFixed(0);
 }
 
@@ -130,7 +131,6 @@ function verQtdAtmInativos() {
   fetch(`/geral/qtdAtmInativo/${idEmpresa}`)
     .then((res) => {
       res.json().then((data) => {
-        console.log(data);
         atms_inativos.innerHTML = data[0].qtdInativo;
       });
     }).catch((err) => {
@@ -144,7 +144,6 @@ function verProcessoMaisEncerrado() {
     .then((res) => {
       if (res.status == 200) {
         res.json().then((data) => {
-          console.log(data);
           processo_mais_encerrado.innerHTML = data[0].nome;
         });
       } else {
@@ -160,7 +159,6 @@ function verCidadeMaisInativo() {
     .then((res) => {
       if (res.status == 200) {
         res.json().then((data) => {
-          console.log(data);
           cidade_mais_inativa.innerHTML = data[0].cidade;
         });
       } else {
