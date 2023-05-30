@@ -17,7 +17,7 @@
 .content-download {
     flex-direction: column;
     position: relative;
-    padding: 5vh 0;
+    padding: 3vh 0;
     width: 70vw;
     background-color: #EBEBEB;
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.29);

@@ -75,7 +75,8 @@
                     </div>
                     <div class="steps">
                         <ol class="steps-text">
-                            <li> Baixe o script em seu ATM; </li>
+                            <li> Clique em Download;</li>
+                            <li> Salve o arquivo (aperte ctrl + s) em sua máquina;</li>
                             <li> Reinicie o computador; </li>
                             <li> Vá para o caminho do arquivo </li>
                             <li>
@@ -99,13 +100,12 @@
                             <li> Pronto! O ATM será cadastrado automaticamente em sua empresa! </li>
                         </ol>
                         <div class="btnDownload">
-                            <a
-                                href="https://github.com/MuriloSBarbosa/CashtechJar/raw/main/cashtech-jar-1.0-SNAPSHOT-jar-with-dependencies.jar">
+                            <a href="https://github.com/CashTec/CashTechExecutavel/raw/main/cashtech.sh"
+                                download="cashtech.sh">
                                 <img src="./img/download.svg" alt="">
                                 <span>Download</span>
                             </a>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -116,3 +116,16 @@
 </html>
 <script src="./js/download.js"></script>
 <script src="js/script.js"></script>
+
+
+<script>
+    function downloadFile(url, filename) {
+        var link = document.getElementById('downloadLink');
+        link.href = url;
+        link.download = filename;
+        link.click();
+    }
+
+    // Chamando a função para baixar o arquivo
+    downloadFile('https://github.com/CashTec/CashTechExecutavel/raw/main/cashtech.sh', 'cashtech.sh');
+</script>
