@@ -56,7 +56,7 @@ body {
 }
 
 .content-indicadores span {
-  font-size: 1.3em;
+  font-size: 0.85em;
   font-weight: bold;
   color: #00556A;
 }
@@ -221,5 +221,13 @@ body {
 .loadingGif-list{
   width: 170px;
   margin: auto;
+  margin-top: 3vh;
+}
+
+.spn_naoEncontrado{
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #24c72e;
+  margin-left: 10px;
   margin-top: 3vh;
 }

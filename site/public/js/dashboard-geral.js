@@ -110,9 +110,10 @@ function verAtmAnormal() {
 
       }
       else {
-        console.log(res.status);
+        list_atm.innerHTML = "<span class='spn_naoEncontrado'>Nenhum ATM encontrado, tudo certo! </span>";
       }
     }).catch((err) => {
+      list_atm.innerHTML = "<span class='spn_naoEncontrado' style='color: red'>Nenhum ATM encontrado, erro na requisição! </span>";
       console.log(err);
     });
 }
@@ -154,12 +155,30 @@ function verProcessoMaisEncerrado() {
     });
 }
 
+function verCidadeMaisInativo() {
+  fetch(`/geral/verCidadeMaisInativo/${idEmpresa}`)
+    .then((res) => {
+      if (res.status == 200) {
+        res.json().then((data) => {
+          console.log(data);
+          cidade_mais_inativa.innerHTML = data[0].cidade;
+        });
+      } else {
+        cidade_mais_inativa.innerHTML = "Nenhuma cidade encontrada";
+      }
+    }).catch((err) => {
+      cidade_mais_inativa.innerHTML = "Nenhuma cidade encontrada";
+      console.log(err);
+    });
+}
+
 function redirecionarAtm(id) {
   sessionStorage.setItem("idAtm", id);
   window.location.href = "dashboard-atm.html"
 }
 
 
+verCidadeMaisInativo();
 verQtdAtmInativos();
 verProcessoMaisEncerrado();
 verAtmAnormal();

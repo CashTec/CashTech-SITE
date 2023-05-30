@@ -35,7 +35,9 @@ async function verAtmAnormal(req, res) {
 }
 
 function verCidadeMaisInativo(req, res) {
-    geralModel.verCidadeMaisInativo()
+    const idEmpresa = req.params.idEmpresa;
+
+    geralModel.verCidadeMaisInativo(idEmpresa)
         .then((resposta) => {
             if (resposta.length > 0) {
                 return res.status(200).json(resposta);

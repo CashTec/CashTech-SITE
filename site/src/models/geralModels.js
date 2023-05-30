@@ -17,7 +17,6 @@ function verAtmAnormal(idEmpresa, dtAgora) {
         OR (mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max * 0.75) OR mri.bytes_recebidos_segundo  > (p.qtd_bytes_recebido_max * 0.75)))
         AND mc.dt_metrica  >= CONVERT(datetime,'${dtAgora}', 120)
         group by identificador, ce.id`;
-        console.log(query);
     return database.executar(query);
 }
 
@@ -34,8 +33,17 @@ function verUltimasMetricas(idAtm){
     return database.executar(query);
 }
 
-function verCidadeMaisInativo(idEmpresa, dtAgora) {
-    return database.executar(`SELECT * FROM cidade_mais_inativo`);
+function verCidadeMaisInativo(idEmpresa) {
+    let query = 
+    `
+    SELECT TOP 1 cidade, count(ce.id) as qtdInativo
+    FROM Endereco e
+    JOIN CaixaEletronico ce ON ce.endereco_id = e.id
+    JOIN Empresa em ON ce.empresa_id = em.id
+    WHERE em.id = ${idEmpresa} AND ce.situacao = 'inativo'
+    group by cidade`
+    ;
+    return database.executar(query);
 }
 
 function processoMaisEncerrado(idEmpresa, dtAgora) {
