@@ -12,13 +12,13 @@ const graphicBola = document.getElementById("graphicBola");
 const config = {
   type: "doughnut",
   data: {
-    labels: ["PERIGO", "ALERTA", "ATIVO"],
+    labels: ["PERIGO", "ALERTA", "ATIVO", "INATIVO"],
     datasets: [
       {
-        label: "ATM",
-        data: [12, 19, 3],
+        label: "Quantidade",
+        data: [0, 0, 0, 0],
         borderWidth: [0],
-        backgroundColor: ["#A20505", "#F1AC15", "#24C72E"]
+        backgroundColor: ["#b60000", "#F1AC15", "#00FFF0","#8f8f8f"]
       },
     ],
   },
@@ -175,8 +175,49 @@ function redirecionarAtm(id) {
   window.location.href = "dashboard-atm.html"
 }
 
+function verStatusAtm() {
+  const data = new Date();
+  fetch(`/geral/statusAtms/${idEmpresa}/${data}`)
+    .then((res) => {
+      if (res.status == 200) {
+        res.json().then((data) => {
+          div_status.innerHTML = 
+          `
+          <h3 id="h3_qtdAtm">...</h3>
+          <p>TOTAL ATMS</p>
+
+          `;
+          console.log(data);
+          const qtdAtm = data.qtdAtm;
+          const qtdInativo = data.qtdInativo;
+          const qtdAlerta = data.qtdAlerta;
+          const qtdPerigo = data.qtdPerigo;
+          let qtdAtivo = data.qtdAtm - data.qtdInativo - data.qtdAlerta - data.qtdPerigo;
+          qtdAtivo = qtdAtivo < 0 ? 0 : qtdAtivo;
+
+          h3_qtdAtm.innerHTML = qtdAtm;
+
+          console.log("Qtd Atm: " + qtdAtm);
+          console.log("Qtd Inativo: " + qtdInativo);
+          console.log("Qtd Alerta: " + qtdAlerta);
+          console.log("Qtd Perigo: " + qtdPerigo);
+          console.log("Qtd Ativo: " + qtdAtivo);
+
+          myChart.data.datasets[0].data = [qtdPerigo, qtdAlerta, qtdAtivo, qtdInativo];
+          console.log(myChart.data.datasets[0].data);
+          myChart.update();
+
+        });
+      } else {
+        console.log(res.status);
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+}
 
 verCidadeMaisInativo();
 verQtdAtmInativos();
 verProcessoMaisEncerrado();
 verAtmAnormal();
+verStatusAtm();

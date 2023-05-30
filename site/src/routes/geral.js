@@ -19,4 +19,8 @@ router.get("/qtdAtmInativo/:idEmpresa",(req,res)=>{
     controllerGeral.qtdAtmInativos(req,res);
 });
 
+router.get("/statusAtms/:idEmpresa/:dataAgora",(req,res)=>{
+    controllerGeral.verStatusAtm(req,res);
+});
+
 module.exports = router;
