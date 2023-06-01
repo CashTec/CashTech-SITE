@@ -1,5 +1,5 @@
 const geralModel = require('../models/geralModels.js');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 async function verAtmAnormal(req, res) {
     const idEmpresa = req.params.idEmpresa;
@@ -9,9 +9,11 @@ async function verAtmAnormal(req, res) {
         return res.status(400).send("Dados inválidos!");
     }
 
-    let dataFormatada = moment(data).format('YYYY-MM-DD HH:mm:ss');
+    // passar data para horario de sao paulo
+    let newData = moment(data).tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
+
     // tirar 3 segundos da data
-    dataFormatada = moment(dataFormatada).subtract(5, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+    dataFormatada = moment(newData).subtract(5, 'seconds').format('YYYY-MM-DD HH:mm:ss');
 
     try {
         const resposta = await geralModel.verAtmAnormal(idEmpresa, dataFormatada);
@@ -55,7 +57,11 @@ function processoMaisEncerrado(req, res) {
     const idEmpresa = req.params.idEmpresa;
     const data = req.params.dataAgora;
 
-    let dataFormatada = moment(data).format('YYYY-MM-DD HH:mm:ss');
+    // passar data para horario de sao paulo
+    let newData = moment(data).tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
+    
+    // tirar 3 segundos da data
+    dataFormatada = moment(newData).subtract(5, 'seconds').format('YYYY-MM-DD HH:mm:ss');
 
     geralModel.processoMaisEncerrado(idEmpresa, dataFormatada)
         .then((resposta) => {
