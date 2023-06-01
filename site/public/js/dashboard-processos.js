@@ -198,7 +198,7 @@ function verProcessoMaisFinalizado() {
 
     // Passar para o formato dia,mes,ano e colocar o fuseau horário de brasília
     dtProcesso = dtProcesso.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-    dtProcesso = dtProcesso.replaceAll('/', '%2F');
+    dtProcesso = dtProcesso.replaceAll('/', 'barra');
 
     fetch(`/processos/verProcessoMaisFinalizado/${idAtm}/${dtProcesso}`)
         .then((response) => {
@@ -226,7 +226,7 @@ function verHorarioMaisFinalizado() {
 
     // Passar para o formato dia,mes,ano e colocar o fuseau horário de brasília
     dtProcesso = dtProcesso.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-    dtProcesso = dtProcesso.replaceAll('/', '%2F');
+    dtProcesso = dtProcesso.replaceAll('/', 'barra');
 
     fetch(`/processos/verHorarioMaisFinalizado/${idAtm}/${dtProcesso}`)
         .then((response) => {

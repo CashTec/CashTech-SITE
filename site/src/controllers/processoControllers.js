@@ -46,7 +46,7 @@ function processosKilled(req, res) {
 function verProcessoMaisFinalizado(req, res) {
     const idAtm = req.params.idAtm;
     let dtProcesso = req.params.dtProcesso;
-    dtProcesso = dtProcesso.replaceAll("%2F", "/");
+    dtProcesso = dtProcesso.replaceAll("barra", "/");
     
     if (idAtm == undefined || dtProcesso == undefined) {
         return res.status(400).send("idAtm ou dtProcesso está null!")
@@ -68,7 +68,7 @@ function verProcessoMaisFinalizado(req, res) {
 function horarioMaisFinalizado(req, res) {
     const idAtm = req.params.idAtm;
     let dtProcesso = req.params.dtProcesso;
-    dtProcesso = dtProcesso.replaceAll("%2F", "/");
+    dtProcesso = dtProcesso.replaceAll("barra", "/");
     
     if (idAtm == undefined || dtProcesso == undefined) {
         return res.status(400).send("idAtm ou dtProcesso está null!")
