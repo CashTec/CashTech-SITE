@@ -229,7 +229,7 @@ function semProcesso() {
         `
     <div class="nenhum-cadastrado">
         <h2 id="h2_nenhumAchado">
-            Não há nenhúm processo!
+            Não há nenhum processo!
         </h2>
     </div>
     `;
