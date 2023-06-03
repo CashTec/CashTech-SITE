@@ -101,9 +101,7 @@ function qtdAtmPerigo(idEmpresa, dtAgora) {
         OR (mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max) OR mri.bytes_recebidos_segundo  > (p.qtd_bytes_recebido_max)))
         AND mc.dt_metrica  >= CONVERT(datetime,'${dtAgora}', 120)
         group by ce.id`;
-
-        console.log(query);
-
+        
     return database.executar(query);
 }
 
