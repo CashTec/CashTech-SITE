@@ -12,8 +12,8 @@ async function verAtmAnormal(req, res) {
     // passar data para horario de sao paulo
     let newData = moment(data).tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
 
-    // tirar 3 segundos da data
-    dataFormatada = moment(newData).subtract(5, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+    // tirar 5 segundos da data
+    dataFormatada = moment(newData).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
 
     try {
         const resposta = await geralModel.verAtmAnormal(idEmpresa, dataFormatada);
@@ -60,9 +60,6 @@ function processoMaisEncerrado(req, res) {
     // passar data para horario de sao paulo
     let newData = moment(data).tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
     
-    // tirar 3 segundos da data
-    dataFormatada = moment(newData).subtract(5, 'seconds').format('YYYY-MM-DD HH:mm:ss');
-
     geralModel.processoMaisEncerrado(idEmpresa, dataFormatada)
         .then((resposta) => {
             console.log(resposta);
@@ -108,8 +105,7 @@ async function verStatusAtm(req, res) {
     }
 
     let dataFormatada = moment(data).format('YYYY-MM-DD HH:mm:ss');
-    // tirar 3 segundos da data
-    dataFormatada = moment(dataFormatada).subtract(5, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+    dataFormatada = moment(dataFormatada).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
 
     try {
         let qtdAtm = await geralModel.verTotalAtm(idEmpresa);
