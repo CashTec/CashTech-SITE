@@ -271,7 +271,6 @@ function cadastrar() {
         })
     }).then(function (resposta) {
 
-        console.log("resposta: ", resposta);
 
         if (resposta.ok) {
             setTimeout(() => {
@@ -280,7 +279,6 @@ function cadastrar() {
 
 
         } else if (resposta.status == 409) {
-            console.log("estou no fetch");
             resposta.json().then(erro => {
                 div_card.style.display = "flex";
                 mensagem_erro.innerHTML = erro.message;
@@ -292,8 +290,6 @@ function cadastrar() {
                 throw ("Houve um erro ao tentar realizar o cadastro!\n" + erro.message);
             });
         } else {
-            console.log("estou no fetch");
-            console.log(resposta.message);
             throw ("Houve um erro ao tentar realizar o cadastro!");
         }
     }).catch(function (resposta) {

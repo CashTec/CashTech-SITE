@@ -130,8 +130,6 @@ function exibirProcessosPermitidos() {
             response.json().then((json) => {
                 processosPermitido = json;
                 processos = json;
-                console.log("Processos");
-                console.log(processos);
                 if (processos.length > 0) {
                     // plotar processos
                     plotarTabela(processos);
@@ -158,7 +156,6 @@ function deletarProcessoPermitido(id) {
         }
     }).then((response) => {
         if (response.ok) {
-            console.log("Deu certo!");
             alert("Deletado com sucesso!");
             window.location.reload();
         } else {
@@ -183,7 +180,6 @@ function adicionarNovoProcesso() {
                 "Content-Type": "application/json",
             }
         }).then((response) => {
-            console.log(response);
             if (response.ok) {
                 alert(`Processo adicionado!`);
                 window.location.reload();

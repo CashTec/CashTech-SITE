@@ -5,11 +5,6 @@ var sessoes = [];
 function entrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-
-    console.log("Controller");
-    console.log("Email: " + email);
-    console.log("Senha: " + senha);
-
     if (email == undefined) {
         res.status(400).send("Seu login está undefined!");
     } else if (senha == undefined) {
@@ -18,11 +13,7 @@ function entrar(req, res) {
         usuarioModel
             .entrar(email, senha)
             .then(function (resultado) {
-                console.log(`\nResultados encontrados: ${resultado.length}`);
-                console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
-
                 if (resultado.length == 1) {
-                    console.log(resultado);
                     res.json(resultado[0]);
                 } else if (resultado.length == 0) {
                     res.status(403).send("Email e/ou senha inválido(s)");
@@ -41,14 +32,6 @@ function entrar(req, res) {
     }
 }
 
-
-
-// 
-    // JOCA ESTEVE AQUI
-
-
-
-
 async function cadastrar(req, res) {
     const camposObrigatorios = [
         "nomeEmpresaServer",
@@ -64,7 +47,6 @@ async function cadastrar(req, res) {
         "loginServer",
         "senhaServer",
     ];
-    console.log(req.body);
     const camposFaltantes = camposObrigatorios.filter(
         (campo) => req.body[campo] === undefined
     );

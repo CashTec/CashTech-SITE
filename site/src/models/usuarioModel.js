@@ -25,7 +25,6 @@ function cadastrarEmpresa(nomeEmpresa, cnpj, email, telefone) {
     `;
     }
 
-    console.log("Executando a instrução SQL: \n" + instrucao);
 
     return database.executar(instrucao);
 }
@@ -89,7 +88,6 @@ function addUser(idEmpresa, nomeServer, emailServer, senhaServer, funcaoServer) 
             '${idEmpresa}',
             '${funcaoServer}');
             `
-    console.log(nomeServer, emailServer, senhaServer, funcaoServer, idEmpresa);
     return database.executar(instrucao);
 }
 

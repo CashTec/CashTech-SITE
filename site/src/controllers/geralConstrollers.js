@@ -20,7 +20,6 @@ async function verAtmAnormal(req, res) {
         if (resposta.length > 0) {
             let json = [];
             for (const res of resposta) {
-                console.log(res.idAtm);
                 const metricas = await geralModel.verUltimasMetricas(res.idAtm);
                 json.push(metricas);
             }
@@ -65,7 +64,6 @@ function processoMaisEncerrado(req, res) {
 
     geralModel.processoMaisEncerrado(idEmpresa, dataFormatada)
         .then((resposta) => {
-            console.log(resposta);
             if (resposta.length > 0) {
                 return res.status(200).json(resposta);
             } else {
