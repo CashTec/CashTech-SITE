@@ -8,7 +8,7 @@ var sqlServerConfig = {
     user: "admin-cashtech",
     password: "#Gfgrupo10",
     pool: {
-        max: 10,
+        max: 20,
         min: 0,
         idleTimeoutMillis: 50000
     },
@@ -24,6 +24,7 @@ var mySqlConfig = {
     port: 3306,
     user: "root",
     password: "gp123456789.",
+    connectionLimit: 20
 };
 
 function executar(instrucao) {
