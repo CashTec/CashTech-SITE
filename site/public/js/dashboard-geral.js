@@ -18,7 +18,7 @@ const config = {
         label: "Quantidade",
         data: [0, 0, 0, 0],
         borderWidth: [0],
-        backgroundColor: ["#b60000", "#F1AC15", "#00FFF0","#8f8f8f"]
+        backgroundColor: ["#b60000", "#F1AC15", "#00FFF0", "#8f8f8f"]
       },
     ],
   },
@@ -65,52 +65,60 @@ function verAtmAnormal() {
     .then((res) => {
       if (res.status == 200) {
         res.json().then((data) => {
-          for (const atm of data) {
-            let json = {
-              id: 0,
-              identificador: "",
-              qtdMax: 0,
-              metrica: []
-            }
-            for (const metrica of atm) {
-              console.log(metrica);
-              if (metrica.qtd_maxima != null) {
-                json.qtdMax = metrica.qtd_maxima;
+          console.log("data da requisição de verAtmAnormal");
+          console.log(data);
+
+          if (data.length > 0) {
+            for (const atm of data) {
+              let json = {
+                id: 0,
+                identificador: "",
+                qtdMax: 0,
+                metrica: [],
+                tipoAlerta: data.tipoAlerta
               }
+              for (const metrica of atm.metricas) {
+                console.log(metrica);
+                if (metrica.qtd_maxima != null) {
+                  json.qtdMax = metrica.qtd_maxima;
+                }
 
-              json.id = metrica.idAtm;
-              json.identificador = metrica.identificador;
-              json.metrica.push({
-                consumo: metrica.qtd_consumido,
-                tipo: metrica.tipo
-              })
+                json.id = metrica.idAtm;
+                json.identificador = metrica.identificador;
+                json.metrica.push({
+                  consumo: metrica.qtd_consumido,
+                  tipo: metrica.tipo
+                })
+              }
+              atms.push(json);
             }
-            atms.push(json);
-          }
 
-          let atmsAnormais = "";
+            let atmsAnormais = "";
 
-          for (const atm of atms) {
-            console.log(atm);
-            atmsAnormais +=
-              `
+            for (const atm of atms) {
+              console.log(atm);
+              atmsAnormais +=
+                `
             <div class="line">
             <div class="icon"><img src="img/Group.svg" alt=""></div>
             <div class="nome">${atm.identificador}</div>
-            <div class="status"> ALERTA</div>
+            <div class="status">${data.tipoAlerta == "anormal" ? "ALERTA" : "<span style='color: red'>PERIGO!</span>"}</div>
             <div class="indicators"> CPU - ${atm.metrica[1].tipo == "processador" ? atm.metrica[1].consumo.toFixed(0) : atm.metrica[0].consumo.toFixed(0)}%</div>
             <div class="indicators"> Memória - ${atm.metrica[0].tipo == "memoria" ? calcularPorcentagem(atm.qtdMax, atm.metrica[0].consumo) : calcularPorcentagem(atm.qtdMax, atm.metrica[1].consumo)}%</div>
             <button onclick='redirecionarAtm(${atm.id})'><img src="img/seta.svg" alt=""></button>
             </div>
             `
-          }
+            }
 
-          list_atm.innerHTML = atmsAnormais;
+            list_atm.innerHTML = atmsAnormais;
+          } else {
+            list_atm.innerHTML = "<span class='spn_naoEncontrado'>Nenhum ATM encontrado, tudo certo! </span>";
+          }
         })
 
       }
       else {
-        list_atm.innerHTML = "<span class='spn_naoEncontrado'>Nenhum ATM encontrado, tudo certo! </span>";
+        list_atm.innerHTML = "<span class='spn_naoEncontrado' style='color: red'>Nenhum ATM encontrado, Erro! </span>";
       }
     }).catch((err) => {
       list_atm.innerHTML = "<span class='spn_naoEncontrado' style='color: red'>Nenhum ATM encontrado, erro na requisição! </span>";
@@ -181,8 +189,8 @@ function verStatusAtm() {
     .then((res) => {
       if (res.status == 200) {
         res.json().then((data) => {
-          div_status.innerHTML = 
-          `
+          div_status.innerHTML =
+            `
           <h3 id="h3_qtdAtm">...</h3>
           <p>TOTAL ATMS</p>
 

@@ -28,7 +28,7 @@ function verEnderecosAlerta(idEmpresa) {
         OR (c.tipo = 'processador' AND mc.qtd_consumido > (p.qtd_cpu_max * 0.75))
         OR (c.tipo = 'disco' AND mc.qtd_consumido > (p.qtd_disco_max * 0.75))
         OR (mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max * 0.75) OR mri.bytes_recebidos_segundo  > (p.qtd_bytes_recebido_max * 0.75)))
-        AND mc.dt_metrica  >= DATEADD(second, -10805, GETDATE());`;
+        AND mc.dt_metrica  >= DATEADD(second, -10809, GETDATE());`;
     return database.executar(instrucao);
 }
 

@@ -15,20 +15,29 @@ async function verAtmAnormal(req, res) {
     // tirar 5 segundos da data
     dataFormatada = moment(newData).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
 
+    let listaAtm = [];
+
     try {
-        const resposta = await geralModel.verAtmAnormal(idEmpresa, dataFormatada);
-        if (resposta.length > 0) {
-            let json = [];
-            for (const res of resposta) {
+        const atmAnormal = await geralModel.verAtmAnormal(idEmpresa, dataFormatada);
+        if (atmAnormal.length > 0) {
+            for (const res of atmAnormal) {
                 console.log(res.idAtm);
                 const metricas = await geralModel.verUltimasMetricas(res.idAtm);
-                json.push(metricas);
+                listaAtm.push({ metricas: metricas, tipoAlerta: 'anormal' });
             }
-            return res.status(200).json(json);
         }
-        else {
-            return res.status(204).send("Não há dados!");
+
+        const atmPerigo = await geralModel.verAtmPerigo(idEmpresa, dataFormatada);
+        if (atmPerigo.length > 0) {
+            for (const res of atmPerigo) {
+                console.log(res.idAtm);
+                const metricas = await geralModel.verUltimasMetricas(res.idAtm);
+                listaAtm.push({ metricas: metricas, tipoAlerta: 'perigo' });
+            }
         }
+
+        return res.status(200).json(listaAtm);
+
     } catch (error) {
         console.log(error);
         console.log("\nHouve um erro ao realizar a busca! Erro: ", error.sqlMessage);
@@ -57,9 +66,12 @@ function processoMaisEncerrado(req, res) {
     const idEmpresa = req.params.idEmpresa;
     const data = req.params.dataAgora;
 
-    // passar data para horario de sao paulo
-    let newData = moment(data).tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
-    
+    if (idEmpresa == undefined || data == undefined) {
+        return res.status(400).send("Dados inválidos!");
+    }
+
+    let dataFormatada = moment(data).format('YYYY-MM-DD HH:mm:ss');
+
     geralModel.processoMaisEncerrado(idEmpresa, dataFormatada)
         .then((resposta) => {
             console.log(resposta);
