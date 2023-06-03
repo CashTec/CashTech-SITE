@@ -180,19 +180,14 @@ async function editar(idAtm) {
         };
 
         let endereco = `${rua}, ${numero}, ${bairro} - ${cidade}`;
-        console.log(endereco);
         await fetch(`https://nominatim.openstreetmap.org/search.php?q='${endereco}'&format=jsonv2`)
             .then(response =>
                 response.json()).then(data => {
-                    console.log(data)
                     if (data.length > 0) {
                         coordenadas = {
                             lat: Number(data[0].lat),
                             lng: Number(data[0].lon)
                         }
-
-                        console.log("Coordenadas");
-                        console.log(coordenadas);
                     };
                 }).catch((error) => {
                     console.log("Erro ao transformar Json");

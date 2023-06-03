@@ -134,7 +134,6 @@ function atualizarFeed(tipo, campo) {
       if (resposta.ok) {
         in_pesquisa.value = "";
         resposta.json().then((json) => {
-          console.log("Dados recebidos: ", JSON.stringify(json));
           plotarTabela(json);
         });
       } else {

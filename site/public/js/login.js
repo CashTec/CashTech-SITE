@@ -33,17 +33,8 @@ function entrar() {
             senhaServer: senhaVar
         })
     }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO entrar()!")
-
-        console.log(resposta);
-
         if (resposta.ok) {
-            console.log(resposta);
-
             resposta.json().then(json => {
-                console.log(json);
-                console.log(JSON.stringify(json));
-
                 sessionStorage.EMAIL_USUARIO = json.login
                 sessionStorage.NOME_USUARIO = json.nome;
                 sessionStorage.ID_USUARIO = json.id;

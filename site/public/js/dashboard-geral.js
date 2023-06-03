@@ -73,7 +73,6 @@ function verAtmAnormal() {
               metrica: []
             }
             for (const metrica of atm) {
-              console.log(metrica);
               if (metrica.qtd_maxima != null) {
                 json.qtdMax = metrica.qtd_maxima;
               }
@@ -91,7 +90,6 @@ function verAtmAnormal() {
           let atmsAnormais = "";
 
           for (const atm of atms) {
-            console.log(atm);
             atmsAnormais +=
               `
             <div class="line">
@@ -120,9 +118,6 @@ function verAtmAnormal() {
 
 
 function calcularPorcentagem(qtdMax, consumo) {
-  console.log("Consumo: " + consumo);
-  console.log("QtdMax: " + qtdMax);
-  console.log("Resultado: " + ((consumo / qtdMax) * 100).toFixed(0));
   return ((consumo / qtdMax) * 100).toFixed(0);
 }
 
@@ -187,7 +182,6 @@ function verStatusAtm() {
           <p>TOTAL ATMS</p>
 
           `;
-          console.log(data);
           const qtdAtm = data.qtdAtm;
           const qtdInativo = data.qtdInativo;
           const qtdAlerta = data.qtdAlerta;
@@ -197,14 +191,9 @@ function verStatusAtm() {
 
           h3_qtdAtm.innerHTML = qtdAtm;
 
-          console.log("Qtd Atm: " + qtdAtm);
-          console.log("Qtd Inativo: " + qtdInativo);
-          console.log("Qtd Alerta: " + qtdAlerta);
-          console.log("Qtd Perigo: " + qtdPerigo);
-          console.log("Qtd Ativo: " + qtdAtivo);
+
 
           myChart.data.datasets[0].data = [qtdPerigo, qtdAlerta, qtdAtivo, qtdInativo];
-          console.log(myChart.data.datasets[0].data);
           myChart.update();
 
         });

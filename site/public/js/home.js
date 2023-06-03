@@ -7,7 +7,6 @@ const btnCarrossel = document.querySelector(".next");
 const navBar = document.querySelector("header");
 hamburguerButton.forEach((element) => {
   element.addEventListener("click", () => {
-    console.log(hamburguerButton);
     menuHamburguer.classList.toggle("active");
     btnCarrossel.classList.toggle("active");
   });
