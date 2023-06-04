@@ -10,7 +10,7 @@ async function verAtmAnormal(req, res) {
     }
 
     // passar data para horario de sao paulo
-    let newData = moment(data).tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
+    let newData = moment(data).tz('America/Sao_Paulo');
 
     // tirar 5 segundos da data
     dataFormatada = moment(newData).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
@@ -130,14 +130,17 @@ function qtdAtmInativos(req, res) {
 
 async function verStatusAtm(req, res) {
     const idEmpresa = req.params.idEmpresa;
-    const data = req.params.dataAgora;
 
-    if (idEmpresa == undefined || data == undefined) {
+    if (idEmpresa == undefined) {
         return res.status(400).send("Dados inválidos!");
     }
 
-    let dataFormatada = moment(data).format('YYYY-MM-DD HH:mm:ss');
-    dataFormatada = moment(dataFormatada).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+    // passar data para horario de sao paulo
+    let newData = moment().tz('America/Sao_Paulo');
+
+    // tirar 5 segundos da data
+    dataFormatada = moment(newData).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+
 
     try {
         let qtdAtm = await geralModel.verTotalAtm(idEmpresa);

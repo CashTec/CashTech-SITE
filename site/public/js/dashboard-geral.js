@@ -196,8 +196,7 @@ function redirecionarAtm(id) {
 }
 
 function verStatusAtm() {
-  const data = new Date();
-  fetch(`/geral/statusAtms/${idEmpresa}/${data}`)
+  fetch(`/geral/statusAtms/${idEmpresa}`)
     .then((res) => {
       if (res.status == 200) {
         res.json().then((data) => {
