@@ -86,9 +86,7 @@ function tempoUltimoProcesso() {
 
     let tempo = date - dtUltimoProcesso;
     let segundos = Math.floor(tempo / 1000);
-    console
     let minutos = Math.floor(segundos / 60);
-    
     let horas = Math.floor(minutos / 60) - 3;
 
     segundos %= 60;

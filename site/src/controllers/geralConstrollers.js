@@ -80,7 +80,6 @@ function processoMaisEncerrado(req, res) {
 
     geralModel.processoMaisEncerrado(idEmpresa, dataFormatada)
         .then((resposta) => {
-            console.log(resposta);
             if (resposta.length > 0) {
                 return res.status(200).json(resposta);
             } else {

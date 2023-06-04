@@ -25,8 +25,6 @@ function mapa() {
   fetch(`/endereco/${idEmpresa}`).then((response) => {
     if (response.ok) {
       response.json().then((json) => {
-        console.log("Enderecos");
-        console.log(json);
         enderecos = json;
 
         if (json.enderecosInativos.length == 0 && json.enderecosAlerta.length == 0) {
@@ -139,62 +137,6 @@ const btn = document.querySelectorAll(".button-carrossel");
 
 btn.forEach(element => {
   element.addEventListener("click", (e) => {
-    console.log(e.target.getAttribute("data-info"))
     e.target.getAttribute("data-info") == "down" ? listCarrossel.scroll(listCarrossel.scrollLeft - 140, 0) : listCarrossel.scroll(listCarrossel.scrollLeft + 140, 0);
   })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const url = `https://nominatim.openstreetmap.org/search.php?q='${"Rua Trajano de Carvalho, 295, Brasilândia - São Paulo"}'&format=jsonv2`;
-// fetch(url).then(response => response.json())
-//   .then(data => {
-//     console.log(data)
-
-//     if (data.length > 0) {
-//       const coordenadas = {
-//         lat: Number(data[0].lat),
-//         lng: Number(data[0].lon)
-//       }
-
-//       console.log("Coordenadas");
-//       console.log(coordenadas);
-//     };
-//   }).catch((error) => {
-//     console.log(error);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   })

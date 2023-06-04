@@ -4,7 +4,8 @@ const font = new FontFace(
   "url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap)"
 );
 
-// GRAFICOS
+
+// FUNÇÕES PARA PLOTAR DADOS NO GRÁFICO - PLOTAR
 let graficoProcessador = {
   type: "line",
   data: {
@@ -21,6 +22,14 @@ let graficoProcessador = {
   },
   options: {
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            let value = tooltipItem.dataset.data[tooltipItem.dataIndex];
+            return value.toFixed(1) + "%";
+          }
+        }
+      },
       legend: {
         display: false
       },
@@ -95,6 +104,14 @@ let graficoMemoria = {
   },
   options: {
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            let value = tooltipItem.dataset.data[tooltipItem.dataIndex];
+            return value.toFixed(2) + "%";
+          }
+        }
+      },
       legend: {
         display: false
       },
@@ -168,10 +185,7 @@ let graficoRede = {
       data: [],
       borderWidth: 3,
       borderColor: "#E5A50A"
-
     },
-
-
     ],
   },
   options: {
@@ -258,9 +272,8 @@ let graficoHd = {
       tooltip: {
         callbacks: {
           label: (tooltipItem) => {
-            console.log(tooltipItem)
-            let value = tooltipItem.dataset.data[tooltipItem.dataIndex].toFixed(2);
-            return value + "GB";
+            let value = tooltipItem.dataset.data[tooltipItem.dataIndex];
+            return converterMedida(value);
           }
         }
       },
@@ -271,7 +284,6 @@ let graficoHd = {
   },
 };
 
-console.log(graficoHd);
 
 const grafico4 = new Chart(graphicBola, graficoHd);
 
@@ -279,7 +291,6 @@ const grafico4 = new Chart(graphicBola, graficoHd);
 function passarTela() {
   window.scroll((window.scrollX >= window.innerWidth ? 0 : window.innerWidth), 0);
   window.scroll((window.scrollX >= (window.innerWidth * 3) / 4 ? 0 : window.innerWidth), 0);
-  console.log(window.innerWidth);
 }
 
 const divCardInfo = document.querySelectorAll(".card-info");
@@ -289,6 +300,8 @@ btnInfo.forEach((element, i) => {
     divCardInfo[i].classList.toggle("active");
   })
 })
+
+
 
 // -- Função para passar para outra tela 
 const btnBolinha = document.querySelectorAll(".content-btn button");
@@ -313,7 +326,7 @@ function coletarInfoComponente(componente) {
     })
       .then(resposta => {
         if (resposta.status != 200) {
-          alert("Houve um erro ao fazer requisição");
+          window.location.back;
         }
 
         resposta.json()
@@ -322,41 +335,60 @@ function coletarInfoComponente(componente) {
               case "memoria":
                 inserirInfoMemoria(json);
                 break;
-              case "disco":
-                inserirInfoDisco(json);
-                break;
               case "processador":
                 inserirInfoProcessador(json);
                 break;
               case "rede":
                 inserirInfoRede(json);
+                break;
               default:
+                console.log("Componente inválido foi enviado na requisição");
             }
           })
       })
-      .catch(erro => { })
+      .catch(erro => {
+        console.log(erro);
+      })
   })
 }
 
-
-
-function buscarMetricaRede() {
-
-  fetch(`/metricas/metricaRede/${Number(sessionStorage.idAtm)}`)
-    .then(resposta => resposta.json())
-
-    .then(json => {
-      console.log(json);
-      if (json.length > 0) {
-        atualizarMetricaRede(json);
+function coletarInfoDisco() {
+  fetch(`/metricas/infoDisco/${sessionStorage.idAtm}`)
+    .then(resposta => {
+      if (resposta.status != 200) {
+        window.location.back();
       }
-    }).catch((erro) => { })
-  setTimeout(() => {
-    buscarMetricaRede()
-  }, 3200);
+      resposta.json()
+        .then(json => {
+          inserirInfoDisco(json);
+          return json
+        })
+    })
+    .catch(erro => {
+      console.log(erro);
+    })
 }
 
+function buscarMetricaRede() {
+  fetch(`/metricas/metricaRede/${Number(sessionStorage.idAtm)}`)
+    .then(resposta => {
+      if (resposta.ok) {
+        resposta.json()
+          .then(json => {
+            atualizarMetricaRede(json);
+          })
+      } else {
+        return [];
+      }
+    })
+    .catch((erro) => {
+      console.log(erro);
+    })
 
+  setTimeout(() => {
+    buscarMetricaRede();
+  }, 3200);
+}
 
 function buscarMetricaComponente(componentes) {
   componentes.forEach((element) => {
@@ -372,6 +404,7 @@ function buscarMetricaComponente(componentes) {
               atualizarMetricaProcessador(json);
               break;
             default:
+              console.log("Componente inválido foi enviado na requisição");
           }
 
         }
@@ -395,6 +428,10 @@ async function obterParametrizacao() {
               return json
             }
           }
+          else {
+            console.log("Nenhuma parametrização foi localizada");
+            return [];
+          }
 
         }).catch((error) => {
           console.log(error);
@@ -404,21 +441,79 @@ async function obterParametrizacao() {
 
 }
 
+function inserirEndereco() {
+  fetch(`/endereco/exibirEndereco/${sessionStorage.idAtm}`)
+    .then((res) => res.json()
+      .then(json => {
+        let divClass = document.querySelectorAll(".info-atm");
+        let endereco = json[0];
+        divClass.forEach(element => { element.innerHTML = `<h2>${endereco.identificador}</h2> <span class="bolinha"></span> <span>${endereco.bairro == null ? "" : endereco.bairro + ","} ${endereco.rua == null ? "" : endereco.rua + "-"}  ${endereco.numero == null ? "" : endereco.numero}</span>` })
+      })
+    ).catch((erro) => console.log(erro));
+}
+
+async function buscarKpiDisco(data) {
+  return fetch(`metricas/dadosGravados/${sessionStorage.idAtm}/${data}`)
+    .then(async (resposta) => {
+
+      if (resposta.status == 200) {
+        return await resposta.json()
+          .then((json) => {
+            return json
+          })
+      }
+      else {
+        return [];
+      }
+    })
+    .catch((erro) => console.log(erro))
+}
+
+async function buscarKpiRede(data) {
+  return fetch(`metricas/dadosGravadosRede/${sessionStorage.idAtm}/${data}`)
+    .then((resposta) => {
+      if (resposta.status == 200) {
+        return resposta.json()
+          .then((json) => {
+            return json
+          })
+      } else {
+        return []
+      }
+    })
+    .catch((erro) => console.log(erro))
+
+}
+async function obterApiceRede() {
+  return fetch(`metricas/apiceRede/${sessionStorage.idAtm}`)
+    .then((resposta) => {
+      if (resposta.status == 200) {
+        return resposta.json()
+          .then((json) => {
+            return json
+          })
+      } else {
+        return [];
+      }
+    }
+    )
+    .catch((erro) => console.log(erro))
+}
 
 // FUNÇÕES PARA INSERIR INFORMAÇÕES DOS COMPONENTES GRAFICOS - INSERIR
 let variavelAuxiliar;
 
 function trocarInfoHd() {
-
   graficoHd.data.datasets[0].data = [];
-  graficoHd.data.datasets[0].data.push((variavelAuxiliar[sel_hd.value].qtd_disponivel) / Math.pow(10, 9));
-  graficoHd.data.datasets[0].data.push((variavelAuxiliar[sel_hd.value].qtd_maxima - variavelAuxiliar[sel_hd.value].qtd_disponivel) / Math.pow(10, 9));
+  graficoHd.data.datasets[0].data.push((variavelAuxiliar[sel_hd.value].qtd_consumido));
+  graficoHd.data.datasets[0].data.push((variavelAuxiliar[sel_hd.value].qtd_maxima - variavelAuxiliar[sel_hd.value].qtd_consumido));
   atualizarAlertaDisco(variavelAuxiliar[sel_hd.value]);
   grafico4.update();
-  tamanhoHd.innerText = (variavelAuxiliar[sel_hd.value].qtd_maxima / Math.pow(10, 9)).toFixed(1) + "GB";
+  tamanhoHd.innerText = converterMedida(variavelAuxiliar[sel_hd.value].qtd_maxima);
   montagem.innerText = variavelAuxiliar[sel_hd.value].ponto_montagem;
   modeloHd.innerText = variavelAuxiliar[sel_hd.value].nome == "unknown" ? "--" : variavelAuxiliar[sel_hd.value].nome;
-  disponivelHd.innerHTML = "<h2>" + (100 - (Math.floor((variavelAuxiliar[sel_hd.value].qtd_disponivel / variavelAuxiliar[sel_hd.value].qtd_maxima) * 100))) + "%</h2><h3>Em uso</h3>";
+  disponivelHd.innerHTML = "<h2>" + (100 - (Math.floor((variavelAuxiliar[sel_hd.value].qtd_consumido / variavelAuxiliar[sel_hd.value].qtd_maxima) * 100))) + "%</h2><h3>Em uso</h3>";
+
   inserirKpiDisco(sel_hd.value);
 }
 
@@ -494,8 +589,6 @@ async function inserirParametrizacao() {
 
 }
 
-
-
 function inserirInfoProcessador(json) {
   idProcessador = json[0].id;
   modelo.innerText = json[0].nome;
@@ -506,17 +599,18 @@ function inserirInfoProcessador(json) {
 
 function inserirInfoDisco(json) {
   graficoHd.data.datasets[0].data = [];
-  graficoHd.data.datasets[0].data.push((json[0].qtd_disponivel / Math.pow(10, 9)));
-  graficoHd.data.datasets[0].data.push((json[0].qtd_maxima - json[0].qtd_disponivel) / Math.pow(10, 9));
+  graficoHd.data.datasets[0].data.push((json[0].qtd_consumido));
+  graficoHd.data.datasets[0].data.push((json[0].qtd_maxima - json[0].qtd_consumido));
   inserirKpiDisco(0);
   grafico4.update();
   variavelAuxiliar = json;
-  tamanhoHd.innerText = (json[0].qtd_maxima / (Math.pow(10, 9))).toFixed(1) + "GB";
+
+  tamanhoHd.innerText = converterMedida(json[0].qtd_maxima);
   montagem.innerText = json[0].ponto_montagem;
   modeloHd.innerText = json[0].nome;
-
-  disponivelHd.innerHTML = "<h2>" + parseInt(100 - ((json[0].qtd_disponivel / json[0].qtd_maxima) * 100)) + "%</h2>" + "<h3>Em uso</h3>";
+  disponivelHd.innerHTML = "<h2>" + parseInt(100 - ((json[0].qtd_consumido / json[0].qtd_maxima) * 100)) + "%</h2>" + "<h3>Em uso</h3>";
   atualizarAlertaDisco(json[0]);
+
   for (let i = 0; i < json.length; i++) {
     if (json[i].qtd_maxima > 0) {
       sel_hd.innerHTML += `<option value="${i}">HD${i}</option>`
@@ -529,7 +623,6 @@ function inserirInfoMemoria(json) {
   tamanhoRam.innerText = (json[0].qtd_maxima / Math.pow(10, 9)).toFixed(1) + "GB";
 }
 
-
 function inserirInfoRede(json) {
   macRede.innerText = `${json[0].mac}`
   nomeRede.innerText = `${json[0].nome}`
@@ -537,22 +630,9 @@ function inserirInfoRede(json) {
 }
 
 
-function inserirEndereco() {
-  fetch(`/endereco/exibirEndereco/${sessionStorage.idAtm}`)
-    .then((res) => res.json()
-      .then(json => {
-        let divClass = document.querySelectorAll(".info-atm");
-        let endereco = json[0];
-        divClass.forEach(element=>{element.innerHTML = `<h2>${endereco.identificador}</h2> <span class="bolinha"></span> <span>${endereco.bairro == null ? "" : endereco.bairro + ","} ${endereco.rua == null ? "" : endereco.rua + "-"}  ${endereco.numero == null ? "" : endereco.numero}</span>`})
-      })
-    ).catch((erro) => console.log(erro));
-}
-
-inserirEndereco()
-// FUNÇÕES PARA PLOTAR DADOS NO GRÁFICO - PLOTAR
 
 
-//-- Essa função serve para verificar os dados estão atualizados
+//-- Essa função serve para verificar se os dados estão atualizados
 const verificador = (json, grafico) => {
   return json[0].dt_metrica.slice(11, 19) === grafico.data.labels[grafico.data.labels.length - 1] ? true : false;
 }
@@ -579,7 +659,7 @@ function atualizarMetricaProcessador(json) {
 function atualizarMetricaMemoria(json) {
   let containerAviso = document.querySelectorAll(".aviso")[1];
   verificador(json, graficoMemoria) ? contadorMemoria++ : contadorMemoria = 0;
-  if (contadoraRede < 2) {
+  if (contadorMemoria < 2) {
     atualizarData(json, graficoMemoria, "memoria", grafico2);
   } else {
     containerAviso.classList.add("active");
@@ -587,13 +667,11 @@ function atualizarMetricaMemoria(json) {
   }
 }
 
-
 function atualizarMetricaRede(json) {
-  console.log("---------sdsdsds----------");
-  console.log(json);
+
   let containerAviso = document.querySelectorAll(".aviso")[2];
   verificador(json, graficoRede) ? contadoraRede++ : contadoraRede = 0;
-  if (contadoraRede < 2) {
+  if (contadoraRede < 3) {
     atualizarData(json, graficoRede, "rede", grafico3);
   } else {
     containerAviso.classList.add("active");
@@ -601,36 +679,31 @@ function atualizarMetricaRede(json) {
   }
   inserirKpiApiceRede()
   inserirKpiRede()
+
 }
 
 //ATUALIZA DADOS DO GRÁFICO
-
 function atualizarData(json, dadosGrafico, tipo, grafico) {
-
   let containerAviso;
   const dateTimeFormatado = json[0].dt_metrica.slice(11, 19);
 
   let primeiroDado;
   let segundoDado;
-
   switch (tipo) {
-
     case "rede":
       containerAviso = document.querySelectorAll(".aviso")[2];
-      primeiroDado = json[0].bytes_recebidos_segundo / 1024;
-      segundoDado = json[0].bytes_enviados_segundo / 1024;
+      primeiroDado = json[0].bytes_recebidos_segundo / (1024 * 1024);
+      segundoDado = json[0].bytes_enviados_segundo / (1024 * 1024);
       break;
     case "processador":
       containerAviso = document.querySelectorAll(".aviso")[0];
       primeiroDado = json[0].qtd_consumido;
       break;
-
     case "memoria":
       containerAviso = document.querySelectorAll(".aviso")[1];
-      primeiroDado = ((json[0].qtd_consumido / 1073741824) / Number(tamanhoRam.innerHTML.replace("GB", ""))) * 100;
+      primeiroDado = (json[0].qtd_consumido / (Number(tamanhoRam.innerHTML.replace("GB", "")) * (1024 * 1024 * 1024))) * 100;
       break;
   }
-
 
   if (dadosGrafico.data.datasets[0].data.length < 6) {
     containerAviso.classList.add("active");
@@ -668,29 +741,25 @@ function atualizarData(json, dadosGrafico, tipo, grafico) {
   grafico.update();
 }
 
+
+//ATUALIZAR ALERTAS DOS COMPONENTES
 async function atualizarAlertaRede(metricaRede) {
 
-  let qtd_enviado = Number(metricaRede[0].bytes_enviados_segundo) / 1024;
-  let qtd_recebido = Number(metricaRede[0].bytes_recebidos_segundo) / 1024;
+  let qtd_enviado = Number(metricaRede[0].bytes_enviados_segundo) / (1024 * 1024);
+  let qtd_recebido = Number(metricaRede[0].bytes_recebidos_segundo) / (1024 * 1024);
   let parametrizacao = await obterParametrizacao();
-  console.log(parametrizacao);
-  let alerta = (Number(parametrizacao[0].qtd_bytes_enviado_max)) * 0.75;
-  let perigo = (Number(parametrizacao[0].qtd_bytes_recebido_max));
-  console.log(alerta);
-  console.log(qtd_enviado);
-  console.log(qtd_recebido);
+  let alerta = (Number(parametrizacao[0].qtd_bytes_enviado_max) / (1024 * 1024)) * 0.75;
+  let perigo = (Number(parametrizacao[0].qtd_bytes_recebido_max) / (1024 * 1024));
   if (perigo < qtd_enviado || perigo < qtd_recebido) {
     alertRede.innerHTML = "Perigo";
     alertRede.style.backgroundColor = "red";
-    console.log("Perigo");
   } else if (alerta < qtd_enviado || alerta < qtd_recebido) {
-    alertRede.innerHTML = "Normal";
-    alertRede.style.backgroundColor = "green";
-    console.log("Normaç");
-  } else {
     console.log("Alera");
     alertRede.innerHTML = "Alerta";
     alertRede.style.backgroundColor = "yellow";
+  } else {
+    alertRede.innerHTML = "Normal";
+    alertRede.style.backgroundColor = "green";
   }
 }
 
@@ -730,10 +799,10 @@ async function atualizarAlertaMemoria(metricaMemoria) {
 
 }
 
-
 async function atualizarAlertaDisco(metricaDisco) {
   let parametrizacao = await obterParametrizacao();
-  metricaDisco = Math.floor((metricaDisco.qtd_disponivel / metricaDisco.qtd_maxima) * 100);
+
+  metricaDisco = Math.floor((Number(metricaDisco.qtd_consumido) / Number(metricaDisco.qtd_maxima)) * 100);
   let alerta = (parametrizacao[0].qtd_disco_max * 0.75);
   let perigo = parametrizacao[0].qtd_disco_max;
   if (perigo < metricaDisco) {
@@ -753,7 +822,6 @@ async function atualizarAlertaDisco(metricaDisco) {
 
 
 // KPIS
-
 function kpiTempoInativo(ultimaMetrica) {
 
   kpiInatividade.innerHTML = `00:00:00`;
@@ -780,145 +848,97 @@ function kpiTempoInativo(ultimaMetrica) {
   }
 }
 
+// FUNÇÕES PARA EXIBIR MEDIDAS EQUIVALENTE A SUA UNIDADE(KB,MB,GB)
 const conversorDataMesAno = () => {
   const data = new Date();
   data.setMonth(data.getMonth());
-  let dataFormatadaHoje = data.getMonth() + 1 + "-" + data.getFullYear();
-  let dataFormatadaOntem = data.getMonth() + "-" + data.getFullYear();
+  let dataFormatadaHoje = ((data.getMonth() + 1).toString().length == 1 ? "0" + (data.getMonth() + 1) : (data.getMonth() + 1)) + "-" + data.getFullYear();
+  let dataFormatadaOntem = ((data.getMonth()).toString().length == 1 ? "0" + (data.getMonth()) : (data.getMonth())) + "-" + data.getFullYear();
   return [dataFormatadaHoje, dataFormatadaOntem]
 }
 
-async function buscarKpiDisco(data) {
-  return fetch(`metricas/dadosGravados/${sessionStorage.idAtm}/${data}`)
-    .then((resposta) => {
-      return resposta.json()
-        .then((json) => {
-          return json
-        })
-
-
-    }).catch((erro) => console.log(erro))
-}
-
-
 async function inserirKpiDisco(disco) {
-  disco = parseInt(disco);
   let dadosHoje = await buscarKpiDisco(conversorDataMesAno()[0]);
-  console.log(dadosHoje);
   let conta;
-  if (disco === 0) {
-    conta = dadosHoje[disco].qtd_consumido - dadosHoje[disco + 1].qtd_consumido;
+  if (dadosHoje.length > 0) {
+    if (disco === 0) {
+      conta = dadosHoje[disco + 1].qtd_consumido - dadosHoje[disco].qtd_consumido;
+    }
+    else {
+
+      conta = dadosHoje[disco + 2].qtd_consumido - dadosHoje[disco + 1].qtd_consumido;
+    }
+
+
+    let mesesParaEncher;
+    let resto;
+    let consumidoMes;
+    let tamanhoTotal;
+
+    if (conta > 0) {
+      tamanhoTotal = (Number(tamanhoHd.innerHTML.replace("GB", "")) * 1024);
+      consumidoMes = conta / (1024 * 1024);
+      resto = tamanhoTotal - consumidoMes;
+      mesesParaEncher = resto / consumidoMes;
+    }
+    else {
+      conta = 0;
+      mesesParaEncher = 1001;
+    }
+
+    if (mesesParaEncher > 100 || conta <= 0) {
+      textHd.innerHTML = "Com base no seu consumo, seu volume não corre o risco atingir sua capacidade total";
+    } else {
+      textHd.innerHTML = `Com base no seu consumo, levará mais de ${mesesParaEncher.toFixed(1)} meses para que o volume atinja sua capacidade total.`;
+    }
+    ;
+    let conversao = converterMedida(conta);
+    kpiHd.innerHTML = conversao;
   }
   else {
-    conta = dadosHoje[disco + 1].qtd_consumido - dadosHoje[disco + 2].qtd_consumido;
+    kpiHd.innerHTML = 0.0 + "B";
   }
-  console.log("CONTA----------------------------------------------" + conta);
-  let mesesParaEncher;
-  let resto;
-  let consumidoMes;
-  let tamanhoTotal;
-
-  if (conta > 0) {
-    tamanhoTotal = (Number(tamanhoHd.innerHTML.replace("GB", "")) * 1024);
-    console.log(tamanhoTotal + "--------");
-    consumidoMes = conta / (1024 * 1024);
-    resto = tamanhoTotal - consumidoMes;
-    mesesParaEncher = resto / consumidoMes;
-    console.log(mesesParaEncher)
-  } else {
-    conta = 0;
-    mesesParaEncher = 1001;
-  }
-
-  console.log(mesesParaEncher)
-
-  if (mesesParaEncher > 100 || conta <= 0) {
-    textHd.innerHTML = "Com base no seu consumo, seu volume não corre o risco atingir sua capacidade total";
-  } else {
-    textHd.innerHTML = `Com base no seu consumo, levará mais de ${mesesParaEncher.toFixed(1)} meses para que o volume atinja sua capacidade total.`;
-  }
-
-console.log(conta);
-let conversao = conta;
-const unidades = ['B', 'KB', 'MB', 'GB'];
-let indiceUnidade = 0;
-while (conversao >= 1024 && indiceUnidade < unidades.length - 1) {
-  conversao /= 1024;
-  indiceUnidade++;
 }
 
-conversao = conversao.toFixed(2) + ' ' + unidades[indiceUnidade];
-  kpiHd.innerHTML = conversao;
+const converterMedida = (medida) => {
+  let conversao = medida;
+  const unidades = ['B', 'KB', 'MB', 'GB'];
+  let indiceUnidade = 0;
+  while (conversao >= 1024 && indiceUnidade < unidades.length - 1) {
+    conversao /= 1024;
+    indiceUnidade++;
+  }
+
+
+  return conversao < 0 ? (conversao * -1).toFixed(2) + unidades[indiceUnidade] : (conversao).toFixed(2) + unidades[indiceUnidade];
 }
-
-
-async function buscarKpiRede(data) {
-  console.log(data)
-  return fetch(`metricas/dadosGravadosRede/${sessionStorage.idAtm}/${data}`)
-    .then((resposta) => {
-      if (resposta.status == 200) {
-        return resposta.json()
-          .then((json) => {
-            return json
-          })
-      } else {
-        return []
-      }
-    })
-    .catch((erro) => console.log(erro))
-
-}
-
 
 async function inserirKpiRede() {
   let date = new Date().getDate();
-  let dtHoje = `${("0" + conversorDataMesAno()[0]).split("-").reverse().join("-")}-${date}`;
-  let dtOntem = `${("0" + conversorDataMesAno()[0]).split("-").reverse().join("-")}-${date - 1}`;
+  let dtHoje = `${(conversorDataMesAno()[0]).split("-").reverse().join("-")}-${date.toString().length == 1 ? "0" + date : date}`;
+  let dtOntem = `${(conversorDataMesAno()[0]).split("-").reverse().join("-")}-${(date - 1).toString().length == 1 ? "0" + (date - 1) : (date - 1)}`;
   let dadosHoje = await buscarKpiRede(dtHoje);
   let dadosOntem = await buscarKpiRede(dtOntem);
-  console.log(dadosHoje);
-  console.log(dadosOntem);
   dadosHoje = dadosHoje[0].dados == null ? 0 : dadosHoje[0].dados;
   dadosOntem = dadosOntem[0].dados == null ? 0 : dadosOntem[0].dados;
-
   let conta = (Number(dadosHoje) - Number(dadosOntem));
-  console.log(conta);
-  kpiRede.innerHTML = dadosHoje > 0 ? (dadosHoje / (1024 * 1024)).toFixed(2) + "MB" : "0.0 MB";
+
+
+  kpiRede.innerHTML = dadosHoje > 0 ? converterMedida(dadosHoje) : "0.0 MB";
   if (conta > 0) {
-    textRede.innerHTML = `${(conta/(1024*1024)).toFixed(2)}MB a mais que ontem`;
+    textRede.innerHTML = `${(converterMedida(conta))} a mais que ontem`;
   }
   else if (conta < 0) {
-    textRede.innerHTML = `${(conta/(1024*1024) * -1).toFixed(2)}MB a menos que ontem`;
+    textRede.innerHTML = `${(conta / (1024 * 1024) * -1).toFixed(2)}MB a menos que ontem`;
   }
   else {
     textRede.innerHTML = ``;
   }
 }
 
-
-async function obterApiceRede() {
-  // COPILOT: PRECISO DE UM FETCH PARA FAZER UMA REQUSIÇÃO DA ULTIMA ROTA QUE EU CRIEI;
-
-  return fetch(`metricas/apiceRede/${sessionStorage.idAtm}`)
-    .then((resposta) => {
-      if (resposta.status == 200) {
-        return resposta.json()
-          .then((json) => {
-            return json
-          })
-      } else {
-        return []
-      }
-    }
-    )
-    .catch((erro) => console.log(erro))
-}
-
-
 async function inserirKpiApiceRede() {
   let apice = await obterApiceRede();
   if (apice.length > 0) {
-    console.log(apice);
     apice = apice[0].dataApice
     kpiApiceRede.innerHTML = apice;
   }
@@ -927,11 +947,13 @@ async function inserirKpiApiceRede() {
   }
 }
 
-
-
-inserirKpiRede()
-// CHAMANDO FUNÇÕES PARA SEREM EXECUTADAS - CHAMAR
-coletarInfoComponente(["processador", "memoria", "rede", "disco"]);
+// CHAMANDO FUNÇÕES PARA SEREM EXECUTADAS 
 buscarMetricaRede();
+inserirKpiRede()
+coletarInfoComponente(["processador", "memoria", "rede"]);
 buscarMetricaComponente(["processador", "memoria"]);
 inserirParametrizacao();
+coletarInfoDisco();
+inserirEndereco()
+inserirKpiApiceRede();
+

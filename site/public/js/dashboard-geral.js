@@ -65,9 +65,6 @@ function verAtmAnormal() {
     .then((res) => {
       if (res.status == 200) {
         res.json().then((data) => {
-          console.log("data da requisição de verAtmAnormal");
-          console.log(data);
-
           if (data.length > 0) {
             for (const atm of data) {
               let json = {
@@ -126,9 +123,6 @@ function verAtmAnormal() {
 
 
 function calcularPorcentagem(qtdMax, consumo) {
-  console.log("Consumo: " + consumo);
-  console.log("QtdMax: " + qtdMax);
-  console.log("Resultado: " + ((consumo / qtdMax) * 100).toFixed(0));
   return ((consumo / qtdMax) * 100).toFixed(0);
 }
 
@@ -202,11 +196,7 @@ function verStatusAtm() {
 
           h3_qtdAtm.innerHTML = qtdAtm;
 
-          console.log("Qtd Atm: " + qtdAtm);
-          console.log("Qtd Inativo: " + qtdInativo);
-          console.log("Qtd Alerta: " + qtdAlerta);
-          console.log("Qtd Perigo: " + qtdPerigo);
-          console.log("Qtd Ativo: " + qtdAtivo);
+
 
           myChart.data.datasets[0].data = [qtdPerigo, qtdAlerta, qtdAtivo, qtdInativo];
           myChart.update();

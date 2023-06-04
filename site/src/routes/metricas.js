@@ -23,6 +23,10 @@ router.get("/apiceRede/:idAtm", (req, res) => {
     controllerMetrica.coletarApiceRedeController(req, res)
 })
 
+router.get("/infoDisco/:idCaixa", (req, res) => {
+    controllerMetrica.coletarInfoDiscoController(req, res)
+})
+
 
 
 module.exports = router;
