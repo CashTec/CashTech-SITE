@@ -18,21 +18,27 @@ async function verAtmAnormal(req, res) {
     let listaAtm = [];
 
     try {
+        const atmPerigo = await geralModel.verAtmPerigo(idEmpresa, dataFormatada);
+        if (atmPerigo.length > 0) {
+            for (const res of atmPerigo) {
+                const metricas = await geralModel.verUltimasMetricas(res.idAtm);
+                listaAtm.push({ metricas: metricas, tipoAlerta: 'perigo' });
+            }
+        }
+
         const atmAnormal = await geralModel.verAtmAnormal(idEmpresa, dataFormatada);
         if (atmAnormal.length > 0) {
             for (const res of atmAnormal) {
                 console.log(res.idAtm);
                 const metricas = await geralModel.verUltimasMetricas(res.idAtm);
-                listaAtm.push({ metricas: metricas, tipoAlerta: 'anormal' });
-            }
-        }
-
-        const atmPerigo = await geralModel.verAtmPerigo(idEmpresa, dataFormatada);
-        if (atmPerigo.length > 0) {
-            for (const res of atmPerigo) {
-                console.log(res.idAtm);
-                const metricas = await geralModel.verUltimasMetricas(res.idAtm);
-                listaAtm.push({ metricas: metricas, tipoAlerta: 'perigo' });
+                console.log("metricas: ", metricas);
+                if (listaAtm.length > 0) {
+                    if (listaAtm.metricas.idAtm != res.idAtm) {
+                        listaAtm.push({ metricas: metricas, tipoAlerta: 'anormal' });
+                    }
+                } else {
+                    listaAtm.push({ metricas: metricas, tipoAlerta: 'anormal' });
+                }
             }
         }
 

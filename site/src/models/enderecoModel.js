@@ -12,7 +12,7 @@ function verEnderecosInativo(idEmpresa) {
     return database.executar(instrucao);
 }
 
-function verEnderecosAlerta(idEmpresa) {
+function verEnderecosAlerta(idEmpresa,dtAgora) {
     let instrucao = `
     SELECT DISTINCT latitude, longitude, ce.id as idAtm, ce.identificador  as nomeAtm
     FROM Endereco e
@@ -24,11 +24,14 @@ function verEnderecosAlerta(idEmpresa) {
     JOIN MetricaRedeInterface mri on mri.network_interface_id = ni.id
     JOIN Parametrizacao p ON p.empresa_id = em.id
     WHERE em.id = ${idEmpresa} AND 
-        ((c.tipo = 'memoria' AND mc.qtd_consumido > (p.qtd_memoria_max * 0.75))
+     (
+        (c.tipo = 'memoria' AND ((mc.qtd_consumido/c.qtd_maxima) * 100) > (p.qtd_memoria_max * 0.75))
         OR (c.tipo = 'processador' AND mc.qtd_consumido > (p.qtd_cpu_max * 0.75))
-        OR (c.tipo = 'disco' AND mc.qtd_consumido > (p.qtd_disco_max * 0.75))
-        OR (mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max * 0.75) OR mri.bytes_recebidos_segundo  > (p.qtd_bytes_recebido_max * 0.75)))
-        AND mc.dt_metrica  >= DATEADD(second, -10809, GETDATE());`;
+        OR (c.tipo = 'disco' AND ((mc.qtd_consumido/c.qtd_maxima) * 100) > (p.qtd_disco_max * 0.75))
+        OR ((mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max * 0.75)) 
+        OR (mri.bytes_recebidos_segundo > (p.qtd_bytes_recebido_max * 0.75)))
+        )
+        AND mc.dt_metrica >= CONVERT(datetime, '${dtAgora}', 120)`;
     return database.executar(instrucao);
 }
 

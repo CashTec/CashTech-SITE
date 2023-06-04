@@ -1,4 +1,5 @@
 const enderecoModel = require("../models/enderecoModel");
+const moment = require('moment-timezone');
 
 async function verEnderecos(req, res) {
     let idEmpresa = req.params.idEmpresa;
@@ -6,6 +7,13 @@ async function verEnderecos(req, res) {
     if (idEmpresa == null) {
         return res.status(400).send("IdEmpresa está nulo");
     }
+
+
+    // pegar data de agora com o moment
+    let dataFormatada = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    // tirar 10 segundos da data
+    dataFormatada = moment(dataFormatada).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
 
     let resposta = {
         enderecosInativos: [],
@@ -24,7 +32,7 @@ async function verEnderecos(req, res) {
             return res.status(500).send()
         })
 
-    await enderecoModel.verEnderecosAlerta(idEmpresa)
+    await enderecoModel.verEnderecosAlerta(idEmpresa,dataFormatada)
         .then(response => {
             if (response.length > 0) {
                 response.forEach((res) => {

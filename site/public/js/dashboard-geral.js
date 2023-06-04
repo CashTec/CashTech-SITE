@@ -75,10 +75,9 @@ function verAtmAnormal() {
                 identificador: "",
                 qtdMax: 0,
                 metrica: [],
-                tipoAlerta: data.tipoAlerta
+                tipoAlerta: atm.tipoAlerta
               }
               for (const metrica of atm.metricas) {
-                console.log(metrica);
                 if (metrica.qtd_maxima != null) {
                   json.qtdMax = metrica.qtd_maxima;
                 }
@@ -96,13 +95,12 @@ function verAtmAnormal() {
             let atmsAnormais = "";
 
             for (const atm of atms) {
-              console.log(atm);
               atmsAnormais +=
                 `
             <div class="line">
             <div class="icon"><img src="img/Group.svg" alt=""></div>
             <div class="nome">${atm.identificador}</div>
-            <div class="status">${data.tipoAlerta == "anormal" ? "ALERTA" : "<span style='color: red'>PERIGO!</span>"}</div>
+            <div class="status">${atm.tipoAlerta == "anormal" ? "ALERTA" : "<span style='color: red'>PERIGO!</span>"}</div>
             <div class="indicators"> CPU - ${atm.metrica[1].tipo == "processador" ? atm.metrica[1].consumo.toFixed(0) : atm.metrica[0].consumo.toFixed(0)}%</div>
             <div class="indicators"> Memória - ${atm.metrica[0].tipo == "memoria" ? calcularPorcentagem(atm.qtdMax, atm.metrica[0].consumo) : calcularPorcentagem(atm.qtdMax, atm.metrica[1].consumo)}%</div>
             <button onclick='redirecionarAtm(${atm.id})'><img src="img/seta.svg" alt=""></button>
@@ -195,7 +193,6 @@ function verStatusAtm() {
           <p>TOTAL ATMS</p>
 
           `;
-          console.log(data);
           const qtdAtm = data.qtdAtm;
           const qtdInativo = data.qtdInativo;
           const qtdAlerta = data.qtdAlerta;
@@ -212,7 +209,6 @@ function verStatusAtm() {
           console.log("Qtd Ativo: " + qtdAtivo);
 
           myChart.data.datasets[0].data = [qtdPerigo, qtdAlerta, qtdAtivo, qtdInativo];
-          console.log(myChart.data.datasets[0].data);
           myChart.update();
 
         });
