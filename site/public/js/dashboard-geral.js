@@ -81,6 +81,7 @@ function verAtmAnormal() {
 
                 json.id = metrica.idAtm;
                 json.identificador = metrica.identificador;
+
                 json.metrica.push({
                   consumo: metrica.qtd_consumido,
                   tipo: metrica.tipo
@@ -92,17 +93,36 @@ function verAtmAnormal() {
             let atmsAnormais = "";
 
             for (const atm of atms) {
+              let tipoAlerta = "";
+              let isInativo = false;
+
+              if (atm.tipoAlerta == "anormal") {
+                tipoAlerta = "ALERTA";
+              } else if (atm.tipoAlerta == "perigo") {
+                tipoAlerta = "<span style='color: red'>PERIGO!</span>";
+              } else {
+                tipoAlerta = "<span style='color: gray'>ATENÇÃO! ESSE ATM ESTÁ INATIVO!</span>";
+                isInativo = true;
+              }
+
+              let metricaMemoria = "";
+              let metricaCpu = "";
+
+              if (!isInativo) {
+                metricaMemoria = `Memória - ${atm.metrica[0].tipo == "memoria" ? calcularPorcentagem(atm.qtdMax, atm.metrica[0].consumo) : calcularPorcentagem(atm.qtdMax, atm.metrica[1].consumo)}%`;
+                metricaCpu = `CPU - ${atm.metrica[1].tipo == "processador" ? atm.metrica[1].consumo.toFixed(0) : atm.metrica[0].consumo.toFixed(0)}%`;
+              }
               atmsAnormais +=
                 `
-            <div class="line">
-            <div class="icon"><img src="img/Group.svg" alt=""></div>
-            <div class="nome">${atm.identificador}</div>
-            <div class="status">${atm.tipoAlerta == "anormal" ? "ALERTA" : "<span style='color: red'>PERIGO!</span>"}</div>
-            <div class="indicators"> CPU - ${atm.metrica[1].tipo == "processador" ? atm.metrica[1].consumo.toFixed(0) : atm.metrica[0].consumo.toFixed(0)}%</div>
-            <div class="indicators"> Memória - ${atm.metrica[0].tipo == "memoria" ? calcularPorcentagem(atm.qtdMax, atm.metrica[0].consumo) : calcularPorcentagem(atm.qtdMax, atm.metrica[1].consumo)}%</div>
-            <button onclick='redirecionarAtm(${atm.id})'><img src="img/seta.svg" alt=""></button>
-            </div>
-            `
+              <div class="line">
+              <div class="icon"><img src="img/Group.svg" alt=""></div>
+              <div class="nome">${atm.identificador}</div>
+              <div class="status">${tipoAlerta}</div>
+              <div class="indicators">${metricaMemoria}</div>
+              <div class="indicators">${metricaCpu}</div>
+              <button onclick='redirecionarAtm(${atm.id})'><img src="img/seta.svg" alt=""></button>
+              </div>
+              `
             }
 
             list_atm.innerHTML = atmsAnormais;

@@ -18,6 +18,15 @@ async function verAtmAnormal(req, res) {
     let listaAtm = [];
 
     try {
+        const atmInativo = await geralModel.verAtmInativo(idEmpresa);
+        if (atmInativo.length > 0) {
+            for (const res of atmInativo) {
+                listaAtm.push({ metricas: [{ idAtm: res.idAtm, identificador: res.identificador }], tipoAlerta: 'inativo' });
+            }
+
+        }
+
+
         const atmPerigo = await geralModel.verAtmPerigo(idEmpresa, dataFormatada);
         if (atmPerigo.length > 0) {
             for (const res of atmPerigo) {
@@ -29,16 +38,22 @@ async function verAtmAnormal(req, res) {
         const atmAnormal = await geralModel.verAtmAnormal(idEmpresa, dataFormatada);
         if (atmAnormal.length > 0) {
             for (const res of atmAnormal) {
-                console.log(res.idAtm);
-                const metricas = await geralModel.verUltimasMetricas(res.idAtm);
-                console.log("metricas: ", metricas);
-                if (listaAtm.length > 0) {
-                    if (listaAtm.metricas.idAtm != res.idAtm) {
-                        listaAtm.push({ metricas: metricas, tipoAlerta: 'anormal' });
+                let existe = false;
+                for (atm of listaAtm) {
+                    for (metrica of atm.metricas) {
+                        if (metrica.idAtm == res.idAtm) {
+                            existe = true;
+                        }
                     }
-                } else {
+                }
+
+                if (!existe) {
+                    console.log(res.idAtm);
+                    const metricas = await geralModel.verUltimasMetricas(res.idAtm);
+                    console.log("metricas: ", metricas);
                     listaAtm.push({ metricas: metricas, tipoAlerta: 'anormal' });
                 }
+                
             }
         }
 

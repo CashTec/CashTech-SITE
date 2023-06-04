@@ -43,6 +43,17 @@ function verAtmPerigo(idEmpresa, dtAgora) {
     return database.executar(query);
 }
 
+function verAtmInativo(idEmpresa) {
+    let query = `
+    SELECT DISTINCT ce.identificador, ce.id as idAtm
+    FROM CaixaEletronico ce 
+    JOIN Empresa em ON ce.empresa_id = em.id
+    WHERE em.id = ${idEmpresa} AND ce.situacao = 'inativo';
+    `;
+
+    return database.executar(query);
+}
+
 function verUltimasMetricas(idAtm) {
     let query = `
     SELECT TOP 2 ce.id as idAtm,mc.qtd_consumido, c.tipo, ce.identificador, c.qtd_maxima 
@@ -87,8 +98,7 @@ function processoMaisEncerrado(idEmpresa, dtAgora) {
 function qtdAtmInativos(idEmpresa) {
     let query = `
     SELECT DISTINCT count(ce.id) as qtdInativo
-    FROM Endereco e
-    JOIN CaixaEletronico ce ON ce.endereco_id = e.id
+    FROM CaixaEletronico ce 
     JOIN Empresa em ON ce.empresa_id = em.id
     WHERE em.id = ${idEmpresa} AND ce.situacao = 'inativo';
     `;
@@ -155,6 +165,7 @@ function qtdAtmAlerta(idEmpresa, dtAgora) {
 module.exports = {
     verAtmAnormal,
     verAtmPerigo,
+    verAtmInativo,
     verCidadeMaisInativo,
     processoMaisEncerrado,
     qtdAtmInativos,
