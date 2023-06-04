@@ -68,27 +68,7 @@ function verAtmAnormal() {
           console.log(data);
           if (data.length > 0) {
             for (const atm of data) {
-              let json = {
-                id: 0,
-                identificador: "",
-                qtdMax: 0,
-                metrica: [],
-                tipoAlerta: atm.tipoAlerta
-              }
-              for (const metrica of atm.metricas) {
-                if (metrica.qtd_maxima != null) {
-                  json.qtdMax = metrica.qtd_maxima;
-                }
-
-                json.id = metrica.idAtm;
-                json.identificador = metrica.identificador;
-
-                json.metrica.push({
-                  consumo: metrica.qtd_consumido,
-                  tipo: metrica.tipo
-                })
-              }
-              atms.push(json);
+              atms.push(atm);
             }
 
             let atmsAnormais = "";
@@ -110,8 +90,13 @@ function verAtmAnormal() {
               let metricaCpu = "";
 
               if (!isInativo) {
-                metricaMemoria = `Memória - ${atm.metrica[0].tipo == "memoria" ? calcularPorcentagem(atm.qtdMax, atm.metrica[0].consumo) : calcularPorcentagem(atm.qtdMax, atm.metrica[1].consumo)}%`;
-                metricaCpu = `CPU - ${atm.metrica[1].tipo == "processador" ? atm.metrica[1].consumo.toFixed(0) : atm.metrica[0].consumo.toFixed(0)}%`;
+                for (const metrica of atm.metricas) {
+                  if (metrica.tipo == "memoria") {
+                    metricaMemoria = `Memória - ${calcularPorcentagem(metrica.qtd_maxima, metrica.qtd_consumido)}%`;
+                  } else if (metrica.tipo == "processador") {
+                    metricaCpu = `CPU - ${metrica.qtd_consumido.toFixed(0)}%`;
+                  }
+                }
               }
               atmsAnormais +=
                 `
@@ -121,7 +106,7 @@ function verAtmAnormal() {
               <div class="status">${tipoAlerta}</div>
               <div class="indicators">${metricaMemoria}</div>
               <div class="indicators">${metricaCpu}</div>
-              <button onclick='redirecionarAtm(${atm.id})'><img src="img/seta.svg" alt=""></button>
+              <button onclick='redirecionarAtm(${atm.idAtm})'><img src="img/seta.svg" alt=""></button>
               </div>
               `
             }

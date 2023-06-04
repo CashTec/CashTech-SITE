@@ -25,13 +25,24 @@ function verEnderecosAlerta(idEmpresa,dtAgora) {
     JOIN Parametrizacao p ON p.empresa_id = em.id
     WHERE em.id = ${idEmpresa} AND 
      (
-        (c.tipo = 'memoria' AND ((mc.qtd_consumido/c.qtd_maxima) * 100) > (p.qtd_memoria_max * 0.75))
-        OR (c.tipo = 'processador' AND mc.qtd_consumido > (p.qtd_cpu_max * 0.75))
-        OR (c.tipo = 'disco' AND ((mc.qtd_consumido/c.qtd_maxima) * 100) > (p.qtd_disco_max * 0.75))
-        OR ((mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max * 0.75)) 
-        OR (mri.bytes_recebidos_segundo > (p.qtd_bytes_recebido_max * 0.75)))
+        (c.tipo = 'memoria' 
+            AND ((mc.qtd_consumido/(IIF(c.qtd_maxima = 0, 1, c.qtd_maxima))) * 100) > (p.qtd_memoria_max * 0.75))
+        OR 
+        (c.tipo = 'processador' 
+            AND (c.qtd_maxima <> 0) 
+            AND (mc.qtd_consumido <> 0) 
+            AND mc.qtd_consumido > (p.qtd_cpu_max * 0.75))
+        OR 
+        (c.tipo = 'disco' 
+            AND ((mc.qtd_consumido/(IIF(c.qtd_maxima = 0, 1, c.qtd_maxima))) * 100) > (p.qtd_disco_max * 0.75))
+        OR (
+            (mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max * 0.75) ) 
+            OR 
+            (mri.bytes_recebidos_segundo > (p.qtd_bytes_recebido_max * 0.75) )
         )
+    )
         AND mc.dt_metrica >= CONVERT(datetime, '${dtAgora}', 120)`;
+        console.log(instrucao);
     return database.executar(instrucao);
 }
 

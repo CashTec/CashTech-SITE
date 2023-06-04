@@ -21,7 +21,7 @@ async function verAtmAnormal(req, res) {
         const atmInativo = await geralModel.verAtmInativo(idEmpresa);
         if (atmInativo.length > 0) {
             for (const res of atmInativo) {
-                listaAtm.push({ metricas: [{ idAtm: res.idAtm, identificador: res.identificador }], tipoAlerta: 'inativo' });
+                listaAtm.push({ idAtm: res.idAtm, identificador: res.identificador, metricas: [], tipoAlerta: 'inativo' });
             }
 
         }
@@ -30,33 +30,41 @@ async function verAtmAnormal(req, res) {
         const atmPerigo = await geralModel.verAtmPerigo(idEmpresa, dataFormatada);
         if (atmPerigo.length > 0) {
             for (const res of atmPerigo) {
+                let json = {
+                    idAtm: res.idAtm,
+                    identificador: res.identificador,
+                    metricas: [],
+                    tipoAlerta: 'perigo'
+                };
+
                 const metricas = await geralModel.verUltimasMetricas(res.idAtm);
-                listaAtm.push({ metricas: metricas, tipoAlerta: 'perigo' });
+                json.metricas = metricas;
+                listaAtm.push(json);
             }
         }
 
         const atmAnormal = await geralModel.verAtmAnormal(idEmpresa, dataFormatada);
         if (atmAnormal.length > 0) {
             for (const res of atmAnormal) {
-
                 let existe = false;
                 for (atm of listaAtm) {
-                    for (metrica of atm.metricas) {
-                        console.log(metrica.idAtm, res.idAtm);
-                        if (metrica.idAtm == res.idAtm) {
-                            existe = true;
-                        }
-                    }
-                    console.log("existe: ", existe);
-                    if (!existe) {
-                        const metricas = await geralModel.verUltimasMetricas(res.idAtm);
-                        console.log("metricas: ", metricas);
-                        listaAtm.push({ metricas: metricas, tipoAlerta: 'anormal' });
+                    if (atm.idAtm == res.idAtm) {
+                        existe = true;
                     }
                 }
 
+                if (!existe) {
+                    let json = {
+                        idAtm: res.idAtm,
+                        identificador: res.identificador,
+                        metricas: [],
+                        tipoAlerta: 'anormal'
+                    };
 
-
+                    const metricas = await geralModel.verUltimasMetricas(res.idAtm);
+                    json.metricas = metricas;
+                    listaAtm.push(json);
+                }
             }
         }
 
