@@ -38,22 +38,25 @@ async function verAtmAnormal(req, res) {
         const atmAnormal = await geralModel.verAtmAnormal(idEmpresa, dataFormatada);
         if (atmAnormal.length > 0) {
             for (const res of atmAnormal) {
+
                 let existe = false;
                 for (atm of listaAtm) {
                     for (metrica of atm.metricas) {
+                        console.log(metrica.idAtm, res.idAtm);
                         if (metrica.idAtm == res.idAtm) {
                             existe = true;
                         }
                     }
+                    console.log("existe: ", existe);
+                    if (!existe) {
+                        const metricas = await geralModel.verUltimasMetricas(res.idAtm);
+                        console.log("metricas: ", metricas);
+                        listaAtm.push({ metricas: metricas, tipoAlerta: 'anormal' });
+                    }
                 }
 
-                if (!existe) {
-                    console.log(res.idAtm);
-                    const metricas = await geralModel.verUltimasMetricas(res.idAtm);
-                    console.log("metricas: ", metricas);
-                    listaAtm.push({ metricas: metricas, tipoAlerta: 'anormal' });
-                }
-                
+
+
             }
         }
 

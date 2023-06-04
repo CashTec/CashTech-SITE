@@ -65,6 +65,7 @@ function verAtmAnormal() {
     .then((res) => {
       if (res.status == 200) {
         res.json().then((data) => {
+          console.log(data);
           if (data.length > 0) {
             for (const atm of data) {
               let json = {
