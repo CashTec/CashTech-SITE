@@ -10,11 +10,10 @@ var sqlServerConfig = {
     pool: {
         max: 20,
         min: 0,
-        idleTimeoutMillis: 500000
+        idleTimeoutMillis: 50000
     },
     options: {
-        encrypt: true, // for azure,
-        requestTimeout: 600000
+        encrypt: true, // for azure
     }
 }
 

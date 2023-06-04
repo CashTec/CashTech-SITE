@@ -19,6 +19,8 @@ function verAtmAnormal(idEmpresa, dtAgora) {
         )
         AND mc.dt_metrica >= CONVERT(datetime, '${dtAgora}', 120)
         group by identificador, ce.id`;
+
+        console.log(query);
     return database.executar(query);
 }
 
@@ -134,8 +136,6 @@ function qtdAtmPerigo(idEmpresa, dtAgora) {
     OR (mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max) OR mri.bytes_recebidos_segundo  > (p.qtd_bytes_recebido_max)))
     AND mc.dt_metrica  >= CONVERT(datetime,'${dtAgora}', 120)`;
 
-        console.log(query);
-
     return database.executar(query);
 }
 
@@ -156,26 +156,7 @@ function qtdAtmAlerta(idEmpresa, dtAgora) {
         OR (c.tipo = 'disco' AND ((mc.qtd_consumido/(IIF(c.qtd_maxima = 0, 1, c.qtd_maxima))) * 100) > (p.qtd_disco_max * 0.75) AND ((mc.qtd_consumido/(IIF(c.qtd_maxima = 0, 1, c.qtd_maxima))) * 100) < p.qtd_disco_max)
         OR ((mri.bytes_enviados_segundo > (p.qtd_bytes_enviado_max * 0.75) AND mri.bytes_enviados_segundo < p.qtd_bytes_enviado_max) OR (mri.bytes_recebidos_segundo > (p.qtd_bytes_recebido_max * 0.75) AND mri.bytes_recebidos_segundo < p.qtd_bytes_recebido_max))
       )
-      AND mc.dt_metrica >= CONVERT(datetime, '${dtAgora}', 120)
-      AND ce.id NOT IN (
-        SELECT DISTINCT ce.id
-        FROM CaixaEletronico ce
-        JOIN Empresa em ON ce.empresa_id = em.id
-        JOIN Componente c ON c.caixa_eletronico_id = ce.id
-        JOIN MetricaComponente mc ON mc.componente_id = c.id
-        JOIN NetworkInterface ni ON ni.caixa_eletronico_id = ce.id
-        JOIN MetricaRedeInterface mri ON mri.network_interface_id = ni.id
-        JOIN Parametrizacao p ON p.empresa_id = em.id
-        WHERE em.id = ${idEmpresa} AND
-        (
-          (c.tipo = 'memoria' AND ((mc.qtd_consumido/(IIF(c.qtd_maxima = 0, 1, c.qtd_maxima))) * 100) > p.qtd_memoria_max)
-          OR (c.tipo = 'processador' AND mc.qtd_consumido > p.qtd_cpu_max)
-          OR (c.tipo = 'disco' AND ((mc.qtd_consumido/(IIF(c.qtd_maxima = 0, 1, c.qtd_maxima))) * 100) > p.qtd_disco_max)
-          OR (mri.bytes_enviados_segundo > p.qtd_bytes_enviado_max OR mri.bytes_recebidos_segundo > p.qtd_bytes_recebido_max)
-        )
-        AND mc.dt_metrica >= CONVERT(datetime, '${dtAgora}', 120)
-      )
-`;
+      AND mc.dt_metrica >= CONVERT(datetime, '${dtAgora}', 120)`;
   
     return database.executar(query);
   }

@@ -79,6 +79,7 @@ function verAtmAnormal() {
 
               if (atm.tipoAlerta == "anormal") {
                 tipoAlerta = "ALERTA";
+                
               } else if (atm.tipoAlerta == "perigo") {
                 tipoAlerta = "<span style='color: red'>PERIGO!</span>";
               } else {

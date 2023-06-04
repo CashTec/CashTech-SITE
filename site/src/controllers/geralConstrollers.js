@@ -26,7 +26,6 @@ async function verAtmAnormal(req, res) {
 
         }
 
-
         const atmPerigo = await geralModel.verAtmPerigo(idEmpresa, dataFormatada);
         if (atmPerigo.length > 0) {
             for (const res of atmPerigo) {
@@ -102,7 +101,7 @@ function processoMaisEncerrado(req, res) {
         return res.status(400).send("Dados inválidos!");
     }
 
-    let dataFormatada = moment(data).format('YYYY-MM-DD HH:mm:ss');
+    let dataFormatada = moment(data).tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
 
     geralModel.processoMaisEncerrado(idEmpresa, dataFormatada)
         .then((resposta) => {
