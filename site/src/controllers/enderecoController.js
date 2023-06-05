@@ -10,7 +10,7 @@ async function verEnderecos(req, res) {
 
 
     // pegar data de agora com o moment
-    let dataFormatada = moment().format('YYYY-MM-DD HH:mm:ss');
+    let dataFormatada = moment().tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
 
     // tirar 10 segundos da data
     dataFormatada = moment(dataFormatada).subtract(6, 'seconds').format('YYYY-MM-DD HH:mm:ss');
