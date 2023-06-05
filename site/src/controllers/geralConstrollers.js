@@ -13,7 +13,7 @@ async function verAtmAnormal(req, res) {
     let newData = moment(data).tz('America/Sao_Paulo');
 
     // tirar 5 segundos da data
-    dataFormatada = moment(newData).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+    dataFormatada = moment(newData).subtract(6, 'seconds').format('YYYY-MM-DD HH:mm:ss');
 
     let listaAtm = [];
 
@@ -24,22 +24,6 @@ async function verAtmAnormal(req, res) {
                 listaAtm.push({ idAtm: res.idAtm, identificador: res.identificador, metricas: [], tipoAlerta: 'inativo' });
             }
 
-        }
-
-        const atmPerigo = await geralModel.verAtmPerigo(idEmpresa, dataFormatada);
-        if (atmPerigo.length > 0) {
-            for (const res of atmPerigo) {
-                let json = {
-                    idAtm: res.idAtm,
-                    identificador: res.identificador,
-                    metricas: [],
-                    tipoAlerta: 'perigo'
-                };
-
-                const metricas = await geralModel.verUltimasMetricas(res.idAtm);
-                json.metricas = metricas;
-                listaAtm.push(json);
-            }
         }
 
         const atmAnormal = await geralModel.verAtmAnormal(idEmpresa, dataFormatada);
@@ -149,26 +133,23 @@ async function verStatusAtm(req, res) {
     let newData = moment().tz('America/Sao_Paulo');
 
     // tirar 5 segundos da data
-    dataFormatada = moment(newData).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+    dataFormatada = moment(newData).subtract(5, 'seconds').format('YYYY-MM-DD HH:mm:ss');
 
 
     try {
         let qtdAtm = await geralModel.verTotalAtm(idEmpresa);
         let qtdInativo = await geralModel.qtdAtmInativos(idEmpresa);
-        let qtdPerigo = await geralModel.qtdAtmPerigo(idEmpresa, dataFormatada);
         let qtdAlerta = await geralModel.qtdAtmAlerta(idEmpresa, dataFormatada);
 
         // se alguma quantidade for undefined, seta como 0
         qtdAtm = qtdAtm.length == 0 ? 0 : qtdAtm[0].qtdAtm;
         qtdInativo = qtdInativo.length == 0 ? 0 : qtdInativo[0].qtdInativo;
-        qtdPerigo = qtdPerigo.length == 0 ? 0 : qtdPerigo[0].qtdPerigo;
         qtdAlerta = qtdAlerta.length == 0 ? 0 : qtdAlerta[0].qtdAlerta;
 
         let json = {
             qtdAtm: qtdAtm,
             qtdInativo: qtdInativo,
-            qtdAlerta: qtdAlerta,
-            qtdPerigo: qtdPerigo
+            qtdAlerta: qtdAlerta
         }
 
         return res.status(200).json(json);

@@ -12,13 +12,13 @@ const graphicBola = document.getElementById("graphicBola");
 const config = {
   type: "doughnut",
   data: {
-    labels: ["PERIGO", "ALERTA", "ATIVO", "INATIVO"],
+    labels: ["ALERTA", "ATIVO", "INATIVO"],
     datasets: [
       {
         label: "Quantidade",
-        data: [0, 0, 0, 0],
+        data: [0, 0, 0],
         borderWidth: [0],
-        backgroundColor: ["#b60000", "#F1AC15", "#00FFF0", "#8f8f8f"]
+        backgroundColor: ["#F1AC15", "#00FFF0", "#8f8f8f"]
       },
     ],
   },
@@ -80,8 +80,6 @@ function verAtmAnormal() {
               if (atm.tipoAlerta == "anormal") {
                 tipoAlerta = "ALERTA";
                 
-              } else if (atm.tipoAlerta == "perigo") {
-                tipoAlerta = "<span style='color: red'>PERIGO!</span>";
               } else {
                 tipoAlerta = "<span style='color: gray'>ATENÇÃO! ESSE ATM ESTÁ INATIVO!</span>";
                 isInativo = true;
@@ -196,15 +194,14 @@ function verStatusAtm() {
           const qtdAtm = data.qtdAtm;
           const qtdInativo = data.qtdInativo;
           const qtdAlerta = data.qtdAlerta;
-          const qtdPerigo = data.qtdPerigo;
-          let qtdAtivo = data.qtdAtm - data.qtdInativo - data.qtdAlerta - data.qtdPerigo;
+          let qtdAtivo = data.qtdAtm - data.qtdInativo - data.qtdAlerta;
           qtdAtivo = qtdAtivo < 0 ? 0 : qtdAtivo;
 
           h3_qtdAtm.innerHTML = qtdAtm;
 
 
 
-          myChart.data.datasets[0].data = [qtdPerigo, qtdAlerta, qtdAtivo, qtdInativo];
+          myChart.data.datasets[0].data = [qtdAlerta, qtdAtivo, qtdInativo];
           myChart.update();
 
         });
