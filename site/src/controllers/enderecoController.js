@@ -13,40 +13,47 @@ async function verEnderecos(req, res) {
     let dataFormatada = moment().format('YYYY-MM-DD HH:mm:ss');
 
     // tirar 10 segundos da data
-    dataFormatada = moment(dataFormatada).subtract(10, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+    dataFormatada = moment(dataFormatada).subtract(6, 'seconds').format('YYYY-MM-DD HH:mm:ss');
 
     let resposta = {
         enderecosInativos: [],
         enderecosAlerta: []
     };
 
-    await enderecoModel.verEnderecosInativo(idEmpresa)
-        .then(response => {
-            if (response.length > 0) {
-                response.forEach((res) => {
-                    resposta.enderecosInativos.push(res);
-                })
-            }
-        }).catch(err => {
-            console.log(err)
-            return res.status(500).send()
-        })
+    try {
 
-    await enderecoModel.verEnderecosAlerta(idEmpresa,dataFormatada)
-        .then(response => {
-            if (response.length > 0) {
-                response.forEach((res) => {
-                    if (resposta.enderecosInativos.find(e => e.idAtm == res.idAtm) != null) return;
-                    resposta.enderecosAlerta.push(res)
-                });
-            }
-        }
-        ).catch(err => {
-            console.log(err)
-            return res.status(500).send()
-        })
+        await enderecoModel.verEnderecosInativo(idEmpresa)
+            .then(response => {
+                if (response.length > 0) {
+                    response.forEach((res) => {
+                        resposta.enderecosInativos.push(res);
+                    })
+                }
+            }).catch(err => {
+                console.log(err)
+            })
 
-    return res.json(resposta);
+        await enderecoModel.verEnderecosAlerta(idEmpresa, dataFormatada)
+            .then(response => {
+                if (response.length > 0) {
+                    response.forEach((res) => {
+                        if (resposta.enderecosInativos.find(e => e.idAtm == res.idAtm) != null) return;
+                        resposta.enderecosAlerta.push(res)
+                    });
+                }
+            }
+            ).catch(err => {
+                console.log(err)
+            })
+        return res.json(resposta);
+
+    } catch (error) {
+        console.log(error);
+        console.log("\nHouve um erro ao realizar a busca! Erro: ", error.sqlMessage);
+        res.status(500).json(error.sqlMessage);
+    }
+
+
 }
 
 
