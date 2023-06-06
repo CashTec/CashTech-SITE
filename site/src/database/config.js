@@ -14,7 +14,11 @@ var sqlServerConfig = {
     },
     options: {
         encrypt: true, // for azure
-    }
+        enableArithAbort: true,
+        idleTimeoutMillis: 300000
+
+    },
+    requestTimeout: 120000
 }
 
 // CONEXÃO DO MYSQL WORKBENCH (LOCAL)
@@ -34,7 +38,7 @@ function executar(instrucao) {
             sql.connect(sqlServerConfig).then(function () {
                 return sql.query(instrucao);
             }).then(function (resultados) {
-  
+
                 resolve(resultados.recordset);
             }).catch(function (erro) {
                 reject(erro);
