@@ -876,7 +876,7 @@ async function inserirKpiDisco(disco) {
     let tamanhoTotal;
 
     if (conta > 0) {
-      tamanhoTotal = (Number(tamanhoHd.innerHTML.replace("GB", "")) * 1024);
+      tamanhoTotal = (Number(tamanhoHd.innerHTML.replace(/[A-Za-z]/g, "")) * 1024);
       consumidoMes = conta / (1024 * 1024);
       resto = tamanhoTotal - consumidoMes;
       mesesParaEncher = resto / consumidoMes;
@@ -886,7 +886,7 @@ async function inserirKpiDisco(disco) {
       mesesParaEncher = 1001;
     }
 
-    if (mesesParaEncher > 100 || conta <= 0) {
+    if (mesesParaEncher > 100 || conta <= 0 || mesesParaEncher<1  ) {
       textHd.innerHTML = "Com base no seu consumo, seu volume não corre o risco atingir sua capacidade total";
     } else {
       textHd.innerHTML = `Com base no seu consumo, levará mais de ${mesesParaEncher.toFixed(1)} meses para que o volume atinja sua capacidade total.`;
