@@ -8,9 +8,8 @@ var sqlServerConfig = {
     user: "admin-cashtech",
     password: "#Gfgrupo10",
     pool: {
-        max: 20,
+        max: 100,
         min: 0,
-        idleTimeoutMillis: 1000000
     },
     options: {
         encrypt: true, // for azure
@@ -30,6 +29,8 @@ var mySqlConfig = {
     password: "gp123456789.",
     connectionLimit: 20
 };
+
+
 
 function executar(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js

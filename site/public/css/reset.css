@@ -17,6 +17,25 @@
   
   }
   
+  html::-webkit-scrollbar{
+    width: 5px;
+    background-color: transparent;
+    background: none;
+    
+  }
+
+
+  html::-webkit-scrollbar-track-piece{
+    background-color: transparent;
+    background: none;
+  }
+
+
+  html::-webkit-scrollbar-thumb{
+    background-color: #05554e;
+    border-radius: 50px;
+  }
+
   html {
     scroll-behavior: smooth;
   }
